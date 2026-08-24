@@ -1,0 +1,6 @@
+/* Main styles — will grow with each build step */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}

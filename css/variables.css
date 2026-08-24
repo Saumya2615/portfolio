@@ -1,0 +1,27 @@
+/* Design tokens — will be filled in Step 3 from Figma */
+:root {
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-accent: #ff6b35;       /* placeholder — update from Figma */
+  --color-accent-secondary: #f5c842; /* placeholder */
+  --color-footer-bg: #f5e9c8;    /* warm yellow/cream — placeholder */
+
+  /* Typography */
+  --font-mono: monospace;        /* placeholder — update from Figma */
+  --font-body: sans-serif;       /* placeholder — update from Figma */
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --space-xl: 64px;
+  --space-2xl: 120px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+}
