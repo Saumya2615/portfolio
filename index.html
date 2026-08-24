@@ -9,29 +9,117 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <!-- Nav -->
-    <header id="nav"></header>
+
+    <!-- ============================================================
+         NAV
+    ============================================================ -->
+    <header id="nav">
+      <nav>
+        <a href="#hero" class="nav-logo">Saumya :)</a>
+        <ul class="nav-links">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+          <li><a href="playground.html">Playground</a></li>
+        </ul>
+      </nav>
+    </header>
 
     <main>
-      <!-- Hero -->
-      <section id="hero"></section>
 
-      <!-- Keyboard visual -->
-      <section id="keyboard"></section>
+      <!-- ============================================================
+           HERO
+      ============================================================ -->
+      <section id="hero">
+        <h1>I'm Saumya!</h1>
+        <p>I build how things <em>feel</em>, not just how they look.</p>
+      </section>
 
-      <!-- My Works -->
-      <section id="work"></section>
+      <!-- ============================================================
+           KEYBOARD VISUAL
+      ============================================================ -->
+      <section id="keyboard">
+        <div class="keyboard-image-placeholder">
+          <!-- Halftone keyboard image goes here (Step 5) -->
+          <p>[Keyboard image placeholder]</p>
+        </div>
+        <p class="keyboard-caption">This is the keyboard I build everything on. Try typing!</p>
+      </section>
 
-      <!-- A Few More -->
-      <section id="more-work"></section>
+      <!-- ============================================================
+           MY WORKS (main 4 projects — data-driven, Step 6)
+      ============================================================ -->
+      <section id="work">
+        <div class="section-header">
+          <h2>My Works &gt;&gt;</h2>
+        </div>
+        <div id="main-projects-grid">
+          <!-- Populated by js/projects.js -->
+        </div>
+      </section>
 
-      <!-- About Me -->
-      <section id="about"></section>
+      <!-- ============================================================
+           A FEW MORE (secondary 4 projects — data-driven, Step 6)
+      ============================================================ -->
+      <section id="more-work">
+        <div class="section-header">
+          <h2>A few more &gt;&gt;</h2>
+          <p>Different shapes, same amount of feeling.</p>
+        </div>
+        <div id="secondary-projects-grid">
+          <!-- Populated by js/projects.js -->
+        </div>
+      </section>
+
+      <!-- ============================================================
+           ABOUT ME
+      ============================================================ -->
+      <section id="about">
+        <h2>About Me <span class="subline">(Real Intro)</span></h2>
+        <div class="about-body">
+          <div class="about-text">
+            <!-- Final copy goes here (Step 9) -->
+            <p>[About Me copy — to be added in Step 9]</p>
+          </div>
+          <div class="about-photo">
+            <!-- Polaroid-framed photo + SUMO sticker + GAME 1 tag (Step 9) -->
+            <p>[Photo placeholder]</p>
+          </div>
+        </div>
+      </section>
+
     </main>
 
-    <!-- Footer / Let's Connect -->
-    <footer id="connect"></footer>
+    <!-- ============================================================
+         FOOTER / LET'S CONNECT
+    ============================================================ -->
+    <footer id="connect">
+      <p class="footer-eyebrow">That's a Wrap (For Now)</p>
+      <h2>Let's Connect!</h2>
 
+      <div class="footer-columns">
+        <!-- Left: keyboard-shortcut nav -->
+        <nav class="footer-nav" aria-label="Keyboard shortcuts">
+          <ul>
+            <li><kbd>W</kbd> Work</li>
+            <li><kbd>M</kbd> About</li>
+            <li><kbd>;</kbd> Resume</li>
+            <li><kbd>␣</kbd> Playground</li>
+          </ul>
+        </nav>
+
+        <!-- Right: external links -->
+        <ul class="footer-links">
+          <li><a href="mailto:" target="_blank" rel="noopener">Email ↗</a></li>
+          <li><a href="" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+          <li><a href="" target="_blank" rel="noopener">Behance ↗</a></li>
+        </ul>
+      </div>
+
+      <p class="footer-credit">Made with love with cursor, claude and figma</p>
+    </footer>
+
+    <script src="js/projects.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
