@@ -52,6 +52,7 @@
   --space-xl:   48px;
   --space-2xl:  56px;
   --space-3xl:  64px;    /* page horizontal padding */
+  --keyboard-margin-x: 80px;  /* keyboard section side gap — Figma "image 170" node gap (54px) + extra breathing room */
 
   /* ── Border radius ── */
   --radius-key:       4px;    /* keycap borders in footer */

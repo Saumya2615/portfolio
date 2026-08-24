@@ -1,0 +1,61 @@
+/* ============================================================
+   Keyboard visual (hero) — static placement only, Step 5
+   Interactivity wired up later (Step 11)
+   Figma ref: caption "142:171" + image "171:4046" on the 1440px frame
+   ============================================================ */
+
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding-left: var(--keyboard-margin-x);
+  padding-right: var(--keyboard-margin-x);
+  padding-bottom: var(--space-3xl);
+}
+
+/* Inner wrapper caps at the image's natural max-width and stays centered
+   in the section; caption and image align to its edges together. */
+.keyboard-inner {
+  width: 100%;
+  max-width: 1284px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Caption sits above the keyboard, left-aligned, indented slightly in
+   from the image's left edge (Figma: caption x:83.4 vs image x:53.9) */
+.keyboard-caption {
+  margin-left: 29px;
+  max-width: 200px;
+}
+
+.keyboard-image {
+  /* Figma image is 1332px wide on a 1440px frame; capped narrower here
+     per the extra 24px side margin requested */
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+  #keyboard {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  #keyboard {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+
+  .keyboard-caption {
+    margin-left: 0;
+    max-width: none;
+  }
+}
