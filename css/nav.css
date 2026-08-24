@@ -1,0 +1,88 @@
+/* ============================================================
+   Nav bar
+   Figma ref: node 142:156 — "Saumya :)" left, links right
+   ============================================================ */
+
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+#nav nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px var(--space-3xl);
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Logo / wordmark */
+.nav-logo {
+  font-family: var(--font-body);
+  font-size: var(--text-nav);
+  font-weight: 500;
+  letter-spacing: var(--tracking-nav);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+  transition: color 0.2s ease;
+}
+
+.nav-logo:hover {
+  color: var(--color-text);
+  opacity: 1;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: var(--text-nav);
+  font-weight: 500;
+  letter-spacing: var(--tracking-nav);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-text);
+  opacity: 1;
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  #nav nav {
+    padding: 16px var(--space-lg);
+  }
+
+  .nav-links {
+    gap: 24px;
+  }
+
+  .nav-links a {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,48 @@
+/* ============================================================
+   Hero section
+   Figma ref: node 144:2338 — "I'm Saumya!" + subline
+   ============================================================ */
+
+#hero {
+  padding-top: 140px; /* clears fixed nav + breathing room */
+  padding-bottom: 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+#hero h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-hero);
+  font-weight: 500;
+  letter-spacing: var(--tracking-hero);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+}
+
+.hero-subline {
+  font-family: var(--font-body);
+  font-size: var(--text-subline);
+  font-weight: 400;
+  letter-spacing: var(--tracking-subline);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+}
+
+/* "feel" — orange italic emphasis */
+.hero-subline em {
+  font-style: italic;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  #hero {
+    padding-top: 100px;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
