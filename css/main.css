@@ -1,6 +1,119 @@
-/* Main styles — will grow with each build step */
+/* ============================================================
+   Base styles — typography + color applied site-wide
+   Detailed layout/section styles added in subsequent steps
+   ============================================================ */
+
 body {
   font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-body);
   background-color: var(--color-bg);
   color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Headings ── */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  line-height: var(--leading-normal);
+}
+
+h1 {
+  font-size: var(--text-hero);
+  font-weight: 500;
+  letter-spacing: var(--tracking-hero);
+}
+
+h2 {
+  font-size: var(--text-hero);
+  font-weight: 500;
+  letter-spacing: var(--tracking-hero);
+}
+
+h3 {
+  font-size: var(--text-proj-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-proj-lg);
+}
+
+/* ── Links ── */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* ── Accent / emphasis ── */
+em {
+  font-style: italic;
+  color: var(--color-accent);
+  font-family: var(--font-body);
+}
+
+/* ── Tag pills ── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-tag);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 400;
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text);
+  white-space: nowrap;
+  background: var(--color-bg);
+}
+
+/* Muted variant (used on Creek.UI, Alum Connect, Medisync cards) */
+.tag--muted {
+  color: var(--color-text-muted);
+  border-color: var(--color-border-muted);
+}
+
+/* ── Dot accent (16×16 scattered squares) ── */
+.dot {
+  display: inline-block;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  flex-shrink: 0;
+}
+
+.dot--orange  { background-color: var(--color-accent); }
+.dot--yellow  { background-color: var(--color-accent-yellow); }
+.dot--white   { background-color: var(--color-bg); }
+
+/* ── Keyboard caption text ── */
+.keyboard-caption {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-sm);
+  line-height: var(--leading-normal);
+}
+
+/* ── Muted text ── */
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+/* ── Responsive base ── */
+@media (max-width: 768px) {
+  :root {
+    --text-hero:    32px;
+    --text-subline: 18px;
+    --text-nav:     16px;
+    --text-proj-lg: 24px;
+    --text-proj-sm: 20px;
+    --space-3xl:    24px;
+  }
 }
