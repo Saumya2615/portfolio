@@ -289,4 +289,12 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - Cleared out the placeholder image paths in `projects.json` (they pointed at files that don't exist yet) so cards fall back to `.project-card__image-placeholder` instead of a broken image icon
 - Titles for the 4 main projects are locked in (Answer Engine Optimization, Creek.UI, Alum Connect, Medisync); descriptions/tags/links and the 4 secondary titles are still empty — real copy is an open decision, to be filled at Step 8/9
 
-**Currently on: Step 7** — style Work section (main + secondary project grids)
+**Step 7 — Style Work section** ✅ `committed: "style work section and project cards"`
+- Pulled exact spacing/color/type from Figma via the Figma MCP (node 146:2601 for the main-card pattern, 158:357 for the secondary 2x2 grid, 143:463 for the header) — confirmed in browser against localhost:8000
+- Main cards: 277px info column (left) + flex image (right, 979:604 aspect ratio, 48px radius, 2px stone-600 border), bottom-aligned, `--space-2xl` gap between them; image/info order swapped via CSS `order` so DOM order (image, then info from Step 6) still renders info-left/image-right visually
+- Secondary cards: 2x2 grid, 646:363 image on top, info below, 16px radius, 1px stone-950 border, `--text-proj-sm` (24px) titles
+- New `css/work.css`; reused `.tag`/`.tag--muted` and dot-accent utility classes already set up in Step 3
+- Known simplification: Figma floats the secondary cards' tag pill over the top-right corner of the image; built here as a simpler bottom-of-card placement instead (no DOM restructuring needed) — revisit if the overlay look matters once real content is in
+- Placeholder boxes (peach `--color-card-secondary`) show correctly where images/copy are still empty from Step 6
+
+**Currently on: Step 8** — swap in real project visuals
