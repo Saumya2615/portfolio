@@ -306,4 +306,7 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - Caught that all 8 links pointed at the literal same `project.html` with no query param — fixed so each project links to `project.html?id=<project-id>`, giving every card its own URL (page content is still the shared generic placeholder text; the id isn't read/used yet, just reserved for when real per-project pages/content exist)
 - Eyebrow line ("You clicked faster...") bumped from 12px → 16px per discussion — kept under the 18px message line so it still reads as a label, not the dominant line
 
-**Currently on: Step 8** — swap in real project visuals (blocked on images from Saumya)
+**Fix — resize project cards** ✅ `committed: "scale project cards down to 80% (1.25x smaller)"`
+- Full 1312px content width felt too big; both `#main-projects-grid` and `#secondary-projects-grid` now cap at 1050px and center, main-card info column scaled from 277px to 222px to match
+
+**Currently on: Step 8** — swap in real project visuals (blocked on images from Saumya); Step 9 (About Me) up next
