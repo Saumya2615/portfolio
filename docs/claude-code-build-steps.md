@@ -302,4 +302,8 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - `project.html`: "You clicked faster than I could type." (12px DM Sans) / "Here's what I've got so far, or head back to see what's actually ready →" (18px DM Sans, back-link to `index.html#work`) — new `css/case-study.css`
 - Checked whether real project visuals could be pulled directly from the Figma file: confirmed the main-card mockups reuse the same placeholder image across different projects (e.g. Answer Engine Optimization and Alum Connect share the literal same Figma asset), and all 4 secondary cards reuse an identical "The Flour Pot" placeholder — so Figma doesn't have 8 distinct real visuals to pull. Still waiting on Saumya's actual project images for Step 8.
 
+**Fix — unique case-study URLs + eyebrow size** ✅ `committed: "give each project its own case-study URL, bump eyebrow to 16px"`
+- Caught that all 8 links pointed at the literal same `project.html` with no query param — fixed so each project links to `project.html?id=<project-id>`, giving every card its own URL (page content is still the shared generic placeholder text; the id isn't read/used yet, just reserved for when real per-project pages/content exist)
+- Eyebrow line ("You clicked faster...") bumped from 12px → 16px per discussion — kept under the 18px message line so it still reads as a label, not the dominant line
+
 **Currently on: Step 8** — swap in real project visuals (blocked on images from Saumya)
