@@ -22,6 +22,13 @@
   letter-spacing: var(--tracking-body);
 }
 
+/* ── Card link wrapper ── */
+.project-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
 /* ── Main project cards ── */
 #main-projects-grid {
   display: flex;
