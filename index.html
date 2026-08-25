@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saumya â€” UX Designer & AI Builder</title>
+    <title>Saumya — UX Designer & AI Builder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/keyboard.css" />
     <link rel="stylesheet" href="css/work.css" />
     <link rel="stylesheet" href="css/about.css" />
+    <link rel="stylesheet" href="css/footer.css" />
   </head>
   <body>
 
@@ -60,7 +61,7 @@
       </section>
 
       <!-- ============================================================
-           MY WORKS (main 4 projects â€” data-driven, Step 6)
+           MY WORKS (main 4 projects — data-driven, Step 6)
       ============================================================ -->
       <section id="work">
         <div class="section-header">
@@ -72,7 +73,7 @@
       </section>
 
       <!-- ============================================================
-           A FEW MORE (secondary 4 projects â€” data-driven, Step 6)
+           A FEW MORE (secondary 4 projects — data-driven, Step 6)
       ============================================================ -->
       <section id="more-work">
         <div class="section-header">
@@ -103,6 +104,11 @@
           </div>
           <div class="about-visual">
             <img
+              src="assets/images/udaipur.webp"
+              alt=""
+              class="about-skyline"
+            />
+            <img
               src="assets/images/about-squiggle.svg"
               alt=""
               class="about-squiggle"
@@ -131,29 +137,32 @@
          FOOTER / LET'S CONNECT
     ============================================================ -->
     <footer id="connect">
-      <p class="footer-eyebrow">That's a Wrap (For Now)</p>
-      <h2>Let's Connect!</h2>
+      <div class="footer-inner">
+        <p class="footer-eyebrow">That's a Wrap (For Now)</p>
+        <h2>Let's Connect!</h2>
 
-      <div class="footer-columns">
-        <!-- Left: keyboard-shortcut nav -->
-        <nav class="footer-nav" aria-label="Keyboard shortcuts">
-          <ul>
-            <li><kbd>W</kbd> Work</li>
-            <li><kbd>M</kbd> About</li>
-            <li><kbd>;</kbd> Resume</li>
-            <li><kbd>â£</kbd> Playground</li>
+        <div class="footer-columns">
+          <!-- Left: keyboard-shortcut nav -->
+          <nav class="footer-nav" aria-label="Keyboard shortcuts">
+            <ul>
+              <li><kbd>W</kbd> Work</li>
+              <li><kbd>M</kbd> About</li>
+              <li><kbd>;</kbd> Resume</li>
+              <li><kbd class="kbd--space"><span></span></kbd> Playground</li>
+            </ul>
+          </nav>
+
+          <!-- Right: external links -->
+          <ul class="footer-links">
+            <li><a href="mailto:" target="_blank" rel="noopener">Email ↗</a></li>
+            <li><a href="#" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+            <li><a href="#" target="_blank" rel="noopener">Behance ↗</a></li>
           </ul>
-        </nav>
+        </div>
 
-        <!-- Right: external links -->
-        <ul class="footer-links">
-          <li><a href="mailto:" target="_blank" rel="noopener">Email â†—</a></li>
-          <li><a href="" target="_blank" rel="noopener">LinkedIn â†—</a></li>
-          <li><a href="" target="_blank" rel="noopener">Behance â†—</a></li>
-        </ul>
+        <p class="footer-credit">Made with love with cursor, claude and figma</p>
+        <img src="assets/images/footer-heart.png" alt="" class="footer-heart" />
       </div>
-
-      <p class="footer-credit">Made with love with cursor, claude and figma</p>
     </footer>
 
     <script src="js/projects.js"></script>

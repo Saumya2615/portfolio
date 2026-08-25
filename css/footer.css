@@ -1,0 +1,130 @@
+/* ============================================================
+   Footer — "Let's Connect!"
+   Step 10 — Figma ref: node 163:3962 (bg band), 163:3963 (heading),
+   163:4005 (nav + links columns), 172:4182 (credit), 172:4244 (heart)
+   ============================================================ */
+
+#connect {
+  background: var(--color-footer-bg);
+  padding: var(--space-3xl);
+}
+
+.footer-inner {
+  max-width: 1312px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.footer-eyebrow {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+#connect h2 {
+  margin-bottom: var(--space-xl);
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2xl);
+}
+
+.footer-nav ul,
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-nav li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--text-nav);
+  letter-spacing: var(--tracking-nav);
+}
+
+.footer-nav kbd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-key);
+  font-family: var(--font-body);
+  font-size: var(--text-key);
+  letter-spacing: var(--tracking-key);
+}
+
+.kbd--space span {
+  display: block;
+  width: 12px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-text);
+}
+
+.footer-links {
+  width: 100%;
+  max-width: 646px;
+}
+
+.footer-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--text-nav);
+  letter-spacing: var(--tracking-nav);
+}
+
+.footer-links a:hover {
+  color: var(--color-accent);
+}
+
+.footer-credit {
+  margin-top: var(--space-2xl);
+  text-align: center;
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  color: var(--color-text-muted);
+}
+
+.footer-heart {
+  position: absolute;
+  right: 34px;
+  bottom: -8px;
+  width: 56px;
+  height: auto;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  #connect {
+    padding: var(--space-lg);
+  }
+
+  .footer-columns {
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .footer-links {
+    max-width: none;
+  }
+
+  .footer-heart {
+    position: static;
+    display: block;
+    margin: var(--space-xl) auto 0;
+  }
+}
