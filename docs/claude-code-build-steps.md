@@ -321,4 +321,11 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - New `css/about.css`
 - Still open: Saumya said skip the GAME tag graphic for now, but a placeholder was already in place when this got approved — revisit whether to remove/replace it once she confirms
 
-**Currently on: Step 8** — swap in real project visuals (blocked on 8 project images + copy/tags/links from Saumya). Step 10 (Footer) also has an open blocker: Email/LinkedIn/Behance URLs still empty in `index.html`.
+**Step 10 — Footer / "Let's Connect!"** ✅ `committed: "build and style footer / let's connect section"` + `"add missing footer.css and heart asset from previous commit"`
+- Warm cream footer band, keyboard-shortcut nav column (keycap styling matching Figma), email/linkedin/behance link column with arrow icons, credit line, pixel-heart graphic (`assets/images/footer-heart.png`, exported from Figma node 172:4244)
+- Playground's spacebar key uses a small CSS-drawn bar instead of the Unicode "open box" character (␣), which didn't render reliably across fonts
+- Fixed pre-existing double-encoded mojibake bug in `index.html` (em dashes, arrows, and the space-key glyph had been corrupted through a UTF-8/Latin-1 round-trip at some earlier point)
+- Still open: LinkedIn/Behance hrefs are placeholder `#`, waiting on real URLs from Saumya
+- Mid-session, noticed `css/about.css` picked up unreviewed changes (rotated photo/tag/squiggle positions, referencing Figma nodes not looked up this session) from what looks like a concurrent second session editing the same file — a git race briefly caused those changes to get bundled into the footer commit instead of committed separately. Checked in-browser after the fact: the result looks correct and intentional (tilted polaroid, rotated GAME ON tag), so left as-is, but flagging in case Saumya was mid-edit elsewhere.
+
+**Currently on: Step 8** — swap in real project visuals (blocked on 8 project images + copy/tags/links from Saumya).
