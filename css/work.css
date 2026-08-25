@@ -71,14 +71,16 @@
    Explicit sizing per Saumya: whole card ~516x319 (down from the
    Figma-native 646x399). */
 #secondary-projects-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1080px; /* 516 + 516 + gap, so columns land at 516px on wide screens */
+  margin: 0 auto;
   gap: var(--space-xl);
 }
 
 .project-card--secondary {
-  width: 516px;
+  width: 100%;
+  max-width: 516px;
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-card-sm);
   overflow: hidden;
@@ -86,8 +88,8 @@
 }
 
 .project-card--secondary .project-card__image {
-  width: 516px;
-  height: 290px;
+  width: 100%;
+  aspect-ratio: 516 / 290;
   background: var(--color-card-secondary);
 }
 
@@ -171,10 +173,11 @@
     aspect-ratio: 783 / 483;
   }
 
-  .project-card--secondary,
-  .project-card--secondary .project-card__image {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 516 / 290;
+  #secondary-projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card--secondary {
+    max-width: none;
   }
 }
