@@ -59,27 +59,41 @@
 
 .polaroid-photo {
   position: absolute;
-  left: 41px;
-  top: 57px;
-  width: 346px;
-  height: 439px;
+  left: 57px;
+  top: 43px;
+  width: 313px;
+  height: 414px;
   object-fit: contain;
+  transform: rotate(4.71deg);
+}
+
+/* Behind the photo: bottom edge tucked under the GAME ON tag rather than
+   trailing off in open space (Figma ref: Website page, "Desktop - 23",
+   node 130:2943, positioned relative to the polaroid, node 128:2895) */
+.about-skyline {
+  position: absolute;
+  left: 235px;
+  top: -228px;
+  width: 1120px;
+  max-width: none;
 }
 
 .about-squiggle {
   position: absolute;
-  left: 0;
-  top: 323px;
-  width: 93px;
+  left: -8px;
+  top: 240px;
+  width: 72px;
   height: auto;
+  transform: rotate(105.69deg);
 }
 
 .about-game-tag {
   position: absolute;
-  left: 370px;
-  top: 307px;
-  width: 141px;
+  left: 355px;
+  top: 319px;
+  width: 117px;
   height: auto;
+  transform: rotate(-13.53deg);
 }
 
 .about-visual-dot {
@@ -111,7 +125,8 @@
 
   .about-left-dot,
   .about-visual-dot,
-  .about-squiggle {
+  .about-squiggle,
+  .about-skyline {
     display: none;
   }
 
@@ -127,6 +142,7 @@
     width: 100%;
     max-width: 346px;
     height: auto;
+    transform: none;
   }
 
   .about-game-tag {
@@ -136,5 +152,6 @@
     top: auto;
     bottom: -20px;
     width: 100px;
+    transform: none;
   }
 }
