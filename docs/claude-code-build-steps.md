@@ -297,4 +297,9 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - Known simplification: Figma floats the secondary cards' tag pill over the top-right corner of the image; built here as a simpler bottom-of-card placement instead (no DOM restructuring needed) — revisit if the overlay look matters once real content is in
 - Placeholder boxes (peach `--color-card-secondary`) show correctly where images/copy are still empty from Step 6
 
-**Currently on: Step 8** — swap in real project visuals
+**Ahead of Step 8 — clickable project cards** ✅ `committed: "make project cards clickable to a case-study placeholder page"`
+- All 8 project cards (main + secondary) now wrap in `<a>`, driven by a new `link` field in `data/projects.json` — currently all point at `project.html`, a shared placeholder page, but each project can point to its own real case-study page later just by editing that field
+- `project.html`: "You clicked faster than I could type." (12px DM Sans) / "Here's what I've got so far, or head back to see what's actually ready →" (18px DM Sans, back-link to `index.html#work`) — new `css/case-study.css`
+- Checked whether real project visuals could be pulled directly from the Figma file: confirmed the main-card mockups reuse the same placeholder image across different projects (e.g. Answer Engine Optimization and Alum Connect share the literal same Figma asset), and all 4 secondary cards reuse an identical "The Flour Pot" placeholder — so Figma doesn't have 8 distinct real visuals to pull. Still waiting on Saumya's actual project images for Step 8.
+
+**Currently on: Step 8** — swap in real project visuals (blocked on images from Saumya)
