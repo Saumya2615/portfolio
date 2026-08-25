@@ -1,0 +1,140 @@
+/* ============================================================
+   About Me — "Real Intro" section
+   Step 9 — Figma ref: Page 1, node 172:4578 (heading), 172:4536 (copy),
+   172:4531 (polaroid + SUMO), 172:4537 (GAME tag), 172:4581 (squiggle)
+   ============================================================ */
+
+#about {
+  padding: var(--space-3xl);
+  padding-top: var(--space-2xl);
+}
+
+.about-body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2xl);
+  max-width: 1312px;
+  margin: 0 auto;
+}
+
+/* ── Left column: heading + copy ── */
+.about-left {
+  position: relative;
+  flex: 0 0 563px;
+  max-width: 563px;
+}
+
+.about-left h2 {
+  margin-bottom: 91px; /* Figma gap between heading block (172:4578, h=96) and copy (172:4536, y=187) */
+}
+
+.about-left .subline {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-subline);
+  letter-spacing: var(--tracking-subline);
+  line-height: var(--leading-tight);
+  font-weight: 400;
+}
+
+.about-text p {
+  font-size: var(--text-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.about-left-dot {
+  position: absolute;
+}
+
+.about-left-dot--1 { left: 166px; top: 148px; }
+.about-left-dot--2 { left: 416px; top: 350px; }
+
+/* ── Right column: photo + stickers ── */
+.about-visual {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 400px;
+  height: 495px;
+}
+
+.polaroid-photo {
+  position: absolute;
+  left: 41px;
+  top: 57px;
+  width: 346px;
+  height: 439px;
+  object-fit: contain;
+}
+
+.about-squiggle {
+  position: absolute;
+  left: 0;
+  top: 323px;
+  width: 93px;
+  height: auto;
+}
+
+.about-game-tag {
+  position: absolute;
+  left: 370px;
+  top: 307px;
+  width: 141px;
+  height: auto;
+}
+
+.about-visual-dot {
+  position: absolute;
+}
+
+.about-visual-dot--1 { left: 593px; top: 105px; }
+.about-visual-dot--2 { left: 426px; top: 199px; }
+.about-visual-dot--3 { left: 676px; top: 158px; }
+.about-visual-dot--4 { left: 676px; top: 431px; }
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  #about {
+    padding: var(--space-lg);
+  }
+
+  .about-body {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xl);
+  }
+
+  .about-left {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .about-left-dot,
+  .about-visual-dot,
+  .about-squiggle {
+    display: none;
+  }
+
+  .about-visual {
+    width: 100%;
+    max-width: 346px;
+    height: auto;
+    min-width: 0;
+  }
+
+  .polaroid-photo {
+    position: static;
+    width: 100%;
+    max-width: 346px;
+    height: auto;
+  }
+
+  .about-game-tag {
+    position: absolute;
+    left: auto;
+    right: -12px;
+    top: auto;
+    bottom: -20px;
+    width: 100px;
+  }
+}
