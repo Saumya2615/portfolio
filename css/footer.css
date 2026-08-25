@@ -7,7 +7,22 @@
 #connect {
   background: var(--color-footer-bg);
   padding: var(--space-3xl);
+  position: relative;
+  overflow: hidden;
 }
+
+/* Small white notches cut into the top edge of the footer band
+   (Figma ref: Page 1, node 172:4249, Rectangles 49-53 at y=6353) */
+.footer-tab {
+  position: absolute;
+  top: 0;
+}
+
+.footer-tab--1 { left: 231px; }
+.footer-tab--2 { left: 480px; }
+.footer-tab--3 { left: 1063px; }
+.footer-tab--4 { left: 1230px; }
+.footer-tab--5 { left: 1313px; }
 
 .footer-inner {
   max-width: 1312px;
@@ -92,8 +107,8 @@
 }
 
 .footer-credit {
-  margin-top: var(--space-2xl);
-  text-align: center;
+  margin-top: 26px; /* Figma: gap between columns row (172:4254) and credit text (172:4582) */
+  margin-left: 666px; /* Figma: aligns with the links column's left edge */
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
   color: var(--color-text-muted);
@@ -101,9 +116,9 @@
 
 .footer-heart {
   position: absolute;
-  right: 34px;
-  bottom: -8px;
-  width: 56px;
+  left: 1062px; /* Figma: node 172:4583, relative to .footer-inner */
+  top: 287px;
+  width: 112px;
   height: auto;
 }
 
@@ -120,6 +135,15 @@
 
   .footer-links {
     max-width: none;
+  }
+
+  .footer-credit {
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .footer-tab {
+    display: none;
   }
 
   .footer-heart {
