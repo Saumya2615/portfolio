@@ -284,4 +284,9 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 
 ### Session 2 — 2026-08-25
 
-**Currently on: Step 6** — data-driven project setup, about to start
+**Step 6 — Data-driven project setup** ✅ `committed: "set up data-driven project cards"`
+- The template pull was already scaffolded in Step 2 (`data/projects.json` + `js/projects.js` reading from it and rendering both grids) — confirmed it works end to end
+- Cleared out the placeholder image paths in `projects.json` (they pointed at files that don't exist yet) so cards fall back to `.project-card__image-placeholder` instead of a broken image icon
+- Titles for the 4 main projects are locked in (Answer Engine Optimization, Creek.UI, Alum Connect, Medisync); descriptions/tags/links and the 4 secondary titles are still empty — real copy is an open decision, to be filled at Step 8/9
+
+**Currently on: Step 7** — style Work section (main + secondary project grids)
