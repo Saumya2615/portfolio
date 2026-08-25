@@ -29,11 +29,15 @@
   text-decoration: none;
 }
 
-/* ── Main project cards ── */
+/* ── Main project cards ──
+   Cards scaled to 1/1.25 (80%) of the original Figma sizing per
+   Saumya's request — full content width (1312px) felt too big. */
 #main-projects-grid {
   display: flex;
   flex-direction: column;
   gap: var(--space-3xl);
+  max-width: 1050px;
+  margin: 0 auto;
 }
 
 .project-card--main {
@@ -44,8 +48,8 @@
 
 .project-card--main .project-card__info {
   order: 1;
-  flex: 0 0 277px;
-  max-width: 277px;
+  flex: 0 0 222px;
+  max-width: 222px;
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
@@ -61,11 +65,14 @@
   background: #fcfbfe;
 }
 
-/* ── Secondary project cards (2x2 grid) ── */
+/* ── Secondary project cards (2x2 grid) ──
+   Same 80% scale as the main cards, for a consistent size relationship. */
 #secondary-projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--space-xl);
+  max-width: 1050px;
+  margin: 0 auto;
 }
 
 .project-card--secondary {
