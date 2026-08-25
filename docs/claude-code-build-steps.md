@@ -312,4 +312,13 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - Widened the info column back out to 170px as a middle ground, then landed on final explicit sizes: main-card image **783x483px**, secondary card **516x319px** total (516x290 image + info footer) — these are Saumya's exact numbers, not derived from a ratio
 - Along the way, a flex-basis + aspect-ratio combo caused the main image to collapse to a ~20px pill — fixed by switching to explicit fixed width/height on desktop with a mobile media-query override (100% width + aspect-ratio) so cards still scale down instead of overflowing on narrow screens
 
-**Currently on: Step 8** — swap in real project visuals (blocked on images from Saumya); Step 9 (About Me) up next
+**Fix — secondary grid wrapping to one column** ✅ `committed: "fix secondary project cards wrapping to one column"`
+- Fixed-width `516px` flex cards had no room for both to sit side by side below ~1208px viewport width, so the second card dropped to its own line on most laptop screens
+- Switched `#secondary-projects-grid` to a 2-column grid that shrinks both cards together instead of individually wrapping; still lands at exactly 516x319 on wide screens, collapses to 1 column at the existing 768px mobile breakpoint
+
+**Step 9 — About Me section** ✅ `committed: "add about me section"`
+- Built with Saumya's polaroid photo (`assets/images/Saumya Pic.png`, SUMO sticker baked in), bio copy, squiggle doodle, and a placeholder "GAME ON" pixel-tag graphic + scattered dot accents, per Figma node refs in `css/about.css`
+- New `css/about.css`
+- Still open: Saumya said skip the GAME tag graphic for now, but a placeholder was already in place when this got approved — revisit whether to remove/replace it once she confirms
+
+**Currently on: Step 8** — swap in real project visuals (blocked on 8 project images + copy/tags/links from Saumya). Step 10 (Footer) also has an open blocker: Email/LinkedIn/Behance URLs still empty in `index.html`.
