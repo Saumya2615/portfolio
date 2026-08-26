@@ -69,12 +69,15 @@
 
 /* Behind the photo: bottom edge tucked under the GAME ON tag rather than
    trailing off in open space (Figma ref: Website page, "Desktop - 23",
-   node 130:2943, positioned relative to the polaroid, node 128:2895) */
+   node 130:2943, positioned relative to the polaroid, node 128:2895).
+   Asset is cropped tight to its visible content (no more transparent
+   padding) - a large negative top here previously pushed the element's
+   box high enough to overlap the "A few more" project cards above. */
 .about-skyline {
   position: absolute;
   left: 235px;
-  top: -228px;
-  width: 1120px;
+  top: 118px;
+  width: 1121px;
   max-width: none;
 }
 
