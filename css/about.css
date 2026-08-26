@@ -55,6 +55,7 @@
   flex: 1 1 auto;
   min-width: 400px;
   height: 495px;
+  overflow: hidden;
 }
 
 .polaroid-photo {

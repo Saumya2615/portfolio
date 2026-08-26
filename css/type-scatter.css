@@ -1,0 +1,46 @@
+/* ============================================================
+   EXPERIMENTAL — type-scatter
+   Anything typed on the physical keyboard appears briefly at a
+   random spot in the white hero area above the keyboard graphic.
+   Self-contained and easy to rip out if it doesn't work out:
+   delete this file, js/type-scatter.js, and the two <link>/<script>
+   tags for them in index.html. Nothing else depends on this.
+   ============================================================ */
+
+#hero {
+  position: relative;
+}
+
+#type-scatter-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.type-scatter-char {
+  position: absolute;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--color-accent);
+  opacity: 0;
+  user-select: none;
+  animation: type-scatter-fade 2.2s ease-out forwards;
+}
+
+@keyframes type-scatter-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(var(--r, 0deg));
+  }
+  15% {
+    opacity: 0.9;
+    transform: scale(1) rotate(var(--r, 0deg));
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05) translateY(-16px) rotate(var(--r, 0deg));
+  }
+}

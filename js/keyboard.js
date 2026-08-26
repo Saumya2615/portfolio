@@ -60,6 +60,24 @@
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  // Keys whose icon "jumps" out of frame before the navigation action
+  // fires, instead of navigating instantly.
+  const JUMP_ON_NAVIGATE = new Set(['W_key_special_folder_icon']);
+
+  function triggerAction(name) {
+    const action = ACTIONS[name];
+    if (!action) return;
+    const el = hotspotsByName[name];
+    const icon = el && el.querySelector('.key-icon');
+    if (icon && JUMP_ON_NAVIGATE.has(name)) {
+      icon.classList.add('is-jumping');
+      setTimeout(() => icon.classList.remove('is-jumping'), 1200);
+      setTimeout(action, 150);
+    } else {
+      action();
+    }
+  }
+
   let hotspotsByName = {};
   let primedName = null;
   let primedTimer = null;
@@ -128,11 +146,11 @@
       if (!action) return;
       if (primedName === key.name) {
         unprime();
-        action();
+        triggerAction(key.name);
       } else if (key.tooltip) {
         prime(key.name);
       } else {
-        action();
+        triggerAction(key.name);
       }
     });
 
@@ -162,7 +180,7 @@
 
     const action = ACTIONS[name];
     if (action && !e.ctrlKey && !e.metaKey && !e.altKey) {
-      action();
+      triggerAction(name);
     }
   });
 
