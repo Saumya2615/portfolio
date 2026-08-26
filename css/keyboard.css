@@ -39,6 +39,117 @@
   display: block;
 }
 
+/* ============================================================
+   Key hotspots — Step 11
+   Wrapper matches the image's exact box so every hotspot's %
+   position (from data/keyboard-keys.json) lines up at any size.
+   ============================================================ */
+.keyboard-hotspot-layer {
+  position: relative;
+}
+
+.key-hotspot {
+  position: absolute;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Resting state is fully transparent; a short transition keeps the
+   press feel snappy rather than a slow fade (per Appendix A spec). */
+.key-hotspot.is-pressed {
+  background-color: #adadad;
+  mix-blend-mode: color-burn;
+  transition: background-color 100ms ease;
+}
+
+/* Special/colored keys (the ones with an icon) get their own pressed
+   treatment instead of the plain-key halftone burn — pulled from the
+   "Key Hover Interaction" component, Figma Page 1 section "Key Clicks"
+   (node 214:1382, "Property 1=Frame 427320836" variant). The inset
+   shadow lives on ::after (not the hotspot's own box-shadow) because
+   .key-icon is a real child painted above the hotspot's own box —
+   a box-shadow there would render underneath the icon and disappear. */
+.key-hotspot.is-colored.is-pressed {
+  background-color: var(--color-accent-yellow);
+  mix-blend-mode: normal;
+  border-radius: 8px;
+}
+
+.key-hotspot.is-colored.is-pressed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  /* Inset box-shadow is clipped to the padding box, not the border
+     box - without this transparent border here, the shadow starts
+     right at the icon's outer edge and paints straight over its
+     black border pixels instead of staying inside them. */
+  border: 3px solid transparent;
+  box-shadow: inset -6px 6px 0 0 rgba(225, 113, 0, 0.5);
+  pointer-events: none;
+}
+
+.key-icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* fill (not contain) - the hotspot box is sized to match this exact
+     key's position/aspect from Figma, so any letterboxing here would
+     just leave the noisy keyboard photo peeking through at the edges
+     instead of the icon's own clean border. */
+  object-fit: fill;
+  border-radius: 8px;
+  /* these are flat pixel-art exports (hard 1px-ish edges, no
+     anti-aliasing) - default browser scaling smooths/blurs them into
+     a grainy mess at non-integer sizes. Keep the crisp Figma look. */
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+.key-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-key);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 5;
+}
+
+.key-hotspot.show-tooltip .key-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── W key (folder icon) — tactile pop/bounce ── */
+.key-hotspot[data-name="W_key_special_folder_icon"] .key-icon {
+  transition: transform 150ms ease;
+  transform-origin: center;
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"]:hover .key-icon {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"].is-pressed .key-icon {
+  transform: scale(0.92);
+  transition-duration: 80ms;
+}
+
 /* ── Tablet ── */
 @media (max-width: 1024px) {
   #keyboard {
