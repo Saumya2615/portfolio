@@ -16,17 +16,19 @@
   <body>
     <header id="nav">
       <nav>
-        <a href="index.html" class="nav-logo">Saumya :)</a>
+        <a href="index.html#hero" class="nav-logo">Saumya :)</a>
+        <ul class="nav-links">
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+          <li><a href="playground.html" class="active">Playground</a></li>
+        </ul>
       </nav>
     </header>
     <main>
       <section id="playground">
-        <div class="playground-intro">
-          <h1>Playground</h1>
-          <p class="playground-caption">Used to play. Still pretty good, ngl.</p>
-        </div>
-
-        <div class="game-frame" id="game-frame">
+        <div class="playground-inner">
+          <div class="game-frame" id="game-frame">
           <!-- HUD -->
           <div class="game-hud">
             <div class="hud-block">
@@ -43,6 +45,9 @@
           <div class="game-hoop" id="game-hoop" aria-hidden="true">
             <img src="assets/images/game-hoop.png" alt="" class="game-hoop__img" />
           </div>
+
+          <!-- Ball's shadow, cast on the ground plane (kept separate from the ball itself) -->
+          <div class="game-ball-shadow" id="game-ball-shadow" aria-hidden="true"></div>
 
           <!-- Ball (also acts as launch element, animated via JS) -->
           <div class="game-ball" id="game-ball" aria-hidden="true">
@@ -90,13 +95,15 @@
           <!-- Game over overlay -->
           <div class="game-modal" id="game-over" hidden>
             <div class="game-modal__box">
-              <p class="game-over__title">Time's up!</p>
-              <p class="game-over__score">Final score: <span id="final-score">0000</span></p>
-              <div class="game-modal__actions">
-                <button type="button" class="game-modal__btn game-modal__btn--confirm" id="play-again">Play again</button>
-                <a href="index.html" class="game-modal__btn">Back home</a>
+              <a href="index.html" class="game-modal__close" aria-label="Close and return to homepage">&#x2715;</a>
+              <p class="game-over__score"><span id="final-score">0000</span> <span class="game-over__score-label">points</span></p>
+              <p class="game-over__title">Cool! Here's the actual point of this site.</p>
+              <div class="game-modal__actions game-modal__actions--stacked">
+                <a href="index.html#work" class="game-modal__btn game-modal__btn--confirm">See My Work &rarr;</a>
+                <button type="button" class="game-modal__btn" id="play-again">Play again</button>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </section>

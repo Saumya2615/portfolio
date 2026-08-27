@@ -10,7 +10,7 @@
   if (!frame) return; // game markup not present on this page
 
   const ball = document.getElementById('game-ball');
-  const ballImg = ball.querySelector('.game-ball__img');
+  const ballShadow = document.getElementById('game-ball-shadow');
   const hoop = document.getElementById('game-hoop');
   const chargeMeter = document.getElementById('charge-meter');
   const chargeFill = document.getElementById('charge-meter-fill');
@@ -27,11 +27,29 @@
   const finalScoreEl = document.getElementById('final-score');
   const playAgainBtn = document.getElementById('play-again');
 
-  const CHARGE_DURATION_MS = 1200; // full 0-100% fill time, loops if held longer
   const MIN_CHARGE_MS = 100; // taps shorter than this don't count as a shot
   const SHOT_DURATION_MS = 650;
   const ROUND_SECONDS = 30;
-  const SWEET_SPOT = [60, 80]; // % range that counts as a make
+
+  // Difficulty ramps with streak (resets to the bottom tier on a miss) —
+  // same idea as the dino game speeding up over time: no visible cue,
+  // it's just felt as the meter gets faster/less forgiving. Kept in small,
+  // spaced steps rather than a continuous formula so each jump is
+  // noticeable instead of feeling like twitchy RNG.
+  const DIFFICULTY_TIERS = [
+    { minStreak: 0, sweetSpot: [60, 80], chargeMs: 1200 },
+    { minStreak: 3, sweetSpot: [63, 77], chargeMs: 1200 },
+    { minStreak: 6, sweetSpot: [63, 77], chargeMs: 1000 },
+    { minStreak: 9, sweetSpot: [65, 75], chargeMs: 800 },
+  ];
+
+  function getDifficulty(currentStreak) {
+    let tier = DIFFICULTY_TIERS[0];
+    for (const t of DIFFICULTY_TIERS) {
+      if (currentStreak >= t.minStreak) tier = t;
+    }
+    return tier;
+  }
 
   let state = 'IDLE';
   let score = 0;
@@ -41,6 +59,8 @@
   let chargeStart = 0;
   let chargeRaf = null;
   let ballBaseTransform = '';
+  let chargeDurationMs = DIFFICULTY_TIERS[0].chargeMs;
+  let sweetSpot = DIFFICULTY_TIERS[0].sweetSpot;
 
   function pad4(n) {
     return String(n).padStart(4, '0');
@@ -77,6 +97,9 @@
   function startCharge() {
     if (state !== 'IDLE') return;
     state = 'CHARGING';
+    const difficulty = getDifficulty(streak);
+    chargeDurationMs = difficulty.chargeMs;
+    sweetSpot = difficulty.sweetSpot;
     chargeStart = performance.now();
     ball.classList.add('is-charging');
     chargeMeter.classList.add('is-visible');
@@ -86,7 +109,7 @@
 
   function currentChargePercent(now) {
     const elapsed = now - chargeStart;
-    const cycle = (elapsed % (CHARGE_DURATION_MS * 2)) / CHARGE_DURATION_MS;
+    const cycle = (elapsed % (chargeDurationMs * 2)) / chargeDurationMs;
     // ping-pong 0 -> 1 -> 0 so holding past 100% cycles back down
     const pct = cycle <= 1 ? cycle : 2 - cycle;
     return Math.max(0, Math.min(1, pct)) * 100;
@@ -145,12 +168,12 @@
 
     let travelFactor;
     let outcome;
-    if (chargePct < SWEET_SPOT[0]) {
+    if (chargePct < sweetSpot[0]) {
       outcome = 'short';
-      travelFactor = 0.5 + (chargePct / SWEET_SPOT[0]) * 0.45;
-    } else if (chargePct > SWEET_SPOT[1]) {
+      travelFactor = 0.5 + (chargePct / sweetSpot[0]) * 0.45;
+    } else if (chargePct > sweetSpot[1]) {
       outcome = 'long';
-      travelFactor = 1.02 + ((chargePct - SWEET_SPOT[1]) / (100 - SWEET_SPOT[1])) * 0.5;
+      travelFactor = 1.02 + ((chargePct - sweetSpot[1]) / (100 - sweetSpot[1])) * 0.5;
     } else {
       outcome = 'make';
       travelFactor = 1;
@@ -171,11 +194,11 @@
       const rotate = 360 * t;
       ball.style.transform = `translate(${x}px, ${y}px) rotate(${rotate}deg)`;
 
-      // shadow drifts further and fades as the ball lifts higher off the "surface"
-      const blur = 4 + heightFactor * 14;
-      const offset = 6 + heightFactor * 10;
-      const opacity = Math.max(0.22 - heightFactor * 0.16, 0.05);
-      ballImg.style.filter = `drop-shadow(0 ${offset}px ${blur}px rgba(12, 10, 9, ${opacity}))`;
+      // shadow stays pinned to the ground line and only tracks the ball
+      // horizontally, shrinking as the ball gets higher off the ground
+      const shadowScale = Math.max(1 - heightFactor * 0.65, 0.25);
+      ballShadow.style.setProperty('--shot-x', `${x}px`);
+      ballShadow.style.setProperty('--shot-scale', shadowScale);
 
       if (t < 1) {
         requestAnimationFrame(animate);
@@ -227,7 +250,8 @@
   function resetBall() {
     ball.style.transition = 'none';
     ball.style.transform = 'translate(0px, 0px) rotate(0deg)';
-    ballImg.style.filter = '';
+    ballShadow.style.setProperty('--shot-x', '0px');
+    ballShadow.style.setProperty('--shot-scale', '1');
     // force reflow before re-enabling transitions elsewhere
     void ball.offsetWidth;
     ball.style.transition = '';

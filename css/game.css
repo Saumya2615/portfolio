@@ -12,21 +12,20 @@
    ============================================================ */
 
 #playground {
-  padding: var(--space-3xl);
-  max-width: 1312px;
+  /* Just enough to clear the fixed nav (~70px) plus a small buffer —
+     not #hero's 140px, since this page has no title/subline above the
+     frame the way the hero does. */
+  padding: 90px var(--space-xl) var(--space-xl);
+  max-width: calc(1100px + 2 * var(--space-xl));
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-.playground-intro {
-  text-align: center;
-  margin-bottom: var(--space-xl);
-}
-
-.playground-caption {
-  font-size: var(--text-sm);
-  color: var(--color-accent);
-  letter-spacing: var(--tracking-sm);
-  margin-top: var(--space-sm);
+.playground-inner {
+  width: 100%;
+  max-width: 1100px;
 }
 
 .game-frame {
@@ -34,18 +33,30 @@
   --font-pixel: 'Press Start 2P', var(--font-body);
 
   position: relative;
+  /* Departs from the Figma frame's native 1440:1024 aspect ratio on
+     purpose — that ratio reserved ~47% of the frame's height for the
+     HUD + hoop composition above the keyboard, nearly as tall as the
+     keyboard graphic itself. Traded keyboard size for game-area
+     breathing room here: frame capped at 1100px (down from matching
+     the hero's 1284px exactly) with a bigger ~300px header zone for
+     the hoop/HUD/ball, so the actual game has more room to read.
+     See docs/game-elements.json for the original Figma coordinates
+     every element's % position below was derived from. */
   width: 100%;
-  aspect-ratio: 1440 / 1024;
+  max-width: 1100px;
+  aspect-ratio: 1100 / 719.72;
   background: var(--color-bg);
   overflow: hidden;
   user-select: none;
 }
 
-/* ── HUD ── */
+/* ── HUD — Figma spec (172:4650): bare floating digits, no card chrome.
+   Moved up near the frame's top edge (was 13.96%) now that the header
+   zone above the keyboard is much more compact. ── */
 .game-hud {
   position: absolute;
   left: 8.82%;
-  top: 13.96%;
+  top: 4.5%;
   width: 20.56%;
   display: flex;
   gap: var(--space-lg);
@@ -72,13 +83,15 @@
   color: var(--game-accent);
 }
 
-/* ── Hoop ── */
+/* ── Hoop ── Scaled from the Figma spec (25.35% × 35.64%) to fit the
+   header zone — its bottom edge still lands flush on the keyboard's
+   top edge (41.68%), same as before. */
 .game-hoop {
   position: absolute;
-  left: 64.03%;
-  top: 12.11%;
-  width: 25.35%;
-  height: 35.64%;
+  left: 67.56%;
+  top: 8.33%;
+  width: 21.82%;
+  height: 33.35%;
   z-index: 2;
 }
 
@@ -90,13 +103,15 @@
   filter: drop-shadow(0 8px 6px rgba(12, 10, 9, 0.18));
 }
 
-/* ── Ball ── */
+/* ── Ball — pixel size unchanged from the Figma spec (just scaled to
+   the frame's own height so it doesn't look off), still resting with
+   its bottom edge on the keyboard's top edge (41.68%). ── */
 .game-ball {
   position: absolute;
   left: 16.81%;
-  top: 38.96%;
+  top: 32.55%;
   width: 5.97%;
-  height: 8.41%;
+  height: 9.13%;
   will-change: transform;
   z-index: 3;
 }
@@ -105,8 +120,6 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 6px 4px rgba(12, 10, 9, 0.22));
-  transition: filter 100ms ease;
 }
 
 .game-ball.is-charging {
@@ -118,11 +131,35 @@
   to   { transform: scale(1.18); }
 }
 
-/* ── Charge meter ── */
+/* ── Ball shadow — cast on the ground plane, not on the ball itself.
+   The ground line is the keyboard's top edge (41.68%), which is also
+   exactly where the resting ball's bottom edge sits. A true circle
+   (aspect-ratio: 1, sized in real px via width%) flattened with a fixed
+   scaleY reads as a sharp ellipse regardless of frame scaling; JS only
+   ever adjusts --shot-x (tracks the ball horizontally) and --shot-scale
+   (shrinks the shadow as the ball gets higher in its arc). ── */
+.game-ball-shadow {
+  --shot-x: 0px;
+  --shot-scale: 1;
+
+  position: absolute;
+  left: 16.81%;
+  top: 41.68%;
+  width: 5.97%;
+  aspect-ratio: 1;
+  background: rgba(12, 10, 9, 0.38);
+  border-radius: 50%;
+  transform: translate(var(--shot-x), -50%) scaleX(var(--shot-scale)) scaleY(calc(0.32 * var(--shot-scale)));
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Charge meter — sits 12px below the ball's resting bottom edge,
+   which is the keyboard's top edge (41.68%). ── */
 .charge-meter {
   position: absolute;
   left: 16.81%;
-  top: calc(38.96% + 8.41% + 12px);
+  top: calc(41.68% + 12px);
   width: 5.97%;
   height: 8px;
   border: 2px solid var(--color-border);
@@ -143,13 +180,14 @@
   background: var(--color-accent);
 }
 
-/* ── Keyboard background ── */
+/* ── Keyboard background — still 92.5% of the frame's own width (which
+   is itself smaller now, so the keyboard graphic is smaller too). ── */
 .game-keyboard-bg {
   position: absolute;
   left: 4.46%;
-  top: 47.37%;
+  top: 41.68%;
   width: 92.5%;
-  height: 47.27%;
+  height: 51.37%;
   object-fit: cover;
   z-index: 1;
   pointer-events: none;
@@ -178,9 +216,9 @@
 
 .game-key--space {
   left: 23.96%;
-  top: 86.23%;
+  top: 83.92%;
   width: 28.82%;
-  height: 5.86%;
+  height: 6.37%;
   background: #ffd84d;
   border: 2.14px solid var(--color-border);
   border-radius: 6px;
@@ -202,9 +240,9 @@
 
 .game-key--escape {
   left: 6.39%;
-  top: 52.93%;
+  top: 47.72%;
   width: 4.41%;
-  height: 6.15%;
+  height: 6.69%;
   border-radius: 8px;
 }
 
@@ -216,8 +254,6 @@
 
 .game-key--space.is-pressed {
   background-color: var(--color-accent);
-  transform: translateY(4px);
-  box-shadow: 0 0 0 rgba(12, 10, 9, 0.35);
 }
 
 /* ── Result flash ── */
@@ -279,23 +315,60 @@
 }
 
 .game-modal__box {
+  position: relative;
   background: var(--color-bg);
   color: var(--color-text);
   border: var(--border-base) solid var(--color-border);
   padding: var(--space-xl);
   border-radius: var(--radius-card-sm);
   text-align: center;
-  max-width: 360px;
+  max-width: 380px;
+}
+
+/* Close [x] — same pill/border language as .game-modal__btn, just round */
+.game-modal__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: 50%;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Score leads the hierarchy — styled like a project card title (same
+   heading font/weight/size as .project-card--secondary's title, same
+   accent color as the rest of the game's HUD) — the quip underneath
+   is regular muted body copy, same as project card descriptions. */
+.game-over__score {
+  font-family: var(--font-heading);
+  font-size: var(--text-proj-lg);
+  font-weight: 700;
+  letter-spacing: var(--tracking-proj-lg);
+  color: var(--color-accent);
+  margin-bottom: var(--space-xs);
+}
+
+.game-over__score-label {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 400;
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text-muted);
 }
 
 .game-over__title {
-  font-family: var(--font-heading);
-  font-size: var(--text-subline);
-  font-weight: 700;
-  margin-bottom: var(--space-sm);
-}
-
-.game-over__score {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 400;
+  letter-spacing: var(--tracking-body);
   color: var(--color-text-muted);
   margin-bottom: var(--space-md);
 }
@@ -306,6 +379,19 @@
   justify-content: center;
   margin-top: var(--space-md);
   flex-wrap: wrap;
+}
+
+/* Game-over actions: "See My Work" stacked above "Play again" —
+   align-items: stretch (rather than center) makes both buttons match
+   the width of the wider one ("See My Work →"), so text-align: center
+   is needed on the buttons themselves to keep their labels centered. */
+.game-modal__actions--stacked {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.game-modal__actions--stacked .game-modal__btn {
+  text-align: center;
 }
 
 .game-modal__btn {
