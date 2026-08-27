@@ -62,8 +62,8 @@
   let chargeDurationMs = DIFFICULTY_TIERS[0].chargeMs;
   let sweetSpot = DIFFICULTY_TIERS[0].sweetSpot;
 
-  function pad4(n) {
-    return String(n).padStart(4, '0');
+  function pad2(n) {
+    return String(n).padStart(2, '0');
   }
 
   function formatTime(s) {
@@ -73,7 +73,7 @@
   }
 
   function updateHud() {
-    scoreEl.textContent = pad4(score);
+    scoreEl.textContent = pad2(score);
     timeEl.textContent = formatTime(Math.max(timeLeft, 0));
   }
 
@@ -262,7 +262,7 @@
     if (state === 'CHARGING') cancelCharge();
     stopTimer();
     state = 'GAME_OVER';
-    finalScoreEl.textContent = pad4(score);
+    finalScoreEl.textContent = pad2(score);
     gameOverModal.hidden = false;
   }
 

@@ -38,13 +38,16 @@
      HUD + hoop composition above the keyboard, nearly as tall as the
      keyboard graphic itself. Traded keyboard size for game-area
      breathing room here: frame capped at 1100px (down from matching
-     the hero's 1284px exactly) with a bigger ~300px header zone for
-     the hoop/HUD/ball, so the actual game has more room to read.
+     the hero's 1284px exactly) with a ~360px header zone for the
+     hoop/HUD/ball, so the actual game has more room to read. HUD and
+     hoop stay pixel-fixed near the top; only the keyboard (and
+     everything anchored to its ground line — ball, shadow, charge
+     meter, key hints) shifts down, opening up the gap between them.
      See docs/game-elements.json for the original Figma coordinates
      every element's % position below was derived from. */
   width: 100%;
   max-width: 1100px;
-  aspect-ratio: 1100 / 719.72;
+  aspect-ratio: 1100 / 779.72;
   background: var(--color-bg);
   overflow: hidden;
   user-select: none;
@@ -56,7 +59,7 @@
 .game-hud {
   position: absolute;
   left: 8.82%;
-  top: 4.5%;
+  top: 4.16%;
   width: 20.56%;
   display: flex;
   gap: var(--space-lg);
@@ -84,14 +87,16 @@
 }
 
 /* ── Hoop ── Scaled from the Figma spec (25.35% × 35.64%) to fit the
-   header zone — its bottom edge still lands flush on the keyboard's
-   top edge (41.68%), same as before. */
+   header zone — bottom edge flush on the keyboard's top edge (46.17%),
+   same as the pole/net art implies (the pole's base rests on the
+   keyboard), so it moves down with the keyboard rather than staying
+   pinned near the top. */
 .game-hoop {
   position: absolute;
   left: 67.56%;
-  top: 8.33%;
+  top: 15.38%;
   width: 21.82%;
-  height: 33.35%;
+  height: 30.79%;
   z-index: 2;
 }
 
@@ -105,13 +110,13 @@
 
 /* ── Ball — pixel size unchanged from the Figma spec (just scaled to
    the frame's own height so it doesn't look off), still resting with
-   its bottom edge on the keyboard's top edge (41.68%). ── */
+   its bottom edge on the keyboard's top edge (46.17%). ── */
 .game-ball {
   position: absolute;
   left: 16.81%;
-  top: 32.55%;
+  top: 37.75%;
   width: 5.97%;
-  height: 9.13%;
+  height: 8.42%;
   will-change: transform;
   z-index: 3;
 }
@@ -132,7 +137,7 @@
 }
 
 /* ── Ball shadow — cast on the ground plane, not on the ball itself.
-   The ground line is the keyboard's top edge (41.68%), which is also
+   The ground line is the keyboard's top edge (46.17%), which is also
    exactly where the resting ball's bottom edge sits. A true circle
    (aspect-ratio: 1, sized in real px via width%) flattened with a fixed
    scaleY reads as a sharp ellipse regardless of frame scaling; JS only
@@ -144,7 +149,7 @@
 
   position: absolute;
   left: 16.81%;
-  top: 41.68%;
+  top: 46.17%;
   width: 5.97%;
   aspect-ratio: 1;
   background: rgba(12, 10, 9, 0.38);
@@ -155,11 +160,11 @@
 }
 
 /* ── Charge meter — sits 12px below the ball's resting bottom edge,
-   which is the keyboard's top edge (41.68%). ── */
+   which is the keyboard's top edge (46.17%). ── */
 .charge-meter {
   position: absolute;
   left: 16.81%;
-  top: calc(41.68% + 12px);
+  top: calc(46.17% + 12px);
   width: 5.97%;
   height: 8px;
   border: 2px solid var(--color-border);
@@ -185,9 +190,9 @@
 .game-keyboard-bg {
   position: absolute;
   left: 4.46%;
-  top: 41.68%;
+  top: 46.17%;
   width: 92.5%;
-  height: 51.37%;
+  height: 47.42%;
   object-fit: cover;
   z-index: 1;
   pointer-events: none;
@@ -216,9 +221,9 @@
 
 .game-key--space {
   left: 23.96%;
-  top: 83.92%;
+  top: 85.16%;
   width: 28.82%;
-  height: 6.37%;
+  height: 5.88%;
   background: #ffd84d;
   border: 2.14px solid var(--color-border);
   border-radius: 6px;
@@ -240,9 +245,9 @@
 
 .game-key--escape {
   left: 6.39%;
-  top: 47.72%;
+  top: 51.75%;
   width: 4.41%;
-  height: 6.69%;
+  height: 6.17%;
   border-radius: 8px;
 }
 
