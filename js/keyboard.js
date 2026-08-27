@@ -192,6 +192,53 @@
     }, totalMs);
   }
 
+  // ── Eyes emoji: 2-3 eyes peek up from random plain keys ──
+  // Personality-only, no nav action. Spawned onto plainKeyEls (the
+  // undecorated letter/number/etc. keycaps) rather than the eyes key
+  // itself, so it reads as the keyboard watching you back rather than
+  // an animation confined to one key.
+  const plainKeyEls = [];
+  const EYE_POP_MS = 900; // matches the eye-pop keyframe duration in keyboard.css
+  const EYE_STAGGER_MAX_MS = 150; // per-eye random delay so they don't pop in lockstep
+
+  function pickRandomKeys(count) {
+    const pool = plainKeyEls.slice();
+    const picked = [];
+    while (picked.length < count && pool.length) {
+      const i = Math.floor(Math.random() * pool.length);
+      picked.push(pool.splice(i, 1)[0]);
+    }
+    return picked;
+  }
+
+  // Trimmed to just the eye shapes (no yellow keycap background) so the
+  // peek reads as eyes emerging from the key itself, not a floating chip.
+  const EYES_ICON_SRC = 'assets/images/keyboard-keys/eyes-emoji-peek.svg';
+
+  function spawnEyePeek(keyEl) {
+    const wrap = document.createElement('div');
+    wrap.className = 'eye-peek';
+    const icon = document.createElement('img');
+    icon.className = 'eye-peek-icon';
+    icon.src = EYES_ICON_SRC;
+    icon.alt = '';
+    wrap.appendChild(icon);
+    keyEl.classList.add('has-eye-peek');
+    keyEl.appendChild(wrap);
+    wrap.addEventListener('animationend', (e) => {
+      if (e.target !== wrap) return; // wait for the wrapper's own pop animation, not the icon's wiggle
+      wrap.remove();
+      keyEl.classList.remove('has-eye-peek');
+    });
+  }
+
+  function triggerEyesPeek() {
+    const count = Math.random() < 0.5 ? 2 : 3;
+    pickRandomKeys(count).forEach((keyEl) => {
+      setTimeout(() => spawnEyePeek(keyEl), Math.random() * EYE_STAGGER_MAX_MS);
+    });
+  }
+
   let hotspotsByName = {};
   let primedName = null;
   let primedTimer = null;
@@ -244,6 +291,11 @@
       icon.src = key.icon;
       icon.alt = '';
       el.appendChild(icon);
+    } else if (key.name !== 'eyes_emoji') {
+      // Plain keycap (no custom icon) - eligible spot for an eyes-key
+      // peek to pop up on. Excludes eyes_emoji itself, which has no
+      // icon either but shouldn't spawn a peek on top of its own key.
+      plainKeyEls.push(el);
     }
 
     if (key.tooltip) {
@@ -274,6 +326,11 @@
     // Duck: no navigation action, just the jump/splash/"Hi" sequence.
     if (key.animFrames) {
       el.addEventListener('click', () => playDuckAnimation(key, el));
+    }
+
+    // Eyes emoji: no navigation action, just the multi-eye peek.
+    if (key.name === 'eyes_emoji') {
+      el.addEventListener('click', triggerEyesPeek);
     }
 
     // Click: jump-navigate keys (W/M/C) go straight to their slow,

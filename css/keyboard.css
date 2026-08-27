@@ -319,6 +319,55 @@
   animation: duck-droplet 900ms ease-out forwards;
 }
 
+/* ── Eyes emoji key — spawns 2-3 peeking eyes on random plain keys ──
+   Personality-only, no nav action (per portfolio-brief.md). Reuses the
+   eyes_emoji key's own icon art (two eyes on a yellow keycap) rather
+   than a generic shape, so it reads as the same eyes showing up
+   elsewhere on the board. Wrapper handles the pop up/down, the icon
+   inside handles its own side-to-side wiggle - both animate `transform`
+   so they need separate elements rather than one animation each. */
+/* Eyes pop up past their key's top edge into the row above - bump the
+   hosting key above its neighbors while an eye is live so it doesn't
+   render clipped underneath a later-painted key box. */
+.key-hotspot.has-eye-peek {
+  z-index: 6;
+}
+
+.eye-peek {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  aspect-ratio: 131 / 63;
+  transform-origin: center bottom;
+  transform: translate(-50%, 55%) scaleY(0);
+  pointer-events: none;
+  z-index: 6;
+  animation: eye-pop 900ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes eye-pop {
+  0% { transform: translate(-50%, 60%) scaleY(0); opacity: 0; }
+  18% { transform: translate(-50%, 15%) scaleY(1); opacity: 1; }
+  82% { transform: translate(-50%, 15%) scaleY(1); opacity: 1; }
+  100% { transform: translate(-50%, 60%) scaleY(0); opacity: 0; }
+}
+
+.eye-peek-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: eye-peek-wiggle 900ms ease-in-out forwards;
+}
+
+@keyframes eye-peek-wiggle {
+  0%, 20% { transform: translateX(0); }
+  38% { transform: translateX(-8%); }
+  58% { transform: translateX(8%); }
+  76% { transform: translateX(-4%); }
+  88%, 100% { transform: translateX(0); }
+}
+
 /* ── Tablet ── */
 @media (max-width: 1024px) {
   #keyboard {
