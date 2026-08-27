@@ -53,6 +53,7 @@
     M_key_special_hands_icon: () => scrollToSection('about'),
     C_key_special_vectorized_icon: () => scrollToSection('connect'),
     R_key_special_resume_icon: () => window.open('assets/resume.pdf', '_blank', 'noopener'),
+    arrow_down_special_green: () => scrollToSection('work'),
   };
 
   function scrollToSection(id) {
@@ -70,6 +71,12 @@
     'M_key_special_hands_icon',
     'C_key_special_vectorized_icon',
   ]);
+
+  // Keys that skip the click-to-prime step entirely - the jump keys
+  // above (their own slow animation is the "are you sure" beat) plus
+  // the down-arrow scroll hint, which is low-stakes enough (just a
+  // scroll, not a navigate-away) to not need a preview tap either.
+  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green']);
 
   const JUMP_DURATION_MS = 750; // matches the .is-jumping keyframe duration in keyboard.css
   // Scroll fires once the icon has visibly cleared the frame, rather
@@ -97,6 +104,7 @@
   // sprite sequence; the duck is "swimming" the rest of the time via
   // the looping water background below.
   const DUCK_FRAME_MS = 90;
+  const DUCK_HI_HOLD_MS = 1100; // extra beat on the last frame (the "Hi") before reverting to idle
   const WATER_FRAME_MS = 950; // calm idle ripple, independent of the jump timing
   let duckAnimating = false;
 
@@ -144,7 +152,7 @@
       }, i * DUCK_FRAME_MS);
     });
 
-    const totalMs = key.animFrames.length * DUCK_FRAME_MS;
+    const totalMs = (key.animFrames.length - 1) * DUCK_FRAME_MS + DUCK_HI_HOLD_MS;
     setTimeout(() => {
       icon.src = key.icon;
       el.classList.remove('is-jumping');
@@ -243,7 +251,7 @@
     // resume in a new tab and benefits from a preview first).
     el.addEventListener('click', () => {
       if (!action) return;
-      if (JUMP_ON_NAVIGATE.has(key.name)) {
+      if (NO_PRIME_KEYS.has(key.name)) {
         unprime();
         triggerAction(key.name);
       } else if (primedName === key.name) {
