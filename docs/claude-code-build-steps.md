@@ -329,3 +329,18 @@ Once all steps are merged into `main`, you're ready to deploy (e.g. Vercel or Ne
 - Mid-session, noticed `css/about.css` picked up unreviewed changes (rotated photo/tag/squiggle positions, referencing Figma nodes not looked up this session) from what looks like a concurrent second session editing the same file — a git race briefly caused those changes to get bundled into the footer commit instead of committed separately. Checked in-browser after the fact: the result looks correct and intentional (tilted polaroid, rotated GAME ON tag), so left as-is, but flagging in case Saumya was mid-edit elsewhere.
 
 **Currently on: Step 8** — swap in real project visuals (blocked on 8 project images + copy/tags/links from Saumya).
+
+### Session 3 — 2026-08-26 (isolated `basketball` worktree/branch)
+
+**Step 12 — Basketball spacebar game** ✅ built, pending Saumya's in-browser playtest before commit
+- New `docs/basketball-game-logic.md` + `docs/game-elements.json` (copied in from the shared portfolio-website docs) driving the build — all open decisions were already resolved there (timer starts on page load, Escape → confirm modal → homepage, sweet-spot range tunable, one generic miss animation)
+- New `css/game.css` + `js/game.js`; `playground.html` rebuilt around a `#game-frame` (1440:1024 aspect-ratio box, same %-based coordinate approach as the keyboard hotspots) containing: HUD (Score/Time), an SVG ball + hoop (fully vector, no image assets — matches the "keep it lightweight" goal), a charge meter, on-screen Space/Escape key hints, result-flash and streak-pulse feedback, an exit-confirm modal, and a game-over modal with Play Again
+- State machine: IDLE → CHARGING → SHOOTING → RESULT → IDLE, with GAME_OVER on timer hitting 0. Charge is a ping-pong 0→100→0 fill over 1.2s (holding past 100% cycles back down, per the doc's "rhythm-based" note) computed from wall-clock time (`performance.now()`), so the release-time percentage is correct regardless of frame rate
+- Sweet spot locked at 60–80% for v1 (flagged as tunable, per the doc)
+- Trigger rule (the doc's flagged open decision): Space/Escape are bound globally on this page only, ignored while any input/textarea/contenteditable is focused — simplest reliable rule since the game has this dedicated Playground page to itself
+- Edge cases handled: taps under 100ms don't count as a shot attempt; Escape freezes the timer while the confirm modal is open and resumes it on cancel; charging is cancelled cleanly if the timer hits 0 or Escape is pressed mid-charge; a new charge can't start until the previous shot's result animation finishes
+- Swish sound: skipped for v1 (no audio asset available yet) — doc marks it optional
+- Found and fixed one bug while testing in-browser: the `[hidden]` attribute on the modals was being overridden by the `.game-modal { display: flex }` class rule (same CSS specificity, later in cascade), so the game-over modal showed immediately on page load. Fixed with an explicit `.game-modal[hidden] { display: none }` rule
+- Verified in-browser (Chrome automation): quick-tap threshold ignored, held shot resolves as a make (score increments, SWISH flash), Escape opens/closes the confirm modal and correctly pauses/resumes the timer, timer reaching 0 shows the game-over overlay with the right final score, and Play Again fully resets score/timer/state
+- Not yet built: streak-pulse and long/short outcome branches were verified by code reading + partial live testing (make path confirmed live; miss/streak paths confirmed via the charge-percent math, not directly observed live) — worth a manual playtest pass
+- Still open: exact sweet-spot range, swish sound asset, and whether 40s feels right — all flagged as playtest-and-tune items per the doc, not blockers

@@ -1,0 +1,218 @@
+{
+  "gameScreenFrame": {
+    "width": 1440,
+    "height": 1024
+  },
+  "elements": {
+    "keyboardBackgroundImage": {
+      "px": {
+        "x": 64.28,
+        "y": 485.11,
+        "width": 1332,
+        "height": 484
+      },
+      "percent": {
+        "left": 4.46,
+        "top": 47.37,
+        "width": 92.5,
+        "height": 47.27
+      }
+    },
+    "ball": {
+      "px": {
+        "x": 242,
+        "y": 399,
+        "width": 86,
+        "height": 86.12
+      },
+      "percent": {
+        "left": 16.81,
+        "top": 38.96,
+        "width": 5.97,
+        "height": 8.41
+      }
+    },
+    "hoop": {
+      "px": {
+        "x": 922,
+        "y": 124,
+        "width": 365,
+        "height": 365
+      },
+      "percent": {
+        "left": 64.03,
+        "top": 12.11,
+        "width": 25.35,
+        "height": 35.64
+      }
+    },
+    "hoopNetDetailVector1": {
+      "px": {
+        "x": 1407.42,
+        "y": 702,
+        "width": 25.27,
+        "height": 25.35
+      },
+      "percent": {
+        "left": 97.74,
+        "top": 68.55,
+        "width": 1.75,
+        "height": 2.48
+      }
+    },
+    "hoopNetDetailVector2": {
+      "px": {
+        "x": 1387,
+        "y": 685.98,
+        "width": 18.24,
+        "height": 13.62
+      },
+      "percent": {
+        "left": 96.32,
+        "top": 66.99,
+        "width": 1.27,
+        "height": 1.33
+      }
+    },
+    "hoopNetDetailVector3": {
+      "px": {
+        "x": 1422.25,
+        "y": 686,
+        "width": 10.17,
+        "height": 7.96
+      },
+      "percent": {
+        "left": 98.77,
+        "top": 66.99,
+        "width": 0.71,
+        "height": 0.78
+      }
+    },
+    "spacebar_PressToShoot": {
+      "px": {
+        "x": 345,
+        "y": 883,
+        "width": 415,
+        "height": 60
+      },
+      "percent": {
+        "left": 23.96,
+        "top": 86.23,
+        "width": 28.82,
+        "height": 5.86
+      }
+    },
+    "escapeExitButton_redX": {
+      "px": {
+        "x": 92,
+        "y": 542,
+        "width": 63.57,
+        "height": 63
+      },
+      "percent": {
+        "left": 6.39,
+        "top": 52.93,
+        "width": 4.41,
+        "height": 6.15
+      }
+    },
+    "hud_ScoreTimeContainer": {
+      "px": {
+        "x": 127,
+        "y": 143,
+        "width": 296,
+        "height": 82
+      },
+      "percent": {
+        "left": 8.82,
+        "top": 13.96,
+        "width": 20.56,
+        "height": 8.01
+      }
+    },
+    "hud_ScoreLabel": {
+      "px": {
+        "x": 127,
+        "y": 143,
+        "width": 107,
+        "height": 26
+      },
+      "percent": {
+        "left": 8.82,
+        "top": 13.96,
+        "width": 7.43,
+        "height": 2.54
+      }
+    },
+    "hud_ScoreValue": {
+      "px": {
+        "x": 127,
+        "y": 173,
+        "width": 107,
+        "height": 52
+      },
+      "percent": {
+        "left": 8.82,
+        "top": 16.89,
+        "width": 7.43,
+        "height": 5.08
+      }
+    },
+    "hud_TimeLabel": {
+      "px": {
+        "x": 270,
+        "y": 143,
+        "width": 121,
+        "height": 26
+      },
+      "percent": {
+        "left": 18.75,
+        "top": 13.96,
+        "width": 8.4,
+        "height": 2.54
+      }
+    },
+    "hud_TimeValue": {
+      "px": {
+        "x": 270,
+        "y": 173,
+        "width": 121,
+        "height": 52
+      },
+      "percent": {
+        "left": 18.75,
+        "top": 16.89,
+        "width": 8.4,
+        "height": 5.08
+      }
+    },
+    "navBar": {
+      "px": {
+        "x": 127,
+        "y": 64,
+        "width": 1186,
+        "height": 26
+      },
+      "percent": {
+        "left": 8.82,
+        "top": 6.25,
+        "width": 82.36,
+        "height": 2.54
+      }
+    },
+    "instructionCaption": {
+      "px": {
+        "x": 235,
+        "y": 989,
+        "width": 688,
+        "height": 18
+      },
+      "percent": {
+        "left": 16.32,
+        "top": 96.58,
+        "width": 47.78,
+        "height": 1.76
+      }
+    }
+  }
+}

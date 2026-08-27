@@ -1,0 +1,335 @@
+/* ============================================================
+   Basketball spacebar game — Step 12
+   Figma ref: "Final" game screen frame (172:4632, 1440x1024).
+   Coordinates in docs/game-elements.json, same %-based approach
+   as the keyboard hotspots so the frame stays correct at any width.
+
+   Fonts: Figma specifies "Minecraft" (HUD digits) and "Arcade
+   Interlaced" (labels/instruction) — neither is available in this
+   project or on Google Fonts, so both are substituted with
+   "Press Start 2P" (confirmed with Saumya) as the closest free
+   pixel-font equivalent.
+   ============================================================ */
+
+#playground {
+  padding: var(--space-3xl);
+  max-width: 1312px;
+  margin: 0 auto;
+}
+
+.playground-intro {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.playground-caption {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  letter-spacing: var(--tracking-sm);
+  margin-top: var(--space-sm);
+}
+
+.game-frame {
+  --game-accent: #ff5b3e;      /* HUD/instruction text — Figma node 172:4650 */
+  --font-pixel: 'Press Start 2P', var(--font-body);
+
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 1024;
+  background: var(--color-bg);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── HUD ── */
+.game-hud {
+  position: absolute;
+  left: 8.82%;
+  top: 13.96%;
+  width: 20.56%;
+  display: flex;
+  gap: var(--space-lg);
+  z-index: 4;
+}
+
+.hud-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud-label {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  letter-spacing: var(--tracking-body);
+  color: var(--game-accent);
+}
+
+.hud-value {
+  font-family: var(--font-pixel);
+  font-size: clamp(18px, 3vw, 40px);
+  letter-spacing: -0.5px;
+  color: var(--game-accent);
+}
+
+/* ── Hoop ── */
+.game-hoop {
+  position: absolute;
+  left: 64.03%;
+  top: 12.11%;
+  width: 25.35%;
+  height: 35.64%;
+  z-index: 2;
+}
+
+.game-hoop__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 8px 6px rgba(12, 10, 9, 0.18));
+}
+
+/* ── Ball ── */
+.game-ball {
+  position: absolute;
+  left: 16.81%;
+  top: 38.96%;
+  width: 5.97%;
+  height: 8.41%;
+  will-change: transform;
+  z-index: 3;
+}
+
+.game-ball__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 4px rgba(12, 10, 9, 0.22));
+  transition: filter 100ms ease;
+}
+
+.game-ball.is-charging {
+  animation: ball-pulse 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes ball-pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.18); }
+}
+
+/* ── Charge meter ── */
+.charge-meter {
+  position: absolute;
+  left: 16.81%;
+  top: calc(38.96% + 8.41% + 12px);
+  width: 5.97%;
+  height: 8px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  z-index: 3;
+}
+
+.charge-meter.is-visible {
+  opacity: 1;
+}
+
+.charge-meter-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--color-accent);
+}
+
+/* ── Keyboard background ── */
+.game-keyboard-bg {
+  position: absolute;
+  left: 4.46%;
+  top: 47.37%;
+  width: 92.5%;
+  height: 47.27%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ── Key hints ── */
+.game-keys {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.game-key {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.game-key--space {
+  left: 23.96%;
+  top: 86.23%;
+  width: 28.82%;
+  height: 5.86%;
+  background: #ffd84d;
+  border: 2.14px solid var(--color-border);
+  border-radius: 6px;
+  font-family: var(--font-pixel);
+  font-size: clamp(7px, 0.85vw, 12px);
+  letter-spacing: -0.2px;
+  color: var(--color-text);
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 4px 0 rgba(12, 10, 9, 0.35);
+  transition: background-color 100ms ease, transform 80ms ease, box-shadow 80ms ease;
+}
+
+.game-key__ball-icon {
+  width: 11%;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.game-key--escape {
+  left: 6.39%;
+  top: 52.93%;
+  width: 4.41%;
+  height: 6.15%;
+  border-radius: 8px;
+}
+
+.game-key__escape-icon {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+.game-key--space.is-pressed {
+  background-color: var(--color-accent);
+  transform: translateY(4px);
+  box-shadow: 0 0 0 rgba(12, 10, 9, 0.35);
+}
+
+/* ── Result flash ── */
+.result-flash {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%) scale(0.8);
+  font-family: var(--font-pixel);
+  font-size: clamp(16px, 3vw, 36px);
+  color: var(--color-text);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.result-flash.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.result-flash.is-make { color: var(--color-key-green); }
+.result-flash.is-miss { color: var(--color-accent); }
+
+/* ── Streak celebration ── */
+.streak-pulse {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translateX(-50%) scale(0.7);
+  font-family: var(--font-pixel);
+  font-size: clamp(12px, 1.6vw, 22px);
+  color: var(--color-accent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.streak-pulse.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* ── Modals (exit confirm + game over) ── */
+.game-modal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+}
+
+.game-modal[hidden] {
+  display: none;
+}
+
+.game-modal__box {
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: var(--border-base) solid var(--color-border);
+  padding: var(--space-xl);
+  border-radius: var(--radius-card-sm);
+  text-align: center;
+  max-width: 360px;
+}
+
+.game-over__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-subline);
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+
+.game-over__score {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.game-modal__actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-top: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.game-modal__btn {
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-thin) solid var(--color-border);
+  border-radius: var(--radius-tag);
+  background: var(--color-bg);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.game-modal__btn--confirm {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  #playground {
+    padding: var(--space-lg);
+  }
+
+  .game-frame {
+    border-radius: var(--radius-card-sm);
+  }
+}
