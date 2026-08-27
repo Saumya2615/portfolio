@@ -78,6 +78,67 @@
     }
   }
 
+  // ── Duck: jump-out-of-frame and back, one click ──
+  // Frames pulled straight from Figma (floating "Frame 16/17/19-21"
+  // library next to the keyboard). animFrames plays the jump-and-land
+  // sprite sequence; the duck is "swimming" the rest of the time via
+  // the looping water background below.
+  const DUCK_FRAME_MS = 90;
+  const WATER_FRAME_MS = 950; // calm idle ripple, independent of the jump timing
+  let duckAnimating = false;
+
+  // Index into animFrames of the splash-landing sprite (frame "16") -
+  // the moment the duck hits the water again, per Figma's own splash
+  // droplet vectors sitting next to that frame (Vector 22/24/25).
+  const DUCK_LANDING_FRAME_INDEX = 3;
+
+  // The three droplet shapes Figma places next to the landing frame
+  // (Vector 22/24/25), exported straight from those vector layers,
+  // with their exact Figma position/size carried over as % of the
+  // 202×63 key box so they land in the same spot as the source file.
+  const DROPLETS = [
+    { src: 'assets/images/keyboard-keys/duck-anim/droplets/droplet-1.svg', left: 76.75, top: 42.86, width: 9.85, height: 25.35 },
+    { src: 'assets/images/keyboard-keys/duck-anim/droplets/droplet-2.svg', left: 72.22, top: 36.86, width: 6.40, height: 19.05 },
+    { src: 'assets/images/keyboard-keys/duck-anim/droplets/droplet-3.svg', left: 42.28, top: 64.27, width: 3.52, height: 15.95 },
+  ];
+
+  function spawnSplash(el) {
+    DROPLETS.forEach((d) => {
+      const drop = document.createElement('img');
+      drop.className = 'duck-droplet';
+      drop.src = d.src;
+      drop.alt = '';
+      drop.style.left = d.left + '%';
+      drop.style.top = d.top + '%';
+      drop.style.width = d.width + '%';
+      drop.style.height = d.height + '%';
+      el.appendChild(drop);
+      drop.addEventListener('animationend', () => drop.remove());
+    });
+  }
+
+  function playDuckAnimation(key, el) {
+    if (duckAnimating || !key.animFrames) return;
+    duckAnimating = true;
+    const icon = el.querySelector('.key-icon');
+    el.classList.add('is-jumping');
+    el.classList.remove('show-tooltip');
+
+    key.animFrames.forEach((src, i) => {
+      setTimeout(() => {
+        icon.src = src;
+        if (i === DUCK_LANDING_FRAME_INDEX) spawnSplash(el);
+      }, i * DUCK_FRAME_MS);
+    });
+
+    const totalMs = key.animFrames.length * DUCK_FRAME_MS;
+    setTimeout(() => {
+      icon.src = key.icon;
+      el.classList.remove('is-jumping');
+      duckAnimating = false;
+    }, totalMs);
+  }
+
   let hotspotsByName = {};
   let primedName = null;
   let primedTimer = null;
@@ -105,6 +166,23 @@
     el.style.top = key.percent.top + '%';
     el.style.width = key.percent.width + '%';
     el.style.height = key.percent.height + '%';
+
+    if (key.waterFrames) {
+      // Sits behind .key-icon (appended first = painted first) - the
+      // duck sprite frames have their pond pixels stripped to
+      // transparent specifically so this shows through continuously,
+      // idle and mid-jump alike, instead of a flat static backdrop.
+      const waterBg = document.createElement('img');
+      waterBg.className = 'key-water-bg';
+      waterBg.src = key.waterFrames[0];
+      waterBg.alt = '';
+      el.appendChild(waterBg);
+      let waterFrame = 0;
+      setInterval(() => {
+        waterFrame = (waterFrame + 1) % key.waterFrames.length;
+        waterBg.src = key.waterFrames[waterFrame];
+      }, WATER_FRAME_MS);
+    }
 
     if (key.icon) {
       el.classList.add('is-colored');
@@ -138,6 +216,11 @@
       el.addEventListener('mouseleave', () => {
         if (primedName !== key.name) el.classList.remove('show-tooltip');
       });
+    }
+
+    // Duck: no navigation action, just the jump/splash/"Hi" sequence.
+    if (key.animFrames) {
+      el.addEventListener('click', () => playDuckAnimation(key, el));
     }
 
     // Click: functional keys use "first click primes/shows tooltip,

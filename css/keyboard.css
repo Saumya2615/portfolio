@@ -191,6 +191,73 @@
   animation: folder-jump-out 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
+/* ── Duck key — jump-out-of-frame sprite sequence ──
+   The animation is entirely sprite frames swapped by keyboard.js
+   (assets/images/keyboard-keys/duck-anim/), not a CSS transform, so
+   this key opts out of the shared press treatment same as the W key -
+   the frames already show the duck airborne with no border, since
+   it's genuinely left the keycap. */
+.key-hotspot[data-name="duck_hi"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="duck_hi"].is-pressed::after {
+  display: none;
+}
+
+/* Continuously-looping water backdrop (keyboard.js swaps its src
+   between the two wave-phase frames on an interval, independent of
+   the jump animation) - fixed to the key's own 63px box regardless of
+   how tall the duck layer on top of it gets while airborne. */
+.key-water-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Anchored to the bottom instead of stretched to fill (like every
+   other .key-icon) - each jump frame's source canvas is taller than
+   the key box by design (the duck rising above it), and object-fit
+   would otherwise squash that back down to the box's flat height. */
+.key-hotspot[data-name="duck_hi"] .key-icon {
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Sits above neighboring keys while airborne so the taller jump
+   frames don't render underneath the row above. */
+.key-hotspot[data-name="duck_hi"].is-jumping {
+  z-index: 4;
+}
+
+/* Splash droplets (Figma's own Vector 22/24/25 shapes, exported as
+   SVGs) - positioned exactly where Figma places them next to the
+   landing pose (left/top/width/height set inline by keyboard.js, in
+   % of the 202×63 key box). They don't move, same as in the source
+   file - they just pop in on impact and fade out after a beat. */
+@keyframes duck-droplet {
+  0% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(-16px); opacity: 0; }
+}
+
+.duck-droplet {
+  position: absolute;
+  pointer-events: none;
+  animation: duck-droplet 900ms ease-out forwards;
+}
+
 /* ── Tablet ── */
 @media (max-width: 1024px) {
   #keyboard {

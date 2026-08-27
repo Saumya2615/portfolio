@@ -1465,7 +1465,18 @@
         "height": 13.02
       },
       "tooltip": "hi! (yes, a duck)",
-      "icon": "assets/images/keyboard-keys/duck-hi.png"
+      "icon": "assets/images/keyboard-keys/duck-anim/16.png",
+      "animFrames": [
+        "assets/images/keyboard-keys/duck-anim/19.png",
+        "assets/images/keyboard-keys/duck-anim/20.png",
+        "assets/images/keyboard-keys/duck-anim/21.png",
+        "assets/images/keyboard-keys/duck-anim/16.png",
+        "assets/images/keyboard-keys/duck-anim/17.png"
+      ],
+      "waterFrames": [
+        "assets/images/keyboard-keys/duck-anim/water/22.png",
+        "assets/images/keyboard-keys/duck-anim/water/23.png"
+      ]
     },
     {
       "name": "R_key_special_resume_icon",
