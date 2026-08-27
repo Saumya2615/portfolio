@@ -16,9 +16,16 @@
     <link rel="stylesheet" href="css/work.css" />
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/escape.css" />
     <link rel="stylesheet" href="css/type-scatter.css" /><!-- EXPERIMENTAL, remove freely -->
   </head>
   <body>
+
+    <!-- Wraps everything visible so the Escape easter egg (js/main.js)
+         can scale/zoom the whole page without disturbing the
+         fixed-position wink-text overlay below, which needs to stay
+         anchored to the real viewport, not this wrapper. -->
+    <div id="page-content">
 
     <!-- ============================================================
          NAV
@@ -173,6 +180,12 @@
         <img src="assets/images/footer-heart.png" alt="" class="footer-heart" />
       </div>
     </footer>
+
+    </div><!-- #page-content -->
+
+    <div class="escape-overlay" aria-hidden="true">
+      <p class="escape-wink">you can't Esc-ape this portfolio ;)</p>
+    </div>
 
     <script src="js/projects.js"></script>
     <script src="js/keyboard.js"></script>

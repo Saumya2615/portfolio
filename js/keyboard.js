@@ -40,7 +40,7 @@
     ArrowDown: 'arrow_down_special_green', ArrowRight: 'arrow_right',
     Numpad0: 'num0', NumpadDecimal: 'num_dot', NumpadAdd: 'num_plus',
     NumpadEnter: 'num_enter', Semicolon: 'R_key_special_resume_icon',
-    CapsLock: 'LOUD_MODE_capslock',
+    CapsLock: 'LOUD_MODE_capslock', Escape: 'smiley_personal',
   };
 
   // Physical keys we deliberately never touch — native browser/scroll
@@ -55,11 +55,42 @@
     R_key_special_resume_icon: () => window.open('assets/resume.pdf', '_blank', 'noopener'),
     arrow_down_special_green: () => scrollToSection('work'),
     Space_DareToPlay: () => { window.location.href = 'playground.html'; },
+    smiley_personal: () => triggerEscapeEffect(),
   };
 
   function scrollToSection(id) {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ── Escape easter egg: pull-to-refresh-style bounce + wink of text,
+  // then snaps back. Sits on the smiley key (top-left, same physical
+  // spot as a real Esc key) as well as the actual Escape keypress.
+  // Not a real exit - just a subversive joke (docs/portfolio-brief.md).
+  const ESCAPE_HOLD_MS = 550; // pull-down (380ms, see escape.css) + a beat holding at full pull
+  const ESCAPE_SNAP_MS = 200; // matches the snap-back transition in escape.css
+  let escapeAnimating = false;
+
+  function triggerEscapeEffect() {
+    if (escapeAnimating) return;
+    escapeAnimating = true;
+    const page = document.getElementById('page-content');
+    const overlay = document.querySelector('.escape-overlay');
+    if (!page || !overlay) { escapeAnimating = false; return; }
+
+    page.classList.add('escape-pull');
+    overlay.classList.add('is-visible');
+
+    setTimeout(() => {
+      page.classList.remove('escape-pull');
+      page.classList.add('escape-snap');
+      overlay.classList.remove('is-visible');
+    }, ESCAPE_HOLD_MS);
+
+    setTimeout(() => {
+      page.classList.remove('escape-snap');
+      escapeAnimating = false;
+    }, ESCAPE_HOLD_MS + ESCAPE_SNAP_MS);
   }
 
   // Keys whose icon "jumps" out of frame before the navigation action
@@ -77,7 +108,7 @@
   // above (their own slow animation is the "are you sure" beat) plus
   // the down-arrow scroll hint, which is low-stakes enough (just a
   // scroll, not a navigate-away) to not need a preview tap either.
-  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green']);
+  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal']);
 
   const JUMP_DURATION_MS = 750; // matches the .is-jumping keyframe duration in keyboard.css
   // Scroll fires once the icon has visibly cleared the frame, rather
