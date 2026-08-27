@@ -61,8 +61,21 @@
   }
 
   // Keys whose icon "jumps" out of frame before the navigation action
-  // fires, instead of navigating instantly.
-  const JUMP_ON_NAVIGATE = new Set(['W_key_special_folder_icon']);
+  // fires, instead of navigating instantly. These also skip the
+  // click-to-prime step below (see buildHotspot) - the slow, visible
+  // jump is itself the "are you sure" beat, so a tap goes straight to
+  // it instead of needing a preview click first.
+  const JUMP_ON_NAVIGATE = new Set([
+    'W_key_special_folder_icon',
+    'M_key_special_hands_icon',
+    'C_key_special_vectorized_icon',
+  ]);
+
+  const JUMP_DURATION_MS = 750; // matches the .is-jumping keyframe duration in keyboard.css
+  // Scroll fires once the icon has visibly cleared the frame, rather
+  // than mid-animation, so it reads as "icon leaves -> page follows"
+  // instead of an instant cut under a still-playing animation.
+  const JUMP_SCROLL_DELAY_MS = 550;
 
   function triggerAction(name) {
     const action = ACTIONS[name];
@@ -71,8 +84,8 @@
     const icon = el && el.querySelector('.key-icon');
     if (icon && JUMP_ON_NAVIGATE.has(name)) {
       icon.classList.add('is-jumping');
-      setTimeout(() => icon.classList.remove('is-jumping'), 1200);
-      setTimeout(action, 150);
+      setTimeout(() => icon.classList.remove('is-jumping'), JUMP_DURATION_MS);
+      setTimeout(action, JUMP_SCROLL_DELAY_MS);
     } else {
       action();
     }
@@ -223,11 +236,17 @@
       el.addEventListener('click', () => playDuckAnimation(key, el));
     }
 
-    // Click: functional keys use "first click primes/shows tooltip,
-    // second click navigates" so a tap always previews before it jumps.
+    // Click: jump-navigate keys (W/M/C) go straight to their slow,
+    // visible jump-out - no priming needed, the animation itself is
+    // the warning. Everything else still uses "first click primes/
+    // shows tooltip, second click navigates" (e.g. R, which opens the
+    // resume in a new tab and benefits from a preview first).
     el.addEventListener('click', () => {
       if (!action) return;
-      if (primedName === key.name) {
+      if (JUMP_ON_NAVIGATE.has(key.name)) {
+        unprime();
+        triggerAction(key.name);
+      } else if (primedName === key.name) {
         unprime();
         triggerAction(key.name);
       } else if (key.tooltip) {
