@@ -1018,7 +1018,7 @@
         "height": 12.88
       },
       "tooltip": "→ say hi",
-      "icon": "assets/images/keyboard-keys/c-vectorized.png"
+      "icon": "assets/images/keyboard-keys/c-vectorized.svg"
     },
     {
       "name": "v",
@@ -1339,7 +1339,7 @@
         "height": 13.02
       },
       "tooltip": "psst, scroll down",
-      "icon": "assets/images/keyboard-keys/arrow-down-green.png"
+      "icon": "assets/images/keyboard-keys/arrow-down-green.svg"
     },
     {
       "name": "arrow_right",
@@ -1448,7 +1448,7 @@
         "height": 13.02
       },
       "tooltip": "seen enough?",
-      "icon": "assets/images/keyboard-keys/eyes-emoji.png"
+      "icon": "assets/images/keyboard-keys/eyes-emoji.svg"
     },
     {
       "name": "duck_hi",
