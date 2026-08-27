@@ -54,6 +54,7 @@
     C_key_special_vectorized_icon: () => scrollToSection('connect'),
     R_key_special_resume_icon: () => window.open('assets/resume.pdf', '_blank', 'noopener'),
     arrow_down_special_green: () => scrollToSection('work'),
+    Space_DareToPlay: () => { window.location.href = 'playground.html'; },
   };
 
   function scrollToSection(id) {
