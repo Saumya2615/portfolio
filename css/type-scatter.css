@@ -24,7 +24,7 @@
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 500;
-  color: var(--color-accent);
+  color: var(--color-text-muted);
   opacity: 0;
   user-select: none;
   animation: type-scatter-fade 2.2s ease-out forwards;

@@ -14,6 +14,45 @@
 
   const MAX_CHARS = 40; // safety cap so a held key can't flood the DOM
 
+  // Keep spawned letters out of the headline/subline block - only the
+  // white space around it should get them. Re-measured on resize since
+  // the text block's size/position shifts across breakpoints.
+  let excludeRect = null;
+  function measureExcludeRect() {
+    const h1 = hero.querySelector('h1');
+    const sub = hero.querySelector('.hero-subline');
+    const heroRect = hero.getBoundingClientRect();
+    if (!h1 || !sub || !heroRect.width || !heroRect.height) {
+      excludeRect = null;
+      return;
+    }
+    const h1Rect = h1.getBoundingClientRect();
+    const subRect = sub.getBoundingClientRect();
+    const pad = 24; // px breathing room around the text block
+    excludeRect = {
+      top: ((Math.min(h1Rect.top, subRect.top) - pad - heroRect.top) / heroRect.height) * 100,
+      bottom: ((Math.max(h1Rect.bottom, subRect.bottom) + pad - heroRect.top) / heroRect.height) * 100,
+      left: ((Math.min(h1Rect.left, subRect.left) - pad - heroRect.left) / heroRect.width) * 100,
+      right: ((Math.max(h1Rect.right, subRect.right) + pad - heroRect.left) / heroRect.width) * 100,
+    };
+  }
+  measureExcludeRect();
+  window.addEventListener('resize', measureExcludeRect);
+
+  function randomSpot() {
+    for (let i = 0; i < 12; i++) {
+      const x = 3 + Math.random() * 94;
+      const y = 3 + Math.random() * 94;
+      const inText = excludeRect
+        && x > excludeRect.left && x < excludeRect.right
+        && y > excludeRect.top && y < excludeRect.bottom;
+      if (!inText) return { x, y };
+    }
+    // Couldn't find a free spot in 12 tries (narrow viewport) - fall
+    // back to a side margin, which is safe since the text is centered.
+    return { x: Math.random() < 0.5 ? 2 : 96, y: 3 + Math.random() * 94 };
+  }
+
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
     if (e.key.length !== 1) return; // skip Enter/Shift/Tab/arrows/etc.
@@ -22,11 +61,12 @@
       layer.firstElementChild.remove();
     }
 
+    const { x, y } = randomSpot();
     const span = document.createElement('span');
     span.className = 'type-scatter-char';
     span.textContent = e.key;
-    span.style.left = 5 + Math.random() * 85 + '%';
-    span.style.top = 5 + Math.random() * 80 + '%';
+    span.style.left = x + '%';
+    span.style.top = y + '%';
     span.style.setProperty('--r', Math.random() * 30 - 15 + 'deg');
     layer.appendChild(span);
 
