@@ -74,14 +74,14 @@
 .about-skyline {
   position: absolute;
   left: 235px;
-  top: -228px;
+  top: 0;
   width: 1120px;
   max-width: none;
 }
 
 .about-squiggle {
   position: absolute;
-  left: -8px;
+  left: 12px;
   top: 240px;
   width: 72px;
   height: auto;
