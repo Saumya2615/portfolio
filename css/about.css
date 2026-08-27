@@ -7,6 +7,11 @@
 #about {
   padding: var(--space-3xl);
   padding-top: var(--space-2xl);
+  /* .about-skyline is intentionally wider than its container and
+     bleeds past .about-visual's right edge (no clipping there, to
+     match main) - this catches that bleed at the section level so it
+     doesn't widen the whole page and cause horizontal scroll. */
+  overflow-x: hidden;
 }
 
 .about-body {
@@ -70,18 +75,21 @@
 
 /* Behind the photo: bottom edge tucked under the GAME ON tag rather than
    trailing off in open space (Figma ref: Website page, "Desktop - 23",
-   node 130:2943, positioned relative to the polaroid, node 128:2895) */
+   node 130:2943, positioned relative to the polaroid, node 128:2895).
+   Asset is cropped tight to its visible content (no more transparent
+   padding) - a large negative top here previously pushed the element's
+   box high enough to overlap the "A few more" project cards above. */
 .about-skyline {
   position: absolute;
   left: 235px;
-  top: 0;
-  width: 1120px;
+  top: 118px;
+  width: 1121px;
   max-width: none;
 }
 
 .about-squiggle {
   position: absolute;
-  left: 12px;
+  left: -8px;
   top: 240px;
   width: 72px;
   height: auto;
