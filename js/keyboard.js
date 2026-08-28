@@ -56,6 +56,7 @@
     arrow_down_special_green: () => scrollToSection('work'),
     Space_DareToPlay: () => { window.location.href = 'playground.html'; },
     smiley_personal: () => triggerEscapeEffect(),
+    LOUD_MODE_capslock: () => triggerLoudMode(),
   };
 
   function scrollToSection(id) {
@@ -93,6 +94,61 @@
     }, ESCAPE_HOLD_MS + ESCAPE_SNAP_MS);
   }
 
+  // Caps Lock ("LOUD MODE") easter egg: a few lightning bolts pop up
+  // around the key itself (same trick as the duck's splash droplets)
+  // + the hero headline briefly bigger/bolder and shaking. Personality
+  // only, no nav action (per portfolio-brief.md). The bolts themselves
+  // are Figma's own art (Desktop - 30, the loose "Vector" shapes sitting
+  // left of the Caps Lock key, node ids 172:4314/4315/4316/4317) -
+  // exported straight from those layers, same as the duck's droplets.
+  const LOUD_MODE_MS = 500; // matches the loud-mode-shake keyframe duration in loud-mode.css
+  // left/top are % of the LOUD MODE key's own box (110x59), computed
+  // from each vector's Figma position minus the key's own Figma
+  // position - all negative/near-zero since the bolts sit to the key's
+  // left in the source file. width is % of the key's width, aspect is
+  // each SVG's own width/height so it doesn't get stretched.
+  const LOUD_MODE_BOLTS = [
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-top.svg', left: -59.75, top: -6.81, width: 54.5, aspect: 60 / 19 },
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-upper.svg', left: -9.75, top: -13.76, width: 35.5, aspect: 39 / 27 },
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-mid.svg', left: -23.49, top: 48.9, width: 28.2, aspect: 31 / 13 },
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-bottom.svg', left: -33.29, top: 74.6, width: 45.5, aspect: 50 / 40 },
+  ];
+  let loudModeAnimating = false;
+
+  function spawnLoudModeBolts(keyEl) {
+    keyEl.classList.add('has-loud-bolts');
+    let remaining = LOUD_MODE_BOLTS.length;
+    LOUD_MODE_BOLTS.forEach((b) => {
+      const bolt = document.createElement('img');
+      bolt.className = 'loud-mode-bolt';
+      bolt.src = b.src;
+      bolt.alt = '';
+      bolt.style.left = b.left + '%';
+      bolt.style.top = b.top + '%';
+      bolt.style.width = b.width + '%';
+      bolt.style.aspectRatio = b.aspect;
+      keyEl.appendChild(bolt);
+      bolt.addEventListener('animationend', () => {
+        bolt.remove();
+        remaining -= 1;
+        if (remaining === 0) keyEl.classList.remove('has-loud-bolts');
+      });
+    });
+  }
+
+  function triggerLoudMode() {
+    if (loudModeAnimating) return;
+    loudModeAnimating = true;
+    const keyEl = hotspotsByName['LOUD_MODE_capslock'];
+    const heading = document.querySelector('#hero h1');
+    if (keyEl) spawnLoudModeBolts(keyEl);
+    if (heading) heading.classList.add('loud-mode-shout');
+    setTimeout(() => {
+      if (heading) heading.classList.remove('loud-mode-shout');
+      loudModeAnimating = false;
+    }, LOUD_MODE_MS);
+  }
+
   // Keys whose icon "jumps" out of frame before the navigation action
   // fires, instead of navigating instantly. These also skip the
   // click-to-prime step below (see buildHotspot) - the slow, visible
@@ -108,7 +164,7 @@
   // above (their own slow animation is the "are you sure" beat) plus
   // the down-arrow scroll hint, which is low-stakes enough (just a
   // scroll, not a navigate-away) to not need a preview tap either.
-  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal']);
+  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal', 'LOUD_MODE_capslock']);
 
   const JUMP_DURATION_MS = 750; // matches the .is-jumping keyframe duration in keyboard.css
   // Scroll fires once the icon has visibly cleared the frame, rather
