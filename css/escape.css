@@ -1,0 +1,58 @@
+/* ============================================================
+   Escape key easter egg — the page pulls down like a phone's
+   pull-to-refresh, revealing a wink of text up top, then snaps
+   back. Not a real exit (docs/portfolio-brief.md).
+   ============================================================ */
+
+#page-content {
+  transition: transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#page-content.escape-pull {
+  transform: translateY(340px);
+}
+
+/* Snapping back is a quick, plain ease - the bounce already happened
+   on the way down (the cubic-bezier above overshoots slightly before
+   settling), so the release just needs to feel snappy, not springy
+   again. */
+#page-content.escape-snap {
+  transition: transform 200ms ease-in;
+}
+
+.escape-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.escape-overlay.is-visible {
+  opacity: 1;
+}
+
+.escape-wink {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-style: italic;
+  font-size: 34px;
+  color: var(--color-accent);
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .escape-wink {
+    font-size: 20px;
+    white-space: normal;
+  }
+}

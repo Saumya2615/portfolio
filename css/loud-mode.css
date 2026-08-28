@@ -1,0 +1,44 @@
+/* ============================================================
+   Caps Lock ("LOUD MODE") easter egg — personality only, no nav
+   action (per portfolio-brief.md). A few lightning bolts pop out
+   around the key itself (same trick as the duck's splash droplets)
+   while the hero headline briefly gets bigger/bolder + shakes, then
+   both settle back to normal. No off-brand red flash - bolts reuse
+   the site's own accent yellow + black outline.
+   ============================================================ */
+
+/* Bolts pop up past the key's top edge into the row above - bump the
+   hosting key above its neighbors while any are live, same reasoning
+   as .key-hotspot.has-eye-peek. */
+.key-hotspot.has-loud-bolts {
+  z-index: 7;
+}
+
+.loud-mode-bolt {
+  position: absolute;
+  pointer-events: none;
+  z-index: 7;
+  animation: loud-mode-bolt-pop 650ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes loud-mode-bolt-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  25% { transform: scale(1.1); opacity: 1; }
+  70% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.7); opacity: 0; }
+}
+
+#hero h1.loud-mode-shout {
+  font-weight: 700;
+  animation: loud-mode-shake 500ms ease-in-out;
+}
+
+@keyframes loud-mode-shake {
+  0% { transform: scale(1) translateX(0); }
+  15% { transform: scale(1.08) translateX(-6px); }
+  30% { transform: scale(1.08) translateX(6px); }
+  45% { transform: scale(1.08) translateX(-4px); }
+  60% { transform: scale(1.08) translateX(4px); }
+  75% { transform: scale(1.04) translateX(-2px); }
+  100% { transform: scale(1) translateX(0); }
+}

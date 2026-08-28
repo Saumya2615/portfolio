@@ -60,11 +60,20 @@
 }
 
 .footer-nav li {
+  font-size: var(--text-nav);
+  letter-spacing: var(--tracking-nav);
+}
+
+.footer-nav a {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  font-size: var(--text-nav);
-  letter-spacing: var(--tracking-nav);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  color: var(--color-accent);
 }
 
 .footer-nav kbd {

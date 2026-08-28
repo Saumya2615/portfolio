@@ -7,6 +7,11 @@
 #about {
   padding: var(--space-3xl);
   padding-top: var(--space-2xl);
+  /* .about-skyline is intentionally wider than its container and
+     bleeds past .about-visual's right edge (no clipping there, to
+     match main) - this catches that bleed at the section level so it
+     doesn't widen the whole page and cause horizontal scroll. */
+  overflow-x: hidden;
 }
 
 .about-body {
@@ -55,6 +60,7 @@
   flex: 1 1 auto;
   min-width: 400px;
   height: 495px;
+  overflow: hidden;
 }
 
 .polaroid-photo {

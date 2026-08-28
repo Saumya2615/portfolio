@@ -39,6 +39,367 @@
   display: block;
 }
 
+/* ============================================================
+   Key hotspots — Step 11
+   Wrapper matches the image's exact box so every hotspot's %
+   position (from data/keyboard-keys.json) lines up at any size.
+   ============================================================ */
+.keyboard-hotspot-layer {
+  position: relative;
+}
+
+.key-hotspot {
+  position: absolute;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Resting state is fully transparent; a short transition keeps the
+   press feel snappy rather than a slow fade (per Appendix A spec). */
+.key-hotspot.is-pressed {
+  background-color: #adadad;
+  mix-blend-mode: color-burn;
+  transition: background-color 100ms ease;
+}
+
+/* Special/colored keys (the ones with an icon) get their own pressed
+   treatment instead of the plain-key halftone burn — pulled from the
+   "Key Hover Interaction" component, Figma Page 1 section "Key Clicks"
+   (node 214:1382, "Property 1=Frame 427320836" variant). The inset
+   shadow lives on ::after (not the hotspot's own box-shadow) because
+   .key-icon is a real child painted above the hotspot's own box —
+   a box-shadow there would render underneath the icon and disappear. */
+.key-hotspot.is-colored.is-pressed {
+  background-color: var(--color-accent-yellow);
+  mix-blend-mode: normal;
+  border-radius: 8px;
+}
+
+.key-hotspot.is-colored.is-pressed::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  /* Inset box-shadow is clipped to the padding box, not the border
+     box - without this transparent border here, the shadow starts
+     right at the icon's outer edge and paints straight over its
+     black border pixels instead of staying inside them. */
+  border: 3px solid transparent;
+  box-shadow: inset -6px 6px 0 0 rgba(225, 113, 0, 0.5);
+  pointer-events: none;
+}
+
+.key-icon {
+  position: absolute;
+  /* Bleeds slightly past the hotspot's own box on the bottom/right -
+     the base keyboard illustration draws each keycap with a dark
+     bevel/shadow on those edges for 3D depth, sitting just outside
+     our hotspot's flat-top bounds. Without this the bevel peeks out
+     from behind the icon and reads as a stray drop-shadow. */
+  inset: 0 -3px -5px 0;
+  width: auto;
+  height: auto;
+  /* fill (not contain) - the hotspot box is sized to match this exact
+     key's position/aspect from Figma, so any letterboxing here would
+     just leave the noisy keyboard photo peeking through at the edges
+     instead of the icon's own clean border. */
+  object-fit: fill;
+  border-radius: 8px;
+  /* these are flat pixel-art exports (hard 1px-ish edges, no
+     anti-aliasing) - default browser scaling smooths/blurs them into
+     a grainy mess at non-integer sizes. Keep the crisp Figma look. */
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Colored/special keys (W, M, C, duck, etc.) are fully self-contained
+   art with their own border baked in - unlike the plain letter icons,
+   they don't need the bleed above to hide the base photo's keycap
+   bevel. Stretching them by that same asymmetric inset distorts their
+   corner radius just enough that our border-radius clip stops lining
+   up with the art's own rounded corner, leaking a white sliver of the
+   PNG's canvas at the edges. */
+.key-hotspot.is-colored .key-icon {
+  inset: 0;
+}
+
+.key-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: var(--color-text);
+  color: var(--color-bg);
+  padding: 4px 10px;
+  border-radius: var(--radius-key);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 5;
+}
+
+.key-hotspot.show-tooltip .key-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── W key (folder icon) — tactile pop/bounce ──
+   Opts out of the shared flat inset-shadow AND the shared yellow
+   press fill (below): the shadow is a static rect on ::after that
+   doesn't scale with the icon, and the yellow fill read as a stray
+   outline around the icon's edges. This key's own bounce/squash is
+   the entire pressed feedback. */
+.key-hotspot[data-name="W_key_special_folder_icon"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"].is-pressed::after {
+  display: none;
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"] .key-icon {
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"]:hover .key-icon {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"].is-pressed .key-icon {
+  transform: scale(0.9) rotate(2deg);
+  transition-duration: 80ms;
+}
+
+/* Click-to-navigate: the folder jumps up and out of frame, then
+   (per keyboard.js's short delay) the page scrolls to Work — instead
+   of an instant cut, the icon visibly "leaves" for the section it's
+   taking you to. */
+@keyframes folder-jump-out {
+  0% {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+  35% {
+    transform: scale(1.25) translateY(-14px) rotate(-8deg);
+  }
+  100% {
+    transform: scale(1.5) translateY(-40px) rotate(-10deg);
+  }
+}
+
+.key-hotspot[data-name="W_key_special_folder_icon"] .key-icon.is-jumping,
+.key-hotspot[data-name="M_key_special_hands_icon"] .key-icon.is-jumping,
+.key-hotspot[data-name="C_key_special_vectorized_icon"] .key-icon.is-jumping {
+  animation: folder-jump-out 750ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── M key (hands icon) — tactile pop/bounce ──
+   Same treatment as the W key: opts out of the shared press fill/
+   shadow, uses its own bounce as the pressed feedback, and jumps out
+   of frame before the page scrolls to About. */
+.key-hotspot[data-name="M_key_special_hands_icon"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="M_key_special_hands_icon"].is-pressed::after {
+  display: none;
+}
+
+.key-hotspot[data-name="M_key_special_hands_icon"] .key-icon {
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+.key-hotspot[data-name="M_key_special_hands_icon"]:hover .key-icon {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.key-hotspot[data-name="M_key_special_hands_icon"].is-pressed .key-icon {
+  transform: scale(0.9) rotate(2deg);
+  transition-duration: 80ms;
+}
+
+/* ── C key (vectorized icon) — tactile pop/bounce ──
+   Same treatment as W and M, jumping out of frame before the page
+   scrolls to Connect. */
+.key-hotspot[data-name="C_key_special_vectorized_icon"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="C_key_special_vectorized_icon"].is-pressed::after {
+  display: none;
+}
+
+.key-hotspot[data-name="C_key_special_vectorized_icon"] .key-icon {
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+}
+
+.key-hotspot[data-name="C_key_special_vectorized_icon"]:hover .key-icon {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.key-hotspot[data-name="C_key_special_vectorized_icon"].is-pressed .key-icon {
+  transform: scale(0.9) rotate(2deg);
+  transition-duration: 80ms;
+}
+
+/* ── Duck key — jump-out-of-frame sprite sequence ──
+   The animation is entirely sprite frames swapped by keyboard.js
+   (assets/images/keyboard-keys/duck-anim/), not a CSS transform, so
+   this key opts out of the shared press treatment same as the W key -
+   the frames already show the duck airborne with no border, since
+   it's genuinely left the keycap. */
+.key-hotspot[data-name="duck_hi"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="duck_hi"].is-pressed::after {
+  display: none;
+}
+
+/* Continuously-looping water backdrop (keyboard.js swaps its src
+   between the two wave-phase frames on an interval, independent of
+   the jump animation) - fixed to the key's own 63px box regardless of
+   how tall the duck layer on top of it gets while airborne. */
+.key-water-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Anchored to the bottom instead of stretched to fill (like every
+   other .key-icon) - each jump frame's source canvas is taller than
+   the key box by design (the duck rising above it), and object-fit
+   would otherwise squash that back down to the box's flat height. */
+.key-hotspot[data-name="duck_hi"] .key-icon {
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Sits above neighboring keys while airborne so the taller jump
+   frames don't render underneath the row above. */
+.key-hotspot[data-name="duck_hi"].is-jumping {
+  z-index: 4;
+}
+
+/* Splash droplets (Figma's own Vector 22/24/25 shapes, exported as
+   SVGs) - positioned exactly where Figma places them next to the
+   landing pose (left/top/width/height set inline by keyboard.js, in
+   % of the 202×63 key box). They don't move, same as in the source
+   file - they just pop in on impact and fade out after a beat. */
+@keyframes duck-droplet {
+  0% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(-16px); opacity: 0; }
+}
+
+.duck-droplet {
+  position: absolute;
+  pointer-events: none;
+  animation: duck-droplet 900ms ease-out forwards;
+}
+
+/* ── Eyes emoji key — spawns 2-3 peeking eyes on random plain keys ──
+   Personality-only, no nav action (per portfolio-brief.md). Reuses the
+   eyes_emoji key's own icon art (two eyes on a yellow keycap) rather
+   than a generic shape, so it reads as the same eyes showing up
+   elsewhere on the board. Wrapper handles the pop up/down, the icon
+   inside handles its own side-to-side wiggle - both animate `transform`
+   so they need separate elements rather than one animation each. */
+
+/* Opts out of the shared flat inset-shadow/yellow press fill same as
+   W/M/C/duck - the bevel read as the eyes "pressed in", which fights
+   the blink below. This key's own blink is the entire pressed
+   feedback on the key itself. */
+.key-hotspot[data-name="eyes_emoji"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="eyes_emoji"].is-pressed::after {
+  display: none;
+}
+
+/* Blink: the icon squashes flat (eyes closing) then springs back open
+   right as the peek-eyes pop up elsewhere - reads as "the key blinked
+   and its eyes escaped to the rest of the board". Driven by a JS-added
+   class (like .has-eye-peek) rather than :is-pressed/:active, so the
+   full blink always plays out even on a fast click/tap instead of
+   getting cut short the instant the pointer lifts. */
+.key-hotspot[data-name="eyes_emoji"] .key-icon {
+  transform-origin: center;
+}
+
+.key-hotspot[data-name="eyes_emoji"] .key-icon.is-blinking {
+  animation: eyes-key-blink 200ms ease-in-out;
+}
+
+@keyframes eyes-key-blink {
+  0% { transform: scaleY(1); }
+  40% { transform: scaleY(0.1); }
+  100% { transform: scaleY(1); }
+}
+/* Eyes pop up past their key's top edge into the row above - bump the
+   hosting key above its neighbors while an eye is live so it doesn't
+   render clipped underneath a later-painted key box. */
+.key-hotspot.has-eye-peek {
+  z-index: 6;
+}
+
+.eye-peek {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150%;
+  aspect-ratio: 131 / 63;
+  transform-origin: center bottom;
+  transform: translate(-50%, 55%) scaleY(0);
+  pointer-events: none;
+  z-index: 6;
+  animation: eye-pop 900ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes eye-pop {
+  0% { transform: translate(-50%, 60%) scaleY(0); opacity: 0; }
+  18% { transform: translate(-50%, 15%) scaleY(1); opacity: 1; }
+  82% { transform: translate(-50%, 15%) scaleY(1); opacity: 1; }
+  100% { transform: translate(-50%, 60%) scaleY(0); opacity: 0; }
+}
+
+.eye-peek-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: eye-peek-wiggle 900ms ease-in-out forwards;
+}
+
+@keyframes eye-peek-wiggle {
+  0%, 20% { transform: translateX(0); }
+  38% { transform: translateX(-8%); }
+  58% { transform: translateX(8%); }
+  76% { transform: translateX(-4%); }
+  88%, 100% { transform: translateX(0); }
+}
+
 /* ── Tablet ── */
 @media (max-width: 1024px) {
   #keyboard {

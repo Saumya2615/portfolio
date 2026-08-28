@@ -1,0 +1,1516 @@
+{
+  "keyboardBaseImage": {
+    "x": 53.9427490234375,
+    "y": 456.10833740234375,
+    "width": 1332,
+    "height": 484
+  },
+  "clickStateStyle": {
+    "backgroundColor": "#adadad",
+    "mixBlendMode": "color-burn",
+    "borderRadius": "8px"
+  },
+  "keys": [
+    {
+      "name": "f1",
+      "px": {
+        "x": 147,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 6.99,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f2",
+      "px": {
+        "x": 214,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 12.02,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f3",
+      "px": {
+        "x": 282,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 17.12,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f4",
+      "px": {
+        "x": 349,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 22.15,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f5",
+      "px": {
+        "x": 416,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 27.18,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f6",
+      "px": {
+        "x": 484,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 32.29,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f7",
+      "px": {
+        "x": 552,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 37.39,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f8",
+      "px": {
+        "x": 620,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 42.5,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f9",
+      "px": {
+        "x": 688,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 47.6,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f10",
+      "px": {
+        "x": 755,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 52.63,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f11",
+      "px": {
+        "x": 823,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 57.74,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f12",
+      "px": {
+        "x": 890,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 62.77,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "PrtSc",
+      "px": {
+        "x": 958,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 67.87,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Del",
+      "px": {
+        "x": 1026,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 72.98,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Home",
+      "px": {
+        "x": 1094,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 78.08,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "End",
+      "px": {
+        "x": 1162,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 83.19,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Pgup",
+      "px": {
+        "x": 1230,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 88.29,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Pgdn",
+      "px": {
+        "x": 1298,
+        "y": 511,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 93.4,
+        "top": 11.34,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "`",
+      "px": {
+        "x": 80,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 1.96,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "1",
+      "px": {
+        "x": 147,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 6.99,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "2",
+      "px": {
+        "x": 214,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 12.02,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "3",
+      "px": {
+        "x": 282,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 17.12,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "4",
+      "px": {
+        "x": 349,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 22.15,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "5",
+      "px": {
+        "x": 417,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 27.26,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "6",
+      "px": {
+        "x": 484,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 32.29,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "7",
+      "px": {
+        "x": 552,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 37.39,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "8",
+      "px": {
+        "x": 620,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 42.5,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "9",
+      "px": {
+        "x": 688,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 47.6,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "0",
+      "px": {
+        "x": 756,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 52.71,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "-",
+      "px": {
+        "x": 824,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 57.81,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "=",
+      "px": {
+        "x": 892,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 62.92,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "numlock",
+      "px": {
+        "x": 1094,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 78.08,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num/",
+      "px": {
+        "x": 1162,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 83.19,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num*",
+      "px": {
+        "x": 1230,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 88.29,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num-",
+      "px": {
+        "x": 1298,
+        "y": 577,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 93.4,
+        "top": 24.98,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "tab",
+      "px": {
+        "x": 80,
+        "y": 647,
+        "width": 99,
+        "height": 66
+      },
+      "percent": {
+        "left": 1.96,
+        "top": 39.44,
+        "width": 7.43,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "q",
+      "px": {
+        "x": 180,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 9.46,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "W_key_special_folder_icon",
+      "px": {
+        "x": 251,
+        "y": 648,
+        "width": 63.57,
+        "height": 63
+      },
+      "percent": {
+        "left": 14.79,
+        "top": 39.65,
+        "width": 4.77,
+        "height": 13.02
+      },
+      "tooltip": "→ my work",
+      "icon": "assets/images/keyboard-keys/w-folder.png"
+    },
+    {
+      "name": "e",
+      "px": {
+        "x": 315,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 19.6,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "r",
+      "px": {
+        "x": 382,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 24.63,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "t",
+      "px": {
+        "x": 450,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 29.73,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "y",
+      "px": {
+        "x": 518,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 34.84,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "u",
+      "px": {
+        "x": 586,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 39.94,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "i",
+      "px": {
+        "x": 654,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 45.05,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "o",
+      "px": {
+        "x": 722,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 50.15,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "p",
+      "px": {
+        "x": 789,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 55.18,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "[",
+      "px": {
+        "x": 859,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 60.44,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "]",
+      "px": {
+        "x": 927,
+        "y": 647,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 65.54,
+        "top": 39.44,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "\\",
+      "px": {
+        "x": 994,
+        "y": 647,
+        "width": 100,
+        "height": 66
+      },
+      "percent": {
+        "left": 70.57,
+        "top": 39.44,
+        "width": 7.51,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "a",
+      "px": {
+        "x": 197,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 10.74,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "s",
+      "px": {
+        "x": 264,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 15.77,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "d",
+      "px": {
+        "x": 331,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 20.8,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "f",
+      "px": {
+        "x": 399,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 25.91,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "g",
+      "px": {
+        "x": 467,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 31.01,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "h",
+      "px": {
+        "x": 535,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 36.12,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "j",
+      "px": {
+        "x": 603,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 41.22,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "k",
+      "px": {
+        "x": 671,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 46.33,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "l",
+      "px": {
+        "x": 739,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 51.43,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "'",
+      "px": {
+        "x": 874,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 61.57,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Enter",
+      "px": {
+        "x": 942,
+        "y": 714,
+        "width": 152,
+        "height": 66
+      },
+      "percent": {
+        "left": 66.67,
+        "top": 53.28,
+        "width": 11.41,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num4",
+      "px": {
+        "x": 1094,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 78.08,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num5",
+      "px": {
+        "x": 1162,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 83.19,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num6",
+      "px": {
+        "x": 1230,
+        "y": 714,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 88.29,
+        "top": 53.28,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Shift_left",
+      "px": {
+        "x": 80,
+        "y": 783,
+        "width": 148,
+        "height": 66
+      },
+      "percent": {
+        "left": 1.96,
+        "top": 67.54,
+        "width": 11.11,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "z",
+      "px": {
+        "x": 230,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 13.22,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "x",
+      "px": {
+        "x": 298,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 18.32,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "C_key_special_vectorized_icon",
+      "px": {
+        "x": 370,
+        "y": 785,
+        "width": 62.92,
+        "height": 62.35
+      },
+      "percent": {
+        "left": 23.73,
+        "top": 67.95,
+        "width": 4.72,
+        "height": 12.88
+      },
+      "tooltip": "→ say hi",
+      "icon": "assets/images/keyboard-keys/c-vectorized.svg"
+    },
+    {
+      "name": "v",
+      "px": {
+        "x": 434,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 28.53,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "b",
+      "px": {
+        "x": 502,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 33.64,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "n",
+      "px": {
+        "x": 570,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 38.74,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "M_key_special_hands_icon",
+      "px": {
+        "x": 641,
+        "y": 785,
+        "width": 62.92,
+        "height": 62.35
+      },
+      "percent": {
+        "left": 44.07,
+        "top": 67.95,
+        "width": 4.72,
+        "height": 12.88
+      },
+      "tooltip": "→ about me",
+      "icon": "assets/images/keyboard-keys/m-hands.png"
+    },
+    {
+      "name": ",",
+      "px": {
+        "x": 705,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 48.88,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": ".",
+      "px": {
+        "x": 772,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 53.91,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "/_or_shift_right_a",
+      "px": {
+        "x": 839,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 58.94,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Shift_right_b",
+      "px": {
+        "x": 907,
+        "y": 783,
+        "width": 121,
+        "height": 66
+      },
+      "percent": {
+        "left": 64.04,
+        "top": 67.54,
+        "width": 9.08,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num_up_8",
+      "px": {
+        "x": 1028,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 73.13,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num1_End",
+      "px": {
+        "x": 1094,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 78.08,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num2",
+      "px": {
+        "x": 1162,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 83.19,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num3",
+      "px": {
+        "x": 1230,
+        "y": 783,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 88.29,
+        "top": 67.54,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "ctrl_left",
+      "px": {
+        "x": 80,
+        "y": 851,
+        "width": 82,
+        "height": 66
+      },
+      "percent": {
+        "left": 1.96,
+        "top": 81.59,
+        "width": 6.16,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "win",
+      "px": {
+        "x": 163,
+        "y": 851,
+        "width": 82,
+        "height": 66
+      },
+      "percent": {
+        "left": 8.19,
+        "top": 81.59,
+        "width": 6.16,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "alt_left",
+      "px": {
+        "x": 246,
+        "y": 851,
+        "width": 82,
+        "height": 66
+      },
+      "percent": {
+        "left": 14.42,
+        "top": 81.59,
+        "width": 6.16,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "Space_DareToPlay",
+      "px": {
+        "x": 331,
+        "y": 854,
+        "width": 421,
+        "height": 63
+      },
+      "percent": {
+        "left": 20.8,
+        "top": 82.21,
+        "width": 31.61,
+        "height": 13.02
+      },
+      "tooltip": "dare to play →",
+      "icon": "assets/images/keyboard-keys/dare-to-play.png"
+    },
+    {
+      "name": "AltGr",
+      "px": {
+        "x": 756,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 52.71,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "fn",
+      "px": {
+        "x": 823,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 57.74,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "ctrl_right",
+      "px": {
+        "x": 891,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 62.84,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "arrow_left",
+      "px": {
+        "x": 958,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 67.87,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "arrow_down_special_green",
+      "px": {
+        "x": 1030,
+        "y": 854,
+        "width": 63.57,
+        "height": 63
+      },
+      "percent": {
+        "left": 73.28,
+        "top": 82.21,
+        "width": 4.77,
+        "height": 13.02
+      },
+      "tooltip": "psst, scroll down",
+      "icon": "assets/images/keyboard-keys/arrow-down-green.svg"
+    },
+    {
+      "name": "arrow_right",
+      "px": {
+        "x": 1095,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 78.16,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num0",
+      "px": {
+        "x": 1161,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 83.11,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num_dot",
+      "px": {
+        "x": 1228,
+        "y": 851,
+        "width": 67,
+        "height": 66
+      },
+      "percent": {
+        "left": 88.14,
+        "top": 81.59,
+        "width": 5.03,
+        "height": 13.64
+      }
+    },
+    {
+      "name": "num_plus",
+      "px": {
+        "x": 1295,
+        "y": 644,
+        "width": 69,
+        "height": 136
+      },
+      "percent": {
+        "left": 93.17,
+        "top": 38.82,
+        "width": 5.18,
+        "height": 28.1
+      }
+    },
+    {
+      "name": "num_enter",
+      "px": {
+        "x": 1295,
+        "y": 781,
+        "width": 69,
+        "height": 136
+      },
+      "percent": {
+        "left": 93.17,
+        "top": 67.13,
+        "width": 5.18,
+        "height": 28.1
+      }
+    },
+    {
+      "name": "smiley_personal",
+      "px": {
+        "x": 80,
+        "y": 513,
+        "width": 63.57,
+        "height": 63
+      },
+      "percent": {
+        "left": 1.96,
+        "top": 11.75,
+        "width": 4.77,
+        "height": 13.02
+      },
+      "tooltip": "hey, that's me :)",
+      "icon": "assets/images/keyboard-keys/smiley-personal.png"
+    },
+    {
+      "name": "eyes_emoji",
+      "px": {
+        "x": 960,
+        "y": 580,
+        "width": 131,
+        "height": 63
+      },
+      "percent": {
+        "left": 68.02,
+        "top": 25.6,
+        "width": 9.83,
+        "height": 13.02
+      },
+      "tooltip": "seen enough?",
+      "icon": "assets/images/keyboard-keys/eyes-emoji.svg"
+    },
+    {
+      "name": "duck_hi",
+      "px": {
+        "x": 1094,
+        "y": 647,
+        "width": 202,
+        "height": 63
+      },
+      "percent": {
+        "left": 78.08,
+        "top": 39.44,
+        "width": 15.17,
+        "height": 13.02
+      },
+      "tooltip": "hi! (yes, a duck)",
+      "icon": "assets/images/keyboard-keys/duck-anim/16.png",
+      "animFrames": [
+        "assets/images/keyboard-keys/duck-anim/19.png",
+        "assets/images/keyboard-keys/duck-anim/20.png",
+        "assets/images/keyboard-keys/duck-anim/21.png",
+        "assets/images/keyboard-keys/duck-anim/16.png",
+        "assets/images/keyboard-keys/duck-anim/17.png"
+      ],
+      "waterFrames": [
+        "assets/images/keyboard-keys/duck-anim/water/22.png",
+        "assets/images/keyboard-keys/duck-anim/water/23.png"
+      ]
+    },
+    {
+      "name": "R_key_special_resume_icon",
+      "px": {
+        "x": 810,
+        "y": 717,
+        "width": 63.57,
+        "height": 63
+      },
+      "percent": {
+        "left": 56.76,
+        "top": 53.9,
+        "width": 4.77,
+        "height": 13.02
+      },
+      "tooltip": "→ my resume",
+      "icon": "assets/images/keyboard-keys/r-resume.png"
+    },
+    {
+      "name": "LOUD_MODE_capslock",
+      "px": {
+        "x": 81,
+        "y": 717,
+        "width": 110,
+        "height": 59
+      },
+      "percent": {
+        "left": 2.03,
+        "top": 53.9,
+        "width": 8.26,
+        "height": 12.19
+      },
+      "tooltip": "loud mode: personality, unfiltered",
+      "icon": "assets/images/keyboard-keys/loud-mode-capslock.png"
+    }
+  ]
+}
