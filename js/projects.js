@@ -7,6 +7,7 @@ async function loadProjects() {
 
   renderMainProjects(data.main);
   renderSecondaryProjects(data.secondary);
+  window.dispatchEvent(new Event('projects:rendered'));
 }
 
 function renderMainProjects(projects) {

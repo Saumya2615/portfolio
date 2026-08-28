@@ -106,5 +106,9 @@
 
   window.addEventListener('resize', onResize);
   window.addEventListener('load', measure);
+  // projects.js renders the project grids asynchronously (fetch), which can
+  // grow the page and shift #about's offset *after* our initial measure().
+  // Re-measure once that render lands so cached positions aren't stale.
+  window.addEventListener('projects:rendered', measure);
   measure();
 })();
