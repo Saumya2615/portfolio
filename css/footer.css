@@ -6,7 +6,7 @@
 
 #connect {
   background: var(--color-footer-bg);
-  padding: var(--space-3xl);
+  padding: var(--space-3xl) var(--space-3xl) 22px;
   position: relative;
   overflow: hidden;
 }
@@ -23,6 +23,7 @@
 .footer-tab--3 { left: 1063px; }
 .footer-tab--4 { left: 1230px; }
 .footer-tab--5 { left: 1313px; }
+.footer-tab--6 { left: 1313px; top: 16px; }
 
 .footer-inner {
   max-width: 1312px;
