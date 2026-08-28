@@ -326,6 +326,38 @@
    elsewhere on the board. Wrapper handles the pop up/down, the icon
    inside handles its own side-to-side wiggle - both animate `transform`
    so they need separate elements rather than one animation each. */
+
+/* Opts out of the shared flat inset-shadow/yellow press fill same as
+   W/M/C/duck - the bevel read as the eyes "pressed in", which fights
+   the blink below. This key's own blink is the entire pressed
+   feedback on the key itself. */
+.key-hotspot[data-name="eyes_emoji"].is-pressed {
+  background-color: transparent;
+}
+
+.key-hotspot[data-name="eyes_emoji"].is-pressed::after {
+  display: none;
+}
+
+/* Blink: the icon squashes flat (eyes closing) then springs back open
+   right as the peek-eyes pop up elsewhere - reads as "the key blinked
+   and its eyes escaped to the rest of the board". Driven by a JS-added
+   class (like .has-eye-peek) rather than :is-pressed/:active, so the
+   full blink always plays out even on a fast click/tap instead of
+   getting cut short the instant the pointer lifts. */
+.key-hotspot[data-name="eyes_emoji"] .key-icon {
+  transform-origin: center;
+}
+
+.key-hotspot[data-name="eyes_emoji"] .key-icon.is-blinking {
+  animation: eyes-key-blink 200ms ease-in-out;
+}
+
+@keyframes eyes-key-blink {
+  0% { transform: scaleY(1); }
+  40% { transform: scaleY(0.1); }
+  100% { transform: scaleY(1); }
+}
 /* Eyes pop up past their key's top edge into the row above - bump the
    hosting key above its neighbors while an eye is live so it doesn't
    render clipped underneath a later-painted key box. */

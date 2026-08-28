@@ -295,6 +295,20 @@
     });
   }
 
+  // Blink feedback on the eyes key itself, replacing the shared
+  // inset-shadow "pressed" bevel (opted out of in keyboard.css) - the
+  // icon squashes shut and springs back open via the .is-blinking
+  // class rather than :is-pressed, so it always plays in full even on
+  // a fast click instead of getting cut off the instant the pointer lifts.
+  function triggerEyesKeyBlink(keyEl) {
+    const icon = keyEl.querySelector('.key-icon');
+    if (!icon) return;
+    icon.classList.remove('is-blinking');
+    void icon.offsetWidth; // restart the animation on rapid re-clicks
+    icon.classList.add('is-blinking');
+    icon.addEventListener('animationend', () => icon.classList.remove('is-blinking'), { once: true });
+  }
+
   let hotspotsByName = {};
   let primedName = null;
   let primedTimer = null;
@@ -384,9 +398,12 @@
       el.addEventListener('click', () => playDuckAnimation(key, el));
     }
 
-    // Eyes emoji: no navigation action, just the multi-eye peek.
+    // Eyes emoji: no navigation action, just the blink + multi-eye peek.
     if (key.name === 'eyes_emoji') {
-      el.addEventListener('click', triggerEyesPeek);
+      el.addEventListener('click', () => {
+        triggerEyesKeyBlink(el);
+        triggerEyesPeek();
+      });
     }
 
     // Click: jump-navigate keys (W/M/C) go straight to their slow,
