@@ -48,6 +48,33 @@
   position: relative;
 }
 
+/* Decorative flourishes pulled straight from Figma (Desktop - 30, node
+   172:4306 and 172:4286) - positioned as % of the keyboard image's own
+   box, same convention as the key icons, so they track its size at any
+   viewport. Both bleed slightly past the image's own edges by design
+   (the flourish points up at the caption, the sparkle bleeds off the
+   frame's right edge) - safe because the page has overflow-x: hidden. */
+.keyboard-caption-flourish,
+.keyboard-sparkle {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.keyboard-caption-flourish {
+  left: -2.1%;
+  top: -3.7%;
+  width: 4.2%;
+  height: 8.7%;
+}
+
+.keyboard-sparkle {
+  left: 105.7%;
+  top: 10.6%;
+  width: 16.1%;
+  height: 45.6%;
+}
+
 .key-hotspot {
   position: absolute;
   border-radius: 8px;
@@ -68,28 +95,11 @@
 /* Special/colored keys (the ones with an icon) get their own pressed
    treatment instead of the plain-key halftone burn — pulled from the
    "Key Hover Interaction" component, Figma Page 1 section "Key Clicks"
-   (node 214:1382, "Property 1=Frame 427320836" variant). The inset
-   shadow lives on ::after (not the hotspot's own box-shadow) because
-   .key-icon is a real child painted above the hotspot's own box —
-   a box-shadow there would render underneath the icon and disappear. */
+   (node 214:1382, "Property 1=Frame 427320836" variant). */
 .key-hotspot.is-colored.is-pressed {
   background-color: var(--color-accent-yellow);
   mix-blend-mode: normal;
   border-radius: 8px;
-}
-
-.key-hotspot.is-colored.is-pressed::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 8px;
-  /* Inset box-shadow is clipped to the padding box, not the border
-     box - without this transparent border here, the shadow starts
-     right at the icon's outer edge and paints straight over its
-     black border pixels instead of staying inside them. */
-  border: 3px solid transparent;
-  box-shadow: inset -6px 6px 0 0 rgba(225, 113, 0, 0.5);
-  pointer-events: none;
 }
 
 .key-icon {
@@ -152,17 +162,11 @@
 }
 
 /* ── W key (folder icon) — tactile pop/bounce ──
-   Opts out of the shared flat inset-shadow AND the shared yellow
-   press fill (below): the shadow is a static rect on ::after that
-   doesn't scale with the icon, and the yellow fill read as a stray
-   outline around the icon's edges. This key's own bounce/squash is
-   the entire pressed feedback. */
+   Opts out of the shared yellow press fill (below) - it read as a
+   stray outline around the icon's edges. This key's own bounce/squash
+   is the entire pressed feedback. */
 .key-hotspot[data-name="W_key_special_folder_icon"].is-pressed {
   background-color: transparent;
-}
-
-.key-hotspot[data-name="W_key_special_folder_icon"].is-pressed::after {
-  display: none;
 }
 
 .key-hotspot[data-name="W_key_special_folder_icon"] .key-icon {
@@ -202,15 +206,11 @@
 }
 
 /* ── M key (hands icon) — tactile pop/bounce ──
-   Same treatment as the W key: opts out of the shared press fill/
-   shadow, uses its own bounce as the pressed feedback, and jumps out
-   of frame before the page scrolls to About. */
+   Same treatment as the W key: opts out of the shared press fill,
+   uses its own bounce as the pressed feedback, and jumps out of frame
+   before the page scrolls to About. */
 .key-hotspot[data-name="M_key_special_hands_icon"].is-pressed {
   background-color: transparent;
-}
-
-.key-hotspot[data-name="M_key_special_hands_icon"].is-pressed::after {
-  display: none;
 }
 
 .key-hotspot[data-name="M_key_special_hands_icon"] .key-icon {
@@ -232,10 +232,6 @@
    scrolls to Connect. */
 .key-hotspot[data-name="C_key_special_vectorized_icon"].is-pressed {
   background-color: transparent;
-}
-
-.key-hotspot[data-name="C_key_special_vectorized_icon"].is-pressed::after {
-  display: none;
 }
 
 .key-hotspot[data-name="C_key_special_vectorized_icon"] .key-icon {
@@ -260,10 +256,6 @@
    it's genuinely left the keycap. */
 .key-hotspot[data-name="duck_hi"].is-pressed {
   background-color: transparent;
-}
-
-.key-hotspot[data-name="duck_hi"].is-pressed::after {
-  display: none;
 }
 
 /* Continuously-looping water backdrop (keyboard.js swaps its src
@@ -327,16 +319,11 @@
    inside handles its own side-to-side wiggle - both animate `transform`
    so they need separate elements rather than one animation each. */
 
-/* Opts out of the shared flat inset-shadow/yellow press fill same as
-   W/M/C/duck - the bevel read as the eyes "pressed in", which fights
-   the blink below. This key's own blink is the entire pressed
+/* Opts out of the shared yellow press fill same as W/M/C/duck - it
+   fought the blink below. This key's own blink is the entire pressed
    feedback on the key itself. */
 .key-hotspot[data-name="eyes_emoji"].is-pressed {
   background-color: transparent;
-}
-
-.key-hotspot[data-name="eyes_emoji"].is-pressed::after {
-  display: none;
 }
 
 /* Blink: the icon squashes flat (eyes closing) then springs back open
@@ -418,5 +405,10 @@
   .keyboard-caption {
     margin-left: 0;
     max-width: none;
+  }
+
+  .keyboard-caption-flourish,
+  .keyboard-sparkle {
+    display: none;
   }
 }
