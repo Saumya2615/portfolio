@@ -1262,7 +1262,7 @@
         "height": 13.02
       },
       "tooltip": "dare to play →",
-      "icon": "assets/images/keyboard-keys/dare-to-play.png"
+      "icon": "assets/images/keyboard-keys/dare-to-play.svg"
     },
     {
       "name": "AltGr",
@@ -1431,7 +1431,7 @@
         "height": 13.02
       },
       "tooltip": "hey, that's me :)",
-      "icon": "assets/images/keyboard-keys/smiley-personal.png"
+      "icon": "assets/images/keyboard-keys/smiley-personal.svg"
     },
     {
       "name": "eyes_emoji",
@@ -1510,7 +1510,7 @@
         "height": 12.19
       },
       "tooltip": "loud mode: personality, unfiltered",
-      "icon": "assets/images/keyboard-keys/loud-mode-capslock.png"
+      "icon": "assets/images/keyboard-keys/loud-mode-capslock.svg"
     }
   ]
 }
