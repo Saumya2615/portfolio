@@ -50,3 +50,58 @@
   width: 100%;
   height: auto;
 }
+
+.case-study-inline-link {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-body);
+  letter-spacing: var(--tracking-body);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  padding-left: var(--space-3xl);
+  padding-right: var(--space-3xl);
+}
+
+.case-study-inline-link a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .case-study-inline-link {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
+
+.case-study-link-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-body);
+  letter-spacing: var(--tracking-body);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+  padding-left: var(--space-3xl);
+  padding-right: var(--space-3xl);
+}
+
+.case-study-link-row a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.case-study-link-row__center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+  .case-study-link-row {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+}
