@@ -35,20 +35,20 @@
   ],
   "secondary": [
     {
-      "id": "secondary-1",
-      "title": "",
+      "id": "cell-wars",
+      "title": "Cell Wars",
       "description": "",
       "tags": [],
       "image": "",
-      "link": "project/secondary-1"
+      "link": "project/cell-wars"
     },
     {
-      "id": "secondary-2",
-      "title": "",
+      "id": "hyperlocal-delivery-men",
+      "title": "Hyperlocal Delivery Men",
       "description": "",
       "tags": [],
       "image": "",
-      "link": "project/secondary-2"
+      "link": "project/hyperlocal-delivery-men"
     },
     {
       "id": "secondary-3",
