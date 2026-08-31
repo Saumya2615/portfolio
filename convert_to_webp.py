@@ -5,15 +5,21 @@ Usage:
     python convert_to_webp.py <input_folder> <output_folder> [quality]
 
 - Converts .png, .jpg, .jpeg files to .webp
-- Skips video/audio/other files (only touches image files)
-- Preserves original filenames (just swaps the extension)
+- Copies everything else (gifs, videos, audio, etc.) into the output
+  folder unchanged, filename and all — so the output folder ends up
+  with everything you need in one place
+- Preserves original filenames (just swaps the extension for images)
 - Leaves your original folder completely untouched — writes to a separate output folder
 - Default quality is 80 (good balance of size vs. quality); pass a number 1-100 to override
 """
 
 import sys
 import os
+import shutil
 from pathlib import Path
+
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
 
 try:
     from PIL import Image
@@ -23,7 +29,6 @@ except ImportError:
     sys.exit(1)
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
-SKIP_EXTENSIONS = {".mp4", ".mov", ".webm", ".mp3", ".wav", ".m4a", ".avi", ".mkv"}
 
 
 def convert_folder(input_folder, output_folder, quality=80):
@@ -37,7 +42,7 @@ def convert_folder(input_folder, output_folder, quality=80):
     output_path.mkdir(parents=True, exist_ok=True)
 
     converted = []
-    skipped = []
+    copied = []
 
     for file in sorted(input_path.iterdir()):
         if file.is_dir():
@@ -56,10 +61,10 @@ def convert_folder(input_folder, output_folder, quality=80):
                 converted.append((file.name, out_file.name, file.stat().st_size, out_file.stat().st_size))
             except Exception as e:
                 print(f"  ⚠ Failed to convert {file.name}: {e}")
-        elif ext in SKIP_EXTENSIONS:
-            skipped.append(file.name)
         else:
-            skipped.append(file.name)
+            out_file = output_path / file.name
+            shutil.copy2(file, out_file)
+            copied.append(file.name)
 
     print(f"\n✅ Converted {len(converted)} image(s):")
     total_before, total_after = 0, 0
@@ -72,12 +77,12 @@ def convert_folder(input_folder, output_folder, quality=80):
         saved_pct = (1 - total_after / total_before) * 100 if total_before else 0
         print(f"\n   Total: {total_before/1024:.0f}KB → {total_after/1024:.0f}KB  ({saved_pct:.0f}% smaller)")
 
-    if skipped:
-        print(f"\n⏭  Skipped {len(skipped)} non-image file(s) (left untouched, not copied):")
-        for f in skipped:
+    if copied:
+        print(f"\n📋 Copied {len(copied)} non-image file(s) as-is:")
+        for f in copied:
             print(f"   {f}")
 
-    print(f"\nDone. Converted files are in: {output_path.resolve()}")
+    print(f"\nDone. Output is in: {output_path.resolve()}")
 
 
 if __name__ == "__main__":
