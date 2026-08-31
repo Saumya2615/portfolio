@@ -15,7 +15,7 @@ function renderMainProjects(projects) {
   if (!grid) return;
 
   grid.innerHTML = projects.map(p => `
-    <a class="project-card-link" href="${p.link || 'project.html'}" data-id="${p.id}">
+    <a class="project-card-link" href="${p.link || 'project/'}" data-id="${p.id}">
       <article class="project-card project-card--main">
         <div class="project-card__image">
           ${p.image
@@ -40,7 +40,7 @@ function renderSecondaryProjects(projects) {
   if (!grid) return;
 
   grid.innerHTML = projects.map(p => `
-    <a class="project-card-link" href="${p.link || 'project.html'}" data-id="${p.id}">
+    <a class="project-card-link" href="${p.link || 'project/'}" data-id="${p.id}">
       <article class="project-card project-card--secondary">
         <div class="project-card__image">
           ${p.image
