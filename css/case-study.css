@@ -39,3 +39,14 @@
     padding-right: var(--space-lg);
   }
 }
+
+.case-study-images {
+  display: flex;
+  flex-direction: column;
+}
+
+.case-study-images img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
