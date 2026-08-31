@@ -52,10 +52,10 @@
 }
 
 .case-study-inline-link {
-  font-family: var(--font-body);
+  background-color: #fcfbfe;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  font-size: var(--text-body);
-  letter-spacing: var(--tracking-body);
+  font-size: 20px;
   padding-top: var(--space-lg);
   padding-bottom: var(--space-lg);
   padding-left: var(--space-3xl);
@@ -63,7 +63,7 @@
 }
 
 .case-study-inline-link a {
-  color: var(--color-accent);
+  color: #9e79f6;
   text-decoration: underline;
 }
 
@@ -78,10 +78,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  font-family: var(--font-body);
+  background-color: #fcfbfe;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  font-size: var(--text-body);
-  letter-spacing: var(--tracking-body);
+  font-size: 20px;
   padding-top: var(--space-lg);
   padding-bottom: var(--space-lg);
   padding-left: var(--space-3xl);
@@ -89,7 +89,7 @@
 }
 
 .case-study-link-row a {
-  color: var(--color-accent);
+  color: #9e79f6;
   text-decoration: underline;
 }
 
