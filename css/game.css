@@ -265,7 +265,9 @@
 .result-flash {
   position: absolute;
   left: 50%;
-  top: 45%;
+  /* Sits in the white space above the keyboard (which starts ~46% down)
+     and below .streak-pulse (20%), so both can show at once. */
+  top: 32%;
   transform: translate(-50%, -50%) scale(0.8);
   font-family: var(--font-pixel);
   font-size: clamp(16px, 3vw, 36px);
