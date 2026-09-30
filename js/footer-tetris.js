@@ -21,12 +21,18 @@
   let active = false;
   let rafId = null;
 
+  // Each dot's home in the About markup, so reset() can put it back.
+  const homes = flyDots.map(el => ({ parent: el.parentNode, next: el.nextSibling }));
+
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
   function reset() {
-    flyDots.forEach(el => {
+    flyDots.forEach((el, i) => {
+      if (el.parentNode === document.body) {
+        homes[i].parent.insertBefore(el, homes[i].next);
+      }
       el.style.position = '';
       el.style.left = '';
       el.style.top = '';
@@ -56,10 +62,15 @@
       };
     });
 
+    // Absolute in page coordinates on <body> (not position: fixed with a
+    // per-frame scrollY correction), so the dots scroll natively with the
+    // page instead of lagging a frame behind it and flickering. Moved out
+    // of #about since its overflow-x: hidden would clip the fall.
     flyDots.forEach(el => {
-      el.style.position = 'fixed';
+      document.body.appendChild(el);
+      el.style.position = 'absolute';
       el.style.margin = '0';
-      el.style.zIndex = '500';
+      el.style.zIndex = '50'; // above content, below the fixed nav (100)
       el.style.pointerEvents = 'none';
     });
 
@@ -71,6 +82,9 @@
     pairs.forEach(p => {
       p.currentX = p.originX;
       p.currentY = p.originY;
+      // Place immediately so there's no frame at the raw CSS offsets
+      p.el.style.left = p.currentX + 'px';
+      p.el.style.top = p.currentY + 'px';
     });
 
     if (rafId === null) rafId = requestAnimationFrame(tick);
@@ -92,7 +106,7 @@
       p.currentY += (targetPageY - p.currentY) * SMOOTHING;
 
       p.el.style.left = p.currentX + 'px';
-      p.el.style.top = (p.currentY - scrollY) + 'px';
+      p.el.style.top = p.currentY + 'px';
     });
 
     rafId = requestAnimationFrame(tick);
