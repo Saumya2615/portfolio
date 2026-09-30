@@ -54,12 +54,13 @@ function renderSecondaryProjects(projects) {
             : '<div class="project-card__image-placeholder"></div>'
           }
         </div>
+        ${p.tags.length ? `
+        <ul class="project-card__tags">
+          ${p.tags.map(tag => `<li class="tag">${tag}</li>`).join('')}
+        </ul>` : ''}
         <div class="project-card__info">
           <h3 class="project-card__title">${p.title || '[Project title]'}</h3>
           <p class="project-card__description">${p.description || ''}</p>
-          <ul class="project-card__tags">
-            ${p.tags.map(tag => `<li class="tag">${tag}</li>`).join('')}
-          </ul>
         </div>
       </article>
     </a>

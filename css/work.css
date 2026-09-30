@@ -293,37 +293,115 @@
   left: 250px; top: 8.7%; background: var(--color-accent-yellow);
 }
 
+/* ── "A few more >>" — Figma: header 172:4489, grid 172:4499, keycaps
+   172:4492, bolts 172:4495/4496, squares 172:4497/4498. Same keyboard-
+   edge alignment as My Works; spacing is 0.8x Figma like the rows above. */
+#more-work {
+  padding-top: 141px; /* + #work's 64px bottom = Figma's 256px, x0.8 */
+  padding-left: var(--keyboard-margin-x);
+  padding-right: var(--keyboard-margin-x);
+}
+
+#more-work .section-header,
+#secondary-projects-grid {
+  max-width: 1284px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc(min(100%, 1284px) * 0.0075);
+  padding-right: calc(min(100%, 1284px) * 0.0075);
+}
+
+.more-header {
+  margin-bottom: 105px; /* Figma 131px header-to-grid, x0.8 */
+}
+
+.more-header p {
+  color: var(--color-text);
+}
+
+/* Decorations: offsets are Figma's, measured from the content edges
+   (right-side pieces from the right edge so they track the keyboard's) */
+.more-header__keys,
+.more-header__bolt,
+.more-header__dot {
+  position: absolute;
+  pointer-events: none;
+}
+
+.more-header__keys {
+  /* Pre-rendered halftone of Figma's shader-halftoned keycaps
+     (2x of its 360x276 box); multiply drops the white backdrop */
+  right: calc(104px + 0.75%);
+  top: -41px;
+  width: 360px;
+  height: 276px;
+  mix-blend-mode: multiply;
+}
+
+.more-header__bolt--large {
+  right: calc(28px + 0.75%);
+  top: -40px;
+  width: 41px;
+  height: 89px;
+}
+
+.more-header__bolt--small {
+  right: calc(43px + 0.75%);
+  top: 45px;
+  width: 23px;
+  height: 50px;
+}
+
+.more-header__dot--1 {
+  right: calc(500px + 0.75%);
+  top: 74px;
+}
+
+.more-header__dot--2 {
+  left: calc(131px + 0.75%);
+  top: 150px;
+}
+
 /* ── Secondary project cards (2x2 grid) ──
-   Explicit sizing per Saumya: whole card ~516x319 (down from the
-   Figma-native 646x399). */
+   Figma: 646x399 cards filling the row edge to edge, 20px column gap,
+   48px row gap. Peach image area over a 91px white caption panel,
+   tag pill pinned top-right. */
 #secondary-projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  max-width: 1080px; /* 516 + 516 + gap, so columns land at 516px on wide screens */
-  margin: 0 auto;
-  gap: var(--space-xl);
+  gap: 48px 20px;
 }
 
 .project-card--secondary {
-  width: 100%;
-  max-width: 516px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   border: var(--border-thin) solid var(--color-border);
   border-radius: var(--radius-card-sm);
   overflow: hidden;
-  background: var(--color-bg);
+  background: var(--color-card-secondary);
 }
 
 .project-card--secondary .project-card__image {
   width: 100%;
-  aspect-ratio: 516 / 290;
+  aspect-ratio: 646 / 308; /* Figma 399px card minus the 91px panel */
   background: var(--color-card-secondary);
 }
 
+.project-card--secondary .project-card__tags {
+  position: absolute;
+  top: 23px;
+  right: 32px;
+}
+
 .project-card--secondary .project-card__info {
-  padding: var(--space-md) var(--space-lg);
+  flex: 1;
+  min-height: 91px;
+  padding: 13px 22px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  background: var(--color-bg);
 }
 
 .project-card--secondary .project-card__title {
@@ -382,9 +460,19 @@
   }
 }
 
+/* Keycaps/bolts/squares need ~960px beside the subtitle */
+@media (max-width: 960px) {
+  .more-header__keys,
+  .more-header__bolt,
+  .more-header__dot {
+    display: none;
+  }
+}
+
 /* ── Tablet ── matches #keyboard's side padding */
 @media (max-width: 1024px) {
-  #work {
+  #work,
+  #more-work {
     padding-left: var(--space-xl);
     padding-right: var(--space-xl);
   }
@@ -438,9 +526,14 @@
 
   #secondary-projects-grid {
     grid-template-columns: 1fr;
+    row-gap: var(--space-xl);
   }
 
-  .project-card--secondary {
-    max-width: none;
+  #more-work {
+    padding-top: var(--space-xl);
+  }
+
+  .more-header {
+    margin-bottom: var(--space-xl);
   }
 }
