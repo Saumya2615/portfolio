@@ -41,6 +41,7 @@
     Numpad0: 'num0', NumpadDecimal: 'num_dot', NumpadAdd: 'num_plus',
     NumpadEnter: 'num_enter', Semicolon: 'R_key_special_resume_icon',
     CapsLock: 'LOUD_MODE_capslock', Escape: 'smiley_personal',
+    Backspace: 'eyes_emoji',
   };
 
   // Physical keys we deliberately never touch — native browser/scroll
@@ -449,6 +450,13 @@
     if (el) el.classList.add('is-pressed');
 
     if (NATIVE_ONLY.has(e.code)) return; // native scroll, no override
+
+    // Eyes key sits where Backspace would: same blink + peek as a click.
+    if (name === 'eyes_emoji' && el) {
+      triggerEyesKeyBlink(el);
+      triggerEyesPeek();
+      return;
+    }
 
     const action = ACTIONS[name];
     if (action && !e.ctrlKey && !e.metaKey && !e.altKey) {
