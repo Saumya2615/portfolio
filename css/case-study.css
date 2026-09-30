@@ -120,3 +120,47 @@
   height: 100%;
   border: 0;
 }
+
+/* ============================================================
+   Case study pages: the top nav becomes a slim fixed left sidebar
+   holding just the "Saumya :)" wordmark, set vertically so the bar
+   stays narrow. Case study content fills the width beside it
+   (images are width: 100%, so they resize to the remaining space).
+   Phones keep the top bar - a sidebar would eat too much width.
+   ============================================================ */
+.case-study-page {
+  --sidebar-width: 64px;
+}
+
+@media (min-width: 769px) {
+  .case-study-page #nav {
+    right: auto;
+    bottom: 0;
+    width: var(--sidebar-width);
+    border-right: var(--border-thin) solid var(--color-border-muted);
+  }
+
+  .case-study-page #nav nav {
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: var(--space-xl) 0;
+  }
+
+  .case-study-page .nav-logo {
+    writing-mode: vertical-rl; /* reads top to bottom */
+    white-space: nowrap;
+  }
+
+  .case-study-page main {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Top bar: push content below it instead of letting it cover image 1 */
+  .case-study-page main {
+    padding-top: 62px; /* top bar height on phones */
+  }
+}
