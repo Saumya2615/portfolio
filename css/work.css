@@ -133,11 +133,21 @@
   border-color: var(--color-border-muted);
 }
 
-.project-card--main .project-card__image {
+/* Media box = sizing + the eyes' positioning context. The eyes sit
+   outside .project-card__image, which clips its cover image. */
+.project-card--main .project-card__media {
   order: 2;
   flex: 0 1 783px;
   min-width: 0;
   aspect-ratio: 783 / 483; /* shrinks proportionally below ~1244px viewports */
+  position: relative;
+}
+
+.project-card--main .project-card__image {
+  position: relative;
+  z-index: 1; /* in front of the eyes, which hide behind its top edge */
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius-card-lg);
   border: var(--border-base) solid var(--color-border-muted);
   overflow: hidden;
@@ -178,6 +188,82 @@
 
 .project-card-link:hover .project-card--main .project-card__image {
   border-color: var(--color-border);
+}
+
+/* ── Hover: eyes peek over the card's top edge, then glance around ──
+   Figma's eyes (image 111, 119x33) at 0.8x, 40% across the card.
+   Resting fully hidden behind the card; mouse/trackpad only, with a
+   short delay so scrolling past a card under the cursor doesn't
+   trigger it. */
+.project-card__eyes {
+  position: absolute;
+  z-index: 0;
+  left: 40%;
+  top: 4px;
+  width: 95px;
+  height: 26px;
+  pointer-events: none;
+  transition: translate 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card-link:hover .project-card__eyes {
+    translate: 0 -75%; /* bottom quarter stays tucked behind the card */
+    transition-delay: 80ms;
+    animation: eyes-glance 1.4s ease-in-out 400ms;
+  }
+}
+
+@keyframes eyes-glance {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  60% { transform: translateX(8px); }
+}
+
+/* ── "↵ open" keycap that follows the cursor (js/projects.js) ──
+   Keycap look matches the footer's kbd keys, with a deeper bottom
+   edge so it reads as a key you can press. */
+.open-keycap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  background: var(--color-bg);
+  border: var(--border-thin) solid var(--color-border);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: var(--text-key);
+  letter-spacing: var(--tracking-key);
+  color: var(--color-text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.open-keycap kbd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-key);
+  background: var(--color-accent-yellow);
+  font-family: var(--font-body);
+  font-size: var(--text-key);
+}
+
+.open-keycap.is-visible {
+  opacity: 1;
+}
+
+.open-keycap.is-pressed {
+  border-bottom-width: 1px;
+  margin-top: 2px;
 }
 
 /* Scattered squares between/around rows (172:4488, 4472, 4487, 4471),
@@ -287,6 +373,15 @@
   margin: 0;
 }
 
+/* Row squares in the text column are placed as a % of row height; once
+   the image shrinks, the rows get shorter and they'd land on the copy */
+@media (max-width: 1200px) {
+  .project-card-link:nth-child(3) .project-card--main::after,
+  .project-card-link:nth-child(4) .project-card--main::after {
+    display: none;
+  }
+}
+
 /* ── Tablet ── matches #keyboard's side padding */
 @media (max-width: 1024px) {
   #work {
@@ -335,12 +430,10 @@
     margin: 0;
   }
 
-  .project-card--main .project-card__image {
+  .project-card--main .project-card__media {
     order: 1;
     flex: none;
     width: 100%;
-    height: auto;
-    aspect-ratio: 783 / 483;
   }
 
   #secondary-projects-grid {
