@@ -28,7 +28,7 @@
    from the image's left edge (Figma: caption x:83.4 vs image x:53.9) */
 .keyboard-caption {
   margin-left: 29px;
-  max-width: 200px;
+  max-width: 250px;
 }
 
 .keyboard-image {
