@@ -305,6 +305,13 @@
       if (e.code === 'Escape') {
         e.preventDefault();
         if (!exitModal.hidden) closeExitModal(false);
+      } else if (e.code === 'Enter' || e.code === 'NumpadEnter') {
+        // Enter confirms "Yes, exit" (users reach for it instinctively),
+        // unless a button is focused - then let Enter activate that one.
+        if (!exitModal.hidden && !(document.activeElement instanceof HTMLButtonElement)) {
+          e.preventDefault();
+          closeExitModal(true);
+        }
       }
       return;
     }
