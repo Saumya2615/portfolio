@@ -100,6 +100,13 @@ function setupOpenKeycap() {
   // Hide while scrolling; the next mousemove brings it back in place.
   window.addEventListener('scroll', () => chip.classList.remove('is-visible'), { passive: true });
 
+  // Coming Back to this page from the back/forward cache would otherwise
+  // restore the chip mid-press, still visible where the cursor was.
+  window.addEventListener('pageshow', () => {
+    hovered = null;
+    chip.classList.remove('is-visible', 'is-pressed');
+  });
+
   window.addEventListener('keydown', (e) => {
     if (e.code !== 'Enter' && e.code !== 'NumpadEnter') return;
     if (!hovered || !chip.classList.contains('is-visible')) return;

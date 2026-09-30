@@ -31,7 +31,9 @@
   function reset() {
     flyDots.forEach((el, i) => {
       if (el.parentNode === document.body) {
-        homes[i].parent.insertBefore(el, homes[i].next);
+        const { parent, next } = homes[i];
+        // Fall back to appending if the saved neighbour isn't there anymore
+        parent.insertBefore(el, next && next.parentNode === parent ? next : null);
       }
       el.style.position = '';
       el.style.left = '';

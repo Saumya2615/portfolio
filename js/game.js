@@ -307,8 +307,12 @@
         if (!exitModal.hidden) closeExitModal(false);
       } else if (e.code === 'Enter' || e.code === 'NumpadEnter') {
         // Enter confirms "Yes, exit" (users reach for it instinctively),
-        // unless a button is focused - then let Enter activate that one.
-        if (!exitModal.hidden && !(document.activeElement instanceof HTMLButtonElement)) {
+        // unless one of the modal's own buttons is focused - then let Enter
+        // activate that one. (Focus left on the on-screen Esc key after
+        // clicking it must not count, or Enter would just re-click Esc.)
+        const modalButtonFocused = exitModal.contains(document.activeElement)
+          && document.activeElement instanceof HTMLButtonElement;
+        if (!exitModal.hidden && !modalButtonFocused) {
           e.preventDefault();
           closeExitModal(true);
         }
