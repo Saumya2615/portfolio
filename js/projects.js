@@ -24,8 +24,11 @@ function renderMainProjects(projects) {
           }
         </div>
         <div class="project-card__info">
-          <h3 class="project-card__title">${p.title}</h3>
-          <p class="project-card__description">${p.description || ''}</p>
+          <div class="project-card__heading">
+            <span class="dot dot--orange project-card__marker" aria-hidden="true"></span>
+            <h3 class="project-card__title">${p.title}</h3>
+            <p class="project-card__description">${p.description || ''}</p>
+          </div>
           <ul class="project-card__tags">
             ${p.tags.map(tag => `<li class="tag">${tag}</li>`).join('')}
           </ul>

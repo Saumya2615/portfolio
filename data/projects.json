@@ -3,33 +3,48 @@
     {
       "id": "answer-engine-optimization",
       "title": "Answer Engine Optimization",
-      "description": "",
-      "tags": [],
+      "description": "AI-answer-engine visibility & optimization platform",
+      "tags": [
+        "UI/UX",
+        "Vibe-Coded",
+        "B2B SaaS"
+      ],
       "image": "",
       "link": "project/answer-engine-optimization"
     },
     {
       "id": "creek-ui",
       "title": "Creek.UI",
-      "description": "",
-      "tags": [],
-      "image": "",
+      "description": "AI-answer-engine visibility & optimization platform",
+      "tags": [
+        "UI/UX",
+        "Mobile",
+        "AI-Platform"
+      ],
+      "image": "assets/case-studies/creek-ui/1.webp",
       "link": "project/creek-ui"
     },
     {
       "id": "alum-connect",
       "title": "Alum Connect",
-      "description": "",
-      "tags": [],
-      "image": "",
+      "description": "Connecting alumni through shared memories",
+      "tags": [
+        "UI/UX",
+        "Mobile"
+      ],
+      "image": "assets/case-studies/alumconnect/1.webp",
       "link": "project/alum-connect"
     },
     {
       "id": "medisync",
       "title": "Medisync",
-      "description": "",
-      "tags": [],
-      "image": "",
+      "description": "Early Pandemic Detection and Prevention Solution.",
+      "tags": [
+        "System",
+        "Gen UI",
+        "UI/UX"
+      ],
+      "image": "assets/case-studies/medisync/1.webp",
       "link": "project/medisync"
     }
   ],

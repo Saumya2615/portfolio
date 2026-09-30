@@ -29,42 +29,182 @@
   text-decoration: none;
 }
 
-/* ── Main project cards ──
-   Explicit sizing per Saumya: image ~783x483 (down from the Figma-native
-   979x604), info column scaled to match. max-width + aspect-ratio keep it
-   shrinking gracefully on narrow screens instead of overflowing. */
+/* ── Main project cards ── Figma: Desktop - 30 (172:4249), rows
+   172:4438/4378, 172:4449/4422, 172:4473, 172:4459.
+   Image kept at Saumya's ~783x483 (0.8x of Figma's 979x604); text and
+   info column stay at Figma-native size (277px) since type isn't scaled.
+   Row gap and the scattered squares' offsets are 0.8x Figma too. */
+/* Header + rows line up with the keyboard body's edges, like Figma:
+   same side padding and 1284px cap as #keyboard, then inset by the
+   keyboard image's own edge margin (Figma: 10px of its 1332px width). */
+#work {
+  padding-top: 144px; /* + keyboard's 64px bottom padding = ~208px breathing room */
+  padding-left: var(--keyboard-margin-x);
+  padding-right: var(--keyboard-margin-x);
+}
+
+#work .section-header,
+#main-projects-grid {
+  max-width: 1284px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: calc(min(100%, 1284px) * 0.0075);
+  padding-right: calc(min(100%, 1284px) * 0.0075);
+}
+
+/* ── Header: title + folder icon + staggered squares (172:4424) ── */
+.work-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 128px; /* Figma 160px header-to-first-card, x0.8 */
+}
+
+.work-header__folder {
+  width: 104px;
+  height: 104px;
+  margin: -16px 0 -16px 0; /* Figma: icon overhangs the 72px header row */
+  flex-shrink: 0;
+}
+
+.work-header__dots {
+  margin-left: auto;
+  display: grid;
+}
+
+.work-header__dot-row {
+  grid-area: 1 / 1;
+  display: flex;
+  gap: 120px;
+}
+
+.work-header__dot-row--offset {
+  margin: 42px 0 0 68px;
+}
+
 #main-projects-grid {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-3xl);
+  gap: 114px; /* Figma 142px, x0.8 */
+}
+
+.project-card-link:hover {
+  opacity: 1; /* override global a:hover dim - the card has its own hover state */
 }
 
 .project-card--main {
+  position: relative;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between; /* info on the left edge, image on the right */
   gap: var(--space-2xl);
-  max-width: 100%;
 }
 
 .project-card--main .project-card__info {
   order: 1;
-  flex: 0 0 222px;
-  width: 222px;
+  flex: 0 0 277px;
+  width: 277px;
+  padding-bottom: 38px; /* Figma: info sits 48px above the image's bottom edge */
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
 }
 
+.project-card--main .project-card__heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Orange square above the title - Figma's highlighted row (172:4440).
+   Always shown (static) - toggling it on hover flickered while scrolling
+   past cards under the cursor. */
+.project-card__marker {
+  display: block;
+  margin-bottom: var(--space-md); /* 8px heading gap + 16 = Figma's 24px */
+}
+
+.project-card--main .project-card__tags {
+  max-width: 224px; /* Figma tag block width - wraps the third tag */
+  gap: 12px 8px;
+}
+
+.project-card--main .project-card__tags .tag {
+  color: var(--color-text-muted);
+  border-color: var(--color-border-muted);
+}
+
 .project-card--main .project-card__image {
   order: 2;
-  flex: 0 0 783px;
-  width: 783px;
-  height: 483px;
+  flex: 0 1 783px;
+  min-width: 0;
+  aspect-ratio: 783 / 483; /* shrinks proportionally below ~1244px viewports */
   border-radius: var(--radius-card-lg);
   border: var(--border-base) solid var(--color-border-muted);
   overflow: hidden;
   background: #fcfbfe;
+}
+
+/* Per-project cover framing, matching each Figma crop */
+.project-card-link[data-id="alum-connect"] .project-card__image img {
+  object-position: 50% 15.4%; /* 979x766 image, shifted 56px down in a 604px card */
+}
+
+.project-card-link[data-id="medisync"] .project-card__image img {
+  object-position: 50% 0; /* top-aligned, bottom 29px cropped */
+}
+
+.project-card-link[data-id="creek-ui"] .project-card__image img {
+  /* Figma: image sits in a 500px band starting 70px down the card */
+  position: absolute;
+  top: 11.59%;
+  height: 82.78%;
+  object-position: 50% 100%;
+}
+
+/* Hover: Figma's highlighted row - text, tags and border go full dark */
+.project-card--main .project-card__title,
+.project-card--main .project-card__description,
+.project-card--main .project-card__tags .tag,
+.project-card--main .project-card__image {
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.project-card-link:hover .project-card--main .project-card__title,
+.project-card-link:hover .project-card--main .project-card__description,
+.project-card-link:hover .project-card--main .project-card__tags .tag {
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.project-card-link:hover .project-card--main .project-card__image {
+  border-color: var(--color-border);
+}
+
+/* Scattered squares between/around rows (172:4488, 4472, 4487, 4471),
+   one per row, placed relative to that row */
+.project-card--main::after {
+  content: '';
+  position: absolute;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  pointer-events: none;
+}
+
+.project-card-link:nth-child(1) .project-card--main::after {
+  /* Figma: 30.3% of the image's width in from its right edge */
+  right: 237px; top: calc(100% + 46px); background: var(--color-accent);
+}
+
+.project-card-link:nth-child(2) .project-card--main::after {
+  right: 0; top: calc(100% + 50px); background: var(--color-accent-yellow);
+}
+
+.project-card-link:nth-child(3) .project-card--main::after {
+  left: 166px; top: 41.8%; background: var(--color-accent);
+}
+
+.project-card-link:nth-child(4) .project-card--main::after {
+  left: 250px; top: 8.7%; background: var(--color-accent-yellow);
 }
 
 /* ── Secondary project cards (2x2 grid) ──
@@ -147,6 +287,14 @@
   margin: 0;
 }
 
+/* ── Tablet ── matches #keyboard's side padding */
+@media (max-width: 1024px) {
+  #work {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+}
+
 /* ── Mobile ── */
 @media (max-width: 768px) {
   #work,
@@ -162,12 +310,34 @@
 
   .project-card--main .project-card__info {
     order: 2;
+    flex: none;
     width: 100%;
     max-width: none;
+    padding-bottom: 0;
+  }
+
+  #main-projects-grid {
+    gap: var(--space-3xl);
+  }
+
+  #work {
+    padding-top: var(--space-xl);
+  }
+
+  .work-header__dots,
+  .project-card--main::after {
+    display: none;
+  }
+
+  .work-header__folder {
+    width: 64px;
+    height: 64px;
+    margin: 0;
   }
 
   .project-card--main .project-card__image {
     order: 1;
+    flex: none;
     width: 100%;
     height: auto;
     aspect-ratio: 783 / 483;
