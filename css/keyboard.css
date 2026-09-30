@@ -161,6 +161,18 @@
   transform: translateX(-50%) translateY(0);
 }
 
+/* Smiley key sits at the keyboard's far left edge, so a centered tooltip
+   hangs off the board and covers the caption's arrow flourish. Anchor it
+   to the key's left edge instead so it stays over the keyboard. */
+.key-hotspot[data-name="smiley_personal"] .key-tooltip {
+  left: 0;
+  transform: translateY(4px);
+}
+
+.key-hotspot[data-name="smiley_personal"].show-tooltip .key-tooltip {
+  transform: translateY(0);
+}
+
 /* ── W key (folder icon) — tactile pop/bounce ──
    Opts out of the shared yellow press fill (below) - it read as a
    stray outline around the icon's edges. This key's own bounce/squash
