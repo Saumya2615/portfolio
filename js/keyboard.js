@@ -195,7 +195,7 @@
   const DUCK_FRAME_MS = 90;
   const DUCK_HI_HOLD_MS = 1100; // extra beat on the last frame (the "Hi") before reverting to idle
   const WATER_FRAME_MS = 950; // calm idle ripple, independent of the jump timing
-  let duckAnimating = false;
+  let duckTimers = [];
 
   // Index into animFrames of the splash-landing sprite (frame "16") -
   // the moment the duck hits the water again, per Figma's own splash
@@ -227,26 +227,29 @@
     });
   }
 
+  // A click mid-animation restarts the jump from the first frame instead
+  // of being ignored, so rapid clicks always get a response.
   function playDuckAnimation(key, el) {
-    if (duckAnimating || !key.animFrames) return;
-    duckAnimating = true;
+    if (!key.animFrames) return;
+    duckTimers.forEach(clearTimeout);
+    duckTimers = [];
     const icon = el.querySelector('.key-icon');
     el.classList.add('is-jumping');
     el.classList.remove('show-tooltip');
 
     key.animFrames.forEach((src, i) => {
-      setTimeout(() => {
+      duckTimers.push(setTimeout(() => {
         icon.src = src;
         if (i === DUCK_LANDING_FRAME_INDEX) spawnSplash(el);
-      }, i * DUCK_FRAME_MS);
+      }, i * DUCK_FRAME_MS));
     });
 
     const totalMs = (key.animFrames.length - 1) * DUCK_FRAME_MS + DUCK_HI_HOLD_MS;
-    setTimeout(() => {
+    duckTimers.push(setTimeout(() => {
       icon.src = key.icon;
       el.classList.remove('is-jumping');
-      duckAnimating = false;
-    }, totalMs);
+      duckTimers = [];
+    }, totalMs));
   }
 
   // ── Eyes emoji: 2-3 eyes peek up from random plain keys ──
