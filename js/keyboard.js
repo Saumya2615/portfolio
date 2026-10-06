@@ -313,6 +313,22 @@
     icon.addEventListener('animationend', () => icon.classList.remove('is-blinking'), { once: true });
   }
 
+  // ── Mouse typing: plain character keys type like the real keyboard ──
+  // Clicking one fires 'keyboard:char', which js/type-scatter.js turns
+  // into a floating letter (same as a physical keypress). Special keys
+  // (icons/actions) and non-typing keys (Shift, Tab, F1...) are skipped.
+  const NUMPAD_CHARS = {
+    'num/': '/', 'num*': '*', 'num-': '-', num_plus: '+', num_dot: '.',
+    num0: '0', num1_End: '1', num2: '2', num3: '3', num4: '4',
+    num5: '5', num6: '6', num_up_8: '8', '/_or_shift_right_a': '/',
+  };
+
+  function charForKey(key) {
+    if (key.icon || key.animFrames || ACTIONS[key.name]) return null;
+    if (NUMPAD_CHARS[key.name]) return NUMPAD_CHARS[key.name];
+    return key.name.length === 1 ? key.name : null;
+  }
+
   let hotspotsByName = {};
   let primedName = null;
   let primedTimer = null;
@@ -394,6 +410,13 @@
       el.addEventListener('mouseenter', () => el.classList.add('show-tooltip'));
       el.addEventListener('mouseleave', () => {
         if (primedName !== key.name) el.classList.remove('show-tooltip');
+      });
+    }
+
+    const typedChar = charForKey(key);
+    if (typedChar) {
+      el.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('keyboard:char', { detail: typedChar }));
       });
     }
 

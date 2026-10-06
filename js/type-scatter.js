@@ -56,7 +56,13 @@
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
     if (e.key.length !== 1) return; // skip Enter/Shift/Tab/arrows/etc.
+    spawn(e.key);
+  });
 
+  // Clicking a plain key on the hero keyboard (js/keyboard.js) types too
+  window.addEventListener('keyboard:char', (e) => spawn(e.detail));
+
+  function spawn(char) {
     if (layer.childElementCount >= MAX_CHARS) {
       layer.firstElementChild.remove();
     }
@@ -64,12 +70,12 @@
     const { x, y } = randomSpot();
     const span = document.createElement('span');
     span.className = 'type-scatter-char';
-    span.textContent = e.key;
+    span.textContent = char;
     span.style.left = x + '%';
     span.style.top = y + '%';
     span.style.setProperty('--r', Math.random() * 30 - 15 + 'deg');
     layer.appendChild(span);
 
     span.addEventListener('animationend', () => span.remove());
-  });
+  }
 })();
