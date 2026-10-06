@@ -53,7 +53,7 @@
     W_key_special_folder_icon: () => scrollToSection('work'),
     M_key_special_hands_icon: () => scrollToSection('about'),
     C_key_special_vectorized_icon: () => scrollToSection('connect'),
-    R_key_special_resume_icon: () => window.open('assets/resume.pdf', '_blank', 'noopener'),
+    R_key_special_resume_icon: () => window.open('assets/CV/Saumya-Jain-CV.pdf', '_blank', 'noopener'),
     arrow_down_special_green: () => scrollToSection('work'),
     Space_DareToPlay: () => { window.location.href = 'playground.html'; },
     smiley_personal: () => triggerEscapeEffect(),
