@@ -155,6 +155,17 @@
 }
 
 /* Per-project cover framing, matching each Figma crop */
+/* AEO's thumbnail is wider than the card: show all of it, centred on
+   white (equal space above and below) rather than cropping its edges */
+.project-card-link[data-id="answer-engine-optimization"] .project-card__image {
+  background: var(--color-bg);
+}
+
+.project-card-link[data-id="answer-engine-optimization"] .project-card__image img {
+  object-fit: contain;
+  object-position: 50% 50%;
+}
+
 .project-card-link[data-id="alum-connect"] .project-card__image img {
   object-position: 50% 15.4%; /* 979x766 image, shifted 56px down in a 604px card */
 }
