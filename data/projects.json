@@ -50,22 +50,6 @@
   ],
   "secondary": [
     {
-      "id": "cell-wars",
-      "title": "Cell Wars",
-      "description": "",
-      "tags": [],
-      "image": "",
-      "link": "project/cell-wars"
-    },
-    {
-      "id": "hyperlocal-delivery-men",
-      "title": "Hyperlocal Delivery Men",
-      "description": "",
-      "tags": [],
-      "image": "",
-      "link": "project/hyperlocal-delivery-men"
-    },
-    {
       "id": "guwahati-public-transit",
       "title": "Strategy for Efficient Public Transit in Guwahati",
       "description": "",
@@ -80,6 +64,22 @@
       "tags": [],
       "image": "assets/case-studies/flourpot/1.webp",
       "link": "project/the-flour-pot"
+    },
+    {
+      "id": "cell-wars",
+      "title": "Cell Wars",
+      "description": "",
+      "tags": [],
+      "image": "",
+      "link": "project/cell-wars"
+    },
+    {
+      "id": "hyperlocal-delivery-men",
+      "title": "Hyperlocal Delivery Men",
+      "description": "",
+      "tags": [],
+      "image": "",
+      "link": "project/hyperlocal-delivery-men"
     }
   ]
 }
