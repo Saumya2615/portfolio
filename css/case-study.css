@@ -164,3 +164,169 @@
     padding-top: 62px; /* top bar height on phones */
   }
 }
+
+/* ============================================================
+   Before/after toggle slide (js/before-after.js)
+   Figma: AEO-Compilation, frames "old" (336:35177) / "New" (336:35187).
+   The slide scales with the page like the case study images around
+   it: --u is one Figma pixel of the 1920px-wide frame. Text and the
+   switch have floors so they stay readable/tappable on phones.
+   ============================================================ */
+.before-after {
+  container-type: inline-size;
+  --ba-old: #71717b;  /* zinc/500 */
+  --ba-new: #9f2d00;  /* orange/800 */
+  --ba-ease: 250ms ease;
+}
+
+.before-after__slide {
+  --u: calc(100cqw / 1920);
+  display: flex;
+  flex-direction: column;
+  background: #f4f4f5; /* zinc/100 */
+  padding: calc(84 * var(--u)) 0 calc(173 * var(--u));
+}
+
+.before-after__title {
+  margin: 0 0 0 calc(72 * var(--u));
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 500;
+  font-size: max(calc(48 * var(--u)), 22px);
+  line-height: normal;
+  letter-spacing: 0;
+  color: #18181b; /* zinc/900 */
+}
+
+/* Figma uses SF Pro: the system font on Apple devices, close
+   system equivalents elsewhere */
+.before-after__label,
+.before-after__caption {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.before-after__toggle {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: max(calc(16 * var(--u)), 8px);
+  margin-top: calc(93 * var(--u));
+}
+
+.before-after__label {
+  font-size: max(calc(24 * var(--u)), 14px);
+  color: #3f3f47; /* zinc/700 */
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 112x56 pill, 40px knob inset 8px (Figma "Frame 197") */
+.before-after__switch {
+  --sw: max(calc(112 * var(--u)), 48px);
+  --sh: calc(var(--sw) / 2);
+  position: relative;
+  width: var(--sw);
+  height: var(--sh);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ba-old);
+  cursor: pointer;
+  transition: background-color var(--ba-ease);
+}
+
+.before-after__knob {
+  position: absolute;
+  top: calc(var(--sh) * 8 / 56);
+  left: calc(var(--sh) * 8 / 56);
+  width: calc(var(--sh) * 40 / 56);
+  height: calc(var(--sh) * 40 / 56);
+  border-radius: 50%;
+  background: #fafafa; /* zinc/50 */
+  transition: transform var(--ba-ease);
+}
+
+.before-after__switch:focus-visible {
+  outline: 2px solid var(--ba-new);
+  outline-offset: 3px;
+}
+
+.before-after__frame {
+  align-self: center;
+  width: calc(1508 * var(--u));
+  margin-top: calc(16 * var(--u));
+  padding: calc(16 * var(--u));
+  border-radius: calc(16 * var(--u));
+  background: var(--ba-old);
+  transition: background-color var(--ba-ease);
+}
+
+.before-after__screen {
+  position: relative;
+  aspect-ratio: 1476 / 849;
+  border-radius: calc(16 * var(--u));
+  overflow: hidden;
+  background: #fff;
+}
+
+.before-after__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--ba-ease);
+}
+
+.before-after__img--new {
+  opacity: 0;
+}
+
+.before-after__caption {
+  align-self: flex-end;
+  margin: calc(16 * var(--u)) calc(259 * var(--u)) 0 var(--space-md);
+  font-size: max(calc(20 * var(--u)), 12px);
+  color: #191919;
+  text-align: right;
+}
+
+/* ── New state ── */
+.before-after[data-state="new"] .before-after__switch,
+.before-after[data-state="new"] .before-after__frame {
+  background: var(--ba-new);
+}
+
+.before-after[data-state="new"] .before-after__knob {
+  transform: translateX(var(--sh));
+}
+
+.before-after[data-state="new"] .before-after__img--new {
+  opacity: 1;
+}
+
+/* Gentle pulse on the switch until it's first used, so people notice
+   it's interactive */
+.before-after:not(.is-touched) .before-after__switch {
+  animation: before-after-pulse 2.6s ease-out 1s infinite;
+}
+
+@keyframes before-after-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(159, 45, 0, 0.45); }
+  60%  { box-shadow: 0 0 0 max(calc(14 * var(--u)), 7px) rgba(159, 45, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(159, 45, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .before-after__switch,
+  .before-after__knob,
+  .before-after__frame,
+  .before-after__img {
+    transition: none;
+  }
+
+  .before-after:not(.is-touched) .before-after__switch {
+    animation: none;
+  }
+}

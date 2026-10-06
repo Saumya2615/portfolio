@@ -6,7 +6,7 @@
     <title>Answer Engine Optimization — Saumya</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&family=Lora:wght@500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/reset.css" />
     <link rel="stylesheet" href="../../css/variables.css" />
     <link rel="stylesheet" href="../../css/main.css" />
@@ -22,8 +22,29 @@
     <main>
       <section class="case-study-images">
       <img src="../../assets/case-studies/aeo/1.webp" alt="Answer Engine Optimization case study image 1" loading="lazy" />
+      <!-- Before/after toggle - Figma: AEO-Compilation 336:35177 (old) / 336:35187 (new) -->
+      <div class="before-after" data-before-after>
+        <div class="before-after__slide">
+          <h2 class="before-after__title">Where it lands</h2>
+          <div class="before-after__toggle">
+            <span class="before-after__label" data-set="old" aria-hidden="true">Old</span>
+            <button type="button" class="before-after__switch" role="switch" aria-checked="false" aria-label="Show the new design">
+              <span class="before-after__knob"></span>
+            </button>
+            <span class="before-after__label" data-set="new" aria-hidden="true">New</span>
+          </div>
+          <div class="before-after__frame">
+            <div class="before-after__screen">
+              <img class="before-after__img before-after__img--old" src="../../assets/case-studies/aeo/screen-old.webp" alt="Old AEO dashboard: visibility score, brand mentions, a visibility trend chart and competitor tables" loading="lazy" />
+              <img class="before-after__img before-after__img--new" src="../../assets/case-studies/aeo/screen-new.webp" alt="Redesigned AEO dashboard: a visibility score of 58, how you're showing up from questions to top pick, and content plays" loading="lazy" />
+            </div>
+          </div>
+          <p class="before-after__caption">Just a sneak peek. Let me walk you through how I got here.</p>
+        </div>
+      </div>
       </section>
     </main>
     <script src="../../js/main.js"></script>
+    <script src="../../js/before-after.js"></script>
   </body>
 </html>
