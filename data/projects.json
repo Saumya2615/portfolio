@@ -74,12 +74,12 @@
       "link": "project/guwahati-public-transit"
     },
     {
-      "id": "secondary-4",
-      "title": "",
+      "id": "the-flour-pot",
+      "title": "The Flour Pot",
       "description": "",
       "tags": [],
-      "image": "",
-      "link": "project/secondary-4"
+      "image": "assets/case-studies/flourpot/1.webp",
+      "link": "project/the-flour-pot"
     }
   ]
 }
