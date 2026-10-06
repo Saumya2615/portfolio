@@ -288,7 +288,7 @@
   function closeExitModal(shouldExit) {
     exitModal.hidden = true;
     if (shouldExit) {
-      window.location.href = 'index.html';
+      window.location.href = './';
       return;
     }
     if (state !== 'GAME_OVER') startTimer();
