@@ -1,0 +1,29 @@
+/* ============================================================
+   Phone tilt for the macropad — js/macropad-tilt.js sets --tilt-x
+   (-1 … 1) on .macropad as the phone tilts left/right. Each layer
+   slides a different amount so they read as different depths.
+   Kept in its own file: delete this + macropad-tilt.js (and their two
+   tags in index.html) to remove tilt without touching the macropad.
+   ============================================================ */
+
+.macropad {
+  --tilt-x: 0;
+}
+
+.macropad__settle {
+  transform: translateX(calc(var(--tilt-x) * 10px)) rotate(calc(var(--tilt-x) * 1.5deg));
+}
+
+.macropad__shadow {
+  transform: translateX(calc(var(--tilt-x) * -8px)) rotate(6.66deg);
+}
+
+.macropad__flower {
+  transform: translateX(calc(var(--tilt-x) * -7px)) rotate(158.68deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .macropad {
+    --tilt-x: 0 !important;
+  }
+}
