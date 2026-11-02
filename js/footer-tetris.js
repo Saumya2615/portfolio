@@ -11,7 +11,7 @@
   const connect = document.getElementById('connect');
   if (!flyDots.length || !about || !connect) return;
 
-  const MOBILE_BREAKPOINT = 768;
+  const MOBILE_BREAKPOINT = 767;
   const DURATION_MS = 650;     // one square's trip between About and its slot
   const STAGGER_MS = 70;       // delay between consecutive squares
   const BOTTOM_PX = 100;       // start dropping this close to the bottom (smooth-scroll

@@ -1,6 +1,7 @@
 /* ============================================================
    Nav bar
-   Figma ref: node 142:156 — "Saumya :)" left, links right
+   Figma: "Desktop Final" nav (613:16673) — ;) logo left, links right.
+   "Mobile final" nav (612:12323) — logo left, menu button right.
    ============================================================ */
 
 #nav {
@@ -18,24 +19,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px var(--space-3xl);
+  padding: 24px var(--page-pad);
   max-width: 1440px;
   margin: 0 auto;
 }
 
-/* Logo / wordmark */
+/* Logo — the orange ;) mark */
 .nav-logo {
-  font-family: var(--font-body);
-  font-size: var(--text-nav);
-  font-weight: 500;
-  letter-spacing: var(--tracking-nav);
-  color: var(--color-text-muted);
-  line-height: var(--leading-normal);
-  transition: color 0.2s ease;
+  display: block;
+  width: 48px;
+  height: 48px;
+  line-height: 0;
+}
+
+.nav-logo img {
+  width: 100%;
+  height: 100%;
 }
 
 .nav-logo:hover {
-  color: var(--color-text);
   opacity: 1;
 }
 
@@ -43,7 +45,7 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 47px;
 }
 
 .nav-links a {
@@ -62,27 +64,167 @@
   opacity: 1;
 }
 
-/* Mobile nav */
-@media (max-width: 768px) {
-  #nav nav {
-    padding: 16px var(--space-lg);
-  }
+/* Menu button — phones only */
+.nav-menu-btn {
+  display: none;
+  width: 48px;
+  height: 48px;
+  margin-right: -8px; /* icon art sits inset in its 48px box; line it up with the page edge */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #1c1917; /* stone/900 — Figma icon colour */
+  cursor: pointer;
+}
 
+.nav-menu-btn svg {
+  width: 48px;
+  height: 48px;
+}
+
+.nav-menu-btn .icon-close {
+  display: none;
+}
+
+/* ── Tablet ── */
+@media (max-width: 1199px) {
   .nav-links {
-    gap: 24px;
-  }
-
-  .nav-links a {
-    font-size: 15px;
+    gap: 28px;
   }
 }
 
-@media (max-width: 480px) {
-  .nav-links {
-    gap: 16px;
+/* ── Mobile ── */
+@media (max-width: 767px) {
+  #nav nav {
+    padding: 16px var(--page-pad);
   }
 
-  .nav-links a {
-    font-size: 14px;
+  .nav-links {
+    display: none;
+  }
+
+  .nav-menu-btn {
+    display: block;
+  }
+
+  body.nav-open .nav-menu-btn .icon-open  { display: none; }
+  body.nav-open .nav-menu-btn .icon-close { display: block; }
+}
+
+/* ============================================================
+   Mobile menu — full-screen sheet under the nav bar.
+   Same keycap list as the footer, at a size meant for thumbs.
+   ============================================================ */
+
+.nav-menu {
+  position: fixed;
+  inset: 80px 0 0 0; /* starts below the 80px mobile nav bar */
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-xl) var(--page-pad) var(--space-xl);
+  background: var(--color-bg);
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.nav-menu[hidden] {
+  display: none;
+}
+
+body.nav-open .nav-menu {
+  opacity: 1;
+  transform: none;
+}
+
+body.nav-open {
+  overflow: hidden;
+}
+
+.nav-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu__pages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.nav-menu__pages a {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-hero);
+  color: var(--color-text);
+}
+
+.nav-menu__pages a:hover {
+  color: var(--color-accent);
+  opacity: 1;
+}
+
+.nav-menu kbd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: var(--border-thin) solid var(--color-border);
+  border-bottom-width: 4px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.nav-menu .kbd--space span {
+  display: block;
+  width: 18px;
+  height: 5px;
+  border-radius: 2px;
+  background: var(--color-text);
+}
+
+.nav-menu__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: var(--space-xl);
+}
+
+.nav-menu__links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-nav);
+  letter-spacing: var(--tracking-nav);
+  color: var(--color-text);
+}
+
+.nav-menu__links svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 768px) {
+  .nav-menu {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu {
+    transition: none;
+    transform: none;
   }
 }

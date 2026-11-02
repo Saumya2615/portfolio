@@ -39,7 +39,7 @@
 }
 
 /* ── Mobile ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #hero {
     padding-top: 100px;
     padding-left: var(--space-lg);

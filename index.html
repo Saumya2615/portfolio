@@ -33,15 +33,34 @@
     ============================================================ -->
     <header id="nav">
       <nav>
-        <a href="#hero" class="nav-logo">Saumya :)</a>
+        <a href="#hero" class="nav-logo" aria-label="Saumya — home"><img src="assets/images/logo-wink.svg" alt="" width="48" height="48" /></a>
         <ul class="nav-links">
           <li><a href="#work">Work</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener">Resume</a></li>
           <li><a href="playground.html">Playground</a></li>
         </ul>
+        <button class="nav-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+          <svg class="icon-open" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.33 18.67H14.67v2.67h18.66v-2.67Zm0 8H14.67v2.67h18.66v-2.67Z" fill="currentColor"/></svg>
+          <svg class="icon-close" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 17l14 14M31 17L17 31" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg>
+        </button>
       </nav>
     </header>
+
+    <!-- Phone menu sheet (js/nav.js) — same keycap list as the footer -->
+    <div class="nav-menu" id="nav-menu" hidden>
+      <ul class="nav-menu__pages">
+        <li><a href="#work"><kbd>W</kbd> Work</a></li>
+        <li><a href="#about"><kbd>M</kbd> About</a></li>
+        <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener"><kbd>;</kbd> Resume</a></li>
+        <li><a href="playground.html"><kbd class="kbd--space"><span></span></kbd> Playground</a></li>
+      </ul>
+      <ul class="nav-menu__links">
+        <li><a href="mailto:jainsaumya015@gmail.com">Email <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/in/saumya-jain-apj/" target="_blank" rel="noopener">LinkedIn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
+        <li><a href="https://www.behance.net/saumyajain5" target="_blank" rel="noopener">Behance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
+      </ul>
+    </div>
 
     <main>
 
@@ -205,14 +224,16 @@
 
           <!-- Right: external links -->
           <ul class="footer-links">
-            <li><a href="mailto:jainsaumya015@gmail.com"><span>Email</span><span class="footer-link-arrow">↗</span></a></li>
-            <li><a href="https://www.linkedin.com/in/saumya-jain-apj/" target="_blank" rel="noopener"><span>LinkedIn</span><span class="footer-link-arrow">↗</span></a></li>
-            <li><a href="https://www.behance.net/saumyajain5" target="_blank" rel="noopener"><span>Behance</span><span class="footer-link-arrow">↗</span></a></li>
+            <li><a href="mailto:jainsaumya015@gmail.com"><span>Email</span><svg class="footer-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
+            <li><a href="https://www.linkedin.com/in/saumya-jain-apj/" target="_blank" rel="noopener"><span>LinkedIn</span><svg class="footer-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
+            <li><a href="https://www.behance.net/saumyajain5" target="_blank" rel="noopener"><span>Behance</span><svg class="footer-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
           </ul>
         </div>
 
-        <p class="footer-credit">Made with love with cursor, claude and figma</p>
-        <img src="assets/images/footer-heart.png" alt="" class="footer-heart" />
+        <div class="footer-bottom">
+          <p class="footer-credit">Made for fun, with love and way too many tokens.</p>
+          <img src="assets/images/footer-heart.png" alt="" class="footer-heart" />
+        </div>
       </div>
     </footer>
 
@@ -227,5 +248,6 @@
     <script src="js/type-scatter.js"></script><!-- EXPERIMENTAL, remove freely -->
     <script src="js/main.js"></script>
     <script src="js/footer-tetris.js"></script>
+    <script src="js/nav.js"></script>
   </body>
 </html>

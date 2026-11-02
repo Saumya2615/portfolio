@@ -66,4 +66,39 @@
 
   /* ── Dot accent (scattered squares throughout the page) ── */
   --dot-size:       16px;
+
+  /* ── Page layout ── */
+  --page-pad:       64px;    /* left/right page padding */
+  --text-section:   48px;    /* section headings: Selected Work, A Few More, About Me, Let's Connect */
+}
+
+/* ============================================================
+   Breakpoints — designed at 1440 / 768 / 390 (Figma "Desktop Final",
+   "Tablet — 768 (final)", "Mobile final"). CSS can't use variables in
+   media queries, so every file uses these exact values:
+     Desktop  ≥ 1200px   (default styles, no query)
+     Tablet   ≤ 1199px   @media (max-width: 1199px)
+     Mobile   ≤ 767px    @media (max-width: 767px)
+   ============================================================ */
+
+@media (max-width: 1199px) {
+  :root {
+    --text-subline: 20px;
+    --text-section: 40px;
+    --text-nav:     16px;
+    --page-pad:     32px;
+    --space-3xl:    32px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --text-hero:    40px;
+    --text-subline: 17px;
+    --text-section: 32px;
+    --text-proj-lg: 24px;
+    --text-proj-sm: 20px;
+    --page-pad:     16px;
+    --space-3xl:    16px;
+  }
 }

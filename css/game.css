@@ -417,7 +417,7 @@
 }
 
 /* ── Mobile ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #playground {
     padding: var(--space-lg);
   }

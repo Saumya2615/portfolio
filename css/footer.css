@@ -1,29 +1,30 @@
 /* ============================================================
    Footer — "Let's Connect!"
-   Step 10 — Figma ref: node 163:3962 (bg band), 163:3963 (heading),
-   163:4005 (nav + links columns), 172:4182 (credit), 172:4244 (heart)
+   Figma: "Desktop Final" Footer (617:7603), tablet "Footer" in
+   "Tablet — 768 (final)", mobile "iPhone 13 & 14 - 12" (612:12876).
    ============================================================ */
 
 #connect {
   background: var(--color-footer-bg);
-  padding: var(--space-3xl) var(--space-3xl) 22px;
+  padding: 61px var(--page-pad) 33px;
   position: relative;
   overflow: hidden;
 }
 
 /* Small white notches cut into the top edge of the footer band
-   (Figma ref: Page 1, node 172:4249, Rectangles 49-53 at y=6353) */
+   (squares from About drop into these — js/footer-tetris.js).
+   Positions are Figma x / 1440 so they line up at every width. */
 .footer-tab {
   position: absolute;
   top: 0;
 }
 
-.footer-tab--1 { left: 231px; }
-.footer-tab--2 { left: 480px; }
-.footer-tab--3 { left: 1063px; }
-.footer-tab--4 { left: 1230px; }
-.footer-tab--5 { left: 1313px; }
-.footer-tab--6 { left: 1313px; top: 16px; }
+.footer-tab--1 { left: 16.04%; }
+.footer-tab--2 { left: 33.33%; }
+.footer-tab--3 { left: 73.82%; }
+.footer-tab--4 { left: 85.42%; }
+.footer-tab--5 { left: 91.18%; }
+.footer-tab--6 { left: 91.18%; top: 16px; }
 
 .footer-inner {
   max-width: 1312px;
@@ -35,18 +36,20 @@
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
   color: var(--color-text-muted);
-  margin-bottom: var(--space-sm);
 }
 
 #connect h2 {
+  font-size: var(--text-section);
+  font-weight: 400;
   margin-bottom: var(--space-xl);
 }
 
+/* Two equal columns: keyboard-shortcut nav | external links */
 .footer-columns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-2xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  align-items: start;
 }
 
 .footer-nav ul,
@@ -97,11 +100,6 @@
   background: var(--color-text);
 }
 
-.footer-links {
-  width: 100%;
-  max-width: 646px;
-}
-
 .footer-links a {
   display: flex;
   align-items: center;
@@ -116,9 +114,21 @@
   color: var(--color-accent);
 }
 
+.footer-link-arrow {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Credit + pixel heart. Desktop: credit sits under the links column
+   (columns are 50/50 with a 20px gap, so it starts at 50% + 10px)
+   and the heart floats to its right, as in Figma. */
+.footer-bottom {
+  margin-top: 26px;
+  padding-left: calc(50% + 10px);
+}
+
 .footer-credit {
-  margin-top: 26px; /* Figma: gap between columns row (172:4254) and credit text (172:4582) */
-  margin-left: 666px; /* Figma: aligns with the links column's left edge */
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
   color: var(--color-text-muted);
@@ -126,39 +136,66 @@
 
 .footer-heart {
   position: absolute;
-  left: 1062px; /* Figma: node 172:4583, relative to .footer-inner */
-  top: 287px;
+  left: calc(50% + 406px);
+  bottom: -48px; /* Figma: heart runs 15px past the footer's bottom edge */
   width: 112px;
   height: auto;
 }
 
-/* ── Mobile ── */
-@media (max-width: 768px) {
+/* ── Tablet: credit left, heart right on one row ── */
+@media (max-width: 1199px) {
   #connect {
-    padding: var(--space-lg);
+    padding: 72px var(--page-pad) 40px;
   }
 
   .footer-columns {
-    flex-direction: column;
-    gap: var(--space-xl);
+    column-gap: 32px;
   }
 
-  .footer-links {
-    max-width: none;
-  }
-
-  .footer-credit {
-    margin-left: 0;
-    text-align: center;
-  }
-
-  .footer-tab {
-    display: none;
+  .footer-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+    padding-left: 0;
   }
 
   .footer-heart {
     position: static;
-    display: block;
-    margin: var(--space-xl) auto 0;
+    width: 84px;
+  }
+}
+
+/* ── Mobile: everything stacks ── */
+@media (max-width: 767px) {
+  #connect {
+    padding: 36px var(--page-pad) 32px;
+  }
+
+  .footer-columns {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-xl);
+  }
+
+  .footer-links a span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .footer-bottom {
+    gap: var(--space-sm);
+  }
+
+  .footer-credit {
+    font-size: 12px;
+  }
+
+  .footer-heart {
+    width: 77px;
+  }
+
+  .footer-tab {
+    display: none;
   }
 }

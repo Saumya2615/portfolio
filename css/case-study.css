@@ -33,7 +33,7 @@
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .case-study-placeholder {
     padding-left: var(--space-lg);
     padding-right: var(--space-lg);
@@ -67,7 +67,7 @@
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .case-study-inline-link {
     padding-left: var(--space-lg);
     padding-right: var(--space-lg);
@@ -99,7 +99,7 @@
   transform: translateX(-50%);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .case-study-link-row {
     padding-left: var(--space-lg);
     padding-right: var(--space-lg);
@@ -132,7 +132,7 @@
   --sidebar-width: 64px;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .case-study-page #nav {
     right: auto;
     bottom: 0;
@@ -158,10 +158,10 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   /* Top bar: push content below it instead of letting it cover image 1 */
   .case-study-page main {
-    padding-top: 62px; /* top bar height on phones */
+    padding-top: 80px; /* top bar height on phones (16 + 48px logo + 16) */
   }
 }
 

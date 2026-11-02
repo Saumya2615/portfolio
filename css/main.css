@@ -106,14 +106,4 @@ em {
   color: var(--color-text-muted);
 }
 
-/* ── Responsive base ── */
-@media (max-width: 768px) {
-  :root {
-    --text-hero:    32px;
-    --text-subline: 18px;
-    --text-nav:     16px;
-    --text-proj-lg: 24px;
-    --text-proj-sm: 20px;
-    --space-3xl:    24px;
-  }
-}
+/* Per-breakpoint token values live in css/variables.css */

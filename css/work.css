@@ -490,7 +490,7 @@
 }
 
 /* ── Mobile ── */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #work,
   #more-work {
     padding-left: var(--space-lg);
