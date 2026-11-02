@@ -1,0 +1,188 @@
+/* ============================================================
+   Macropad — the phone hero (≤ 767px), Figma frame 578:5801.
+
+   The stage maps the Figma frame's y 230 → 720 band (390 × 490):
+   every left/top/width below is (Figma px / 390 or 490) as a %,
+   so the whole composition scales with the screen. The pad is the
+   341 × 199 "image 227" rotated 6.66° clockwise around its own
+   top-left corner (Figma 39.08, 350); keys are % of the pad box,
+   set inline in index.html as --x / --y / --w / --h.
+
+   Motion:
+   - .macropad__float   slow levitation loop (pad + flower + bolts)
+   - .macropad__settle  drops 3px while a finger is on the pad
+   ============================================================ */
+
+.macropad {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  #keyboard {
+    padding: 0;
+  }
+
+  .keyboard-inner {
+    display: none;
+  }
+
+  .macropad {
+    display: block;
+    width: 100%;
+    overflow-x: clip; /* flower runs off the right edge, cropped like the Figma frame */
+  }
+}
+
+.macropad__stage {
+  position: relative;
+  width: min(100%, 520px);
+  aspect-ratio: 390 / 490;
+  margin: 0 auto;
+}
+
+.macropad__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 80%;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: -0.132px;
+  color: var(--color-text-muted);
+}
+
+/* Soft shadow under the pad's bottom edge — shrinks and fades as the
+   pad rises, so the float reads as distance from the page. */
+.macropad__shadow {
+  position: absolute;
+  left: 8.974%;
+  top: 69.796%;
+  width: 76.923%;
+  aspect-ratio: 300 / 26;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(12, 10, 9, 0.22), rgba(12, 10, 9, 0));
+  transform: rotate(6.66deg);
+  animation: macropad-shadow 3.6s ease-in-out infinite;
+}
+
+/* ── Floating object: pad + flower + bolts move together ── */
+.macropad__float,
+.macropad__settle {
+  position: absolute;
+  inset: 0;
+}
+
+.macropad__float {
+  animation: macropad-float 3.6s ease-in-out infinite;
+}
+
+.macropad__settle {
+  transition: translate 0.25s ease;
+}
+
+.macropad.is-touched .macropad__float,
+.macropad.is-touched .macropad__shadow {
+  animation-play-state: paused;
+}
+
+.macropad.is-touched .macropad__settle {
+  translate: 0 3px;
+}
+
+.macropad.is-offscreen .macropad__float,
+.macropad.is-offscreen .macropad__shadow {
+  animation-play-state: paused;
+}
+
+@keyframes macropad-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-6px) rotate(-0.4deg); }
+}
+
+@keyframes macropad-shadow {
+  0%, 100% { scale: 1;    opacity: 1; }
+  50%      { scale: 0.88; opacity: 0.6; }
+}
+
+.macropad__flower {
+  position: absolute;
+  left: 75.328%;
+  top: 18.671%;
+  width: 23.846%;
+  height: auto;
+  transform: rotate(158.68deg);
+}
+
+.macropad__bolts {
+  position: absolute;
+  left: -0.256%;
+  top: 38.571%;
+  width: 10.262%;
+  height: auto;
+}
+
+.macropad__pad {
+  position: absolute;
+  left: 10.021%;
+  top: 24.49%;
+  width: 87.436%;
+  aspect-ratio: 341 / 199;
+  transform-origin: 0 0;
+  transform: rotate(6.66deg);
+}
+
+.macropad__base {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Keys ── */
+.macropad__key {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1%);
+  height: calc(var(--h) * 1%);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 80ms ease, filter 80ms ease;
+}
+
+.macropad__key .key-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.macropad__key.is-pressed {
+  transform: translateY(1.5px) scale(0.96);
+  filter: brightness(0.94);
+}
+
+.macropad__key:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* W / M / C icons jump out of the pad before the page scrolls
+   (same animation + timing as the desktop keys, keyboard.css) */
+.macropad__key .key-icon.is-jumping {
+  animation: folder-jump-out 750ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.macropad__key.has-loud-bolts {
+  z-index: 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .macropad__float,
+  .macropad__shadow {
+    animation: none;
+  }
+}

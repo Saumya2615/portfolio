@@ -3,9 +3,11 @@
    Figma ref: node 144:2338 — "I'm Saumya!" + subline
    ============================================================ */
 
+/* Desktop Final 613:14828: headline at y 210, subline ends y 326,
+   keyboard caption starts y 366 */
 #hero {
-  padding-top: 140px; /* clears fixed nav + breathing room */
-  padding-bottom: 32px;
+  padding-top: 210px;
+  padding-bottom: 40px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -38,11 +40,22 @@
   font-family: var(--font-body);
 }
 
+/* ── Tablet (Tablet — 768 final: headline at y 184) ── */
+@media (max-width: 1199px) {
+  #hero {
+    padding-top: 184px;
+    padding-bottom: 48px;
+  }
+}
+
 /* ── Mobile ── */
 @media (max-width: 767px) {
+  /* Figma 578:5801: headline at y 103, subline ends at y 197, the
+     macropad stage (css/macropad.css) starts at y 230 */
   #hero {
-    padding-top: 100px;
-    padding-left: var(--space-lg);
-    padding-right: var(--space-lg);
+    padding-top: 103px;
+    padding-bottom: 33px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }

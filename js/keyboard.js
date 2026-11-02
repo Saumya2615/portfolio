@@ -137,10 +137,9 @@
     });
   }
 
-  function triggerLoudMode() {
+  function triggerLoudMode(keyEl = hotspotsByName['LOUD_MODE_capslock']) {
     if (loudModeAnimating) return;
     loudModeAnimating = true;
-    const keyEl = hotspotsByName['LOUD_MODE_capslock'];
     const heading = document.querySelector('#hero h1');
     if (keyEl) spawnLoudModeBolts(keyEl);
     if (heading) heading.classList.add('loud-mode-shout');
@@ -173,10 +172,12 @@
   // instead of an instant cut under a still-playing animation.
   const JUMP_SCROLL_DELAY_MS = 550;
 
-  function triggerAction(name) {
+  // `el` defaults to the desktop hotspot; the phone macropad passes its
+  // own key so the jump / bolts play on the key that was actually tapped.
+  function triggerAction(name, el = hotspotsByName[name]) {
     const action = ACTIONS[name];
     if (!action) return;
-    const el = hotspotsByName[name];
+    if (name === 'LOUD_MODE_capslock') { triggerLoudMode(el); return; }
     const icon = el && el.querySelector('.key-icon');
     if (icon && JUMP_ON_NAVIGATE.has(name)) {
       icon.classList.add('is-jumping');
@@ -466,6 +467,9 @@
       });
     })
     .catch((err) => console.error('keyboard.js: failed to load keyboard-keys.json', err));
+
+  // Phone macropad (js/macropad.js) reuses these actions on its own keys
+  window.heroKeys = { trigger: triggerAction };
 
   // ── Physical keyboard ─────────────────────────────────────────
   window.addEventListener('keydown', (e) => {

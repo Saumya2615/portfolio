@@ -1,7 +1,8 @@
 /* ============================================================
    Keyboard visual (hero) — static placement only, Step 5
    Interactivity wired up later (Step 11)
-   Figma ref: caption "142:171" + image "171:4046" on the 1440px frame
+   Figma ref: Desktop Final 613:14828 — caption 613:14944 (x 82, y 366),
+   keyboard image (x 54, y 456, 1332 × 484), squares row 614:5460 (y 1062)
    ============================================================ */
 
 #keyboard {
@@ -11,29 +12,36 @@
   gap: var(--space-md);
   padding-left: var(--keyboard-margin-x);
   padding-right: var(--keyboard-margin-x);
-  padding-bottom: var(--space-3xl);
+  padding-bottom: 73px; /* squares row ends y 1078, Work starts y 1151 */
 }
 
-/* Inner wrapper caps at the image's natural max-width and stays centered
+/* Inner wrapper caps at the image's Figma width and stays centered
    in the section; caption and image align to its edges together. */
 .keyboard-inner {
   width: 100%;
-  max-width: 1284px;
+  max-width: 1332px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: 18px;
 }
 
 /* Caption sits above the keyboard, left-aligned, indented slightly in
-   from the image's left edge (Figma: caption x:83.4 vs image x:53.9) */
+   from the image's left edge (Figma: caption x 82 vs image x 54) */
 .keyboard-caption {
-  margin-left: 29px;
-  max-width: 250px;
+  margin-left: 28px;
+  max-width: 194px;
+}
+
+/* Row of squares under the keyboard (Figma 614:5460: 16px squares
+   136px apart, centred; the white one keeps the rhythm on white) */
+.keyboard-dots {
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  margin-top: 106px; /* keyboard ends y 940, squares at y 1062 (minus the 16px section gap) */
 }
 
 .keyboard-image {
-  /* Figma image is 1332px wide on a 1440px frame; capped narrower here
-     per the extra 24px side margin requested */
   width: 100%;
   height: auto;
   display: block;
@@ -46,6 +54,7 @@
    ============================================================ */
 .keyboard-hotspot-layer {
   position: relative;
+  isolation: isolate; /* own stacking context, so the flower can sit behind the image */
 }
 
 /* Decorative flourishes pulled straight from Figma (Desktop - 30, node
@@ -63,16 +72,22 @@
 
 .keyboard-caption-flourish {
   left: -2.1%;
-  top: -3.7%;
+  top: -5.37%;
   width: 4.2%;
-  height: 8.7%;
+  height: 8.68%;
 }
 
+/* Flower on the keyboard's top-right corner. The SVG is the unrotated
+   vector (Figma 613:14865 is rotated -158.68°): placed so its centre
+   lands on the Figma bounding box centre (1354, 456 on the 1440 frame),
+   then rotated around that centre. */
 .keyboard-sparkle {
-  left: 105.7%;
-  top: 10.6%;
-  width: 16.1%;
-  height: 45.6%;
+  left: 91.3%;
+  top: -18.86%;
+  width: 12.61%;
+  height: auto;
+  transform: rotate(158.68deg);
+  z-index: -1; /* behind the keyboard, as in Figma */
 }
 
 .key-hotspot {
@@ -399,19 +414,17 @@
   88%, 100% { transform: translateX(0); }
 }
 
-/* ── Tablet ── */
-@media (max-width: 1024px) {
+/* ── Tablet (Tablet — 768 final): caption across the top, keyboard
+   edge to edge inside the page padding, no flourish / flower ── */
+@media (max-width: 1199px) {
   #keyboard {
-    padding-left: var(--space-xl);
-    padding-right: var(--space-xl);
+    padding-left: var(--page-pad);
+    padding-right: var(--page-pad);
+    padding-bottom: 96px;
   }
-}
 
-/* ── Mobile ── */
-@media (max-width: 767px) {
-  #keyboard {
-    padding-left: var(--space-lg);
-    padding-right: var(--space-lg);
+  .keyboard-inner {
+    gap: var(--space-md);
   }
 
   .keyboard-caption {
@@ -421,6 +434,17 @@
 
   .keyboard-caption-flourish,
   .keyboard-sparkle {
+    display: none;
+  }
+
+  .keyboard-dots {
+    margin-top: 24px;
+  }
+}
+
+/* ── Mobile: the macropad takes over (css/macropad.css) ── */
+@media (max-width: 767px) {
+  .keyboard-dots {
     display: none;
   }
 }

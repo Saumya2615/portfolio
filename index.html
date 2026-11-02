@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/hero.css" />
     <link rel="stylesheet" href="css/keyboard.css" />
+    <link rel="stylesheet" href="css/macropad.css" />
     <link rel="stylesheet" href="css/work.css" />
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/footer.css" />
@@ -77,7 +78,7 @@
       ============================================================ -->
       <section id="keyboard">
         <div class="keyboard-inner">
-          <p class="keyboard-caption">Go on, press a key on your own keyboard. See what happens.</p>
+          <p class="keyboard-caption">This is the keyboard I build everything on.<br /><em>Try typing!!</em></p>
           <div class="keyboard-hotspot-layer" id="keyboard-hotspot-layer">
             <img
               src="assets/images/Keyboard.webp"
@@ -97,6 +98,40 @@
               class="keyboard-sparkle"
             />
             <!-- Key hotspots injected by js/keyboard.js from data/keyboard-keys.json -->
+          </div>
+        </div>
+
+        <div class="keyboard-dots" aria-hidden="true">
+          <span class="dot dot--yellow"></span>
+          <span class="dot dot--white"></span>
+          <span class="dot dot--yellow"></span>
+          <span class="dot dot--orange"></span>
+        </div>
+
+        <!-- Phones only: the keyboard's little cousin (Figma 578:5801).
+             Positions are % of the 390px Figma frame — see css/macropad.css.
+             Keys run the same actions as their desktop twins (js/macropad.js). -->
+        <div class="macropad" id="macropad">
+          <div class="macropad__stage">
+            <span class="macropad__shadow" aria-hidden="true"></span>
+            <div class="macropad__float">
+              <div class="macropad__settle">
+                <img src="assets/images/macropad/flower.svg" alt="" class="macropad__flower" />
+                <div class="macropad__pad">
+                  <img src="assets/images/macropad/pad-base.webp" alt="" class="macropad__base" width="1023" height="597" />
+                  <button type="button" class="macropad__key" data-name="smiley_personal" aria-label="Esc (try it)" style="--x: 2.513; --y: 6.221; --w: 17.889; --h: 29.146;"><img class="key-icon" src="assets/images/macropad/key-smiley.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="W_key_special_folder_icon" aria-label="My work" style="--x: 20.402; --y: 6.221; --w: 17.302; --h: 29.146;"><img class="key-icon" src="assets/images/macropad/key-folder.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="M_key_special_hands_icon" aria-label="About me" style="--x: 37.704; --y: 6.216; --w: 16.974; --h: 28.824;"><img class="key-icon" src="assets/images/macropad/key-photo.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="LOUD_MODE_capslock" aria-label="Loud mode" style="--x: 2.569; --y: 35.915; --w: 25.806; --h: 28.141;"><img class="key-icon" src="assets/images/macropad/key-loud.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="R_key_special_resume_icon" aria-label="My resume" style="--x: 45.625; --y: 35.864; --w: 17.152; --h: 29.126;"><img class="key-icon" src="assets/images/macropad/key-resume.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="Space_DareToPlay" aria-label="Dare to play (Playground)" style="--x: 2.516; --y: 64.513; --w: 42.522; --h: 30.151;"><img class="key-icon" src="assets/images/macropad/key-dare.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="arrow_down_special_green" aria-label="Scroll down" style="--x: 62.633; --y: 64.508; --w: 17.302; --h: 29.648;"><img class="key-icon" src="assets/images/macropad/key-arrow.webp" alt="" /></button>
+                  <button type="button" class="macropad__key" data-name="C_key_special_vectorized_icon" aria-label="Say hi" style="--x: 79.935; --y: 65.010; --w: 17.009; --h: 28.643;"><img class="key-icon" src="assets/images/macropad/key-hands.webp" alt="" /></button>
+                </div>
+                <img src="assets/images/macropad/bolts.svg" alt="" class="macropad__bolts" />
+              </div>
+            </div>
+            <p class="macropad__caption">Psst, these keys work. Try one ;)</p>
           </div>
         </div>
       </section>
@@ -245,6 +280,7 @@
 
     <script src="js/projects.js"></script>
     <script src="js/keyboard.js"></script>
+    <script src="js/macropad.js"></script>
     <script src="js/type-scatter.js"></script><!-- EXPERIMENTAL, remove freely -->
     <script src="js/main.js"></script>
     <script src="js/footer-tetris.js"></script>
