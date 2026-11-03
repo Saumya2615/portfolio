@@ -36,50 +36,54 @@
       "link": "project/alum-connect"
     },
     {
-      "id": "medisync",
-      "title": "Medisync",
-      "description": "Early Pandemic Detection and Prevention Solution.",
-      "tags": [
-        "System",
-        "Gen UI",
-        "UI/UX"
-      ],
-      "image": "assets/case-studies/medisync/1.webp",
-      "link": "project/medisync"
-    }
-  ],
-  "secondary": [
-    {
-      "id": "guwahati-public-transit",
-      "title": "Strategy for Efficient Public Transit in Guwahati",
-      "description": "",
-      "tags": [],
-      "image": "assets/case-studies/public-transit-guwahati/1.webp",
-      "link": "project/guwahati-public-transit"
-    },
-    {
-      "id": "the-flour-pot",
-      "title": "The Flour Pot",
-      "description": "",
-      "tags": [],
-      "image": "assets/case-studies/flourpot/1.webp",
-      "link": "project/the-flour-pot"
-    },
-    {
-      "id": "cell-wars",
-      "title": "Cell Wars",
-      "description": "",
-      "tags": [],
-      "image": "",
-      "link": "project/cell-wars"
-    },
-    {
       "id": "hyperlocal-delivery-men",
       "title": "Hyperlocal Delivery Men",
       "description": "",
       "tags": [],
       "image": "",
       "link": "project/hyperlocal-delivery-men"
+    }
+  ],
+  "secondary": [
+    {
+      "id": "guwahati-public-transit",
+      "title": "Guwahati transport",
+      "description": "A plan for better public transport in Guwahati.",
+      "category": "System Design",
+      "date": "Feb - Apr 2026",
+      "image": "assets/case-studies/public-transit-guwahati/thumbnail.webp",
+      "imageAlt": "Strategy for Efficient Public Transit in Guwahati",
+      "link": "project/guwahati-public-transit"
+    },
+    {
+      "id": "cell-wars",
+      "title": "Cell Wars",
+      "description": "Teaching students the functions of animal cell organelles.",
+      "category": "Game Design",
+      "date": "Sept - Nov 2025",
+      "image": "assets/case-studies/cell-wars/thumbnail.webp",
+      "imageAlt": "Cell Wars",
+      "link": "project/cell-wars"
+    },
+    {
+      "id": "the-flour-pot",
+      "title": "Flour pot",
+      "description": "Visual identity for a small neighbourhood bakery.",
+      "category": "Visual Branding",
+      "date": "Oct - Nov 2024",
+      "image": "assets/case-studies/flourpot/thumbnail.webp",
+      "imageAlt": "The Flour Pot bakery and cafe logo",
+      "link": "project/the-flour-pot"
+    },
+    {
+      "id": "medisync",
+      "title": "Medisync",
+      "description": "A health data system for early outbreak detection.",
+      "category": "System Design · Hackathon Winner",
+      "date": "Aug - Sept 2024",
+      "image": "assets/case-studies/medisync/thumbnail.webp",
+      "imageAlt": "Streamlining Health Data Management",
+      "link": "project/medisync"
     }
   ]
 }

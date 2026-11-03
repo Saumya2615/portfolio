@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/macropad.css" />
     <link rel="stylesheet" href="css/macropad-tilt.css" />
     <link rel="stylesheet" href="css/work.css" />
+    <link rel="stylesheet" href="css/few-more.css" />
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/escape.css" />
@@ -171,19 +172,26 @@
       <!-- ============================================================
            A FEW MORE (secondary 4 projects — data-driven, Step 6)
       ============================================================ -->
-      <section id="more-work">
-        <div class="section-header more-header">
-          <h2>A few more &gt;&gt;</h2>
-          <p>Different shapes, same amount of feeling.</p>
-          <!-- Figma 172:4492-4498: halftone keycaps, bolts, and squares -->
-          <img src="assets/images/yes-keys.webp" alt="" class="more-header__keys" width="360" height="276" />
-          <img src="assets/images/more-bolt-large.svg" alt="" class="more-header__bolt more-header__bolt--large" />
-          <img src="assets/images/more-bolt-small.svg" alt="" class="more-header__bolt more-header__bolt--small" />
-          <span class="dot dot--yellow more-header__dot more-header__dot--1" aria-hidden="true"></span>
-          <span class="dot dot--orange more-header__dot more-header__dot--2" aria-hidden="true"></span>
+      <section id="more-work" aria-labelledby="more-work-title">
+        <div class="more-header">
+          <div class="more-header__text">
+            <p class="more-header__eyebrow">Smaller, Still Loved</p>
+            <h2 id="more-work-title">A Few More&gt;&gt;</h2>
+          </div>
+          <!-- Figma 618:8418 — halftone keycaps, tilted -12.79deg; the art is cropped inside the tilted box -->
+          <div class="more-header__keys" aria-hidden="true">
+            <div class="more-header__keys-tilt"><img src="assets/images/yes-keys.webp" alt="" /></div>
+          </div>
+          <span class="dot dot--orange more-header__dot more-header__dot--1" aria-hidden="true"></span>
+          <span class="dot dot--yellow more-header__dot more-header__dot--2" aria-hidden="true"></span>
         </div>
-        <div id="secondary-projects-grid">
+        <div id="secondary-projects-grid" class="more-track">
           <!-- Populated by js/projects.js -->
+        </div>
+        <!-- Phones: the cards become a one-at-a-time slider (js/few-more.js) -->
+        <div class="more-arrows" hidden>
+          <button type="button" class="more-arrow" data-dir="-1" aria-label="Previous project"><img src="assets/images/more-arrow-left.svg" alt="" width="32" height="32" /></button>
+          <button type="button" class="more-arrow" data-dir="1" aria-label="Next project"><img src="assets/images/more-arrow-right.svg" alt="" width="32" height="32" /></button>
         </div>
       </section>
 
@@ -282,6 +290,7 @@
     </div>
 
     <script src="js/projects.js"></script>
+    <script src="js/few-more.js"></script>
     <script src="js/keyboard.js"></script>
     <script src="js/macropad.js"></script>
     <script src="js/macropad-tilt.js"></script>
