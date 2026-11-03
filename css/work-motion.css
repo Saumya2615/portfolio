@@ -1,0 +1,46 @@
+/* ============================================================
+   Selected Work — panel choreography
+   The panel opens with its background and product shot already in place
+   (the height animation reveals the shot top-down). The pieces — chips,
+   logos, illustrations — then come up one by one in file order, a beat after
+   the open begins. js/work-accordion.js adds .is-landed to the open item;
+   .is-snap skips the motion (fast flipping, reduced motion, page load
+   mid-scroll). A closed panel's pieces reset quietly, so they replay.
+   ============================================================ */
+
+.work-panel__piece {
+  --from: translate(0, 16px);
+  opacity: 0;
+  transform: var(--from);
+  will-change: transform, opacity;
+}
+
+/* how each kind of piece arrives (set per piece in projects.json -> panel.fx) */
+.work-panel__piece[data-fx="rise"]  { --from: translate(0, 16px); }
+.work-panel__piece[data-fx="pop"]   { --from: translate(0, 8px) scale(0.86); }
+.work-panel__piece[data-fx="drop"]  { --from: translate(0, -20px); }
+.work-panel__piece[data-fx="left"]  { --from: translate(-18px, 0); }
+.work-panel__piece[data-fx="right"] { --from: translate(18px, 0); }
+.work-panel__piece[data-fx="turn"]  { --from: translate(0, 12px) rotate(-24deg); }
+
+.work-item.is-landed .work-panel__piece {
+  opacity: 1;
+  transform: none;
+  /* soft overshoot; each piece waits for its turn */
+  transition:
+    opacity 320ms ease,
+    transform 560ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--i, 0) * var(--piece-gap, 100ms));
+}
+
+.work-item.is-landed.is-snap .work-panel__piece {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-panel__piece {
+    opacity: 1;
+    transform: none;
+    transition: none !important;
+  }
+}

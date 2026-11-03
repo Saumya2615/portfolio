@@ -27,10 +27,21 @@ function artKeyFor(art) {
   return art.tablet ? 'tablet' : 'desktop';
 }
 
-function panelLayer(dir, layer, cls, key) {
+// Pieces (everything except the product shot) animate in when their panel
+// opens (css/work-motion.css, js/work-accordion.js): data-fx says how each
+// one arrives, --i is its place in the sequence. A project names its fx by
+// piece in `panel.fx` ({ "gemini": "drop" }); the default is a small rise.
+function fxFor(art, layer) {
+  const name = layer.src.replace(/^\d+-/, '').replace(/\.webp$/, '');
+  return (art.fx && art.fx[name]) || 'rise';
+}
+
+function panelLayer(dir, layer, cls, key, fx, order) {
   const [w, h] = CANVAS[key];
-  const style = `left:${(layer.x / w) * 100}%;top:${(layer.y / h) * 100}%;width:${(layer.w / w) * 100}%`;
-  return `<img class="${cls}" src="${dir}${layer.src}" alt="" style="${style}" draggable="false" />`;
+  const pos = `left:${(layer.x / w) * 100}%;top:${(layer.y / h) * 100}%;width:${(layer.w / w) * 100}%`;
+  const piece = fx ? ` data-fx="${fx}"` : '';
+  const seq = order === undefined ? '' : `;--i:${order}`;
+  return `<img class="${cls}"${piece} src="${dir}${layer.src}" alt="" style="${pos}${seq}" draggable="false" />`;
 }
 
 // The panel's background + art markup for whichever layout fits the screen
@@ -44,7 +55,7 @@ function panelArt(p) {
     bg: dir + layout.bg,
     html: `<div class="work-panel__art work-panel__art--${key}" style="aspect-ratio:${w} / ${h}" aria-hidden="true">
             ${layout.main ? panelLayer(dir, layout.main, 'work-panel__main', key) : ''}
-            ${layout.layers.map(l => panelLayer(dir, l, 'work-panel__piece', key)).join('')}
+            ${layout.layers.map((l, i) => panelLayer(dir, l, 'work-panel__piece', key, fxFor(art, l), i)).join('')}
           </div>`
   };
 }
@@ -88,7 +99,7 @@ function renderMainProjects(projects) {
       art.tablet && art.tablet.headlineWidth ? `--headline-w-tablet:${art.tablet.headlineWidth}px` : ''
     ].filter(Boolean).join(';');
     return `
-    <article class="work-item" data-id="${p.id}">
+    <article class="work-item" data-id="${p.id}"${art.gap ? ` style="--piece-gap:${art.gap}ms"` : ''}>
       <h3 class="work-item__bar-heading">
         <button type="button" class="work-item__bar" id="work-bar-${p.id}" aria-expanded="false" aria-controls="work-panel-${p.id}"><span>${p.title}</span><span class="work-item__year">${p.year}</span></button>
       </h3>
