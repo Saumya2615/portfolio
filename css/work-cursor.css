@@ -1,0 +1,86 @@
+/* ============================================================
+   Selected Work — cursor
+   Over an open project panel the pointer becomes the backspace-key eyes
+   (assets/images/work-eyes.svg) with a small "↵ open" keycap beside them.
+   js/work-cursor.js builds it; mouse/trackpad only. The native cursor is
+   hidden only once the script is running (html.work-cursor-on).
+   ============================================================ */
+
+.work-cursor-on .work-item.is-open .work-panel {
+  cursor: none;
+}
+
+.work-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  will-change: transform;
+}
+
+.work-cursor.is-visible {
+  opacity: 1;
+}
+
+/* the eyes sit centred on the pointer; the keycap hangs below-right */
+.work-cursor__eyes {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: auto;
+  translate: -50% -50%;
+  transform-origin: 50% 50%;
+  transition: transform 140ms ease;
+}
+
+.work-cursor.is-blink .work-cursor__eyes {
+  transform: scaleY(0.12);
+}
+
+.work-cursor__key {
+  position: absolute;
+  left: 26px;
+  top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  background: var(--color-bg);
+  border: var(--border-thin) solid var(--color-border);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: var(--text-key);
+  letter-spacing: var(--tracking-key);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.work-cursor__key kbd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-key);
+  background: var(--color-accent-yellow);
+  font-family: var(--font-body);
+  font-size: var(--text-key);
+}
+
+/* a press (click or Enter) sinks the key */
+.work-cursor.is-pressed .work-cursor__key {
+  border-bottom-width: 1px;
+  translate: 0 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-cursor,
+  .work-cursor__eyes {
+    transition: none;
+  }
+}
