@@ -10,8 +10,6 @@
       "panel": {
         "dir": "assets/work/answer-engine-optimization/",
         "tone": "dark-text",
-        "gap": 90,
-        "fx": { "competitor-rank": "pop", "mentioned-in": "pop", "last-run": "pop", "perplexity": "drop", "gemini": "drop", "chatgpt": "drop", "claude": "drop" },
         "desktop": {
           "bg": "bg.webp",
           "main": { "src": "main-half.webp", "x": 167, "y": 162, "w": 978 },
@@ -152,6 +150,7 @@
       "link": "project/hyperlocal-delivery-men",
       "panel": {
         "dir": "assets/work/hyperlocal-delivery-men/",
+        "gap": 140,
         "tone": "light-text",
         "desktop": {
           "bg": "bg.webp",
