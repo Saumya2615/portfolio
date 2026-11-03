@@ -24,7 +24,7 @@
     // faster than SNAP_WITHIN, or reduced motion, skips straight to the end
     // state. A closed panel's pieces reset once it is hidden, so they replay.
     const LAND_DELAY = 460;
-    const SNAP_WITHIN = 1100;
+    const SNAP_WITHIN = 450;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const landTimers = new Map();
     const resetTimers = new Map();
