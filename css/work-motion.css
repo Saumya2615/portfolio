@@ -30,11 +30,21 @@
   transition:
     opacity 320ms ease,
     transform 560ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition-delay: calc(var(--i, 0) * var(--piece-gap, 100ms));
+  transition-delay: var(--delay, calc(var(--i, 0) * var(--piece-gap, 100ms)));
 }
 
 .work-item.is-landed.is-snap .work-panel__piece {
   transition: none;
+}
+
+/* "draw": hand-drawn doodles are canvases painted by js/doodle-draw.js, so
+   the usual fade/slide is switched off for them */
+.work-panel__piece[data-fx="draw"],
+.work-item.is-landed .work-panel__piece[data-fx="draw"] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

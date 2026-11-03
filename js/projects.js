@@ -2,7 +2,7 @@
 // Main projects render as the Work accordion (js/work-accordion.js drives it).
 
 async function loadProjects() {
-  const res = await fetch('data/projects.json');
+  const res = await fetch('data/projects.json?v=4');
   const data = await res.json();
 
   renderMainProjects(data.main);
@@ -31,17 +31,26 @@ function artKeyFor(art) {
 // opens (css/work-motion.css, js/work-accordion.js): data-fx says how each
 // one arrives, --i is its place in the sequence. A project names its fx by
 // piece in `panel.fx` ({ "gemini": "drop" }); the default is a small rise.
+// A piece with an `id` can instead get its own timing from `panel.motion[id]`:
+//   { "pen": [delay, duration, ease] }  drawn stroke by stroke (js/doodle-draw.js)
+//   { "dab": delay }                    a quick pop-in
 function fxFor(art, layer) {
   const name = layer.src.replace(/^\d+-/, '').replace(/\.webp$/, '');
   return (art.fx && art.fx[name]) || 'rise';
 }
 
-function panelLayer(dir, layer, cls, key, fx, order) {
+function panelLayer(dir, layer, cls, key, fx, order, motion) {
   const [w, h] = CANVAS[key];
   const pos = `left:${(layer.x / w) * 100}%;top:${(layer.y / h) * 100}%;width:${(layer.w / w) * 100}%`;
-  const piece = fx ? ` data-fx="${fx}"` : '';
   const seq = order === undefined ? '' : `;--i:${order}`;
-  return `<img class="${cls}"${piece} src="${dir}${layer.src}" alt="" style="${pos}${seq}" draggable="false" />`;
+  if (motion && motion.pen) {
+    const [delay, dur, ease] = motion.pen;
+    return `<canvas class="${cls}" data-fx="draw" data-src="${dir}${layer.src}" data-delay="${delay}" data-dur="${dur}" data-ease="${ease || 'inout'}" style="${pos}${seq}"></canvas>`;
+  }
+  if (motion && motion.dab !== undefined) fx = 'pop';
+  const delay = motion && motion.dab !== undefined ? `;--delay:${motion.dab}ms` : '';
+  const piece = fx ? ` data-fx="${fx}"` : '';
+  return `<img class="${cls}"${piece} src="${dir}${layer.src}" alt="" style="${pos}${seq}${delay}" draggable="false" />`;
 }
 
 // The panel's background + art markup for whichever layout fits the screen
@@ -55,7 +64,7 @@ function panelArt(p) {
     bg: dir + layout.bg,
     html: `<div class="work-panel__art work-panel__art--${key}" style="aspect-ratio:${w} / ${h}" aria-hidden="true">
             ${layout.main ? panelLayer(dir, layout.main, 'work-panel__main', key) : ''}
-            ${layout.layers.map((l, i) => panelLayer(dir, l, 'work-panel__piece', key, fxFor(art, l), i)).join('')}
+            ${layout.layers.map((l, i) => panelLayer(dir, l, 'work-panel__piece', key, fxFor(art, l), i, art.motion && art.motion[l.id])).join('')}
           </div>`
   };
 }
