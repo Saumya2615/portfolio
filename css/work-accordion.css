@@ -9,8 +9,8 @@
 #work {
   --bar-h: 72px;
   --panel-h: 580px;
-  --work-ease: cubic-bezier(0.65, 0, 0.35, 1);
-  --work-dur: 550ms;
+  --work-ease: cubic-bezier(0.55, 0.2, 0.25, 1); /* a touch softer landing than a plain ease-in-out */
+  --work-dur: 620ms;
   padding: 144px var(--page-pad) 64px;
 }
 
