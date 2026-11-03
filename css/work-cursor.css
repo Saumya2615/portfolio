@@ -87,7 +87,7 @@
 
 .work-cursor__label {
   position: relative;
-  padding-left: 8px;
+  padding-left: 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {
