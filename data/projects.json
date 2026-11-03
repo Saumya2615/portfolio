@@ -10,8 +10,6 @@
       "panel": {
         "dir": "assets/work/answer-engine-optimization/",
         "tone": "dark-text",
-        "gap": 90,
-        "fx": { "competitor-rank": "pop", "mentioned-in": "pop", "last-run": "pop", "perplexity": "drop", "gemini": "drop", "chatgpt": "drop", "claude": "drop" },
         "desktop": {
           "bg": "bg.webp",
           "main": { "src": "main-half.webp", "x": 167, "y": 162, "w": 978 },
@@ -101,6 +99,8 @@
       "link": "project/alum-connect",
       "panel": {
         "dir": "assets/work/alum-connect/",
+        "gap": 120,
+        "fx": { "view-in-ar": "left", "audio-memory": "left", "since-you-left": "right", "player-illus": "turn", "letter": "rise", "polaroid": "rise", "audio": "right", "duck": "right" },
         "tone": "dark-text",
         "desktop": {
           "bg": "bg.webp",
