@@ -56,7 +56,15 @@
 }
 
 /* ── Items ── */
+/* The panel keeps its Figma proportions as the list gets narrower: height =
+   width x (580/1312) for the desktop art, (440/704) for the tablet art.
+   cqw is the accordion's own width. Phones use a fixed height (below). */
+.work-accordion {
+  container-type: inline-size;
+}
+
 .work-item {
+  --panel-h: calc(100cqw * 580 / 1312);
   position: relative;
   height: var(--bar-h);
   overflow: hidden;
@@ -228,39 +236,59 @@
 }
 
 /* ── Tablet (768 design: panels 704x440, rows 64) ──
-   The tablet/mobile artwork is laid out differently in Figma (own chip and
-   doodle positions), so until those pieces are exported separately the
-   desktop layers are just scaled up around the panel's centre. */
-@media (max-width: 1199px) {
+   The art has its own tablet layout in projects.json (js/projects.js swaps it
+   in), so it needs no scaling here. */
+@media (max-width: 1023px) {
   #work {
     --bar-h: 64px;
-    --panel-h: 440px;
     --work-pad-x: 24px;
     --work-head-x: 24px;
-    --art-scale: 1.3;
     padding-top: 96px;
   }
 
-  .work-panel__art {
-    left: 50%;
-    width: calc(100% * var(--art-scale));
-    transform: translateX(-50%);
+  .work-item {
+    --panel-h: calc(100cqw * 440 / 704);
+  }
+
+  .work-header {
+    margin-bottom: 40px;
+  }
+
+  .work-header__folder {
+    width: 72px;
+    height: 72px;
+  }
+
+  .work-panel__head {
+    top: 24px;
+    row-gap: 4px;
+  }
+
+  .work-panel__name,
+  .work-panel__tags {
+    font-size: 14px;
+    line-height: 18px;
   }
 
   .work-panel__headline {
-    max-width: 340px !important;
+    max-width: var(--headline-w-tablet, 656px);
+    line-height: 29px;
   }
 }
 
-/* ── Mobile (390 design: bleed-to-edge rows 48, panels ~460) ── */
-@media (max-width: 767px) {
+/* ── Phones (390 design: bleed-to-edge rows 48, panels 390x458) ──
+   Under 480px the mobile art is used; wider than that (a phone held sideways,
+   small tablets) the tablet styles above apply. */
+@media (max-width: 479px) {
   #work {
     --bar-h: 48px;
-    --panel-h: 460px;
     --work-pad-x: 16px;
     --work-head-x: 16px;
-    --art-scale: 1.9;
     padding-top: var(--space-xl);
+  }
+
+  .work-item {
+    --panel-h: calc(100cqw * 458 / 390);
   }
 
   /* rows and panels run edge to edge */
@@ -276,26 +304,31 @@
   }
 
   .work-item__bar {
-    font-size: 20px;
+    font-size: 18px;
   }
 
+  .work-item__year {
+    font-size: 12px;
+  }
+
+  /* Figma: 10px name/tags, 18px headline, the headline wrapping around 190px */
   .work-panel__name,
   .work-panel__tags {
-    font-size: 12px;
-    line-height: 20px;
+    font-size: 10px;
+    line-height: 12px;
     white-space: nowrap;
   }
 
   .work-panel__head {
-    top: 40px;
-    row-gap: 6px;
+    top: 24px;
+    row-gap: 8px;
     column-gap: 8px;
   }
 
   .work-panel__headline {
-    max-width: 260px !important;
-    font-size: 24px;
-    line-height: 28px;
+    max-width: 190px;
+    font-size: 18px;
+    line-height: 21px;
   }
 }
 

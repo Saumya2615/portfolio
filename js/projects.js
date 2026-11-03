@@ -10,22 +10,83 @@ async function loadProjects() {
   window.dispatchEvent(new Event('projects:rendered'));
 }
 
-// Panel art is laid out on a 1312x580 canvas (the desktop panel in Figma);
-// every layer is positioned in % of that canvas so it scales with the panel.
-const PANEL_W = 1312;
-const PANEL_H = 580;
+// Each panel's art is laid out on the Figma panel for its breakpoint (desktop
+// 1312x580, tablet 704x440, phone 390x458); every layer is positioned in % of
+// that canvas so it scales with the panel.
+const CANVAS = { desktop: [1312, 580], tablet: [704, 440], mobile: [390, 458] };
+let mainProjects = [];
 
-function panelLayer(dir, layer, cls) {
-  const style = `left:${(layer.x / PANEL_W) * 100}%;top:${(layer.y / PANEL_H) * 100}%;width:${(layer.w / PANEL_W) * 100}%`;
+function artKeyFor(art) {
+  // the desktop art is used from 1024px up (scaled with the panel); the tablet
+  // art is designed for 704px panels, so it only goes up to there
+  // Phones (under 480px) get the mobile art; anything wider, down to a phone
+  // held sideways, uses the tablet art, which just scales with the panel.
+  if (window.matchMedia('(min-width: 1024px)').matches) return 'desktop';
+  if (window.matchMedia('(min-width: 480px)').matches && art.tablet) return 'tablet';
+  if (art.mobile) return 'mobile';
+  return art.tablet ? 'tablet' : 'desktop';
+}
+
+function panelLayer(dir, layer, cls, key) {
+  const [w, h] = CANVAS[key];
+  const style = `left:${(layer.x / w) * 100}%;top:${(layer.y / h) * 100}%;width:${(layer.w / w) * 100}%`;
   return `<img class="${cls}" src="${dir}${layer.src}" alt="" style="${style}" draggable="false" />`;
 }
+
+// The panel's background + art markup for whichever layout fits the screen
+function panelArt(p) {
+  const art = p.panel;
+  const key = artKeyFor(art);
+  const layout = art[key];
+  const dir = art.dir + (layout.path || '');
+  const [w, h] = CANVAS[key];
+  return {
+    bg: dir + layout.bg,
+    html: `<div class="work-panel__art work-panel__art--${key}" style="aspect-ratio:${w} / ${h}" aria-hidden="true">
+            ${layout.main ? panelLayer(dir, layout.main, 'work-panel__main', key) : ''}
+            ${layout.layers.map(l => panelLayer(dir, l, 'work-panel__piece', key)).join('')}
+          </div>`
+  };
+}
+
+// Swap each panel's art when the screen crosses a breakpoint
+function refreshPanelArt() {
+  mainProjects.forEach((p) => {
+    const panel = document.querySelector(`#work-panel-${p.id} .work-panel`);
+    if (!panel) return;
+    const a = panelArt(p);
+    panel.querySelector('.work-panel__bg').src = a.bg;
+    panel.querySelector('.work-panel__art').outerHTML = a.html;
+  });
+}
+
+let shownKeys = '';
+function swapArtIfNeeded() {
+  const keys = mainProjects.map(p => artKeyFor(p.panel)).join();
+  if (!shownKeys || keys === shownKeys) { shownKeys = keys; return; }
+  shownKeys = keys;
+  refreshPanelArt();
+}
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(swapArtIfNeeded, 80);
+});
 
 function renderMainProjects(projects) {
   const grid = document.getElementById('main-projects-grid');
   if (!grid) return;
+  mainProjects = projects;
+  shownKeys = projects.map(p => artKeyFor(p.panel)).join();
 
   grid.innerHTML = projects.map((p, i) => {
     const art = p.panel;
+    const a = panelArt(p);
+    const headlineStyle = [
+      p.headlineWidth ? `--headline-w:${p.headlineWidth}px` : '',
+      art.tablet && art.tablet.headlineWidth ? `--headline-w-tablet:${art.tablet.headlineWidth}px` : ''
+    ].filter(Boolean).join(';');
     return `
     <article class="work-item" data-id="${p.id}">
       <h3 class="work-item__bar-heading">
@@ -33,16 +94,13 @@ function renderMainProjects(projects) {
       </h3>
       <div class="work-item__panel" id="work-panel-${p.id}" role="region" aria-labelledby="work-bar-${p.id}">
         <a class="work-panel work-panel--${art.tone}" href="${p.link}" tabindex="-1">
-          <img class="work-panel__bg" src="${art.dir}${art.bg}" alt="" draggable="false" />
+          <img class="work-panel__bg" src="${a.bg}" alt="" draggable="false" />
           <div class="work-panel__head">
             <p class="work-panel__name">${p.title}</p>
             <p class="work-panel__tags">${p.tags.join(' &middot; ')}</p>
-            <p class="work-panel__headline"${p.headlineWidth ? ` style="--headline-w:${p.headlineWidth}px"` : ''}>${p.headline}</p>
+            <p class="work-panel__headline"${headlineStyle ? ` style="${headlineStyle}"` : ''}>${p.headline}</p>
           </div>
-          <div class="work-panel__art" aria-hidden="true">
-            ${art.main ? panelLayer(art.dir, art.main, 'work-panel__main') : ''}
-            ${art.layers.map(l => panelLayer(art.dir, l, 'work-panel__piece')).join('')}
-          </div>
+          ${a.html}
         </a>
       </div>
     </article>`;
