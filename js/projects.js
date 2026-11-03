@@ -1,5 +1,5 @@
 // projects.js — reads data/projects.json and renders project cards
-// Full styling applied in Step 7; this handles structure only.
+// Main projects render as the Work accordion (js/work-accordion.js drives it).
 
 async function loadProjects() {
   const res = await fetch('data/projects.json');
@@ -10,35 +10,43 @@ async function loadProjects() {
   window.dispatchEvent(new Event('projects:rendered'));
 }
 
+// Panel art is laid out on a 1312x580 canvas (the desktop panel in Figma);
+// every layer is positioned in % of that canvas so it scales with the panel.
+const PANEL_W = 1312;
+const PANEL_H = 580;
+
+function panelLayer(dir, layer, cls) {
+  const style = `left:${(layer.x / PANEL_W) * 100}%;top:${(layer.y / PANEL_H) * 100}%;width:${(layer.w / PANEL_W) * 100}%`;
+  return `<img class="${cls}" src="${dir}${layer.src}" alt="" style="${style}" draggable="false" />`;
+}
+
 function renderMainProjects(projects) {
   const grid = document.getElementById('main-projects-grid');
   if (!grid) return;
 
-  grid.innerHTML = projects.map(p => `
-    <a class="project-card-link" href="${p.link || 'project/'}" data-id="${p.id}">
-      <article class="project-card project-card--main">
-        <div class="project-card__media">
-          <img class="project-card__eyes" src="assets/images/work-eyes.svg" alt="" aria-hidden="true" />
-          <div class="project-card__image">
-            ${p.image
-              ? `<img src="${p.image}" alt="${p.title}" loading="lazy" />`
-              : '<div class="project-card__image-placeholder"></div>'
-            }
+  grid.innerHTML = projects.map((p, i) => {
+    const art = p.panel;
+    return `
+    <article class="work-item" data-id="${p.id}">
+      <h3 class="work-item__bar-heading">
+        <button type="button" class="work-item__bar" id="work-bar-${p.id}" aria-expanded="false" aria-controls="work-panel-${p.id}">${p.title}</button>
+      </h3>
+      <div class="work-item__panel" id="work-panel-${p.id}" role="region" aria-labelledby="work-bar-${p.id}">
+        <a class="work-panel work-panel--${art.tone}" href="${p.link}" tabindex="-1">
+          <img class="work-panel__bg" src="${art.dir}${art.bg}" alt="" draggable="false" />
+          <div class="work-panel__head">
+            <p class="work-panel__name">${p.title}</p>
+            <p class="work-panel__tags">${p.tags.join(' &middot; ')}</p>
+            <p class="work-panel__headline"${p.headlineWidth ? ` style="--headline-w:${p.headlineWidth}px"` : ''}>${p.headline}</p>
           </div>
-        </div>
-        <div class="project-card__info">
-          <div class="project-card__heading">
-            <span class="dot dot--orange project-card__marker" aria-hidden="true"></span>
-            <h3 class="project-card__title">${p.title}</h3>
-            <p class="project-card__description">${p.description || ''}</p>
+          <div class="work-panel__art" aria-hidden="true">
+            ${art.main ? panelLayer(art.dir, art.main, 'work-panel__main') : ''}
+            ${art.layers.map(l => panelLayer(art.dir, l, 'work-panel__piece')).join('')}
           </div>
-          <ul class="project-card__tags">
-            ${p.tags.map(tag => `<li class="tag">${tag}</li>`).join('')}
-          </ul>
-        </div>
-      </article>
-    </a>
-  `).join('');
+        </a>
+      </div>
+    </article>`;
+  }).join('');
 }
 
 function renderSecondaryProjects(projects) {
@@ -67,56 +75,4 @@ function renderSecondaryProjects(projects) {
   `).join('');
 }
 
-// ── "↵ open" keycap that follows the cursor over main project cards ──
-// Pressing the real Enter key while hovering a card opens it. Mouse/
-// trackpad only (no hover on touch). Shown on mousemove, not mouseover,
-// so scrolling past cards without moving the mouse never pops it up.
-function setupOpenKeycap() {
-  const grid = document.getElementById('main-projects-grid');
-  if (!grid || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-  const chip = document.createElement('div');
-  chip.className = 'open-keycap';
-  chip.setAttribute('aria-hidden', 'true');
-  chip.innerHTML = '<kbd>↵</kbd> open';
-  document.body.appendChild(chip);
-
-  let hovered = null;
-  const OFFSET = 18; // px from the cursor so it doesn't sit under the pointer
-
-  grid.addEventListener('mousemove', (e) => {
-    const link = e.target.closest('.project-card-link');
-    hovered = link;
-    if (!link) { chip.classList.remove('is-visible'); return; }
-    chip.style.transform = `translate(${e.clientX + OFFSET}px, ${e.clientY + OFFSET}px)`;
-    chip.classList.add('is-visible');
-  });
-
-  grid.addEventListener('mouseleave', () => {
-    hovered = null;
-    chip.classList.remove('is-visible');
-  });
-
-  // Hide while scrolling; the next mousemove brings it back in place.
-  window.addEventListener('scroll', () => chip.classList.remove('is-visible'), { passive: true });
-
-  // Coming Back to this page from the back/forward cache would otherwise
-  // restore the chip mid-press, still visible where the cursor was.
-  window.addEventListener('pageshow', () => {
-    hovered = null;
-    chip.classList.remove('is-visible', 'is-pressed');
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.code !== 'Enter' && e.code !== 'NumpadEnter') return;
-    if (!hovered || !chip.classList.contains('is-visible')) return;
-    if (e.repeat || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
-    e.preventDefault();
-    const href = hovered.href;
-    chip.classList.add('is-pressed');
-    setTimeout(() => { window.location.href = href; }, 120); // let the press read first
-  });
-}
-
 loadProjects();
-setupOpenKeycap();

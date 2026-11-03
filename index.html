@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/reset.css?v=3" />
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/nav.css" />
@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="css/keyboard.css" />
     <link rel="stylesheet" href="css/macropad.css" />
     <link rel="stylesheet" href="css/macropad-tilt.css" />
-    <link rel="stylesheet" href="css/work.css" />
+    <link rel="stylesheet" href="css/work.css?v=3" />
+    <link rel="stylesheet" href="css/work-accordion.css?v=4" />
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/escape.css" />
@@ -137,28 +138,19 @@
            MY WORKS (main 4 projects — data-driven, Step 6)
       ============================================================ -->
       <section id="work">
-        <div class="section-header work-header">
-          <h2>My Works &gt;&gt;</h2>
-          <img src="assets/images/work-folder.webp" alt="" class="work-header__folder" width="104" height="104" />
-          <!-- Figma 172:4426: two staggered rows of squares, right-aligned -->
-          <div class="work-header__dots" aria-hidden="true">
-            <div class="work-header__dot-row">
-              <span class="dot dot--orange"></span>
-              <span class="dot dot--orange"></span>
-              <span class="dot dot--yellow"></span>
-              <span class="dot dot--orange"></span>
-              <span class="dot dot--white"></span>
+        <div class="work-track">
+          <div class="work-stage">
+          <div class="work-header">
+            <div class="work-header__text">
+              <p class="work-header__kicker">The Ones I&rsquo;d Show You First</p>
+              <h2>Selected Work</h2>
             </div>
-            <div class="work-header__dot-row work-header__dot-row--offset">
-              <span class="dot dot--yellow"></span>
-              <span class="dot dot--white"></span>
-              <span class="dot dot--yellow"></span>
-              <span class="dot dot--orange"></span>
-            </div>
+            <img src="assets/images/work-folder.webp" alt="" class="work-header__folder" width="100" height="100" />
           </div>
-        </div>
-        <div id="main-projects-grid">
-          <!-- Populated by js/projects.js -->
+          <div id="main-projects-grid" class="work-accordion">
+            <!-- Populated by js/projects.js -->
+          </div>
+          </div>
         </div>
       </section>
 
@@ -275,7 +267,8 @@
       <p class="escape-wink">you can't Esc-ape this portfolio ;)</p>
     </div>
 
-    <script src="js/projects.js"></script>
+    <script src="js/projects.js?v=3"></script>
+    <script src="js/work-accordion.js?v=5"></script>
     <script src="js/keyboard.js"></script>
     <script src="js/macropad.js"></script>
     <script src="js/macropad-tilt.js"></script>

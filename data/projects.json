@@ -3,38 +3,86 @@
     {
       "id": "answer-engine-optimization",
       "title": "Answer Engine Optimization",
-      "description": "AI-answer-engine visibility & optimization platform",
-      "tags": [
-        "UI/UX",
-        "Vibe-Coded",
-        "B2B SaaS"
-      ],
-      "image": "assets/case-studies/aeo/thumbnail.webp",
-      "link": "project/answer-engine-optimization"
+      "headline": "Helping brands show up right in AI answers",
+      "tags": ["B2B SaaS", "Product Design", "Vibe-Coded"],
+      "link": "project/answer-engine-optimization",
+      "panel": {
+        "dir": "assets/work/answer-engine-optimization/",
+        "tone": "dark-text",
+        "bg": "bg.webp",
+        "main": { "src": "main-half.webp", "x": 167, "y": 162, "w": 978 },
+        "layers": [
+          { "src": "01-competitor-rank.webp", "x": 24, "y": 292, "w": 230 },
+          { "src": "02-mentioned-in.webp", "x": 1039, "y": 222, "w": 227 },
+          { "src": "03-last-run.webp", "x": 1085, "y": 372, "w": 198 },
+          { "src": "04-perplexity.webp", "x": 39, "y": 428, "w": 94 },
+          { "src": "05-gemini.webp", "x": 108, "y": 486, "w": 98 },
+          { "src": "06-chatgpt.webp", "x": 1156, "y": 469, "w": 98 },
+          { "src": "07-claude.webp", "x": 1102, "y": 526, "w": 92 }
+        ]
+      }
     },
     {
       "id": "creek-ui",
       "title": "Creek.UI",
-      "description": "AI-answer-engine visibility & optimization platform",
-      "tags": [
-        "UI/UX",
-        "Mobile",
-        "AI-Platform"
-      ],
-      "image": "assets/case-studies/creek-ui/1.webp",
-      "link": "project/creek-ui"
+      "headline": "An image editing system helping small brands stay consistent.",
+      "tags": ["Generative AI", "Product Design", "Flutter deployed"],
+      "link": "project/creek-ui",
+      "panel": {
+        "dir": "assets/work/creek-ui/",
+        "tone": "dark-text",
+        "bg": "bg.webp",
+        "main": { "src": "main-half.webp", "x": 287, "y": 153.5, "w": 784 },
+        "layers": [
+          { "src": "01-doodles-left.webp", "x": -4, "y": 349, "w": 316 },
+          { "src": "02-doodles-right.webp", "x": 1047, "y": 395, "w": 265 }
+        ]
+      }
     },
     {
       "id": "alum-connect",
       "title": "Alum Connect",
-      "description": "Connecting alumni through shared memories",
-      "tags": [
-        "UI/UX",
-        "Mobile"
-      ],
-      "image": "assets/case-studies/alumconnect/1.webp",
-      "link": "project/alum-connect"
+      "headline": "A community platform built on shared alumni memories",
+      "tags": ["Social Platform", "Product Design", "Live Prototype"],
+      "link": "project/alum-connect",
+      "panel": {
+        "dir": "assets/work/alum-connect/",
+        "tone": "dark-text",
+        "bg": "bg.webp",
+        "main": { "src": "main-half.webp", "x": 465, "y": 134, "w": 479 },
+        "layers": [
+          { "src": "01-view-in-ar.webp", "x": 368, "y": 322.5, "w": 114.5 },
+          { "src": "02-audio-memory.webp", "x": 287.5, "y": 275, "w": 127 },
+          { "src": "03-since-you-left.webp", "x": 927, "y": 252.5, "w": 193.5 },
+          { "src": "04-player-illus.webp", "x": 0, "y": 387, "w": 221 },
+          { "src": "05-letter.webp", "x": 198, "y": 457.5, "w": 93 },
+          { "src": "06-polaroid.webp", "x": 259.5, "y": 424.5, "w": 135 },
+          { "src": "07-audio.webp", "x": 994, "y": 495, "w": 145.5 },
+          { "src": "08-duck.webp", "x": 1125, "y": 467.5, "w": 163 }
+        ]
+      }
     },
+    {
+      "id": "hyperlocal-delivery-men",
+      "title": "Hyperlocal Delivery Systems",
+      "headline": "A service design study saving riders time at the doorstep",
+      "headlineWidth": 435,
+      "tags": ["Quick Commerce", "UX Research"],
+      "link": "project/hyperlocal-delivery-men",
+      "panel": {
+        "dir": "assets/work/hyperlocal-delivery-men/",
+        "tone": "light-text",
+        "bg": "bg.webp",
+        "main": null,
+        "layers": [
+          { "src": "01-rider-spoken.webp", "x": 274, "y": 388, "w": 251 },
+          { "src": "02-waiting.webp", "x": 369, "y": 274, "w": 295 },
+          { "src": "03-hours.webp", "x": 987, "y": 434, "w": 236 }
+        ]
+      }
+    }
+  ],
+  "secondary": [
     {
       "id": "medisync",
       "title": "Medisync",
@@ -46,9 +94,7 @@
       ],
       "image": "assets/case-studies/medisync/1.webp",
       "link": "project/medisync"
-    }
-  ],
-  "secondary": [
+    },
     {
       "id": "guwahati-public-transit",
       "title": "Strategy for Efficient Public Transit in Guwahati",
@@ -72,14 +118,6 @@
       "tags": [],
       "image": "",
       "link": "project/cell-wars"
-    },
-    {
-      "id": "hyperlocal-delivery-men",
-      "title": "Hyperlocal Delivery Men",
-      "description": "",
-      "tags": [],
-      "image": "",
-      "link": "project/hyperlocal-delivery-men"
     }
   ]
 }
