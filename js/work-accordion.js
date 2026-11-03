@@ -19,9 +19,43 @@
     let scrollDriven = true;
     let step = 400;
 
+    // ── Panel choreography (css/work-motion.css) ──
+    // The open panel's pieces land LAND_DELAY after its open begins. Flipping
+    // faster than SNAP_WITHIN, or reduced motion, skips straight to the end
+    // state. A closed panel's pieces reset once it is hidden, so they replay.
+    const LAND_DELAY = 460;
+    const SNAP_WITHIN = 1100;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const landTimers = new Map();
+    const resetTimers = new Map();
+    let lastOpenAt = 0;
+    let booting = true;
+
+    function land(item, delay, snap) {
+      clearTimeout(resetTimers.get(item));
+      if (item.classList.contains('is-landed')) return;
+      clearTimeout(landTimers.get(item));
+      const go = () => item.classList.add('is-landed');
+      if (snap || reduced.matches) { item.classList.add('is-snap'); go(); }
+      else landTimers.set(item, setTimeout(go, delay));
+    }
+
+    function unland(item) {
+      clearTimeout(landTimers.get(item));
+      clearTimeout(resetTimers.get(item));
+      resetTimers.set(item, setTimeout(() => item.classList.remove('is-landed', 'is-snap'), 750));
+    }
+
     function open(index) {
       if (index === current) return;
+      const prev = items[current];
       current = index;
+      if (!booting) {
+        const now = performance.now();
+        if (prev) unland(prev);
+        land(items[index], LAND_DELAY, lastOpenAt && now - lastOpenAt < SNAP_WITHIN);
+        lastOpenAt = now;
+      }
       items.forEach((item, i) => {
         const isOpen = i === index;
         item.classList.toggle('is-open', isOpen);
@@ -85,6 +119,18 @@
     grid.classList.add('is-instant');
     open(0);
     onScroll();
+    booting = false;
+    // Loaded mid-scroll on a later project: show its pieces at once. On AEO,
+    // wait until the section is actually on screen, then play them.
+    if (current > 0) land(items[current], 0, true);
+    else if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        if (current === 0) land(items[0], 300, false);
+      }, { threshold: 0.35 });
+      io.observe(stage);
+    } else land(items[0], 0, true);
     requestAnimationFrame(() => requestAnimationFrame(() => grid.classList.remove('is-instant')));
   }
 
