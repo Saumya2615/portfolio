@@ -40,13 +40,13 @@
         "mobile": {
           "path": "mobile/",
           "bg": "bg.webp",
-          "main": { "src": "main.webp", "x": 10, "y": 185.5, "w": 371 },
+          "main": { "src": "main.webp", "x": 10, "y": 174.5, "w": 371 },
           "layers": [
-            { "src": "01-competitor-rank.webp", "x": 59, "y": 149.2, "w": 107.5 },
-            { "src": "02-mentioned-in.webp", "x": 237, "y": 128, "w": 109.5 },
-            { "src": "03-last-run.webp", "x": 315, "y": 332, "w": 94.5 },
-            { "src": "04-chatgpt.webp", "x": 327.5, "y": 113, "w": 47.5 },
-            { "src": "05-claude.webp", "x": 18, "y": 125, "w": 50.5 }
+            { "src": "01-competitor-rank.webp", "x": 59, "y": 138.2, "w": 107.5 },
+            { "src": "02-mentioned-in.webp", "x": 237, "y": 117, "w": 109.5 },
+            { "src": "03-last-run.webp", "x": 315, "y": 321, "w": 94.5 },
+            { "src": "04-chatgpt.webp", "x": 327.5, "y": 102, "w": 47.5 },
+            { "src": "05-claude.webp", "x": 18, "y": 114, "w": 50.5 }
           ]
         }
       }
@@ -82,7 +82,7 @@
         "mobile": {
           "path": "mobile/",
           "bg": "bg.webp",
-          "main": { "src": "main.webp", "x": 7.5, "y": 230.5, "w": 376.5 },
+          "main": { "src": "main.webp", "x": 6.5, "y": 226.5, "w": 376.5 },
           "layers": [
             { "src": "01-doodles-left.webp", "x": -3.5, "y": 136, "w": 122.5 },
             { "src": "02-doodles-right.webp", "x": 206.6, "y": 129.5, "w": 181 }
@@ -100,7 +100,7 @@
       "panel": {
         "dir": "assets/work/alum-connect/",
         "gap": 120,
-        "fx": { "view-in-ar": "left", "audio-memory": "left", "since-you-left": "right", "player-illus": "turn", "letter": "rise", "polaroid": "rise", "audio": "right", "duck": "right" },
+        "fx": { "view-in-ar": "rise", "audio-memory": "rise", "since-you-left": "rise", "player-illus": "turn", "letter": "rise", "polaroid": "rise", "audio": "right", "duck": "right" },
         "tone": "dark-text",
         "desktop": {
           "bg": "bg.webp",
@@ -119,25 +119,25 @@
         "tablet": {
           "path": "tablet/",
           "bg": "bg.webp",
-          "main": { "src": "main.webp", "x": 168, "y": 108, "w": 387 },
+          "main": { "src": "main.webp", "x": 168, "y": 104, "w": 387 },
           "layers": [
             { "src": "01-view-in-ar.webp", "x": 83, "y": 225.5, "w": 114 },
             { "src": "02-audio-memory.webp", "x": 5, "y": 153.5, "w": 136.5 },
             { "src": "03-since-you-left.webp", "x": 518, "y": 175.5, "w": 173 },
-            { "src": "04-player-illus.webp", "x": 0, "y": 330, "w": 87.5 },
-            { "src": "06-polaroid.webp", "x": 102.7, "y": 345.6, "w": 72 },
-            { "src": "05-letter.webp", "x": 85.4, "y": 369.3, "w": 49.5 },
-            { "src": "07-audio.webp", "x": 542, "y": 392.6, "w": 89 },
-            { "src": "08-duck.webp", "x": 627.9, "y": 356.7, "w": 86 }
+            { "src": "04-player-illus.webp", "x": 0, "y": 319, "w": 87.5 },
+            { "src": "06-polaroid.webp", "x": 105.7, "y": 338.6, "w": 72 },
+            { "src": "05-letter.webp", "x": 74.4, "y": 371.3, "w": 49.5 },
+            { "src": "07-audio.webp", "x": 541, "y": 373.6, "w": 89 },
+            { "src": "08-duck.webp", "x": 617.9, "y": 356.7, "w": 86 }
           ]
         },
         "mobile": {
           "path": "mobile/",
           "bg": "bg.webp",
-          "main": { "src": "main.webp", "x": 33.5, "y": 144, "w": 342 },
+          "main": { "src": "main.webp", "x": 31.5, "y": 135, "w": 342 },
           "layers": [
-            { "src": "01-audio-memory.webp", "x": 14.5, "y": 207.5, "w": 117.5 },
-            { "src": "02-since-you-left.webp", "x": 232.5, "y": 106.5, "w": 149 }
+            { "src": "01-audio-memory.webp", "x": 14.5, "y": 198, "w": 117.5 },
+            { "src": "02-since-you-left.webp", "x": 232.5, "y": 96.5, "w": 146 }
           ]
         }
       }
