@@ -197,6 +197,7 @@
       "link": "project/hyperlocal-delivery-men",
       "panel": {
         "dir": "assets/work/hyperlocal-delivery-men/",
+        "gap": 140,
         "tone": "light-text",
         "desktop": {
           "bg": "bg.webp",
