@@ -360,6 +360,7 @@
   font-weight: 700;
   letter-spacing: var(--tracking-proj-lg);
   color: var(--color-accent);
+  line-height: 1.2;
   margin-bottom: var(--space-xs);
 }
 
@@ -377,7 +378,8 @@
   font-weight: 400;
   letter-spacing: var(--tracking-body);
   color: var(--color-text-muted);
-  margin-bottom: var(--space-md);
+  line-height: 1.35;
+  margin-bottom: var(--space-sm);
 }
 
 .game-modal__actions {
@@ -395,6 +397,7 @@
 .game-modal__actions--stacked {
   flex-direction: column;
   align-items: stretch;
+  gap: var(--space-sm);
 }
 
 .game-modal__actions--stacked .game-modal__btn {
@@ -416,13 +419,259 @@
   border-color: var(--color-accent);
 }
 
-/* ── Mobile ── */
+/* Phone-only pieces stay out of the tablet/desktop layout */
+.game-hint,
+.game-macropad,
+.game-key__label--touch,
+.game-key__escape-icon--touch,
+.game-key__ball-icon--end {
+  display: none;
+}
+
+/* Hold-to-shoot key: no text selection / callout / double-tap zoom on touch */
+.game-key--space {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================================
+   Phone (≤ 767px) — Figma "Game · 1 — Ready" (672:17674, 390 × 844).
+   Tablet (768–1199) keeps the big-keyboard layout above; only the
+   phone swaps to the macropad.
+
+   The stage is one full-height column: HUD + hint pinned to the top,
+   macropad / hoop / ball pinned to the bottom, so a taller or shorter
+   phone just stretches the gap between them. --u is "1 Figma px" at
+   this width (the 358px pad = the frame minus 16px gutters), so every
+   size below is the Figma number × --u. Frame is capped at 480px wide.
+   ============================================================ */
 @media (max-width: 767px) {
   #playground {
-    padding: var(--space-lg);
+    display: block;
+    padding: 0;
+    max-width: none;
+    min-height: 0;
+  }
+
+  .playground-inner {
+    max-width: 480px;
+    margin: 0 auto;
   }
 
   .game-frame {
-    border-radius: var(--radius-card-sm);
+    --pad-w: calc(100cqw - 32px);
+    --pad-h: calc(var(--pad-w) * 208.92 / 358);
+    --u: calc(var(--pad-w) / 358);
+    --pad-bottom: 51px;
+
+    container-type: inline-size;
+    max-width: none;
+    aspect-ratio: auto;
+    height: 100svh;
+    min-height: 740px;
+    border-radius: 0;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+  }
+
+  /* Orange hairline under the nav bar (Figma 672:17675) */
+  #nav {
+    border-bottom: 1px solid var(--color-accent);
+  }
+
+  /* HUD — Score left, Time right, 121px from the top */
+  .game-hud {
+    top: 121px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .hud-block {
+    gap: 6px;
+    line-height: normal;
+  }
+
+  .hud-label {
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .hud-value {
+    font-size: 24px;
+    letter-spacing: 0;
+  }
+
+  .game-hint {
+    display: block;
+    position: absolute;
+    top: 205px;
+    left: 16px;
+    width: 160px;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: 0;
+    color: var(--color-text-muted);
+    z-index: 4;
+  }
+
+  /* Hoop — 234.5px square, pole's base rests 4px into the macropad,
+     art runs 6.8px in from the right edge */
+  .game-hoop {
+    left: auto;
+    top: auto;
+    right: calc(6.8 * var(--u));
+    bottom: calc(var(--pad-bottom) + var(--pad-h) - 4 * var(--u));
+    width: calc(234.5 * var(--u));
+    height: calc(234.5 * var(--u));
+  }
+
+  /* Ball — 52px, sits on the macropad's top edge, 32px in from the pad */
+  .game-ball {
+    left: calc(16px + 32 * var(--u));
+    top: auto;
+    bottom: calc(var(--pad-bottom) + var(--pad-h));
+    width: calc(52 * var(--u));
+    height: calc(52 * var(--u));
+  }
+
+  .game-ball-shadow {
+    left: calc(16px + 32 * var(--u));
+    top: auto;
+    bottom: calc(var(--pad-bottom) + var(--pad-h) - 7 * var(--u));
+    width: calc(44 * var(--u));
+    transform: translate(var(--shot-x), 50%) scaleX(var(--shot-scale)) scaleY(calc(0.32 * var(--shot-scale)));
+  }
+
+  /* Charge meter hangs above the ball (below it is the macropad) */
+  .charge-meter {
+    left: calc(16px + 32 * var(--u));
+    top: auto;
+    bottom: calc(var(--pad-bottom) + var(--pad-h) + 52 * var(--u) + 12px);
+    width: calc(52 * var(--u));
+  }
+
+  /* The desktop keyboard art + its key hints give way to the macropad */
+  .game-keyboard-bg {
+    display: none;
+  }
+
+  .game-keys {
+    inset: auto;
+    left: 16px;
+    bottom: var(--pad-bottom);
+    width: var(--pad-w);
+    height: var(--pad-h);
+  }
+
+  .game-macropad {
+    display: block;
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: calc(11 * var(--u));
+    pointer-events: none;
+  }
+
+  .game-macropad img {
+    position: absolute;
+    left: -3.52%;
+    top: -12.56%;
+    width: 106.89%;
+    height: 125.13%;
+    max-width: none;
+  }
+
+  /* Shoot key — yellow, ball peeking up from the bottom edge */
+  .game-key--space {
+    left: 3.17%;
+    top: 64.37%;
+    width: 42.52%;
+    height: 30.15%;
+    border: calc(1.5 * var(--u)) solid var(--color-border);
+    border-radius: calc(5 * var(--u));
+    background: var(--color-accent-yellow);
+    box-shadow: none;
+    overflow: hidden;
+    font-size: calc(9 * var(--u));
+    letter-spacing: calc(-0.3 * var(--u));
+    text-transform: none;
+    transition: background-color 100ms ease, top 80ms ease;
+  }
+
+  /* Pressed state (Figma 667:8067): orange, drops 2px */
+  .game-key--space.is-pressed {
+    background-color: var(--color-accent);
+    top: calc(64.37% + 2 * var(--u));
+  }
+
+  .game-key__label--keys {
+    display: none;
+  }
+
+  .game-key__label--touch {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(10 * var(--u));
+    line-height: 1;
+    text-align: center;
+  }
+
+  .game-key--space .game-key__ball-icon {
+    position: absolute;
+    left: 39.8%;
+    top: 37.2%;
+    width: 34.3%;
+    height: auto;
+  }
+
+  .game-key__ball-icon--end {
+    display: none;
+  }
+
+  /* Esc key — red, ✕ in the middle */
+  .game-key--escape {
+    left: 3.23%;
+    top: 6.72%;
+    width: 16.64%;
+    height: 28.27%;
+    background: #d81921;
+    border: calc(2.087 * var(--u)) solid #000;
+    border-radius: calc(5.357 * var(--u));
+    overflow: hidden;
+  }
+
+  .game-key__escape-icon--keys {
+    display: none;
+  }
+
+  .game-key__escape-icon--touch {
+    display: block;
+    width: calc(28.57 * var(--u));
+    height: calc(28.57 * var(--u));
+  }
+
+  /* Result flash + streak line up in the gap between the hint and the hoop */
+  .result-flash {
+    top: 300px;
+    font-size: 20px;
+  }
+
+  .streak-pulse {
+    top: 258px;
+    font-size: 12px;
+  }
+
+  .game-modal {
+    padding: 0 16px;
+  }
+
+  .game-modal__box {
+    padding: var(--space-lg);
   }
 }
