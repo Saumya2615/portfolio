@@ -35,7 +35,7 @@
 .footer-eyebrow {
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text); /* ink, not grey: the grey reads weak on the bold yellow */
 }
 
 #connect h2 {
@@ -131,7 +131,7 @@
 .footer-credit {
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .footer-heart {

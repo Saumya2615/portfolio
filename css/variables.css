@@ -10,7 +10,7 @@
   --color-text-muted:       #57534d;   /* stone/600 */
   --color-accent:           #f54900;   /* orange/600 — primary accent */
   --color-accent-yellow:    #ffd230;   /* amber/300 — secondary accent / key highlights */
-  --color-footer-bg:        #fef3c6;   /* amber/100 — footer warm cream */
+  --color-footer-bg:        #ffd230;   /* amber/300 — footer, the bold accent yellow */
   --color-card-secondary:   #fdede0;   /* light peach — secondary project card bg */
   --color-key-green:        #66d575;   /* green — down arrow key highlight */
   --color-border:           #0c0a09;   /* stone/950 */
