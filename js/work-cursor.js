@@ -11,7 +11,6 @@
   if (!grid) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const LABEL_DELAY = 250; // ms the eyes go it alone before the label slides out
 
   const cursor = document.createElement('div');
   cursor.className = 'work-cursor';
@@ -30,7 +29,6 @@
   let visible = false;
   let hovered = null;
   let raf = 0;
-  let labelTimer = 0;
 
   // The native cursor is only hidden (css) once this script is running
   document.documentElement.classList.add('work-cursor-on');
@@ -53,8 +51,7 @@
     visible = true;
     x = tx; y = ty;
     cursor.classList.add('is-visible');
-    clearTimeout(labelTimer);
-    labelTimer = setTimeout(() => cursor.classList.add('has-label'), reduced ? 0 : LABEL_DELAY);
+    cursor.classList.add('has-label'); // eyes and label arrive together
     if (!raf) raf = requestAnimationFrame(frame);
   }
 
@@ -62,7 +59,6 @@
     if (!visible) return;
     visible = false;
     hovered = null;
-    clearTimeout(labelTimer);
     cursor.classList.remove('is-visible', 'has-label', 'is-blink', 'is-pressed');
   }
 
