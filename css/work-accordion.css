@@ -1,0 +1,341 @@
+/* ============================================================
+   Selected Work — accordion (one project open at a time)
+   Figma: Section 10 (618:9370). Desktop 1440: header 618..., rows 72px,
+   open panel 1312x580. Tablet 704x440. Every item is either bar-height
+   (closed) or panel-height (open), so the list's total height never
+   changes when the open project swaps.
+   ============================================================ */
+
+#work {
+  --bar-h: 72px;
+  --panel-h: 580px;
+  --work-ease: cubic-bezier(0.55, 0.2, 0.25, 1); /* a touch softer landing than a plain ease-in-out */
+  --work-dur: 620ms;
+  padding: 144px var(--page-pad) 64px;
+}
+
+/* The section pins while the scroll steps through the projects: .work-track
+   is tall (set in js/work-accordion.js), .work-stage sticks inside it. */
+.work-stage {
+  position: sticky;
+  top: var(--stage-top, 80px);
+}
+
+#work .work-header,
+#work .work-accordion {
+  max-width: 1312px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Header: kicker + "Selected Work" + folder (Figma 614:5392) ── */
+.work-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 42px;
+}
+
+.work-header__kicker {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.work-header h2 {
+  font-size: var(--text-section);
+  line-height: 1.5;
+}
+
+.work-header__folder {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+
+/* ── Items ── */
+/* The panel keeps its Figma proportions as the list gets narrower: height =
+   width x (580/1312) for the desktop art, (440/704) for the tablet art.
+   cqw is the accordion's own width. Phones use a fixed height (below). */
+.work-accordion {
+  container-type: inline-size;
+}
+
+.work-item {
+  --panel-h: calc(100cqw * 580 / 1312);
+  position: relative;
+  height: var(--bar-h);
+  overflow: hidden;
+  contain: layout paint;
+  border-bottom: var(--border-thin) solid #a6a09b;
+  background: #fafaf9;
+  transition: height var(--work-dur) var(--work-ease);
+}
+
+.work-item.is-open {
+  height: var(--panel-h);
+}
+
+.work-accordion.is-instant .work-item,
+.work-accordion.is-instant .work-item * {
+  transition-duration: 0ms !important;
+}
+
+/* ── Closed row ── */
+.work-item__bar-heading {
+  font: inherit;
+  letter-spacing: inherit;
+  margin: 0;
+}
+
+.work-item__bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: var(--bar-h);
+  padding: 0 0 0 calc(var(--work-pad-x, 83px));
+  background: none;
+  border: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-subline);
+  font-weight: 400;
+  letter-spacing: var(--tracking-subline);
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 250ms ease;
+}
+
+.work-item.is-open .work-item__bar {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Year, right-aligned in the closed row; its right inset mirrors the left
+   so it sits level with the open panel's tags */
+.work-item__bar {
+  justify-content: space-between;
+  padding-right: var(--work-pad-x, 83px);
+}
+
+.work-item__year {
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  color: var(--color-text-muted);
+}
+
+/* ── Open panel ── */
+.work-item__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--panel-h);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 450ms ease 150ms, visibility 0s linear var(--work-dur);
+}
+
+.work-item.is-open .work-item__panel {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 450ms ease 150ms, visibility 0s;
+}
+
+.work-panel {
+  /* own compositor layer: while an item's height animates, the panel is only
+     re-clipped, not repainted every frame */
+  will-change: transform;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--color-text);
+}
+
+.work-panel--light-text {
+  color: #fff;
+}
+
+.work-panel__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+/* Text block: Figma puts it 81px in, 52px down */
+.work-panel__head {
+  position: absolute;
+  top: 52px;
+  left: var(--work-head-x, 81px);
+  right: var(--work-head-x, 81px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 24px;
+  row-gap: 8px;
+  z-index: 2;
+}
+
+.work-panel__name,
+.work-panel__tags {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-sm);
+  line-height: 21px;
+}
+
+.work-panel__tags {
+  text-align: right;
+}
+
+.work-panel__headline {
+  grid-column: 1 / -1;
+  max-width: var(--headline-w, 900px);
+  font-family: var(--font-body);
+  font-size: var(--text-subline);
+  font-weight: 400;
+  letter-spacing: var(--tracking-subline);
+  line-height: 31px;
+}
+
+/* Art sits on a 1312x580 canvas pinned to the panel's bottom edge, so
+   the cropped product shots stay flush with it at every width */
+.work-panel__art {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  aspect-ratio: 1312 / 580;
+  z-index: 1;
+}
+
+.work-panel__main,
+.work-panel__piece {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* the panel is a link; cancel the site-wide a:hover dim (it read as a white overlay) */
+.work-panel:hover {
+  opacity: 1;
+}
+
+.work-panel:focus-visible,
+.work-item__bar:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -4px;
+}
+
+/* ── Tablet (768 design: panels 704x440, rows 64) ──
+   The art has its own tablet layout in projects.json (js/projects.js swaps it
+   in), so it needs no scaling here. */
+@media (max-width: 1023px) {
+  #work {
+    --bar-h: 64px;
+    --work-pad-x: 24px;
+    --work-head-x: 24px;
+    padding-top: 96px;
+  }
+
+  .work-item {
+    --panel-h: calc(100cqw * 440 / 704);
+  }
+
+  .work-header {
+    margin-bottom: 40px;
+  }
+
+  .work-header__folder {
+    width: 72px;
+    height: 72px;
+  }
+
+  .work-panel__head {
+    top: 24px;
+    row-gap: 4px;
+  }
+
+  .work-panel__name,
+  .work-panel__tags {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .work-panel__headline {
+    max-width: var(--headline-w-tablet, 656px);
+    line-height: 29px;
+  }
+}
+
+/* ── Phones (390 design: bleed-to-edge rows 48, panels 390x458) ──
+   Under 480px the mobile art is used; wider than that (a phone held sideways,
+   small tablets) the tablet styles above apply. */
+@media (max-width: 479px) {
+  #work {
+    --bar-h: 48px;
+    --work-pad-x: 16px;
+    --work-head-x: 16px;
+    padding-top: var(--space-xl);
+  }
+
+  .work-item {
+    --panel-h: calc(100cqw * 458 / 390);
+  }
+
+  /* rows and panels run edge to edge */
+  #work .work-accordion {
+    margin-left: calc(var(--page-pad) * -1);
+    margin-right: calc(var(--page-pad) * -1);
+    max-width: none;
+  }
+
+  .work-header__folder {
+    width: 64px;
+    height: 64px;
+  }
+
+  .work-item__bar {
+    font-size: 18px;
+  }
+
+  .work-item__year {
+    font-size: 12px;
+  }
+
+  /* Figma: 10px name/tags, 18px headline, the headline wrapping around 190px */
+  .work-panel__name,
+  .work-panel__tags {
+    font-size: 10px;
+    line-height: 12px;
+    white-space: nowrap;
+  }
+
+  .work-panel__head {
+    top: 24px;
+    row-gap: 8px;
+    column-gap: 8px;
+  }
+
+  .work-panel__headline {
+    max-width: 190px;
+    font-size: 18px;
+    line-height: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-item,
+  .work-item__panel,
+  .work-item__bar {
+    transition-duration: 0ms !important;
+  }
+}

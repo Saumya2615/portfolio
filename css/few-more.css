@@ -1,0 +1,338 @@
+/* ============================================================
+   "A Few More>>" — the four smaller projects.
+   Figma: Desktop Final 618:8425, "Tablet Final" 622:10629,
+   "Mobile final" 612:12669 (section 618:9370).
+
+   Desktop / tablet: an aligned 2 × 2 grid (Figma "Frame 2087328893"
+   687:24628 on desktop, 622:10636 on tablet). Phones: a one-at-a-time swipe track with
+   < > buttons (js/few-more.js). Every card is a real link to its case
+   study page (data/projects.json → js/projects.js).
+   Breakpoints: tablet ≤ 1199px, phone ≤ 767px (see variables.css).
+   ============================================================ */
+
+#more-work {
+  /* Figma tokens for this section: card border = stone/400, text = stone/900 / stone/600 */
+  --more-border: #a6a09b;
+  --more-ink: #1c1917;
+  --more-gap-x: 20px;
+  --more-gap-y: 20px;
+
+  position: relative;
+  max-width: 1440px;
+  margin: 0 auto;
+  /* Title sits 163px under the section top in Figma; #work's 64px bottom
+     padding already supplies part of that */
+  padding: 99px var(--page-pad) 137px;
+}
+
+/* ── Header ── */
+.more-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 96px;
+  margin-bottom: 169px; /* title block (96px) → first card, 265px under the title's top */
+}
+
+.more-header__eyebrow {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  color: var(--color-text-muted);
+}
+
+#more-work h2 {
+  font-size: var(--text-section);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  white-space: nowrap;
+}
+
+/* Keycaps — Figma 687:24763 / 622:10635 / 612:12674: a bbox holding the art
+   in a box tilted -12.79deg. The crop percentages below only keep the art's
+   proportions inside that tilted box (371.7 × 242.3 on desktop), so the tilt
+   applies at every size; only the bbox size changes. */
+.more-header__keys {
+  position: absolute;
+  right: 0;
+  top: -73px; /* Figma's x/y for this node is its tilted corner, not its box: the box's top is 82px above it */
+  width: 416px;
+  height: 319px;
+  pointer-events: none;
+  mix-blend-mode: multiply; /* drop the white backdrop of the art */
+}
+
+.more-header__keys-tilt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 89.33%;  /* 200 / 223.9 — the tilted box inside its bounding box */
+  height: 76.05%; /* 130.35 / 171.4 */
+  transform: translate(-50%, -50%) rotate(-12.79deg);
+  overflow: hidden;
+}
+
+.more-header__keys-tilt img {
+  position: absolute;
+  left: -15.02%;
+  top: -12.75%;
+  width: 115.02%;
+  height: 135.29%;
+  max-width: none;
+}
+
+/* Squares — Figma 618:8420 (orange) / 618:8422 (yellow), desktop only */
+.more-header__dot {
+  position: absolute;
+}
+
+.more-header__dot--1 { left: 630px; top: -27px; }
+.more-header__dot--2 { left: 833px; top: -109px; }
+
+/* ── Cards ── */
+.more-track {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--more-gap-y) var(--more-gap-x);
+  max-width: 979px; /* two 479px cards + 20px gap, centred (Figma x 231 → 1210) */
+  margin: 0 auto;
+}
+
+.more-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.more-card-link:hover {
+  opacity: 1;
+}
+
+.more-card-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.more-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  padding-bottom: 18px;
+  background: var(--color-bg);
+  border: 1px solid var(--more-border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.more-card-link:hover .more-card {
+  border-color: var(--color-text-muted);
+}
+
+.more-card__image {
+  aspect-ratio: 476 / 297;
+  background: var(--color-card-secondary);
+}
+
+.more-card__image img,
+.more-card__image-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.more-card__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 21px;
+}
+
+.more-card__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: normal;
+  letter-spacing: -0.01em;
+}
+
+.more-card__title {
+  font-family: var(--font-body);
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: var(--more-ink);
+}
+
+.more-card__description {
+  font-size: inherit;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.more-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto; /* meta sits on the card's bottom edge when a neighbour's copy runs longer */
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* Phone slider buttons stay out of the grid layouts */
+.more-arrows {
+  display: none;
+}
+
+/* ── Tablet ── Figma 622:10629: 704px content, 344px cards */
+@media (max-width: 1199px) {
+  #more-work {
+    --more-gap-x: 16px;
+    --more-gap-y: 24px;
+    padding: 64px var(--page-pad) 64px;
+  }
+
+  .more-header {
+    min-height: 171px;
+    margin-bottom: 40px;
+  }
+
+  .more-header__keys {
+    right: 0;
+    top: 0;
+    width: 224px;
+    height: 171px;
+  }
+
+  .more-header__dot {
+    display: none;
+  }
+
+  .more-track {
+    max-width: none;
+  }
+
+  .more-card {
+    padding-bottom: 16px;
+  }
+
+  .more-card__text {
+    gap: 8px;
+    padding: 0 16px;
+  }
+
+  .more-card__heading {
+    gap: 4px;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .more-card__meta {
+    font-size: 10px;
+  }
+}
+
+/* ── Phone ── Figma 612:12669: one 358px card at a time, < > under it */
+@media (max-width: 767px) {
+  #more-work {
+    padding: 48px 0 32px;
+  }
+
+  .more-header {
+    min-height: 63px;
+    margin: 0 var(--page-pad) 42px;
+  }
+
+  .more-header__eyebrow {
+    font-size: 10px;
+  }
+
+  /* 124px wide at 390; shrinks on narrower phones so it never runs under
+     the 211px-wide title, with an 8px+ gap (the tilted box inside scales with it) */
+  .more-header__keys {
+    right: 0;
+    top: -9px;
+    width: min(124px, calc(100% - 230px));
+    height: auto;
+    aspect-ratio: 124 / 95;
+  }
+
+  .more-track {
+    display: flex;
+    max-width: none;
+    margin: 0;
+    position: relative; /* js/few-more.js measures card offsets against it */
+    gap: 14px;
+    padding: 0 var(--page-pad);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--page-pad);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .more-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .more-card-link {
+    flex: 0 0 100%; /* of the track's content box = viewport − 2 × page gutter */
+    scroll-snap-align: start;
+  }
+
+  .more-card {
+    height: 100%;
+  }
+
+  .more-arrows {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .more-arrows[hidden] {
+    display: none;
+  }
+
+  .more-arrow {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s ease;
+  }
+
+  .more-arrow img {
+    display: block;
+  }
+
+  .more-arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .more-card,
+  .more-arrow {
+    transition: none;
+  }
+}

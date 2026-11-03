@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/reset.css?v=4" />
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/nav.css" />
@@ -15,7 +15,11 @@
     <link rel="stylesheet" href="css/keyboard.css" />
     <link rel="stylesheet" href="css/macropad.css" />
     <link rel="stylesheet" href="css/macropad-tilt.css" />
-    <link rel="stylesheet" href="css/work.css" />
+    <link rel="stylesheet" href="css/work.css?v=3" />
+    <link rel="stylesheet" href="css/work-accordion.css?v=13" />
+    <link rel="stylesheet" href="css/work-motion.css?v=5" />
+    <link rel="stylesheet" href="css/work-cursor.css?v=5" />
+    <link rel="stylesheet" href="css/few-more.css" />
     <link rel="stylesheet" href="css/about.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <link rel="stylesheet" href="css/escape.css" />
@@ -143,47 +147,45 @@
            MY WORKS (main 4 projects — data-driven, Step 6)
       ============================================================ -->
       <section id="work">
-        <div class="section-header work-header">
-          <h2>My Works &gt;&gt;</h2>
-          <img src="assets/images/work-folder.webp" alt="" class="work-header__folder" width="104" height="104" />
-          <!-- Figma 172:4426: two staggered rows of squares, right-aligned -->
-          <div class="work-header__dots" aria-hidden="true">
-            <div class="work-header__dot-row">
-              <span class="dot dot--orange"></span>
-              <span class="dot dot--orange"></span>
-              <span class="dot dot--yellow"></span>
-              <span class="dot dot--orange"></span>
-              <span class="dot dot--white"></span>
+        <div class="work-track">
+          <div class="work-stage">
+          <div class="work-header">
+            <div class="work-header__text">
+              <p class="work-header__kicker">The Ones I&rsquo;d Show You First</p>
+              <h2>Selected Work</h2>
             </div>
-            <div class="work-header__dot-row work-header__dot-row--offset">
-              <span class="dot dot--yellow"></span>
-              <span class="dot dot--white"></span>
-              <span class="dot dot--yellow"></span>
-              <span class="dot dot--orange"></span>
-            </div>
+            <img src="assets/images/work-folder.webp" alt="" class="work-header__folder" width="100" height="100" />
           </div>
-        </div>
-        <div id="main-projects-grid">
-          <!-- Populated by js/projects.js -->
+          <div id="main-projects-grid" class="work-accordion">
+            <!-- Populated by js/projects.js -->
+          </div>
+          </div>
         </div>
       </section>
 
       <!-- ============================================================
            A FEW MORE (secondary 4 projects — data-driven, Step 6)
       ============================================================ -->
-      <section id="more-work">
-        <div class="section-header more-header">
-          <h2>A few more &gt;&gt;</h2>
-          <p>Different shapes, same amount of feeling.</p>
-          <!-- Figma 172:4492-4498: halftone keycaps, bolts, and squares -->
-          <img src="assets/images/yes-keys.webp" alt="" class="more-header__keys" width="360" height="276" />
-          <img src="assets/images/more-bolt-large.svg" alt="" class="more-header__bolt more-header__bolt--large" />
-          <img src="assets/images/more-bolt-small.svg" alt="" class="more-header__bolt more-header__bolt--small" />
-          <span class="dot dot--yellow more-header__dot more-header__dot--1" aria-hidden="true"></span>
-          <span class="dot dot--orange more-header__dot more-header__dot--2" aria-hidden="true"></span>
+      <section id="more-work" aria-labelledby="more-work-title">
+        <div class="more-header">
+          <div class="more-header__text">
+            <p class="more-header__eyebrow">Smaller, Still Loved</p>
+            <h2 id="more-work-title">A Few More&gt;&gt;</h2>
+          </div>
+          <!-- Figma 618:8418 — halftone keycaps, tilted -12.79deg; the art is cropped inside the tilted box -->
+          <div class="more-header__keys" aria-hidden="true">
+            <div class="more-header__keys-tilt"><img src="assets/images/yes-keys.webp" alt="" /></div>
+          </div>
+          <span class="dot dot--orange more-header__dot more-header__dot--1" aria-hidden="true"></span>
+          <span class="dot dot--yellow more-header__dot more-header__dot--2" aria-hidden="true"></span>
         </div>
-        <div id="secondary-projects-grid">
+        <div id="secondary-projects-grid" class="more-track">
           <!-- Populated by js/projects.js -->
+        </div>
+        <!-- Phones: the cards become a one-at-a-time slider (js/few-more.js) -->
+        <div class="more-arrows" hidden>
+          <button type="button" class="more-arrow" data-dir="-1" aria-label="Previous project"><img src="assets/images/more-arrow-left.svg" alt="" width="32" height="32" /></button>
+          <button type="button" class="more-arrow" data-dir="1" aria-label="Next project"><img src="assets/images/more-arrow-right.svg" alt="" width="32" height="32" /></button>
         </div>
       </section>
 
@@ -294,7 +296,11 @@
       <p class="escape-wink">you can't Esc-ape<br class="escape-br" /> this portfolio ;)</p>
     </div>
 
-    <script src="js/projects.js"></script>
+    <script src="js/projects.js?v=14"></script>
+    <script src="js/few-more.js"></script>
+    <script src="js/work-accordion.js?v=7"></script>
+    <script src="js/work-cursor.js?v=4"></script>
+    <script src="js/doodle-draw.js?v=3"></script>
     <script src="js/keyboard.js"></script>
     <script src="js/macropad.js"></script>
     <script src="js/macropad-tilt.js"></script>
