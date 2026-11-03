@@ -190,49 +190,62 @@
       <!-- ============================================================
            ABOUT ME
       ============================================================ -->
-      <section id="about">
-        <div class="about-body">
-          <div class="about-left">
-            <h2>About Me <span class="subline">(Real Intro)</span></h2>
-            <div class="about-text">
-              <p>
-                Hi! I'm Saumya, a fellow design enthusiast from Udaipur, Rajasthan. always been a creative mind, I've always been into making stuff on my own- be it paintings, sketching, crafting, best out of waste, crocheting.
-                <br />
-                Besides this, I like watching movies, running, and playing basketball, and occasional getaways.
-              </p>
+      <section id="about" aria-labelledby="about-title">
+        <div class="about-stage">
+          <header class="about-head">
+            <h2 id="about-title">About Me</h2>
+            <p class="about-head__sub">(Real Intro)</p>
+          </header>
+
+          <!-- Polaroid + stickers. Desktop also gets the halftone skyline. -->
+          <div class="about-art">
+            <img src="assets/images/udaipur.webp" alt="" class="about-skyline" />
+            <img src="assets/images/Saumya Pic.png" alt="Polaroid photo of Saumya smiling outdoors, captioned SUMO" class="about-polaroid" />
+            <img src="assets/images/about-squiggle.svg" alt="" class="about-squiggle" />
+            <a href="playground.html" class="about-game-tag" aria-label="Game on: open the Playground">
+              <img src="assets/images/about-game-tag.svg" alt="" />
+            </a>
+          </div>
+
+          <div class="about-intro">
+            <p>Hey! I&rsquo;m Saumya, a designer from Udaipur. If you catch me smiling at nothing, I&rsquo;m probably imagining something ridiculous.</p>
+            <p>I&rsquo;ve been making things for as long as I can remember: paintings, sketches, crafts, crochet, and the occasional best-out-of-waste project. Outside of design, you&rsquo;ll find me reading young adult fiction, watching movies, running or playing basketball.</p>
+          </div>
+
+          <div class="about-facts">
+            <div class="about-facts__block">
+              <h3 class="about-facts__label">Experience</h3>
+              <ul class="about-facts__list">
+                <li class="about-fact">
+                  <p class="about-fact__row"><span class="about-fact__title">Different Labs</span><span class="about-fact__dates">May&ndash;Jul 2026</span></p>
+                  <p class="about-fact__sub">Product Designer</p>
+                </li>
+                <li class="about-fact">
+                  <p class="about-fact__row"><span class="about-fact__title">Webanix</span><span class="about-fact__dates">Aug&ndash;Oct 2022</span></p>
+                  <p class="about-fact__sub">Digital Marketing Intern</p>
+                </li>
+              </ul>
             </div>
-            <span class="dot dot--orange about-left-dot about-left-dot--1 fly-dot" data-fly="1"></span>
-            <span class="dot dot--yellow about-left-dot about-left-dot--2 fly-dot" data-fly="2"></span>
+            <div class="about-facts__block">
+              <h3 class="about-facts__label">Education</h3>
+              <ul class="about-facts__list">
+                <li class="about-fact">
+                  <p class="about-fact__row"><span class="about-fact__title">Bachelor of Design</span><span class="about-fact__dates">2023&ndash;2027</span></p>
+                  <p class="about-fact__sub">Indian Institute of Technology Guwahati</p>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="about-visual">
-            <img
-              src="assets/images/udaipur.webp"
-              alt=""
-              class="about-skyline"
-            />
-            <img
-              src="assets/images/about-squiggle.svg"
-              alt=""
-              class="about-squiggle"
-            />
-            <img
-              src="assets/images/Saumya Pic.png"
-              alt="Polaroid photo of Saumya smiling outdoors, captioned SUMO"
-              class="polaroid-photo"
-            />
-            <img
-              src="assets/images/about-game-tag.svg"
-              alt=""
-              class="about-game-tag"
-            />
-            <span class="dot dot--orange about-visual-dot about-visual-dot--1 fly-dot" data-fly="4"></span>
-            <span class="dot dot--yellow about-visual-dot about-visual-dot--2 fly-dot" data-fly="3"></span>
-            <span class="dot dot--orange about-visual-dot about-visual-dot--3 fly-dot" data-fly="5"></span>
-            <span class="dot dot--orange about-visual-dot about-visual-dot--4 fly-dot" data-fly="6"></span>
-          </div>
+
+          <!-- Squares that rest here and drop into the footer (js/footer-tetris.js) -->
+          <span class="dot dot--orange about-dot about-dot--l1 fly-dot" data-fly="1"></span>
+          <span class="dot dot--yellow about-dot about-dot--l2 fly-dot" data-fly="2"></span>
+          <span class="dot dot--orange about-dot about-dot--v1 fly-dot" data-fly="4"></span>
+          <span class="dot dot--yellow about-dot about-dot--v2 fly-dot" data-fly="3"></span>
+          <span class="dot dot--orange about-dot about-dot--v3 fly-dot" data-fly="5"></span>
+          <span class="dot dot--orange about-dot about-dot--v4 fly-dot" data-fly="6"></span>
         </div>
       </section>
-
     </main>
 
     <!-- ============================================================
