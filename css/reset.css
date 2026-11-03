@@ -11,7 +11,8 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: clip; /* not hidden: hidden makes body a scroll container and breaks position: sticky (Work section) */
+  position: relative; /* so loose absolute elements (About's flying dots, appended to body) are clipped by it instead of widening the page on tablets/phones */
 }
 
 img, video {
