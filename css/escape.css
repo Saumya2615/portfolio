@@ -56,3 +56,23 @@
     white-space: normal;
   }
 }
+
+/* Phones: break the wink into two lines and keep it off the screen edges */
+.escape-br {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .escape-br {
+    display: inline;
+  }
+
+  .escape-overlay {
+    padding: 0 var(--page-pad);
+  }
+
+  .escape-wink {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+}
