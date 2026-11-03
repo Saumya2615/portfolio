@@ -60,15 +60,37 @@
       "link": "project/creek-ui",
       "panel": {
         "dir": "assets/work/creek-ui/",
-        "gap": 140,
-        "fx": { "doodles-left": "left", "doodles-right": "right" },
+        "motion": {
+          "martini":    { "pen": [0, 580, "out"] },
+          "cup":        { "pen": [90, 520, "inout"] },
+          "cat":        { "pen": [210, 750, "inout"] },
+          "burger":     { "pen": [390, 580, "inout"] },
+          "pink-vase":  { "pen": [530, 420, "out"] },
+          "cake":       { "pen": [580, 390, "out"] },
+          "plate":      { "pen": [650, 420, "out"] },
+          "white-vase": { "pen": [720, 490, "inout"] },
+          "apple":      { "dab": 680 },
+          "purple-1":   { "dab": 810 },
+          "purple-2":   { "dab": 880 },
+          "purple-3":   { "dab": 940 }
+        },
         "tone": "dark-text",
         "desktop": {
           "bg": "bg.webp",
           "main": { "src": "main-half.webp", "x": 287, "y": 153.5, "w": 784 },
           "layers": [
-            { "src": "01-doodles-left.webp", "x": -4, "y": 349, "w": 316 },
-            { "src": "02-doodles-right.webp", "x": 1047, "y": 395, "w": 265 }
+            { "id": "martini", "src": "doodles/01-left-1.webp", "x": 27.5, "y": 386.0, "w": 53.5 },
+            { "id": "purple-1", "src": "doodles/02-right-1.webp", "x": 1217.0, "y": 402.0, "w": 18.5 },
+            { "id": "cat", "src": "doodles/03-left-2.webp", "x": 20.0, "y": 476.0, "w": 114.0 },
+            { "id": "cup", "src": "doodles/04-right-2.webp", "x": 1232.0, "y": 444.0, "w": 62.0 },
+            { "id": "pink-vase", "src": "doodles/05-left-3.webp", "x": 151.5, "y": 501.5, "w": 75.5 },
+            { "id": "burger", "src": "doodles/06-right-3.webp", "x": 1073.5, "y": 490.5, "w": 63.0 },
+            { "id": "apple", "src": "doodles/07-left-4.webp", "x": 7.5, "y": 531.0, "w": 36.5 },
+            { "id": "cake", "src": "doodles/08-right-4.webp", "x": 1140.0, "y": 532.5, "w": 54.0 },
+            { "id": "purple-2", "src": "doodles/09-left-5.webp", "x": 264.0, "y": 530.5, "w": 21.5 },
+            { "id": "white-vase", "src": "doodles/10-right-5.webp", "x": 1211.0, "y": 530.0, "w": 52.0 },
+            { "id": "purple-3", "src": "doodles/11-right-6.webp", "x": 1273.5, "y": 530.0, "w": 29.0 },
+            { "id": "plate", "src": "doodles/12-right-7.webp", "x": 1066.5, "y": 567.5, "w": 47.5 }
           ]
         },
         "tablet": {
@@ -77,8 +99,18 @@
           "bg": "bg.webp",
           "main": { "src": "main.webp", "x": 78, "y": 124.5, "w": 547.5 },
           "layers": [
-            { "src": "01-doodles-left.webp", "x": -2.5, "y": 214, "w": 148 },
-            { "src": "02-doodles-right.webp", "x": 549, "y": 227.5, "w": 155 }
+            { "id": "burger", "src": "doodles/01-left-1.webp", "x": -1.5, "y": 237.5, "w": 40.5 },
+            { "id": "cake", "src": "doodles/02-right-1.webp", "x": 658.5, "y": 244.0, "w": 38.0 },
+            { "id": "pink-vase", "src": "doodles/03-left-2.webp", "x": 33.0, "y": 283.0, "w": 35.0 },
+            { "id": "purple-1", "src": "doodles/04-right-2.webp", "x": 644.5, "y": 292.5, "w": 13.5 },
+            { "id": "martini", "src": "doodles/05-left-3.webp", "x": 10.0, "y": 326.5, "w": 24.5 },
+            { "id": "plate", "src": "doodles/06-right-3.webp", "x": 623.0, "y": 340.0, "w": 23.0 },
+            { "id": "purple-2", "src": "doodles/07-left-4.webp", "x": 52.5, "y": 359.0, "w": 10.0 },
+            { "id": "cup", "src": "doodles/08-right-4.webp", "x": 666.0, "y": 313.0, "w": 36.0 },
+            { "id": "cat", "src": "doodles/09-left-5.webp", "x": 11.0, "y": 378.5, "w": 51.0 },
+            { "id": "white-vase", "src": "doodles/10-right-5.webp", "x": 640.0, "y": 385.5, "w": 36.5 },
+            { "id": "apple", "src": "doodles/11-left-6.webp", "x": 5.0, "y": 421.0, "w": 16.5 },
+            { "id": "purple-3", "src": "doodles/12-right-6.webp", "x": 684.0, "y": 370.0, "w": 18.0 }
           ]
         },
         "mobile": {
@@ -86,8 +118,17 @@
           "bg": "bg.webp",
           "main": { "src": "main.webp", "x": 7.5, "y": 230.5, "w": 376.5 },
           "layers": [
-            { "src": "01-doodles-left.webp", "x": -3.5, "y": 136, "w": 122.5 },
-            { "src": "02-doodles-right.webp", "x": 206.6, "y": 129.5, "w": 181 }
+            { "id": "cat", "src": "doodles/01-left-1.webp", "x": 27.5, "y": 155.5, "w": 44.0 },
+            { "id": "burger", "src": "doodles/02-right-1.webp", "x": 221.1, "y": 159.5, "w": 34.5 },
+            { "id": "martini", "src": "doodles/03-left-2.webp", "x": 7.0, "y": 207.0, "w": 21.0 },
+            { "id": "purple-1", "src": "doodles/04-right-2.webp", "x": 344.1, "y": 132.5, "w": 9.5 },
+            { "id": "pink-vase", "src": "doodles/05-left-3.webp", "x": 73.5, "y": 206.0, "w": 23.0 },
+            { "id": "cake", "src": "doodles/06-right-3.webp", "x": 272.1, "y": 199.0, "w": 26.0 },
+            { "id": "apple", "src": "doodles/07-left-4.webp", "x": 44.5, "y": 258.0, "w": 14.5 },
+            { "id": "cup", "src": "doodles/08-right-4.webp", "x": 354.6, "y": 185.0, "w": 30.0 },
+            { "id": "purple-2", "src": "doodles/09-left-5.webp", "x": 107.0, "y": 266.0, "w": 8.5 },
+            { "id": "white-vase", "src": "doodles/10-right-5.webp", "x": 338.6, "y": 227.5, "w": 44.5 },
+            { "id": "plate", "src": "doodles/11-right-6.webp", "x": 275.1, "y": 254.5, "w": 22.0 }
           ]
         }
       }
