@@ -18,6 +18,7 @@
   cursor.setAttribute('aria-hidden', 'true');
   cursor.innerHTML =
     '<div class="work-cursor__pill">' +
+    '<span class="work-cursor__bg"></span>' +
     '<img class="work-cursor__eyes" src="assets/images/work-eyes.svg" alt="" draggable="false" />' +
     '<span class="work-cursor__label">View case study</span>' +
     '</div>';
