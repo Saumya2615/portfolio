@@ -1,8 +1,9 @@
 // work-cursor.js — over an open project panel the pointer becomes the
-// backspace-key eyes plus a small "↵ open" keycap. Mouse/trackpad only.
-// The eyes trail the pointer slightly and lean into the direction it moves;
-// a click blinks them and sinks the key. Pressing Enter opens the hovered
-// project, like the key says.
+// backspace-key eyes; after a short pause a flat yellow "View case study"
+// label slides out beside them (Figma: "Cursor / Project hover v2").
+// Mouse/trackpad only. The eyes trail the pointer slightly and lean into the
+// direction it moves; a click or Enter blinks them. Pressing Enter opens the
+// hovered project.
 
 (function () {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -10,13 +11,16 @@
   if (!grid) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const LABEL_DELAY = 250; // ms the eyes go it alone before the label slides out
 
   const cursor = document.createElement('div');
   cursor.className = 'work-cursor';
   cursor.setAttribute('aria-hidden', 'true');
   cursor.innerHTML =
+    '<div class="work-cursor__pill">' +
     '<img class="work-cursor__eyes" src="assets/images/work-eyes.svg" alt="" draggable="false" />' +
-    '<span class="work-cursor__key"><kbd>↵</kbd> open</span>';
+    '<span class="work-cursor__label">View case study</span>' +
+    '</div>';
   document.body.appendChild(cursor);
   const eyes = cursor.querySelector('.work-cursor__eyes');
 
@@ -25,6 +29,7 @@
   let visible = false;
   let hovered = null;
   let raf = 0;
+  let labelTimer = 0;
 
   // The native cursor is only hidden (css) once this script is running
   document.documentElement.classList.add('work-cursor-on');
@@ -47,6 +52,8 @@
     visible = true;
     x = tx; y = ty;
     cursor.classList.add('is-visible');
+    clearTimeout(labelTimer);
+    labelTimer = setTimeout(() => cursor.classList.add('has-label'), reduced ? 0 : LABEL_DELAY);
     if (!raf) raf = requestAnimationFrame(frame);
   }
 
@@ -54,7 +61,8 @@
     if (!visible) return;
     visible = false;
     hovered = null;
-    cursor.classList.remove('is-visible', 'is-blink', 'is-pressed');
+    clearTimeout(labelTimer);
+    cursor.classList.remove('is-visible', 'has-label', 'is-blink', 'is-pressed');
   }
 
   document.addEventListener('mousemove', (e) => {

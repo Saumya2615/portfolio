@@ -1,7 +1,9 @@
 /* ============================================================
-   Selected Work — cursor
-   Over an open project panel the pointer becomes the backspace-key eyes
-   (assets/images/work-eyes.svg) with a small "↵ open" keycap beside them.
+   Selected Work — cursor (Figma: Portfolio, Section 11, "Cursor / Project
+   hover v2")
+   Over an open project panel the pointer becomes the backspace-key eyes.
+   After a short pause a flat yellow "View case study" label slides out beside
+   them. A click or Enter blinks the eyes and deepens the yellow.
    js/work-cursor.js builds it; mouse/trackpad only. The native cursor is
    hidden only once the script is running (html.work-cursor-on).
    ============================================================ */
@@ -25,14 +27,43 @@
   opacity: 1;
 }
 
-/* the eyes sit centred on the pointer; the keycap hangs below-right */
-.work-cursor__eyes {
+/* The eyes stay put on the pointer in both states: the pill's left padding
+   (10) + border (1) + half the eyes (22) puts their centre on the pointer. */
+.work-cursor__pill {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 60px;
+  left: -33px;
+  top: -18px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 36px;
+  padding: 0 10px;
+  background: transparent;
+  border: var(--border-thin) solid transparent;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: var(--text-key);
+  letter-spacing: var(--tracking-key);
+  color: var(--color-text);
+  white-space: nowrap;
+  transition: background-color 160ms ease, border-color 160ms ease, padding 200ms ease;
+}
+
+.work-cursor.has-label .work-cursor__pill {
+  background: var(--color-accent-yellow);
+  border-color: var(--color-border);
+  padding-right: 14px;
+}
+
+.work-cursor.is-pressed .work-cursor__pill {
+  background: #f8c20d; /* a touch deeper than the resting yellow */
+}
+
+.work-cursor__eyes {
+  display: block;
+  width: 44px;
   height: auto;
-  translate: -50% -50%;
+  flex: none;
   transform-origin: 50% 50%;
   transition: transform 140ms ease;
 }
@@ -41,46 +72,25 @@
   transform: scaleY(0.12);
 }
 
-.work-cursor__key {
-  position: absolute;
-  left: 26px;
-  top: 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px 4px 4px;
-  background: var(--color-bg);
-  border: var(--border-thin) solid var(--color-border);
-  border-bottom-width: 3px;
-  border-radius: 6px;
-  font-family: var(--font-body);
-  font-size: var(--text-key);
-  letter-spacing: var(--tracking-key);
-  color: var(--color-text);
-  white-space: nowrap;
+.work-cursor__label {
+  max-width: 0;
+  padding-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 220ms ease, padding-left 220ms ease, opacity 160ms ease 60ms;
 }
 
-.work-cursor__key kbd {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: var(--radius-key);
-  background: var(--color-accent-yellow);
-  font-family: var(--font-body);
-  font-size: var(--text-key);
-}
-
-/* a press (click or Enter) sinks the key */
-.work-cursor.is-pressed .work-cursor__key {
-  border-bottom-width: 1px;
-  translate: 0 2px;
+.work-cursor.has-label .work-cursor__label {
+  max-width: 140px;
+  padding-left: 8px;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .work-cursor,
-  .work-cursor__eyes {
+  .work-cursor__pill,
+  .work-cursor__eyes,
+  .work-cursor__label {
     transition: none;
   }
 }
