@@ -3,6 +3,7 @@
     {
       "id": "answer-engine-optimization",
       "title": "Answer Engine Optimization",
+      "year": "2026",
       "headline": "Helping brands show up right in AI answers",
       "tags": ["B2B SaaS", "Product Design", "Vibe-Coded"],
       "link": "project/answer-engine-optimization",
@@ -25,6 +26,7 @@
     {
       "id": "creek-ui",
       "title": "Creek.UI",
+      "year": "2025",
       "headline": "An image editing system helping small brands stay consistent.",
       "tags": ["Generative AI", "Product Design", "Flutter deployed"],
       "link": "project/creek-ui",
@@ -42,6 +44,7 @@
     {
       "id": "alum-connect",
       "title": "Alum Connect",
+      "year": "2025",
       "headline": "A community platform built on shared alumni memories",
       "tags": ["Social Platform", "Product Design", "Live Prototype"],
       "link": "project/alum-connect",
@@ -65,6 +68,7 @@
     {
       "id": "hyperlocal-delivery-men",
       "title": "Hyperlocal Delivery Systems",
+      "year": "2026",
       "headline": "A service design study saving riders time at the doorstep",
       "headlineWidth": 435,
       "tags": ["Quick Commerce", "UX Research"],

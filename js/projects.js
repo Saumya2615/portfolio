@@ -29,7 +29,7 @@ function renderMainProjects(projects) {
     return `
     <article class="work-item" data-id="${p.id}">
       <h3 class="work-item__bar-heading">
-        <button type="button" class="work-item__bar" id="work-bar-${p.id}" aria-expanded="false" aria-controls="work-panel-${p.id}">${p.title}</button>
+        <button type="button" class="work-item__bar" id="work-bar-${p.id}" aria-expanded="false" aria-controls="work-panel-${p.id}"><span>${p.title}</span><span class="work-item__year">${p.year}</span></button>
       </h3>
       <div class="work-item__panel" id="work-panel-${p.id}" role="region" aria-labelledby="work-bar-${p.id}">
         <a class="work-panel work-panel--${art.tone}" href="${p.link}" tabindex="-1">
