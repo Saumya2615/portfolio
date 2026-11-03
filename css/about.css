@@ -294,8 +294,8 @@
   .about-dot--l2 { left: 12.93%; top: 639px; }
   .about-dot--v1 { left: 95.03%; top: 60px; }
   .about-dot--v2 { left: 88.64%; top: 384px; }
-  .about-dot--v3 { left: 31.82%; top: 386px; background: var(--color-accent-yellow); }
-  .about-dot--v4 { left: 95.03%; top: 647px; background: var(--color-accent-yellow); }
+  .about-dot--v3 { left: 31.82%; top: 386px; }
+  .about-dot--v4 { left: 95.03%; top: 647px; }
 }
 
 /* ============================================================
