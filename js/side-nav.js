@@ -34,5 +34,36 @@
   window.addEventListener('load', fit); // web fonts can change the height
   fit();
 
+  // Stages that point at a spot in the case study: <a href="#id">. Clicking
+  // scrolls there (no hash change, so it can't clash with #tldr), and the
+  // stage whose spot has reached the upper part of the window is marked current.
+  const links = Array.from(document.querySelectorAll('.side-nav__stage a[href^="#"]'));
+  const spots = links.map((a) => document.getElementById(a.getAttribute('href').slice(1)));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function markCurrent() {
+    if (!links.length || body.dataset.view !== 'full') return;
+    let current = 0;
+    spots.forEach((el, i) => {
+      if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.35) current = i;
+    });
+    links.forEach((a, i) => {
+      const on = i === current;
+      a.parentElement.classList.toggle('is-current', on);
+      if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+    });
+  }
+
+  links.forEach((a, i) => a.addEventListener('click', (e) => {
+    if (!spots[i]) return;
+    e.preventDefault();
+    if (body.dataset.view !== 'full') setView('full', true);
+    spots[i].scrollIntoView({ behavior: reduced.matches ? 'auto' : 'smooth', block: 'start' });
+  }));
+
+  window.addEventListener('scroll', markCurrent, { passive: true });
+  window.addEventListener('resize', markCurrent);
+
   setView(location.hash === '#tldr' ? 'tldr' : 'full', false);
+  markCurrent();
 })();

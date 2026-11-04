@@ -89,6 +89,21 @@
   color: var(--stone-800);
 }
 
+/* a flat list of stages (no acts), 4px apart as in the Alum Connect frame */
+.side-nav__stages.side-nav__stages--flat {
+  gap: 4px;
+}
+
+/* stages that jump to a spot in the case study */
+.side-nav__stage a {
+  display: block;
+  color: inherit;
+}
+
+.side-nav__stage a:hover {
+  color: var(--stone-800);
+}
+
 .side-nav__divider {
   display: block;
   width: 100%;
@@ -181,26 +196,29 @@
   height: 20px;
 }
 
-/* Next-case-study hover (Figma 770:19204, Creek.UI). The cake is in plain
-   px (the card is 141px tall), so it stays put when js/side-nav.js zooms
-   the rail to fit.
-   Rest: plain white. Hover: an indigo circle grows out of the bottom-left
-   corner until it floods the card, and the cake rises in, tilted. */
-.side-nav__next--creek {
+/* Next-case-study hover (Figma 770:19204). The art is in plain px (the card
+   is 141px tall), so it stays put when js/side-nav.js zooms the rail to fit.
+   Rest: plain white. Hover: a coloured circle grows out of the bottom-left
+   corner until it floods the card. --flood-color is set per project; Creek.UI
+   also gets a cake that rises in, tilted (Hyperlocal is the colour only). */
+.side-nav__next--flood {
   --next-ease: cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   overflow: hidden;
 }
 
-.side-nav__next--creek > * {
-  position: relative; /* text and arrow stay above the fill and the cake */
+.side-nav__next--creek { --flood-color: #a3b3ff; }      /* indigo/300 */
+.side-nav__next--hyperlocal { --flood-color: #f8cb46; } /* Hyperlocal yellow */
+
+.side-nav__next--flood > * {
+  position: relative; /* text and arrow stay above the fill and the art */
   z-index: 1;
 }
 
 /* the circle: centred exactly on the bottom-left corner, big enough that
    at full size it covers the whole card. It starts at scale 0, so it
    grows out of that corner */
-.side-nav__next--creek > .side-nav__next-fill {
+.side-nav__next--flood > .side-nav__next-fill {
   position: absolute;
   z-index: 0;
   left: 0;
@@ -208,7 +226,7 @@
   width: 300%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #a3b3ff; /* indigo/300 */
+  background: var(--flood-color);
   transform: translate(-50%, -50%) scale(0);
   transition: transform 550ms var(--next-ease);
 }
@@ -249,8 +267,8 @@
   top: -46.55%;
 }
 
-.side-nav__next--creek:hover > .side-nav__next-fill,
-.side-nav__next--creek:focus-visible > .side-nav__next-fill {
+.side-nav__next--flood:hover > .side-nav__next-fill,
+.side-nav__next--flood:focus-visible > .side-nav__next-fill {
   transform: translate(-50%, -50%) scale(1);
 }
 
@@ -261,7 +279,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .side-nav__next--creek > .side-nav__next-fill,
+  .side-nav__next--flood > .side-nav__next-fill,
   .side-nav__next--creek > .side-nav__next-art {
     transition: none;
   }
