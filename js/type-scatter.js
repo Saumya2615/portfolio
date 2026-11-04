@@ -55,19 +55,41 @@
     return valid.length ? valid : [{ l: w * 0.03, r: w * 0.97 - LETTER_W, t: top, b: top + MIN_BAND }];
   }
 
-  // Keep letters out of the headline/subline block while it's on screen.
-  function textRect() {
+  // Things letters must not land on while they are on screen: the
+  // headline/subline block, the keyboard's orange caption + arrow and its
+  // sparkle, and the phone pad's caption + flower.
+  const AVOID_SELECTORS = [
+    '.keyboard-caption', '.keyboard-caption-flourish', '.keyboard-sparkle',
+    '.macropad__caption', '.macropad__flower',
+  ];
+
+  function avoidRects() {
+    const rects = [];
     const h1 = hero.querySelector('h1');
     const sub = hero.querySelector('.hero-subline');
-    if (!h1 || !sub) return null;
-    const a = h1.getBoundingClientRect();
-    const b = sub.getBoundingClientRect();
-    return {
-      top: Math.min(a.top, b.top) - PAD,
-      bottom: Math.max(a.bottom, b.bottom) + PAD,
-      left: Math.min(a.left, b.left) - PAD,
-      right: Math.max(a.right, b.right) + PAD,
-    };
+    if (h1 && sub) {
+      const a = h1.getBoundingClientRect();
+      const b = sub.getBoundingClientRect();
+      rects.push({
+        top: Math.min(a.top, b.top) - PAD,
+        bottom: Math.max(a.bottom, b.bottom) + PAD,
+        left: Math.min(a.left, b.left) - PAD,
+        right: Math.max(a.right, b.right) + PAD,
+      });
+    }
+    AVOID_SELECTORS.forEach((sel) => {
+      const el = document.querySelector(sel);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) return; // hidden at this breakpoint
+      rects.push({
+        top: r.top - SIDE_PAD,
+        bottom: r.bottom + SIDE_PAD,
+        left: r.left - SIDE_PAD,
+        right: r.right + SIDE_PAD,
+      });
+    });
+    return rects;
   }
 
   // Pick a region weighted by its area, so the big white space above the
@@ -84,18 +106,18 @@
 
   function randomSpot() {
     const list = regions();
-    const text = textRect();
+    const avoid = avoidRects();
     let g = pickRegion(list);
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 20; i++) {
       const x = g.l + Math.random() * (g.r - g.l);
       const y = g.t + Math.random() * (g.b - g.t);
-      const inText = text
-        && x > text.left - LETTER_W && x < text.right
-        && y > text.top - LETTER_H && y < text.bottom;
-      if (!inText) return { x, y };
-      g = pickRegion(list); // try another region if the headline is in the way
+      // the letter's box (x..x+LETTER_W, y..y+LETTER_H) must clear every rect
+      const blocked = avoid.some((r) =>
+        x + LETTER_W > r.left && x < r.right && y + LETTER_H > r.top && y < r.bottom);
+      if (!blocked) return { x, y };
+      g = pickRegion(list); // try another region if something is in the way
     }
-    // Couldn't find a free spot in 12 tries: use the first region's corner
+    // Couldn't find a free spot in 20 tries: use the first region's corner
     return { x: list[0].l, y: list[0].t };
   }
 

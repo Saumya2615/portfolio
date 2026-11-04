@@ -16,6 +16,8 @@
   let buffer = null;
   let slices = null;
   let gain = null;
+  // Off until Loud Mode (the Caps Lock key, js/keyboard.js) turns it on
+  let enabled = false;
 
   // Created up front (suspended) so the wav is decoded by the first press;
   // browsers only let it start after a gesture, see unlock() below.
@@ -38,7 +40,7 @@
   }
 
   function play(code) {
-    if (!buffer || !slices) return;
+    if (!enabled || !buffer || !slices) return;
     const def = slices[code] || slices[FALLBACK_CODE];
     if (!def || !def.timing.length) return;
     const [start, end] = def.timing[0];
@@ -60,6 +62,10 @@
     play(e.code);
   });
 
-  window.keySounds = { play };
+  window.keySounds = {
+    play,
+    setEnabled(on) { enabled = !!on; },
+    isEnabled() { return enabled; },
+  };
   load();
 })();

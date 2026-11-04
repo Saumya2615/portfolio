@@ -18,24 +18,14 @@
     key.addEventListener('click', () => {
       if (!window.heroKeys) return;
       if (key.dataset.name === 'LOUD_MODE_capslock') {
-        // The macropad has its own Figma bolts beside the key, so skip
-        // keyboard.js's spawned ones (null) and pop those instead
+        // The macropad has its own Figma bolts beside the key; keyboard.js
+        // shows and hides them (.macropad__bolts.is-on) as Loud Mode flips
         window.heroKeys.trigger(key.dataset.name, null);
-        popBolts();
       } else {
         window.heroKeys.trigger(key.dataset.name, key);
       }
     });
   });
-
-  const bolts = pad.querySelector('.macropad__bolts');
-  function popBolts() {
-    if (!bolts) return;
-    bolts.classList.remove('is-popping');
-    void bolts.offsetWidth; // restart on rapid taps
-    bolts.classList.add('is-popping');
-  }
-  if (bolts) bolts.addEventListener('animationend', () => bolts.classList.remove('is-popping'));
 
   // ── Plain keys painted into the pad: 3 / Q float their character
   // up out of the key, ↑ / ← shoot off in their own direction, Enter

@@ -1509,7 +1509,7 @@
         "width": 8.26,
         "height": 12.19
       },
-      "tooltip": "loud mode: personality, unfiltered",
+      "tooltip": "loud mode: turn the clicks on",
       "icon": "assets/images/keyboard-keys/loud-mode-capslock.svg"
     }
   ]
