@@ -475,11 +475,6 @@
     -webkit-touch-callout: none;
   }
 
-  /* Orange hairline under the nav bar (Figma 672:17675) */
-  #nav {
-    border-bottom: 1px solid var(--color-accent);
-  }
-
   /* HUD — Score left, Time right, 121px from the top */
   .game-hud {
     top: 121px;
