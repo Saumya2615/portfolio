@@ -6,20 +6,78 @@
     <title>Answer Engine Optimization — Saumya</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&family=Lora:wght@500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&family=Lora:wght@500&family=DM+Mono&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/reset.css" />
     <link rel="stylesheet" href="../../css/variables.css" />
     <link rel="stylesheet" href="../../css/main.css" />
     <link rel="stylesheet" href="../../css/nav.css" />
     <link rel="stylesheet" href="../../css/case-study.css" />
+    <link rel="stylesheet" href="../../css/side-nav.css" />
   </head>
-  <body class="case-study-page">
+  <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
       <nav>
         <a href="../../" class="nav-logo" aria-label="Saumya — home"><img src="../../assets/images/logo-wink.svg" alt="" width="48" height="48" /></a>
       </nav>
     </header>
+    <!-- Figma: AEO Final 784:19966 "Side nav — v2" -->
+    <aside class="side-nav" aria-label="Case study">
+      <a class="side-nav__back" href="../../#work">Work</a>
+      <ul class="side-nav__stages">
+        <li class="side-nav__stage">Context</li>
+        <li class="side-nav__stage">Problem</li>
+        <li class="side-nav__stage">Research</li>
+        <li><img class="side-nav__divider" src="../../assets/images/side-nav-divider.svg" alt="" /></li>
+        <li class="side-nav__act">
+          <span class="side-nav__act-label">Act 1 · Clear problems</span>
+          <ul class="side-nav__items">
+            <li class="side-nav__item">AEO Score</li>
+            <li class="side-nav__item is-current">Competitor Comparison (Shipped)</li>
+          </ul>
+        </li>
+        <li><img class="side-nav__divider" src="../../assets/images/side-nav-divider.svg" alt="" /></li>
+        <li class="side-nav__act">
+          <span class="side-nav__act-label">Act 2 · Ambiguity increases</span>
+          <ul class="side-nav__items">
+            <li class="side-nav__item">Content Optimizer</li>
+            <li class="side-nav__item">Onboarding</li>
+            <li class="side-nav__item">Managing Questions</li>
+          </ul>
+        </li>
+        <li><img class="side-nav__divider" src="../../assets/images/side-nav-divider.svg" alt="" /></li>
+        <li class="side-nav__act">
+          <span class="side-nav__act-label">Act 3 · Owning the system</span>
+          <ul class="side-nav__items">
+            <li class="side-nav__item">Product Vocabulary</li>
+            <li class="side-nav__item">Information Architecture</li>
+            <li class="side-nav__item">North Star</li>
+          </ul>
+        </li>
+        <li><img class="side-nav__divider" src="../../assets/images/side-nav-divider.svg" alt="" /></li>
+        <li class="side-nav__stage">Impact and Learnings</li>
+      </ul>
+      <div class="side-nav__spacer"></div>
+      <div class="side-nav__version" role="group" aria-label="Version">
+        <button type="button" class="side-nav__segment" data-view-set="tldr" aria-pressed="false">TL;DR</button>
+        <button type="button" class="side-nav__segment" data-view-set="full" aria-pressed="true">Full</button>
+      </div>
+      <!-- Figma: Section 3 770:19204. Hover: an indigo circle grows from the bottom-left corner and the cake rises in -->
+      <a class="side-nav__next side-nav__next--creek" href="../creek-ui/">
+        <span class="side-nav__next-fill" aria-hidden="true"></span>
+        <span class="side-nav__next-art" aria-hidden="true"><span><img src="../../assets/images/next-creek-cake.webp" alt="" /></span></span>
+        <span class="side-nav__next-label">Next case study</span>
+        <span class="side-nav__next-title">Creek.UI</span>
+        <img class="side-nav__next-arrow" src="../../assets/images/side-nav-arrow.svg" alt="" width="20" height="20" />
+      </a>
+    </aside>
     <main>
+      <section class="case-study-placeholder case-study-tldr">
+        <p class="case-study-placeholder__eyebrow">You clicked faster than I could type.</p>
+        <p class="case-study-placeholder__message">
+          Here's what I've got so far, or
+          <a href="../../#work">head back to see what's actually ready →</a>
+        </p>
+      </section>
       <section class="case-study-images">
       <img src="../../assets/case-studies/aeo/1.webp" alt="Answer Engine Optimization case study image 1" loading="lazy" />
       <!-- Before/after toggle - Figma: AEO-Compilation 336:35177 (old) / 336:35187 (new) -->
@@ -52,5 +110,6 @@
     </main>
     <script src="../../js/main.js"></script>
     <script src="../../js/before-after.js"></script>
+    <script src="../../js/side-nav.js"></script>
   </body>
 </html>

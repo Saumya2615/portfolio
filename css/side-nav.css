@@ -1,0 +1,304 @@
+/* ============================================================
+   Case study side nav
+   Figma: AEO Final, "Side nav — v2" (784:19967) — 236px rail with the
+   back-to-Work link, the stages of the case study, the TL;DR / Full
+   switch and a "next case study" card. Replaces the slim logo bar on
+   desktop and tablet; phones keep the top bar (no room for a rail).
+   Tokens: stone/200 #e7e5e4, stone/400 #a6a09b, stone/800 #292524.
+   ============================================================ */
+
+.has-side-nav {
+  --side-nav-width: 236px;
+  --stone-200: #e7e5e4;
+  --stone-400: #a6a09b;
+  --stone-800: #292524;
+}
+
+.side-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .has-side-nav #nav {
+    display: none;
+  }
+
+  .has-side-nav main {
+    margin-left: var(--side-nav-width);
+  }
+
+  .side-nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: var(--side-nav-width);
+    padding: 48px 24px;
+    overflow: hidden; /* never scrolls: shorter windows get tighter spacing, then js/side-nav.js scales it to fit */
+    background: var(--color-bg);
+    border-right: var(--border-thin) solid var(--stone-200);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 22.4px;
+    color: var(--stone-800);
+  }
+
+  .side-nav a:hover {
+    opacity: 1;
+  }
+}
+
+.side-nav__back {
+  align-self: flex-start;
+  margin-bottom: 40px;
+}
+
+.side-nav__back,
+.side-nav__stages,
+.side-nav__version,
+.side-nav__next {
+  flex-shrink: 0; /* never squash: js/side-nav.js scales the rail if it runs out of height */
+}
+
+.side-nav__stages {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side-nav__stage,
+.side-nav__item {
+  padding: 4px 0;
+  color: var(--stone-400);
+}
+
+.side-nav__item {
+  padding-right: 12px;
+  overflow-wrap: break-word;
+}
+
+.side-nav__stage.is-current,
+.side-nav__item.is-current {
+  color: var(--stone-800);
+}
+
+.side-nav__divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+
+.side-nav__act {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-nav__act-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--stone-400);
+}
+
+.side-nav__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side-nav__spacer {
+  flex: 1 0 24px;
+}
+
+/* TL;DR / Full switch */
+.side-nav__version {
+  display: flex;
+  border: var(--border-thin) solid var(--stone-800);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.side-nav__segment {
+  flex: 1 0 0;
+  padding: 9px 8px;
+  border: 0;
+  background: var(--color-bg);
+  font: inherit;
+  font-size: 14px;
+  line-height: 19.6px;
+  color: var(--stone-800);
+  cursor: pointer;
+}
+
+.side-nav__segment[aria-pressed="true"] {
+  background: var(--stone-800);
+  color: #fff;
+}
+
+.side-nav__segment:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+/* Next case study card */
+.side-nav__next {
+  display: flex;
+  flex-direction: column;
+  height: 141px; /* Figma 789:20124: the card's own height; it takes the rail's full width */
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px;
+  border: var(--border-thin) solid var(--stone-800);
+  border-radius: 4px;
+  background: var(--color-bg);
+  color: var(--stone-800);
+}
+
+.side-nav__next-label {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 19.6px;
+}
+
+.side-nav__next-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  line-height: 25.2px;
+  letter-spacing: -0.18px;
+}
+
+.side-nav__next-arrow {
+  align-self: flex-end;
+  margin-top: auto;
+  width: 20px;
+  height: 20px;
+}
+
+/* Next-case-study hover (Figma 770:19204, Creek.UI). The cake is in plain
+   px (the card is 141px tall), so it stays put when js/side-nav.js zooms
+   the rail to fit.
+   Rest: plain white. Hover: an indigo circle grows out of the bottom-left
+   corner until it floods the card, and the cake rises in, tilted. */
+.side-nav__next--creek {
+  --next-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.side-nav__next--creek > * {
+  position: relative; /* text and arrow stay above the fill and the cake */
+  z-index: 1;
+}
+
+/* the circle: centred exactly on the bottom-left corner, big enough that
+   at full size it covers the whole card. It starts at scale 0, so it
+   grows out of that corner */
+.side-nav__next--creek > .side-nav__next-fill {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 100%;
+  width: 300%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #a3b3ff; /* indigo/300 */
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 550ms var(--next-ease);
+}
+
+/* the cake: a 91 x 96 box (Figma) tilted -17.71deg, low in the card on the
+   left. Sits a little higher than Figma's spot so more of it shows above
+   the bottom edge. */
+.side-nav__next--creek > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: 12px;
+  top: 66px;
+  width: 91.27px;
+  height: 96.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next-art > span {
+  position: relative;
+  flex: none;
+  width: 70.75px;
+  height: 78.5px;
+  overflow: hidden;
+  transform: rotate(-17.71deg);
+}
+
+.side-nav__next-art img {
+  position: absolute;
+  max-width: none;
+  width: 134.67%;
+  height: 263.16%;
+  left: -14.6%;
+  top: -46.55%;
+}
+
+.side-nav__next--creek:hover > .side-nav__next-fill,
+.side-nav__next--creek:focus-visible > .side-nav__next-fill {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.side-nav__next--creek:hover > .side-nav__next-art,
+.side-nav__next--creek:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-nav__next--creek > .side-nav__next-fill,
+  .side-nav__next--creek > .side-nav__next-art {
+    transition: none;
+  }
+}
+
+/* Shorter windows: the rail's text drops to 14px (the design's "Small"
+   size) and its spacing eases down, so it fits whole without feeling crammed */
+@media (min-width: 768px) and (max-height: 960px) {
+  .side-nav { padding-top: 32px; padding-bottom: 32px; font-size: 14px; line-height: 19.6px; }
+  .side-nav__back { margin-bottom: 24px; }
+  .side-nav__stages { gap: 8px; }
+  .side-nav__act-label { font-size: 11px; }
+  .side-nav__next { margin-top: 12px; }
+}
+
+@media (min-width: 768px) and (max-height: 760px) {
+  .side-nav { padding-top: 24px; padding-bottom: 24px; }
+  .side-nav__back { margin-bottom: 16px; }
+  .side-nav__stages { gap: 8px; }
+  .side-nav__stage,
+  .side-nav__item { padding-top: 3px; padding-bottom: 3px; }
+  .side-nav__segment { padding-top: 6px; padding-bottom: 6px; }
+  .side-nav__next { margin-top: 10px; }
+}
+
+/* ============================================================
+   TL;DR view — hides the full case study and shows the short
+   placeholder page instead; the side nav stays put.
+   ============================================================ */
+.case-study-tldr {
+  display: none;
+}
+
+.has-side-nav[data-view="tldr"] .case-study-images {
+  display: none;
+}
+
+.has-side-nav[data-view="tldr"] .case-study-tldr {
+  display: flex;
+}
