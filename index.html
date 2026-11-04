@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Saumya — UX Designer & AI Builder</title>
+    <title>Saumya Jain</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -13,16 +16,18 @@
     <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/hero.css" />
     <link rel="stylesheet" href="css/keyboard.css" />
-    <link rel="stylesheet" href="css/macropad.css" />
+    <link rel="stylesheet" href="css/macropad.css?v=2" />
     <link rel="stylesheet" href="css/macropad-tilt.css" />
     <link rel="stylesheet" href="css/work.css?v=3" />
-    <link rel="stylesheet" href="css/work-accordion.css?v=13" />
-    <link rel="stylesheet" href="css/work-motion.css?v=1" />
-    <link rel="stylesheet" href="css/about.css" />
-    <link rel="stylesheet" href="css/footer.css" />
+    <link rel="stylesheet" href="css/work-accordion.css?v=14" />
+    <link rel="stylesheet" href="css/work-motion.css?v=5" />
+    <link rel="stylesheet" href="css/work-cursor.css?v=5" />
+    <link rel="stylesheet" href="css/few-more.css?v=6" />
+    <link rel="stylesheet" href="css/about.css?v=3" />
+    <link rel="stylesheet" href="css/footer.css?v=2" />
     <link rel="stylesheet" href="css/escape.css" />
-    <link rel="stylesheet" href="css/loud-mode.css" />
-    <link rel="stylesheet" href="css/type-scatter.css" /><!-- EXPERIMENTAL, remove freely -->
+    <link rel="stylesheet" href="css/loud-mode.css?v=3" />
+    <link rel="stylesheet" href="css/type-scatter.css?v=2" /><!-- EXPERIMENTAL, remove freely -->
   </head>
   <body>
 
@@ -54,9 +59,9 @@
     <!-- Phone menu (js/nav.js) — drops down under the nav bar, Figma 642:7061 -->
     <div class="nav-menu" id="nav-menu" hidden>
       <ul>
-        <li><a href="#work"><kbd>W</kbd> Work</a></li>
-        <li><a href="#about"><kbd>M</kbd> About</a></li>
-        <li><a href="playground.html"><kbd class="kbd--space"><span></span></kbd> Playground</a></li>
+        <li><a href="#work"><kbd>W</kbd> <span>Work</span></a></li>
+        <li><a href="#about"><kbd>M</kbd> <span>About</span></a></li>
+        <li><a href="playground.html"><kbd class="kbd--space"><span></span></kbd> <span>Playground</span></a></li>
         <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener" class="is-highlight"><kbd class="kbd--semicolon">;</kbd> Resume</a></li>
       </ul>
     </div>
@@ -118,6 +123,12 @@
                 <img src="assets/images/macropad/flower.svg" alt="" class="macropad__flower" />
                 <div class="macropad__pad">
                   <img src="assets/images/macropad/pad-base.webp" alt="" class="macropad__base" width="1023" height="597" />
+                  <!-- Plain keys painted into the pad image: tap areas only (js/macropad.js) -->
+                  <button type="button" class="macropad__plain" data-char="3" aria-label="3" style="--x: 55.132; --y: 6.030; --w: 15.249; --h: 27.136;"></button>
+                  <button type="button" class="macropad__plain" data-char="q" aria-label="Q" style="--x: 29.326; --y: 36.683; --w: 15.249; --h: 27.136;"></button>
+                  <button type="button" class="macropad__plain" data-arrow="up" aria-label="Up arrow" style="--x: 63.930; --y: 36.683; --w: 15.249; --h: 27.136;"></button>
+                  <button type="button" class="macropad__plain" data-arrow="left" aria-label="Left arrow" style="--x: 46.334; --y: 66.332; --w: 16.129; --h: 26.131;"></button>
+                  <button type="button" class="macropad__plain macropad__plain--enter" data-enter aria-label="Enter" style="--x: 72.727; --y: 6.030; --w: 24.927; --h: 57.789;"></button>
                   <button type="button" class="macropad__key" data-name="smiley_personal" aria-label="Esc (try it)" style="--x: 2.513; --y: 6.221; --w: 17.889; --h: 29.146;"><img class="key-icon" src="assets/images/macropad/key-smiley.webp" alt="" /></button>
                   <button type="button" class="macropad__key" data-name="W_key_special_folder_icon" aria-label="My work" style="--x: 20.402; --y: 6.221; --w: 17.302; --h: 29.146;"><img class="key-icon" src="assets/images/macropad/key-folder.webp" alt="" /></button>
                   <button type="button" class="macropad__key" data-name="M_key_special_hands_icon" aria-label="About me" style="--x: 37.704; --y: 6.216; --w: 16.974; --h: 28.824;"><img class="key-icon" src="assets/images/macropad/key-photo.webp" alt="" /></button>
@@ -158,68 +169,107 @@
       <!-- ============================================================
            A FEW MORE (secondary 4 projects — data-driven, Step 6)
       ============================================================ -->
-      <section id="more-work">
-        <div class="section-header more-header">
-          <h2>A few more &gt;&gt;</h2>
-          <p>Different shapes, same amount of feeling.</p>
-          <!-- Figma 172:4492-4498: halftone keycaps, bolts, and squares -->
-          <img src="assets/images/yes-keys.webp" alt="" class="more-header__keys" width="360" height="276" />
-          <img src="assets/images/more-bolt-large.svg" alt="" class="more-header__bolt more-header__bolt--large" />
-          <img src="assets/images/more-bolt-small.svg" alt="" class="more-header__bolt more-header__bolt--small" />
-          <span class="dot dot--yellow more-header__dot more-header__dot--1" aria-hidden="true"></span>
-          <span class="dot dot--orange more-header__dot more-header__dot--2" aria-hidden="true"></span>
+      <section id="more-work" aria-labelledby="more-work-title">
+        <div class="more-header">
+          <div class="more-header__text">
+            <p class="more-header__eyebrow">Smaller, Still Loved</p>
+            <h2 id="more-work-title">A Few More&gt;&gt;</h2>
+          </div>
+          <!-- Figma 618:8418 — halftone keycaps, tilted -12.79deg; the art is cropped inside the tilted box -->
+          <div class="more-header__keys" aria-hidden="true">
+            <div class="more-header__keys-tilt">
+              <img src="assets/images/yes-keys.webp" alt="" />
+              <!-- Click/tap a key and it lights up, like the hero keyboard (js/few-more.js) -->
+              <span class="more-key-lit more-key-lit--y"></span>
+              <span class="more-key-lit more-key-lit--e"></span>
+              <span class="more-key-lit more-key-lit--s"></span>
+              <span class="more-key more-key--y" data-key="y"></span>
+              <span class="more-key more-key--e" data-key="e"></span>
+              <span class="more-key more-key--s" data-key="s"></span>
+            </div>
+          </div>
+          <span class="dot dot--orange more-header__dot more-header__dot--1" aria-hidden="true"></span>
+          <span class="dot dot--yellow more-header__dot more-header__dot--2" aria-hidden="true"></span>
         </div>
-        <div id="secondary-projects-grid">
+        <div id="secondary-projects-grid" class="more-track">
           <!-- Populated by js/projects.js -->
+        </div>
+        <!-- Phones: the cards become a one-at-a-time slider (js/few-more.js) -->
+        <div class="more-arrows" hidden>
+          <button type="button" class="more-arrow" data-dir="-1" aria-label="Previous project"><img src="assets/images/more-arrow-left.svg" alt="" width="32" height="32" /></button>
+          <button type="button" class="more-arrow" data-dir="1" aria-label="Next project"><img src="assets/images/more-arrow-right.svg" alt="" width="32" height="32" /></button>
         </div>
       </section>
 
       <!-- ============================================================
            ABOUT ME
       ============================================================ -->
-      <section id="about">
-        <div class="about-body">
-          <div class="about-left">
-            <h2>About Me <span class="subline">(Real Intro)</span></h2>
-            <div class="about-text">
-              <p>
-                Hi! I'm Saumya, a fellow design enthusiast from Udaipur, Rajasthan. always been a creative mind, I've always been into making stuff on my own- be it paintings, sketching, crafting, best out of waste, crocheting.
-                <br />
-                Besides this, I like watching movies, running, and playing basketball, and occasional getaways.
-              </p>
+      <section id="about" aria-labelledby="about-title">
+        <div class="about-stage">
+          <header class="about-head">
+            <h2 id="about-title">About Me</h2>
+            <p class="about-head__sub">(Real Intro)</p>
+          </header>
+
+          <!-- Polaroid + stickers. Desktop also gets the halftone skyline. -->
+          <div class="about-art">
+            <img src="assets/images/udaipur.webp" alt="" class="about-skyline" />
+            <img src="assets/images/Saumya Pic.png" alt="Polaroid photo of Saumya smiling outdoors, captioned SUMO" class="about-polaroid" />
+            <!-- phones keep their own pre-rotated art; tablet and desktop get the
+                 un-rotated Figma vectors and turn them in CSS -->
+            <picture>
+              <source media="(min-width: 1200px)" srcset="assets/images/about-squiggle-desktop.svg" />
+              <source media="(min-width: 768px)" srcset="assets/images/about-squiggle-tablet.svg" />
+              <img src="assets/images/about-squiggle.svg" alt="" class="about-squiggle" />
+            </picture>
+            <a href="playground.html" class="about-game-tag" aria-label="Game on: open the Playground">
+              <picture>
+                <source media="(min-width: 1200px)" srcset="assets/images/about-game-tag-desktop.svg" />
+                <source media="(min-width: 768px)" srcset="assets/images/about-game-tag-tablet.svg" />
+                <img src="assets/images/about-game-tag.svg" alt="" />
+              </picture>
+            </a>
+          </div>
+
+          <div class="about-intro">
+            <p>Hey! I&rsquo;m Saumya, a designer from Udaipur. If you catch me smiling at nothing, I&rsquo;m probably imagining something ridiculous.</p>
+            <p>I&rsquo;ve been making things for as long as I can remember: paintings, sketches, crafts, crochet, and the occasional best-out-of-waste project. Outside of design, you&rsquo;ll find me reading young adult fiction, watching movies, running or playing basketball.</p>
+          </div>
+
+          <div class="about-facts">
+            <div class="about-facts__block">
+              <h3 class="about-facts__label">Experience</h3>
+              <ul class="about-facts__list">
+                <li class="about-fact">
+                  <p class="about-fact__row"><span class="about-fact__title">Different Labs</span><span class="about-fact__dates">May&ndash;Jul 2026</span></p>
+                  <p class="about-fact__sub">Product Designer</p>
+                </li>
+                <li class="about-fact">
+                  <p class="about-fact__row"><span class="about-fact__title">Webanix</span><span class="about-fact__dates">Aug&ndash;Oct 2022</span></p>
+                  <p class="about-fact__sub">Digital Marketing Intern</p>
+                </li>
+              </ul>
             </div>
-            <span class="dot dot--orange about-left-dot about-left-dot--1 fly-dot" data-fly="1"></span>
-            <span class="dot dot--yellow about-left-dot about-left-dot--2 fly-dot" data-fly="2"></span>
+            <div class="about-facts__block">
+              <h3 class="about-facts__label">Education</h3>
+              <ul class="about-facts__list">
+                <li class="about-fact">
+                  <p class="about-fact__row"><span class="about-fact__title">Bachelor of Design</span><span class="about-fact__dates">2023&ndash;2027</span></p>
+                  <p class="about-fact__sub">Indian Institute of Technology Guwahati</p>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="about-visual">
-            <img
-              src="assets/images/udaipur.webp"
-              alt=""
-              class="about-skyline"
-            />
-            <img
-              src="assets/images/about-squiggle.svg"
-              alt=""
-              class="about-squiggle"
-            />
-            <img
-              src="assets/images/Saumya Pic.png"
-              alt="Polaroid photo of Saumya smiling outdoors, captioned SUMO"
-              class="polaroid-photo"
-            />
-            <img
-              src="assets/images/about-game-tag.svg"
-              alt=""
-              class="about-game-tag"
-            />
-            <span class="dot dot--orange about-visual-dot about-visual-dot--1 fly-dot" data-fly="4"></span>
-            <span class="dot dot--yellow about-visual-dot about-visual-dot--2 fly-dot" data-fly="3"></span>
-            <span class="dot dot--orange about-visual-dot about-visual-dot--3 fly-dot" data-fly="5"></span>
-            <span class="dot dot--orange about-visual-dot about-visual-dot--4 fly-dot" data-fly="6"></span>
-          </div>
+
+          <!-- Squares that rest here and drop into the footer (js/footer-tetris.js) -->
+          <span class="dot dot--orange about-dot about-dot--l1 fly-dot" data-fly="1"></span>
+          <span class="dot dot--orange about-dot about-dot--l2 fly-dot" data-fly="2"></span>
+          <span class="dot dot--orange about-dot about-dot--v1 fly-dot" data-fly="4"></span>
+          <span class="dot dot--orange about-dot about-dot--v2 fly-dot" data-fly="3"></span>
+          <span class="dot dot--orange about-dot about-dot--v3 fly-dot" data-fly="5"></span>
+          <span class="dot dot--orange about-dot about-dot--v4 fly-dot" data-fly="6"></span>
         </div>
       </section>
-
     </main>
 
     <!-- ============================================================
@@ -233,17 +283,17 @@
       <span class="dot dot--white footer-tab footer-tab--5" data-land="5"></span>
       <span class="dot dot--white footer-tab footer-tab--6" data-land="6"></span>
       <div class="footer-inner">
-        <p class="footer-eyebrow">That's a Wrap (For Now)</p>
+        <p class="footer-eyebrow">That's a Wrap (for Now)</p>
         <h2>Let's Connect!</h2>
 
         <div class="footer-columns">
           <!-- Left: keyboard-shortcut nav -->
           <nav class="footer-nav" aria-label="Keyboard shortcuts">
             <ul>
-              <li><a href="#work"><kbd>W</kbd> Work</a></li>
-              <li><a href="#about"><kbd>M</kbd> About</a></li>
-              <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener"><kbd>;</kbd> Resume</a></li>
-              <li><a href="playground.html"><kbd class="kbd--space"><span></span></kbd> Playground</a></li>
+              <li><a href="#work"><kbd>W</kbd> <span>Work</span></a></li>
+              <li><a href="#about"><kbd>M</kbd> <span>About</span></a></li>
+              <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener"><kbd>;</kbd> <span>Resume</span></a></li>
+              <li><a href="playground.html"><kbd class="kbd--space"><span></span></kbd> <span>Playground</span></a></li>
             </ul>
           </nav>
 
@@ -256,7 +306,7 @@
         </div>
 
         <div class="footer-bottom">
-          <p class="footer-credit">Made for fun, with love and way too many tokens.</p>
+          <p class="footer-credit">Made for fun, with love and (too many) tokens.</p>
           <img src="assets/images/footer-heart.png" alt="" class="footer-heart" />
         </div>
       </div>
@@ -265,15 +315,19 @@
     </div><!-- #page-content -->
 
     <div class="escape-overlay" aria-hidden="true">
-      <p class="escape-wink">you can't Esc-ape this portfolio ;)</p>
+      <p class="escape-wink">you can't Esc-ape<br class="escape-br" /> this portfolio ;)</p>
     </div>
 
-    <script src="js/projects.js?v=9"></script>
-    <script src="js/work-accordion.js?v=6"></script>
-    <script src="js/keyboard.js"></script>
-    <script src="js/macropad.js"></script>
+    <script src="js/projects.js?v=15"></script>
+    <script src="js/few-more.js?v=3"></script>
+    <script src="js/work-accordion.js?v=10"></script>
+    <script src="js/work-cursor.js?v=4"></script>
+    <script src="js/doodle-draw.js?v=3"></script>
+    <script src="js/key-sounds.js?v=2"></script>
+    <script src="js/keyboard.js?v=7"></script>
+    <script src="js/macropad.js?v=2"></script>
     <script src="js/macropad-tilt.js"></script>
-    <script src="js/type-scatter.js"></script><!-- EXPERIMENTAL, remove freely -->
+    <script src="js/type-scatter.js?v=5"></script><!-- EXPERIMENTAL, remove freely -->
     <script src="js/main.js"></script>
     <script src="js/footer-tetris.js"></script>
     <script src="js/nav.js"></script>

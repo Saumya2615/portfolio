@@ -8,20 +8,28 @@
    mid-scroll). A closed panel's pieces reset quietly, so they replay.
    ============================================================ */
 
+/* travel distances scale with the panel (cqw of the art): a phone-width panel
+   gets the same gentle movement as desktop instead of a big slide */
+.work-panel__art {
+  container-type: inline-size;
+}
+
 .work-panel__piece {
-  --from: translate(0, 16px);
+  --rise: max(6px, 1.22cqw);
+  --slide: max(6px, 1.37cqw);
+  --from: translate(0, var(--rise));
   opacity: 0;
   transform: var(--from);
   will-change: transform, opacity;
 }
 
 /* how each kind of piece arrives (set per piece in projects.json -> panel.fx) */
-.work-panel__piece[data-fx="rise"]  { --from: translate(0, 16px); }
-.work-panel__piece[data-fx="pop"]   { --from: translate(0, 8px) scale(0.86); }
-.work-panel__piece[data-fx="drop"]  { --from: translate(0, -20px); }
-.work-panel__piece[data-fx="left"]  { --from: translate(-18px, 0); }
-.work-panel__piece[data-fx="right"] { --from: translate(18px, 0); }
-.work-panel__piece[data-fx="turn"]  { --from: translate(0, 12px) rotate(-24deg); }
+.work-panel__piece[data-fx="rise"]  { --from: translate(0, var(--rise)); }
+.work-panel__piece[data-fx="pop"]   { --from: translate(0, calc(var(--rise) / 2)) scale(0.86); }
+.work-panel__piece[data-fx="drop"]  { --from: translate(0, calc(var(--rise) * -1.25)); }
+.work-panel__piece[data-fx="left"]  { --from: translate(calc(var(--slide) * -1), 0); }
+.work-panel__piece[data-fx="right"] { --from: translate(var(--slide), 0); }
+.work-panel__piece[data-fx="turn"]  { --from: translate(0, calc(var(--rise) * 0.75)) rotate(-24deg); }
 
 .work-item.is-landed .work-panel__piece {
   opacity: 1;
@@ -30,11 +38,21 @@
   transition:
     opacity 320ms ease,
     transform 560ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition-delay: calc(var(--i, 0) * var(--piece-gap, 100ms));
+  transition-delay: var(--delay, calc(var(--i, 0) * var(--piece-gap, 100ms)));
 }
 
 .work-item.is-landed.is-snap .work-panel__piece {
   transition: none;
+}
+
+/* "draw": hand-drawn doodles are canvases painted by js/doodle-draw.js, so
+   the usual fade/slide is switched off for them */
+.work-panel__piece[data-fx="draw"],
+.work-item.is-landed .work-panel__piece[data-fx="draw"] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {

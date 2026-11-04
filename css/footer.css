@@ -35,7 +35,7 @@
 .footer-eyebrow {
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text); /* ink, not grey: the grey reads weak on the bold yellow */
 }
 
 #connect h2 {
@@ -75,8 +75,12 @@
   text-decoration: none;
 }
 
-.footer-nav a:hover {
-  color: var(--color-accent);
+/* hover: underline the label only (not the key); the old orange hover was
+   too faint on the bold yellow */
+.footer-nav a:hover > span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
 }
 
 .footer-nav kbd {
@@ -110,8 +114,10 @@
   letter-spacing: var(--tracking-nav);
 }
 
-.footer-links a:hover {
-  color: var(--color-accent);
+.footer-links a:hover > span {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
 }
 
 .footer-link-arrow {
@@ -131,7 +137,7 @@
 .footer-credit {
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-sm);
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 
 .footer-heart {

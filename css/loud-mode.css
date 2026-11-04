@@ -14,18 +14,43 @@
   z-index: 7;
 }
 
+/* Loud Mode is also the keyboard's sound switch, so the bolts stay on screen
+   while it is on: they pop in when it turns on, pulse gently, and shrink
+   away when it turns off (js/keyboard.js toggles .is-on). */
 .loud-mode-bolt {
   position: absolute;
   pointer-events: none;
   z-index: 7;
-  animation: loud-mode-bolt-pop 650ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 250ms ease, transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@keyframes loud-mode-bolt-pop {
-  0% { transform: scale(0.4); opacity: 0; }
-  25% { transform: scale(1.1); opacity: 1; }
-  70% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0.7); opacity: 0; }
+.loud-mode-bolt.is-on {
+  opacity: 1;
+  transform: scale(1);
+  /* each bolt pulses a beat after the last, so they don't breathe in step */
+  animation: loud-mode-bolt-idle 3.4s ease-in-out calc(600ms + var(--i, 0) * 350ms) infinite;
+}
+
+/* the pulse uses `scale`, which stacks on the pop-in's transform */
+@keyframes loud-mode-bolt-idle {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.08; }
+}
+
+/* While it is on the key itself stays lit, yellow like its pressed state,
+   so the switch reads even without the bolts. */
+.key-hotspot[data-name="LOUD_MODE_capslock"].is-loud-on {
+  background-color: var(--color-accent-yellow);
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loud-mode-bolt.is-on,
+  .macropad__bolts.is-on {
+    animation: none;
+  }
 }
 
 #hero h1.loud-mode-shout {

@@ -60,10 +60,18 @@
   top: 69.796%;
   width: 76.923%;
   aspect-ratio: 300 / 26;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(12, 10, 9, 0.22), rgba(12, 10, 9, 0));
   transform: rotate(6.66deg);
   animation: macropad-shadow 3.6s ease-in-out infinite;
+}
+
+/* The gradient lives on a pseudo-element so the Enter bounce can
+   squish it without touching the float's breathing on the span */
+.macropad__shadow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(12, 10, 9, 0.22), rgba(12, 10, 9, 0));
 }
 
 /* ── Floating object: pad + flower + bolts move together ── */
@@ -75,6 +83,7 @@
 
 .macropad__float {
   animation: macropad-float 3.6s ease-in-out infinite;
+  will-change: transform; /* move the pad as one layer: smooth float / thunk */
 }
 
 .macropad__settle {
@@ -114,12 +123,24 @@
   transform: rotate(158.68deg);
 }
 
+/* LOUD MODE bolts: hidden until Loud Mode is on, then pop in and stay
+   (same pop and idle pulse as the desktop's, css/loud-mode.css) */
 .macropad__bolts {
   position: absolute;
   left: -0.256%;
   top: 38.571%;
   width: 10.262%;
   height: auto;
+  opacity: 0;
+  transform: scale(0.4);
+  transform-origin: 100% 50%;
+  transition: opacity 250ms ease, transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.macropad__bolts.is-on {
+  opacity: 1;
+  transform: scale(1);
+  animation: loud-mode-bolt-idle 3.4s ease-in-out 600ms infinite;
 }
 
 .macropad__pad {
@@ -133,6 +154,7 @@
 }
 
 .macropad__base {
+  border-radius: 8px;
   display: block;
   width: 100%;
   height: 100%;
@@ -180,7 +202,118 @@
   z-index: 2;
 }
 
+/* ── Plain keys painted into the pad (3, Q, ↑, ←, Enter) ──
+   Invisible tap areas; pressing gives the same halftone "burn" as the
+   plain keys on the desktop keyboard (keyboard.css .key-hotspot). */
+.macropad__plain {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1%);
+  height: calc(var(--h) * 1%);
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 100ms ease, translate 80ms ease;
+}
+
+/* Plain dark tint rather than the desktop's color-burn blend: looks
+   almost the same on the halftone, but a blend makes the browser
+   repaint the whole pad every frame while it floats / thunks. */
+.macropad__plain.is-pressed {
+  background-color: rgba(12, 10, 9, 0.22);
+  translate: 0 1px;
+}
+
+/* Enter is the tall L on the right: wide top, narrower lower half */
+.macropad__plain--enter {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 36.5% 100%, 36.5% 48.7%, 0 48.7%);
+}
+
+.macropad__plain:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ── Things that fly out of the keys (js/macropad.js) ──
+   Same grey Space Grotesk glyph as the desktop's floating letters
+   (css/type-scatter.css). Start/end set per glyph as --x0/--y0 and
+   --dx/--dy/--r; arrows carry a short trail behind them. */
+.macropad__fly {
+  position: absolute;
+  left: var(--x0);
+  top: var(--y0);
+  translate: -50% -50%;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--color-text-muted);
+  animation: macropad-fly-char 950ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.macropad__fly {
+  will-change: transform, opacity;
+}
+
+.macropad__fly--up,
+.macropad__fly--left {
+  animation: macropad-fly-arrow 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes macropad-fly-char {
+  0%   { opacity: 0;   transform: translate(0, 0) scale(0.6) rotate(0deg); }
+  15%  { opacity: 0.9; }
+  60%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(var(--r)); }
+}
+
+@keyframes macropad-fly-arrow {
+  0%   { opacity: 0;   transform: translate(0, 0) scale(0.8); }
+  10%  { opacity: 0.9; }
+  55%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translate(var(--dx), var(--dy)) scale(1); }
+}
+
+/* ── Enter: the whole pad thunks down and bounces back ── */
+/* Balloon bounce: presses down 5px, floats up 10px past rest, drops
+   back, a second lighter hop (4px), then settles. Every leg eases in
+   and out so it drifts rather than snaps. The shadow spreads when the
+   pad is low and shrinks / fades when it's high. */
+.macropad.is-thunk .macropad__settle {
+  animation: macropad-thunk 1150ms linear;
+}
+
+.macropad.is-thunk .macropad__shadow::before {
+  animation: macropad-shadow-thunk 1150ms linear;
+}
+
+@keyframes macropad-thunk {
+  0%   { translate: 0 0;      animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  16%  { translate: 0 5px;    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  42%  { translate: 0 -10px;  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  62%  { translate: 0 1.5px;  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  80%  { translate: 0 -4px;   animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  100% { translate: 0 0; }
+}
+
+@keyframes macropad-shadow-thunk {
+  0%   { scale: 1;    opacity: 1;    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  16%  { scale: 1.06; opacity: 1;    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  42%  { scale: 0.84; opacity: 0.55; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  62%  { scale: 1.01; opacity: 0.95; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  80%  { scale: 0.93; opacity: 0.8;  animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); }
+  100% { scale: 1;    opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  /* js/macropad.js also skips the flying glyphs and the Enter thunk */
   .macropad__float,
   .macropad__shadow {
     animation: none;
