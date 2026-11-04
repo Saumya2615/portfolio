@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground — Saumya</title>
+    <title>Playground — Saumya Jain</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
@@ -11,7 +14,7 @@
     <link rel="stylesheet" href="css/variables.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/nav.css" />
-    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/game.css?v=3" />
   </head>
   <body>
     <header id="nav">
@@ -24,30 +27,29 @@
           <li><a href="playground.html" class="active">Playground</a></li>
         </ul>
         <button class="nav-menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
-          <svg class="icon-open" viewBox="0 0 48 48" aria-hidden="true"><path d="M33.33 18.67H14.67v2.67h18.66v-2.67Zm0 8H14.67v2.67h18.66v-2.67Z" fill="currentColor"/></svg>
-          <svg class="icon-close" viewBox="0 0 48 48" aria-hidden="true"><path d="M17 17l14 14M31 17L17 31" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg>
+          <span class="nav-menu-btn__bar" aria-hidden="true"></span>
+          <span class="nav-menu-btn__bar" aria-hidden="true"></span>
         </button>
       </nav>
     </header>
 
-    <!-- Phone menu sheet (js/nav.js) -->
+    <!-- Phone menu (js/nav.js) — drops down under the nav bar, Figma 642:7061 -->
     <div class="nav-menu" id="nav-menu" hidden>
-      <ul class="nav-menu__pages">
+      <ul>
         <li><a href="./#work"><kbd>W</kbd> Work</a></li>
         <li><a href="./#about"><kbd>M</kbd> About</a></li>
-        <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener"><kbd>;</kbd> Resume</a></li>
         <li><a href="playground.html"><kbd class="kbd--space"><span></span></kbd> Playground</a></li>
-      </ul>
-      <ul class="nav-menu__links">
-        <li><a href="mailto:jainsaumya015@gmail.com">Email <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
-        <li><a href="https://www.linkedin.com/in/saumya-jain-apj/" target="_blank" rel="noopener">LinkedIn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
-        <li><a href="https://www.behance.net/saumyajain5" target="_blank" rel="noopener">Behance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a></li>
+        <li><a href="assets/CV/Saumya-Jain-CV.pdf" target="_blank" rel="noopener" class="is-highlight"><kbd class="kbd--semicolon">;</kbd> Resume</a></li>
       </ul>
     </div>
+    <div class="nav-menu-scrim" hidden></div>
     <main>
       <section id="playground">
         <div class="playground-inner">
           <div class="game-frame" id="game-frame">
+          <!-- Phone hint (≤767px only) -->
+          <p class="game-hint">Hold the key to charge, let go to shoot.</p>
+
           <!-- HUD -->
           <div class="game-hud">
             <div class="hud-block">
@@ -84,13 +86,19 @@
 
           <!-- Keyboard hint strip -->
           <div class="game-keys">
+            <!-- Phone macropad art (≤767px only); the two keys below sit on top of it -->
+            <div class="game-macropad" aria-hidden="true">
+              <img src="assets/images/game-macropad.webp" alt="" />
+            </div>
             <button type="button" class="game-key game-key--space" id="key-space" tabindex="-1">
               <img src="assets/images/game-spacebar-icon.svg" alt="" class="game-key__ball-icon" />
-              <span>Press to Shoot</span>
-              <img src="assets/images/game-spacebar-icon.svg" alt="" class="game-key__ball-icon" />
+              <span class="game-key__label game-key__label--keys">Press to Shoot</span>
+              <span class="game-key__label game-key__label--touch">Hold to shoot</span>
+              <img src="assets/images/game-spacebar-icon.svg" alt="" class="game-key__ball-icon game-key__ball-icon--end" />
             </button>
             <button type="button" class="game-key game-key--escape" id="key-escape" aria-label="Exit game">
-              <img src="assets/images/game-escape-icon.svg" alt="" class="game-key__escape-icon" />
+              <img src="assets/images/game-escape-icon.svg" alt="" class="game-key__escape-icon game-key__escape-icon--keys" />
+              <img src="assets/images/game-escape-x.svg" alt="" class="game-key__escape-icon game-key__escape-icon--touch" />
             </button>
           </div>
 
@@ -104,7 +112,7 @@
           <div class="game-modal" id="exit-modal" hidden>
             <div class="game-modal__box">
               <p>Are you sure you want to exit?</p>
-              <div class="game-modal__actions">
+              <div class="game-modal__actions game-modal__actions--stacked">
                 <button type="button" class="game-modal__btn game-modal__btn--confirm" id="exit-confirm">Yes, exit</button>
                 <button type="button" class="game-modal__btn" id="exit-cancel">Keep playing</button>
               </div>

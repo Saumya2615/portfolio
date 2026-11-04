@@ -64,9 +64,11 @@
   opacity: 1;
 }
 
-/* Menu button — phones only */
+/* Menu button — phones only. Two bars (Figma "equal-line", 18.67 ×
+   2.67 at y 18.67 / 26.67 in the 48px box) that fold into an ✕. */
 .nav-menu-btn {
   display: none;
+  position: relative;
   width: 48px;
   height: 48px;
   margin-right: -8px; /* icon art sits inset in its 48px box; line it up with the page edge */
@@ -75,15 +77,29 @@
   background: none;
   color: #1c1917; /* stone/900 — Figma icon colour */
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-menu-btn svg {
-  width: 48px;
-  height: 48px;
+.nav-menu-btn__bar {
+  position: absolute;
+  left: 14.67px;
+  width: 18.67px;
+  height: 2.67px;
+  background: currentColor;
+  transition: transform 0.25s ease, top 0.25s ease;
 }
 
-.nav-menu-btn .icon-close {
-  display: none;
+.nav-menu-btn__bar:first-child { top: 18.67px; }
+.nav-menu-btn__bar:last-child  { top: 26.67px; }
+
+body.nav-open .nav-menu-btn__bar:first-child {
+  top: 22.67px;
+  transform: rotate(45deg);
+}
+
+body.nav-open .nav-menu-btn__bar:last-child {
+  top: 22.67px;
+  transform: rotate(-45deg);
 }
 
 /* ── Tablet ── */
@@ -106,38 +122,52 @@
   .nav-menu-btn {
     display: block;
   }
-
-  body.nav-open .nav-menu-btn .icon-open  { display: none; }
-  body.nav-open .nav-menu-btn .icon-close { display: block; }
 }
 
 /* ============================================================
-   Mobile menu — full-screen sheet under the nav bar.
-   Same keycap list as the footer, at a size meant for thumbs.
+   Phone menu — drops down under the nav bar.
+   Figma 642:7061 "Phone — Menu open (hi-fi)": keycap + label rows,
+   32px apart, panel padding 24 / 16 / 32; Resume always orange.
+   The page below gets a soft dim; tapping it closes the menu.
    ============================================================ */
 
-.nav-menu {
+.nav-menu,
+.nav-menu-scrim {
   position: fixed;
-  inset: 80px 0 0 0; /* starts below the 80px mobile nav bar */
+  left: 0;
+  right: 0;
+  top: 80px; /* under the 80px phone nav bar */
+}
+
+.nav-menu {
   z-index: 99;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: var(--space-xl) var(--page-pad) var(--space-xl);
+  padding: 24px var(--page-pad) 32px;
   background: var(--color-bg);
-  overflow-y: auto;
   opacity: 0;
   transform: translateY(-8px);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.nav-menu[hidden] {
+.nav-menu-scrim {
+  bottom: 0;
+  z-index: 98;
+  background: rgba(12, 10, 9, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.nav-menu[hidden],
+.nav-menu-scrim[hidden] {
   display: none;
 }
 
 body.nav-open .nav-menu {
   opacity: 1;
   transform: none;
+}
+
+body.nav-open .nav-menu-scrim {
+  opacity: 1;
 }
 
 body.nav-open {
@@ -148,83 +178,80 @@ body.nav-open {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.nav-menu__pages {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: 32px;
 }
 
-.nav-menu__pages a {
+.nav-menu a {
   display: flex;
   align-items: center;
-  gap: 20px;
-  font-family: var(--font-heading);
-  font-size: 32px;
-  font-weight: 500;
-  letter-spacing: var(--tracking-hero);
+  gap: 16px;
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: -0.264px;
   color: var(--color-text);
 }
 
-.nav-menu__pages a:hover {
-  color: var(--color-accent);
+.nav-menu a:hover {
   opacity: 1;
 }
 
+.nav-menu a.is-highlight {
+  color: var(--color-accent);
+}
+
+/* Orange outline keycap, 32 × 32 */
 .nav-menu kbd {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
-  border: var(--border-thin) solid var(--color-border);
-  border-bottom-width: 4px;
-  border-radius: 8px;
+  border: 1px solid var(--color-accent);
+  border-radius: 5px;
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 18.67px;
   font-weight: 500;
+  line-height: 1;
+  color: var(--color-accent);
 }
 
+.nav-menu kbd.kbd--semicolon {
+  font-size: 26.67px;
+  padding-bottom: 3px;
+}
+
+/* Space bar glyph: a little ⎵ bracket */
 .nav-menu .kbd--space span {
   display: block;
-  width: 18px;
+  width: 16px;
   height: 5px;
-  border-radius: 2px;
-  background: var(--color-text);
-}
-
-.nav-menu__links {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: var(--space-xl);
-}
-
-.nav-menu__links a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: var(--text-nav);
-  letter-spacing: var(--tracking-nav);
-  color: var(--color-text);
-}
-
-.nav-menu__links svg {
-  width: 24px;
-  height: 24px;
+  margin-top: 8px;
+  border: 2px solid var(--color-accent);
+  border-top: 0;
+  border-radius: 0;
+  background: none; /* footer.css fills .kbd--space span solid */
 }
 
 @media (min-width: 768px) {
-  .nav-menu {
+  .nav-menu,
+  .nav-menu-scrim {
     display: none !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav-menu {
+  .nav-menu,
+  .nav-menu-scrim,
+  .nav-menu-btn__bar {
     transition: none;
+  }
+
+  .nav-menu {
     transform: none;
   }
 }

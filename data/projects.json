@@ -3,83 +3,847 @@
     {
       "id": "answer-engine-optimization",
       "title": "Answer Engine Optimization",
-      "description": "AI-answer-engine visibility & optimization platform",
+      "year": "2026",
+      "headline": "Helping brands show up right in AI answers",
       "tags": [
-        "UI/UX",
-        "Vibe-Coded",
-        "B2B SaaS"
+        "B2B SaaS",
+        "Product Design",
+        "Shipped*"
       ],
-      "image": "assets/case-studies/aeo/thumbnail.webp",
-      "link": "project/answer-engine-optimization"
+      "link": "project/answer-engine-optimization",
+      "panel": {
+        "dir": "assets/work/answer-engine-optimization/",
+        "tone": "dark-text",
+        "gap": 90,
+        "fx": {
+          "competitor-rank": "pop",
+          "mentioned-in": "pop",
+          "last-run": "pop",
+          "perplexity": "drop",
+          "gemini": "drop",
+          "chatgpt": "drop",
+          "claude": "drop"
+        },
+        "desktop": {
+          "bg": "bg.webp",
+          "main": {
+            "src": "main-half.webp",
+            "x": 167,
+            "y": 162,
+            "w": 978
+          },
+          "layers": [
+            {
+              "src": "01-competitor-rank.webp",
+              "x": 24,
+              "y": 292,
+              "w": 230
+            },
+            {
+              "src": "02-mentioned-in.webp",
+              "x": 1039,
+              "y": 222,
+              "w": 227
+            },
+            {
+              "src": "03-last-run.webp",
+              "x": 1085,
+              "y": 372,
+              "w": 198
+            },
+            {
+              "src": "04-perplexity.webp",
+              "x": 39,
+              "y": 428,
+              "w": 94
+            },
+            {
+              "src": "05-gemini.webp",
+              "x": 108,
+              "y": 486,
+              "w": 98
+            },
+            {
+              "src": "06-chatgpt.webp",
+              "x": 1156,
+              "y": 469,
+              "w": 98
+            },
+            {
+              "src": "07-claude.webp",
+              "x": 1102,
+              "y": 526,
+              "w": 92
+            }
+          ]
+        },
+        "tablet": {
+          "path": "tablet/",
+          "bg": "bg.webp",
+          "main": {
+            "src": "main.webp",
+            "x": 48.8,
+            "y": 131.7,
+            "w": 606.5
+          },
+          "layers": [
+            {
+              "src": "01-competitor-rank.webp",
+              "x": 0,
+              "y": 267.4,
+              "w": 134
+            },
+            {
+              "src": "02-mentioned-in.webp",
+              "x": 565.5,
+              "y": 190.7,
+              "w": 139
+            },
+            {
+              "src": "03-last-run.webp",
+              "x": 593.5,
+              "y": 289.7,
+              "w": 111
+            },
+            {
+              "src": "04-perplexity.webp",
+              "x": 0,
+              "y": 351.7,
+              "w": 49.5
+            },
+            {
+              "src": "05-gemini.webp",
+              "x": 12.6,
+              "y": 387.6,
+              "w": 61
+            },
+            {
+              "src": "06-chatgpt.webp",
+              "x": 650.5,
+              "y": 351.7,
+              "w": 54
+            },
+            {
+              "src": "07-claude.webp",
+              "x": 628.9,
+              "y": 387,
+              "w": 57.5
+            }
+          ]
+        },
+        "mobile": {
+          "path": "mobile/",
+          "bg": "bg.webp",
+          "main": {
+            "src": "main.webp",
+            "x": 10,
+            "y": 174.5,
+            "w": 371
+          },
+          "layers": [
+            {
+              "src": "01-competitor-rank.webp",
+              "x": 59,
+              "y": 138.2,
+              "w": 107.5
+            },
+            {
+              "src": "02-mentioned-in.webp",
+              "x": 237,
+              "y": 117,
+              "w": 109.5
+            },
+            {
+              "src": "03-last-run.webp",
+              "x": 315,
+              "y": 321,
+              "w": 94.5
+            },
+            {
+              "src": "04-chatgpt.webp",
+              "x": 327.5,
+              "y": 102,
+              "w": 47.5
+            },
+            {
+              "src": "05-claude.webp",
+              "x": 18,
+              "y": 114,
+              "w": 50.5
+            }
+          ]
+        }
+      }
     },
     {
       "id": "creek-ui",
       "title": "Creek.UI",
-      "description": "AI-answer-engine visibility & optimization platform",
+      "year": "2025",
+      "headline": "An image editing system helping small brands stay consistent.",
       "tags": [
-        "UI/UX",
-        "Mobile",
-        "AI-Platform"
+        "Generative AI",
+        "Product Design",
+        "Flutter deployed"
       ],
-      "image": "assets/case-studies/creek-ui/1.webp",
-      "link": "project/creek-ui"
+      "link": "project/creek-ui",
+      "panel": {
+        "dir": "assets/work/creek-ui/",
+        "motion": {
+          "martini": {
+            "pen": [
+              0,
+              580,
+              "out"
+            ]
+          },
+          "cup": {
+            "pen": [
+              90,
+              520,
+              "inout"
+            ]
+          },
+          "cat": {
+            "pen": [
+              210,
+              750,
+              "inout"
+            ]
+          },
+          "burger": {
+            "pen": [
+              390,
+              580,
+              "inout"
+            ]
+          },
+          "pink-vase": {
+            "pen": [
+              530,
+              420,
+              "out"
+            ]
+          },
+          "cake": {
+            "pen": [
+              580,
+              390,
+              "out"
+            ]
+          },
+          "plate": {
+            "pen": [
+              650,
+              420,
+              "out"
+            ]
+          },
+          "white-vase": {
+            "pen": [
+              720,
+              490,
+              "inout"
+            ]
+          },
+          "apple": {
+            "dab": 680
+          },
+          "purple-1": {
+            "dab": 810
+          },
+          "purple-2": {
+            "dab": 880
+          },
+          "purple-3": {
+            "dab": 940
+          }
+        },
+        "tone": "dark-text",
+        "desktop": {
+          "bg": "bg.webp",
+          "main": {
+            "src": "main-half.webp",
+            "x": 287,
+            "y": 153.5,
+            "w": 784
+          },
+          "layers": [
+            {
+              "id": "martini",
+              "src": "doodles/01-left-1.webp",
+              "x": 27.5,
+              "y": 386.0,
+              "w": 53.5
+            },
+            {
+              "id": "purple-1",
+              "src": "doodles/02-right-1.webp",
+              "x": 1217.0,
+              "y": 402.0,
+              "w": 18.5
+            },
+            {
+              "id": "cat",
+              "src": "doodles/03-left-2.webp",
+              "x": 20.0,
+              "y": 476.0,
+              "w": 114.0
+            },
+            {
+              "id": "cup",
+              "src": "doodles/04-right-2.webp",
+              "x": 1232.0,
+              "y": 444.0,
+              "w": 62.0
+            },
+            {
+              "id": "pink-vase",
+              "src": "doodles/05-left-3.webp",
+              "x": 151.5,
+              "y": 501.5,
+              "w": 75.5
+            },
+            {
+              "id": "burger",
+              "src": "doodles/06-right-3.webp",
+              "x": 1073.5,
+              "y": 490.5,
+              "w": 63.0
+            },
+            {
+              "id": "apple",
+              "src": "doodles/07-left-4.webp",
+              "x": 7.5,
+              "y": 531.0,
+              "w": 36.5
+            },
+            {
+              "id": "cake",
+              "src": "doodles/08-right-4.webp",
+              "x": 1140.0,
+              "y": 532.5,
+              "w": 54.0
+            },
+            {
+              "id": "purple-2",
+              "src": "doodles/09-left-5.webp",
+              "x": 264.0,
+              "y": 530.5,
+              "w": 21.5
+            },
+            {
+              "id": "white-vase",
+              "src": "doodles/10-right-5.webp",
+              "x": 1211.0,
+              "y": 530.0,
+              "w": 52.0
+            },
+            {
+              "id": "purple-3",
+              "src": "doodles/11-right-6.webp",
+              "x": 1273.5,
+              "y": 530.0,
+              "w": 29.0
+            },
+            {
+              "id": "plate",
+              "src": "doodles/12-right-7.webp",
+              "x": 1066.5,
+              "y": 567.5,
+              "w": 47.5
+            }
+          ]
+        },
+        "tablet": {
+          "path": "tablet/",
+          "headlineWidth": 384,
+          "bg": "bg.webp",
+          "main": {
+            "src": "main.webp",
+            "x": 78,
+            "y": 124.5,
+            "w": 547.5
+          },
+          "layers": [
+            {
+              "id": "burger",
+              "src": "doodles/01-left-1.webp",
+              "x": -1.5,
+              "y": 237.5,
+              "w": 40.5
+            },
+            {
+              "id": "cake",
+              "src": "doodles/02-right-1.webp",
+              "x": 658.5,
+              "y": 244.0,
+              "w": 38.0
+            },
+            {
+              "id": "pink-vase",
+              "src": "doodles/03-left-2.webp",
+              "x": 33.0,
+              "y": 283.0,
+              "w": 35.0
+            },
+            {
+              "id": "purple-1",
+              "src": "doodles/04-right-2.webp",
+              "x": 644.5,
+              "y": 292.5,
+              "w": 13.5
+            },
+            {
+              "id": "martini",
+              "src": "doodles/05-left-3.webp",
+              "x": 10.0,
+              "y": 326.5,
+              "w": 24.5
+            },
+            {
+              "id": "plate",
+              "src": "doodles/06-right-3.webp",
+              "x": 623.0,
+              "y": 340.0,
+              "w": 23.0
+            },
+            {
+              "id": "purple-2",
+              "src": "doodles/07-left-4.webp",
+              "x": 52.5,
+              "y": 359.0,
+              "w": 10.0
+            },
+            {
+              "id": "cup",
+              "src": "doodles/08-right-4.webp",
+              "x": 666.0,
+              "y": 313.0,
+              "w": 36.0
+            },
+            {
+              "id": "cat",
+              "src": "doodles/09-left-5.webp",
+              "x": 11.0,
+              "y": 378.5,
+              "w": 51.0
+            },
+            {
+              "id": "white-vase",
+              "src": "doodles/10-right-5.webp",
+              "x": 640.0,
+              "y": 385.5,
+              "w": 36.5
+            },
+            {
+              "id": "apple",
+              "src": "doodles/11-left-6.webp",
+              "x": 5.0,
+              "y": 421.0,
+              "w": 16.5
+            },
+            {
+              "id": "purple-3",
+              "src": "doodles/12-right-6.webp",
+              "x": 684.0,
+              "y": 370.0,
+              "w": 18.0
+            }
+          ]
+        },
+        "mobile": {
+          "path": "mobile/",
+          "bg": "bg.webp",
+          "main": {
+            "src": "main.webp",
+            "x": 6.5,
+            "y": 226.5,
+            "w": 376.5
+          },
+          "layers": [
+            {
+              "id": "cat",
+              "src": "doodles/01-left-1.webp",
+              "x": 27.5,
+              "y": 155.5,
+              "w": 44.0
+            },
+            {
+              "id": "burger",
+              "src": "doodles/02-right-1.webp",
+              "x": 221.1,
+              "y": 159.5,
+              "w": 34.5
+            },
+            {
+              "id": "martini",
+              "src": "doodles/03-left-2.webp",
+              "x": 7.0,
+              "y": 207.0,
+              "w": 21.0
+            },
+            {
+              "id": "purple-1",
+              "src": "doodles/04-right-2.webp",
+              "x": 344.1,
+              "y": 132.5,
+              "w": 9.5
+            },
+            {
+              "id": "pink-vase",
+              "src": "doodles/05-left-3.webp",
+              "x": 73.5,
+              "y": 206.0,
+              "w": 23.0
+            },
+            {
+              "id": "cake",
+              "src": "doodles/06-right-3.webp",
+              "x": 272.1,
+              "y": 199.0,
+              "w": 26.0
+            },
+            {
+              "id": "apple",
+              "src": "doodles/07-left-4.webp",
+              "x": 44.5,
+              "y": 258.0,
+              "w": 14.5
+            },
+            {
+              "id": "cup",
+              "src": "doodles/08-right-4.webp",
+              "x": 354.6,
+              "y": 185.0,
+              "w": 30.0
+            },
+            {
+              "id": "purple-2",
+              "src": "doodles/09-left-5.webp",
+              "x": 107.0,
+              "y": 266.0,
+              "w": 8.5
+            },
+            {
+              "id": "white-vase",
+              "src": "doodles/10-right-5.webp",
+              "x": 338.6,
+              "y": 227.5,
+              "w": 44.5
+            },
+            {
+              "id": "plate",
+              "src": "doodles/11-right-6.webp",
+              "x": 275.1,
+              "y": 254.5,
+              "w": 22.0
+            }
+          ]
+        }
+      }
     },
     {
       "id": "alum-connect",
       "title": "Alum Connect",
-      "description": "Connecting alumni through shared memories",
+      "year": "2025",
+      "headline": "A community platform built on shared alumni memories",
       "tags": [
-        "UI/UX",
-        "Mobile"
+        "Social Platform",
+        "Product Design",
+        "Live Prototype"
       ],
-      "image": "assets/case-studies/alumconnect/1.webp",
-      "link": "project/alum-connect"
+      "link": "project/alum-connect",
+      "panel": {
+        "dir": "assets/work/alum-connect/",
+        "gap": 120,
+        "fx": {
+          "view-in-ar": "rise",
+          "audio-memory": "rise",
+          "since-you-left": "rise",
+          "player-illus": "turn",
+          "letter": "rise",
+          "polaroid": "rise",
+          "audio": "right",
+          "duck": "right"
+        },
+        "tone": "dark-text",
+        "desktop": {
+          "bg": "bg.webp",
+          "main": {
+            "src": "main-half.webp",
+            "x": 465,
+            "y": 134,
+            "w": 479
+          },
+          "layers": [
+            {
+              "src": "01-view-in-ar.webp",
+              "x": 368,
+              "y": 322.5,
+              "w": 114.5
+            },
+            {
+              "src": "02-audio-memory.webp",
+              "x": 287.5,
+              "y": 275,
+              "w": 127
+            },
+            {
+              "src": "03-since-you-left.webp",
+              "x": 927,
+              "y": 252.5,
+              "w": 193.5
+            },
+            {
+              "src": "04-player-illus.webp",
+              "x": 0,
+              "y": 387,
+              "w": 221
+            },
+            {
+              "src": "06-polaroid.webp",
+              "x": 259.5,
+              "y": 424.5,
+              "w": 135
+            },
+            {
+              "src": "05-letter.webp",
+              "x": 198,
+              "y": 484,
+              "w": 93
+            },
+            {
+              "src": "07-audio.webp",
+              "x": 994,
+              "y": 495,
+              "w": 145.5
+            },
+            {
+              "src": "08-duck.webp",
+              "x": 1125,
+              "y": 467.5,
+              "w": 163
+            }
+          ]
+        },
+        "tablet": {
+          "path": "tablet/",
+          "bg": "bg.webp",
+          "main": {
+            "src": "main.webp",
+            "x": 168,
+            "y": 104,
+            "w": 387
+          },
+          "layers": [
+            {
+              "src": "01-view-in-ar.webp",
+              "x": 83,
+              "y": 225.5,
+              "w": 114
+            },
+            {
+              "src": "02-audio-memory.webp",
+              "x": 5,
+              "y": 153.5,
+              "w": 136.5
+            },
+            {
+              "src": "03-since-you-left.webp",
+              "x": 518,
+              "y": 175.5,
+              "w": 173
+            },
+            {
+              "src": "04-player-illus.webp",
+              "x": 0,
+              "y": 319,
+              "w": 87.5
+            },
+            {
+              "src": "06-polaroid.webp",
+              "x": 105.7,
+              "y": 338.6,
+              "w": 72
+            },
+            {
+              "src": "05-letter.webp",
+              "x": 74.4,
+              "y": 371.3,
+              "w": 49.5
+            },
+            {
+              "src": "07-audio.webp",
+              "x": 541,
+              "y": 373.6,
+              "w": 89
+            },
+            {
+              "src": "08-duck.webp",
+              "x": 617.9,
+              "y": 356.7,
+              "w": 86
+            }
+          ]
+        },
+        "mobile": {
+          "path": "mobile/",
+          "bg": "bg.webp",
+          "main": {
+            "src": "main.webp",
+            "x": 31.5,
+            "y": 135,
+            "w": 342
+          },
+          "layers": [
+            {
+              "src": "01-audio-memory.webp",
+              "x": 14.5,
+              "y": 198,
+              "w": 117.5
+            },
+            {
+              "src": "02-since-you-left.webp",
+              "x": 232.5,
+              "y": 96.5,
+              "w": 146
+            }
+          ]
+        }
+      }
     },
     {
-      "id": "medisync",
-      "title": "Medisync",
-      "description": "Early Pandemic Detection and Prevention Solution.",
+      "id": "hyperlocal-delivery-men",
+      "title": "Hyperlocal Delivery Systems",
+      "year": "2026",
+      "headline": "A service design study saving riders time at the doorstep",
+      "headlineWidth": 435,
       "tags": [
-        "System",
-        "Gen UI",
-        "UI/UX"
+        "Quick Commerce",
+        "UX Research"
       ],
-      "image": "assets/case-studies/medisync/1.webp",
-      "link": "project/medisync"
+      "link": "project/hyperlocal-delivery-men",
+      "panel": {
+        "dir": "assets/work/hyperlocal-delivery-men/",
+        "gap": 140,
+        "tone": "light-text",
+        "desktop": {
+          "bg": "bg.webp",
+          "main": null,
+          "layers": [
+            {
+              "src": "01-rider-spoken.webp",
+              "x": 274,
+              "y": 388,
+              "w": 251
+            },
+            {
+              "src": "02-waiting.webp",
+              "x": 369,
+              "y": 274,
+              "w": 295
+            },
+            {
+              "src": "03-hours.webp",
+              "x": 987,
+              "y": 434,
+              "w": 236
+            }
+          ]
+        },
+        "tablet": {
+          "path": "tablet/",
+          "bg": "bg.webp",
+          "main": null,
+          "layers": [
+            {
+              "src": "01-rider-spoken.webp",
+              "x": 72.5,
+              "y": 274.7,
+              "w": 175
+            },
+            {
+              "src": "02-waiting.webp",
+              "x": 143.5,
+              "y": 182.7,
+              "w": 205
+            },
+            {
+              "src": "03-hours.webp",
+              "x": 532.7,
+              "y": 316.6,
+              "w": 164
+            }
+          ]
+        },
+        "mobile": {
+          "path": "mobile/",
+          "bg": "bg.webp",
+          "main": null,
+          "layers": [
+            {
+              "src": "01-rider-spoken.webp",
+              "x": 4.5,
+              "y": 338.5,
+              "w": 122.5
+            },
+            {
+              "src": "02-waiting.webp",
+              "x": 30.5,
+              "y": 287.5,
+              "w": 143.5
+            },
+            {
+              "src": "03-hours.webp",
+              "x": 270.5,
+              "y": 319.5,
+              "w": 115.5
+            }
+          ]
+        }
+      }
     }
   ],
   "secondary": [
     {
       "id": "guwahati-public-transit",
-      "title": "Strategy for Efficient Public Transit in Guwahati",
-      "description": "",
-      "tags": [],
-      "image": "assets/case-studies/public-transit-guwahati/1.webp",
+      "title": "Guwahati transport",
+      "description": "A plan for better public transport in Guwahati.",
+      "category": "System Design",
+      "date": "Feb - Apr 2026",
+      "image": "assets/case-studies/public-transit-guwahati/thumbnail.webp",
+      "imageAlt": "Strategy for Efficient Public Transit in Guwahati",
       "link": "project/guwahati-public-transit"
-    },
-    {
-      "id": "the-flour-pot",
-      "title": "The Flour Pot",
-      "description": "",
-      "tags": [],
-      "image": "assets/case-studies/flourpot/1.webp",
-      "link": "project/the-flour-pot"
     },
     {
       "id": "cell-wars",
       "title": "Cell Wars",
-      "description": "",
-      "tags": [],
-      "image": "",
+      "description": "Teaching students the functions of animal cell organelles.",
+      "category": "Game Design",
+      "date": "Sept - Nov 2025",
+      "image": "assets/case-studies/cell-wars/thumbnail.webp",
+      "imageAlt": "Cell Wars",
       "link": "project/cell-wars"
     },
     {
-      "id": "hyperlocal-delivery-men",
-      "title": "Hyperlocal Delivery Men",
-      "description": "",
-      "tags": [],
-      "image": "",
-      "link": "project/hyperlocal-delivery-men"
+      "id": "the-flour-pot",
+      "title": "Flour pot",
+      "description": "Visual identity for a small neighbourhood bakery.",
+      "category": "Visual Branding",
+      "date": "Oct - Nov 2024",
+      "image": "assets/case-studies/flourpot/thumbnail.webp",
+      "imageAlt": "The Flour Pot bakery and cafe logo",
+      "link": "project/the-flour-pot"
+    },
+    {
+      "id": "medisync",
+      "title": "Medisync",
+      "description": "A health data system for early outbreak detection.",
+      "category": "System Design · Hackathon Winner",
+      "date": "Aug - Sept 2024",
+      "image": "assets/case-studies/medisync/thumbnail.webp",
+      "imageAlt": "Streamlining Health Data Management",
+      "link": "project/medisync"
     }
   ]
 }
