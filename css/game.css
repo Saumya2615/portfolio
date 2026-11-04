@@ -475,11 +475,6 @@
     -webkit-touch-callout: none;
   }
 
-  /* Orange hairline under the nav bar (Figma 672:17675) */
-  #nav {
-    border-bottom: 1px solid var(--color-accent);
-  }
-
   /* HUD — Score left, Time right, 121px from the top */
   .game-hud {
     top: 121px;
@@ -541,7 +536,9 @@
   .game-ball-shadow {
     left: calc(16px + 32 * var(--u));
     top: auto;
-    bottom: calc(var(--pad-bottom) + var(--pad-h) - 7 * var(--u));
+    /* Figma: the 44 x 14 ellipse's bottom edge sits on the pad's top edge, so
+       its centre is 7px above it (it was 7px below, hidden behind the pad) */
+    bottom: calc(var(--pad-bottom) + var(--pad-h) + 7 * var(--u));
     width: calc(44 * var(--u));
     transform: translate(var(--shot-x), 50%) scaleX(var(--shot-scale)) scaleY(calc(0.32 * var(--shot-scale)));
   }

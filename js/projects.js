@@ -2,7 +2,7 @@
 // Main projects render as the Work accordion (js/work-accordion.js drives it).
 
 async function loadProjects() {
-  const res = await fetch('data/projects.json?v=4');
+  const res = await fetch('data/projects.json?v=5');
   const data = await res.json();
 
   renderMainProjects(data.main);
