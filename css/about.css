@@ -20,7 +20,7 @@
 .about-stage {
   position: relative;
   max-width: 1312px;
-  min-height: 822px; /* Figma: heading top to the footer */
+  min-height: 827px; /* Figma: heading top to the footer */
   margin: 0 auto;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .about-head {
-  margin-bottom: 50px;
+  margin-bottom: 83px; /* heading block is 96 tall; the copy starts 179 below its top */
 }
 
 .about-intro,
@@ -133,34 +133,43 @@
   user-select: none;
 }
 
-/* behind the polaroid; bleeds off the right edge */
+/* behind the polaroid; tilted 5.22deg (baked into the file) and bleeds off
+   the right edge */
 .about-skyline {
-  left: 57.93%;
-  top: 40.4%;
-  width: 85.45%;
+  left: 55.58%;
+  top: 22.24%;
+  width: 60.22%;
 }
 
 .about-polaroid {
-  left: 44.435%;
-  top: 13.18%;
-  width: 37.09%;
+  left: 50.065%;
+  top: 23.488%;
+  width: 24.201%;
 }
 
+/* the vector comes un-rotated from Figma; it is turned in CSS */
 .about-squiggle {
-  left: 42.24%;
-  top: 23.97%;
-  width: 7.569%;
-  transform: rotate(105.69deg);
+  left: 47.53%;
+  top: 23.3%;
+  width: 5.11%;
+  transform: rotate(-105.69deg);
 }
 
 /* "GAME ON ↵" — a link to the Playground, with a key-press on click */
 .about-game-tag {
   position: absolute;
-  left: 79.45%;
-  top: 54.47%;
-  width: 12.83%;
+  left: 72.09%;
+  top: 53.15%;
+  width: 8.101%;
   pointer-events: auto;
   transition: transform 120ms ease;
+}
+
+/* tablet and desktop art is un-rotated; phones keep the pre-rotated file */
+@media (min-width: 768px) {
+  .about-game-tag img {
+    transform: rotate(13.53deg);
+  }
 }
 
 .about-game-tag img {
@@ -188,11 +197,85 @@
 }
 
 .about-dot--l1 { left: 11.2%;  top: 84px; }
-.about-dot--l2 { left: 31.7%;  top: 761px; }
+.about-dot--l2 { left: 31.7%;  top: 684px; }
 .about-dot--v1 { left: 88.87%; top: 153px; }
 .about-dot--v2 { left: 76.14%; top: 247px; }
 .about-dot--v3 { left: 95.2%;  top: 206px; }
 .about-dot--v4 { left: 95.2%;  top: 567px; }
+
+/* ============================================================
+   Tablet and desktop — "(Real Intro)" is Helvetica with open tracking
+   ============================================================ */
+@media (min-width: 768px) {
+  .about-head__sub {
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: 1.2px;
+    line-height: 24px;
+  }
+}
+
+/* ============================================================
+   Desktop copy column — 16px type, 479px wide, one pixel in from the heading
+   ============================================================ */
+@media (min-width: 1200px) {
+  .about-intro,
+  .about-facts {
+    max-width: 479px;
+    margin-left: 1px;
+  }
+
+  .about-intro p,
+  .about-fact__row {
+    font-size: var(--text-sm);
+    line-height: 21px;
+    letter-spacing: var(--tracking-sm);
+    color: #1c1917;
+  }
+
+  /* a blank line between the two paragraphs */
+  .about-intro p {
+    margin-bottom: 21px;
+  }
+
+  .about-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-facts {
+    margin-top: 12px;
+  }
+
+  .about-facts__block {
+    padding-top: 11px;
+  }
+
+  .about-facts__block + .about-facts__block {
+    margin-top: 12px;
+  }
+
+  .about-facts__label {
+    margin-bottom: 12px;
+    font-size: var(--text-sm);
+    line-height: 21px;
+    letter-spacing: var(--tracking-sm);
+    color: #79716b;
+  }
+
+  .about-facts__list {
+    gap: 12px;
+  }
+
+  .about-fact__row {
+    margin-bottom: 2px;
+  }
+
+  .about-fact__sub {
+    font-size: var(--text-sm);
+    line-height: 21px;
+    letter-spacing: var(--tracking-sm);
+    color: #79716b;
+  }
+}
 
 /* ============================================================
    Tablet — intro + polaroid in a row, Experience | Education below
@@ -252,6 +335,7 @@
     left: 12.67%;
     top: 34.84%;
     width: 13.94%;
+    transform: rotate(105.69deg); /* the phone's pre-rotated file */
   }
 
   .about-game-tag {
@@ -296,6 +380,68 @@
   .about-dot--v2 { left: 88.64%; top: 384px; }
   .about-dot--v3 { left: 31.82%; top: 386px; }
   .about-dot--v4 { left: 95.03%; top: 647px; }
+}
+
+/* ============================================================
+   Tablet only (768-1199) — Figma 625:6138. The art cell is 320 x 306; the
+   intro and the polaroid are centred against each other in one row. Phones
+   keep the layout above.
+   ============================================================ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .about-stage {
+    align-items: center;
+  }
+
+  .about-intro {
+    margin-top: 0;
+  }
+
+  .about-intro p {
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.187px;
+    color: #1c1917;
+  }
+
+  .about-art {
+    aspect-ratio: 320 / 306.05;
+  }
+
+  .about-polaroid {
+    left: 15.897%;
+    top: 4.022%;
+    width: 68.06%;
+  }
+
+  .about-squiggle {
+    left: 7.86%;
+    top: 14.55%;
+    width: 16.07%;
+    transform: rotate(-104.94deg) skewX(1.53deg);
+  }
+
+  .about-game-tag {
+    left: 71.79%;
+    top: 60.61%;
+    width: 22.51%;
+  }
+
+  .about-facts__label {
+    font-size: var(--text-sm);
+    line-height: 21px;
+    letter-spacing: var(--tracking-sm);
+    color: #79716b;
+  }
+
+  .about-fact__row {
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-sm);
+    color: #1c1917;
+  }
+
+  .about-fact__sub {
+    color: #79716b;
+  }
 }
 
 /* ============================================================
