@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/work-accordion.css?v=14" />
     <link rel="stylesheet" href="css/work-motion.css?v=5" />
     <link rel="stylesheet" href="css/work-cursor.css?v=5" />
-    <link rel="stylesheet" href="css/few-more.css" />
+    <link rel="stylesheet" href="css/few-more.css?v=6" />
     <link rel="stylesheet" href="css/about.css?v=2" />
     <link rel="stylesheet" href="css/footer.css?v=2" />
     <link rel="stylesheet" href="css/escape.css" />
@@ -177,7 +177,16 @@
           </div>
           <!-- Figma 618:8418 — halftone keycaps, tilted -12.79deg; the art is cropped inside the tilted box -->
           <div class="more-header__keys" aria-hidden="true">
-            <div class="more-header__keys-tilt"><img src="assets/images/yes-keys.webp" alt="" /></div>
+            <div class="more-header__keys-tilt">
+              <img src="assets/images/yes-keys.webp" alt="" />
+              <!-- Click/tap a key and it lights up, like the hero keyboard (js/few-more.js) -->
+              <span class="more-key-lit more-key-lit--y"></span>
+              <span class="more-key-lit more-key-lit--e"></span>
+              <span class="more-key-lit more-key-lit--s"></span>
+              <span class="more-key more-key--y" data-key="y"></span>
+              <span class="more-key more-key--e" data-key="e"></span>
+              <span class="more-key more-key--s" data-key="s"></span>
+            </div>
           </div>
           <span class="dot dot--orange more-header__dot more-header__dot--1" aria-hidden="true"></span>
           <span class="dot dot--yellow more-header__dot more-header__dot--2" aria-hidden="true"></span>
@@ -300,7 +309,7 @@
     </div>
 
     <script src="js/projects.js?v=15"></script>
-    <script src="js/few-more.js"></script>
+    <script src="js/few-more.js?v=3"></script>
     <script src="js/work-accordion.js?v=10"></script>
     <script src="js/work-cursor.js?v=4"></script>
     <script src="js/doodle-draw.js?v=3"></script>

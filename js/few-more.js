@@ -59,3 +59,30 @@
   window.addEventListener('projects:rendered', sync);
   sync();
 })();
+
+// The three Y E S keys in the header light up when pressed, like the hero
+// keyboard. The light stays on for at least HOLD ms so a quick tap still shows.
+(() => {
+  const HOLD = 160;
+  document.querySelectorAll('#more-work .more-key').forEach((key) => {
+    // the click area and the light are separate layers (the light has to blend
+    // with the art, the click area has to be the whole keycap)
+    const lit = document.querySelector('#more-work .more-key-lit--' + key.dataset.key);
+    if (!lit) return;
+    let pressedAt = 0;
+    let timer = 0;
+    const down = () => {
+      clearTimeout(timer);
+      pressedAt = performance.now();
+      lit.classList.add('is-pressed');
+    };
+    const up = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => lit.classList.remove('is-pressed'), Math.max(0, HOLD - (performance.now() - pressedAt)));
+    };
+    key.addEventListener('pointerdown', down);
+    key.addEventListener('pointerup', up);
+    key.addEventListener('pointerleave', up);
+    key.addEventListener('pointercancel', up);
+  });
+})();
