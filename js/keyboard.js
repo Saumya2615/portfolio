@@ -44,6 +44,14 @@
     Backspace: 'eyes_emoji',
   };
 
+  // Hotspot name → physical key, so a mouse/touch press can play the same
+  // click sound (js/key-sounds.js) as the real key. First code wins where
+  // two share a name.
+  const NAME_TO_CODE = {};
+  Object.keys(CODE_TO_NAME).forEach((code) => {
+    if (!(CODE_TO_NAME[code] in NAME_TO_CODE)) NAME_TO_CODE[CODE_TO_NAME[code]] = code;
+  });
+
   // Physical keys we deliberately never touch — native browser/scroll
   // behavior stays untouched (per Appendix A: "leave Up/Down alone").
   const NATIVE_ONLY = new Set(['ArrowUp', 'ArrowDown']);
@@ -401,7 +409,10 @@
     const action = ACTIONS[key.name];
 
     // Mouse/touch press visual.
-    const press = () => el.classList.add('is-pressed');
+    const press = () => {
+      el.classList.add('is-pressed');
+      if (window.keySounds) window.keySounds.play(NAME_TO_CODE[key.name]);
+    };
     const release = () => el.classList.remove('is-pressed');
     el.addEventListener('pointerdown', press);
     el.addEventListener('pointerup', release);
