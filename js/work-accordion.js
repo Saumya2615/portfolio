@@ -6,6 +6,8 @@
 (function () {
   const NAV_H = 80;       // sticky nav height the pinned stage sits under
   const BUFFER = 40;      // px of slack so a project doesn't flicker on a boundary
+  const LEAD = 0.35;      // each project opens this fraction of a step early
+  const MIN_DWELL = 520;  // ms a project stays up before the next one can open (> its landing animation)
 
   function setup() {
     const grid = document.getElementById('main-projects-grid');
@@ -106,28 +108,63 @@
     }
 
     let laidOutAt = 0;
+    let scrolled = 0;           // px scrolled since the stage pinned (0 = just pinned)
+    let lastChangeAt = -Infinity;
+    let syncTimer = null;
+
+    function readScroll() {
+      if (stableVh() !== laidOutAt) layout();
+      const pin = parseFloat(stage.style.getPropertyValue('--stage-top')) || 0;
+      scrolled = pin - track.getBoundingClientRect().top;
+      // read the step back from the real pinned distance so the two never drift apart
+      step = (track.offsetHeight - stage.offsetHeight) / items.length;
+    }
+
+    // Project c takes over a little BEFORE c whole steps have been scrolled
+    // (LEAD of a step early), so the first change comes soon after the section
+    // pins instead of after a long empty stretch.
+    const boundary = (c) => (c - LEAD) * step;
+
+    // Which project the scroll position asks for. The one that's open keeps a
+    // BUFFER of slack either side, so it doesn't flicker on a boundary.
+    function targetFor(s) {
+      const last = items.length - 1;
+      if (current >= 0) {
+        const lo = current === 0 ? -Infinity : boundary(current) - BUFFER;
+        const hi = current === last ? Infinity : boundary(current + 1) + BUFFER;
+        if (s >= lo && s < hi) return current;
+      }
+      let t = 0;
+      for (let c = 1; c <= last; c++) if (s >= boundary(c)) t = c;
+      return t;
+    }
+
+    // Move toward the project the scroll asks for ONE at a time, each staying
+    // up for at least MIN_DWELL — so a fast scroll never skips a project and
+    // every panel gets to play its animation, however hard the page is flung.
+    function sync() {
+      clearTimeout(syncTimer);
+      const target = targetFor(scrolled);
+      if (target === current) return;
+      const dwell = reduced.matches ? 120 : MIN_DWELL;
+      const wait = dwell - (performance.now() - lastChangeAt);
+      if (wait > 0) { syncTimer = setTimeout(sync, wait); return; }
+      open(current + (target > current ? 1 : -1));
+      lastChangeAt = performance.now();
+      if (current !== targetFor(scrolled)) syncTimer = setTimeout(sync, dwell);
+    }
 
     function onScroll() {
       if (!scrollDriven) return;
-      if (stableVh() !== laidOutAt) layout();
-      const pinTop = parseFloat(stage.style.getPropertyValue('--stage-top')) || 0;
-      const scrolled = pinTop - track.getBoundingClientRect().top; // 0 when it pins
-      // read the step back from the real pinned distance so the two never drift apart
-      step = (track.offsetHeight - stage.offsetHeight) / items.length;
-
-      // project c is open while c*step <= scrolled < (c+1)*step; the buffer widens that
-      if (current >= 0) {
-        const lo = current === 0 ? -Infinity : current * step - BUFFER;
-        const hi = current === items.length - 1 ? Infinity : (current + 1) * step + BUFFER;
-        if (scrolled >= lo && scrolled < hi) return;
-      }
-      open(Math.max(0, Math.min(items.length - 1, Math.floor(scrolled / step))));
+      readScroll();
+      sync();
     }
 
     grid.addEventListener('click', (e) => {
       const bar = e.target.closest('.work-item__bar');
       if (!bar) return;
       scrollDriven = false; // the visitor took over
+      clearTimeout(syncTimer);
       open(items.indexOf(bar.closest('.work-item')));
     });
 
@@ -146,7 +183,8 @@
     grid.classList.add('is-instant');
     open(0);
     layout(); // after a project is open, so the stage is measured at its real height
-    onScroll();
+    readScroll();
+    open(targetFor(scrolled)); // reloaded mid-scroll: straight to the right project, no walk-through
     booting = false;
     // Loaded mid-scroll on a later project: show its pieces at once. On AEO,
     // wait until the section is actually on screen, then play them.
