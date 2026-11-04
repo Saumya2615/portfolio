@@ -162,11 +162,11 @@
 
   // Keys that skip the click-to-prime step entirely - the jump keys
   // above (their own slow animation is the "are you sure" beat), the
-  // down-arrow scroll hint (just a scroll, not a navigate-away), and
-  // Resume: it opens in a new tab, so a stray click costs nothing, and
-  // a first click that only showed a tooltip read as "this is broken"
-  // (the Resume links in the nav and footer open on one click too).
-  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal', 'LOUD_MODE_capslock', 'R_key_special_resume_icon']);
+  // down-arrow scroll hint (just a scroll, not a navigate-away), Resume
+  // (opens in a new tab, so a stray click costs nothing) and Dare to Play.
+  // A first click that only showed a tooltip read as "this is broken"; the
+  // tooltip still shows on hover.
+  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal', 'LOUD_MODE_capslock', 'R_key_special_resume_icon', 'Space_DareToPlay']);
 
   const JUMP_DURATION_MS = 750; // matches the .is-jumping keyframe duration in keyboard.css
   // Scroll fires once the icon has visibly cleared the frame, rather
@@ -438,9 +438,8 @@
 
     // Click: jump-navigate keys (W/M/C) go straight to their slow,
     // visible jump-out - no priming needed, the animation itself is
-    // the warning. Everything else still uses "first click primes/
-    // shows tooltip, second click navigates" (e.g. the Space bar, which
-    // leaves for the Playground).
+    // the warning. Any key with a tooltip that isn't in NO_PRIME_KEYS
+    // still uses "first click primes/shows tooltip, second click navigates".
     el.addEventListener('click', () => {
       if (!action) return;
       if (NO_PRIME_KEYS.has(key.name)) {
