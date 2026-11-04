@@ -11,12 +11,14 @@
   position: relative;
 }
 
+/* a window-sized layer: letters are placed in px at keypress time, in the
+   white space that is on screen (below the nav, z-index 100, above the keys) */
 #type-scatter-layer {
-  position: absolute;
+  position: fixed;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
+  z-index: 50;
 }
 
 .type-scatter-char {
