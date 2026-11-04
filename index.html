@@ -206,9 +206,19 @@
           <div class="about-art">
             <img src="assets/images/udaipur.webp" alt="" class="about-skyline" />
             <img src="assets/images/Saumya Pic.png" alt="Polaroid photo of Saumya smiling outdoors, captioned SUMO" class="about-polaroid" />
-            <img src="assets/images/about-squiggle.svg" alt="" class="about-squiggle" />
+            <!-- phones keep their own pre-rotated art; tablet and desktop get the
+                 un-rotated Figma vectors and turn them in CSS -->
+            <picture>
+              <source media="(min-width: 1200px)" srcset="assets/images/about-squiggle-desktop.svg" />
+              <source media="(min-width: 768px)" srcset="assets/images/about-squiggle-tablet.svg" />
+              <img src="assets/images/about-squiggle.svg" alt="" class="about-squiggle" />
+            </picture>
             <a href="playground.html" class="about-game-tag" aria-label="Game on: open the Playground">
-              <img src="assets/images/about-game-tag.svg" alt="" />
+              <picture>
+                <source media="(min-width: 1200px)" srcset="assets/images/about-game-tag-desktop.svg" />
+                <source media="(min-width: 768px)" srcset="assets/images/about-game-tag-tablet.svg" />
+                <img src="assets/images/about-game-tag.svg" alt="" />
+              </picture>
             </a>
           </div>
 
