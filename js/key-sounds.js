@@ -54,7 +54,10 @@
     if (ctx && ctx.state === 'suspended') ctx.resume();
   }
 
-  window.addEventListener('pointerdown', unlock, { passive: true });
+  // iOS Safari only lets audio start from touchend / click, not pointerdown,
+  // so unlock on all of them (the very first tap may stay silent)
+  ['pointerdown', 'touchstart', 'touchend', 'click'].forEach((type) =>
+    window.addEventListener(type, unlock, { passive: true }));
   window.addEventListener('keydown', unlock);
 
   window.addEventListener('keydown', (e) => {
