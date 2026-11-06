@@ -510,7 +510,14 @@
     .catch((err) => console.error('keyboard.js: failed to load keyboard-keys.json', err));
 
   // Phone macropad (js/macropad.js) reuses these actions on its own keys
-  window.heroKeys = { trigger: triggerAction };
+  // and plays its click through the same name -> physical key map. Caps Lock
+  // is left out: triggerLoudMode plays its own click when it turns Loud Mode on
+  window.heroKeys = {
+    trigger: triggerAction,
+    sound: (name) => {
+      if (window.keySounds && name !== 'LOUD_MODE_capslock') window.keySounds.play(NAME_TO_CODE[name]);
+    },
+  };
 
   // ── Physical keyboard ─────────────────────────────────────────
   let capsDownAt = 0; // when Caps Lock was last pressed down (see keyup below)

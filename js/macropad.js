@@ -11,7 +11,10 @@
   // ── Keys: press feedback + action ──
   pad.querySelectorAll('.macropad__key').forEach((key) => {
     const release = () => key.classList.remove('is-pressed');
-    key.addEventListener('pointerdown', () => key.classList.add('is-pressed'));
+    key.addEventListener('pointerdown', () => {
+      key.classList.add('is-pressed');
+      if (window.heroKeys) window.heroKeys.sound(key.dataset.name);
+    });
     key.addEventListener('pointerup', release);
     key.addEventListener('pointerleave', release);
     key.addEventListener('pointercancel', release);
@@ -68,8 +71,15 @@
   pad.querySelectorAll('.macropad__plain').forEach((key) => {
     const release = () => key.classList.remove('is-pressed');
     const isEnter = 'enter' in key.dataset;
+    // Same physical key the desktop board uses for this painted key
+    const soundCode = isEnter ? 'Enter'
+      : key.dataset.arrow === 'up' ? 'ArrowUp'
+      : key.dataset.arrow === 'left' ? 'ArrowLeft'
+      : /^[0-9]$/.test(key.dataset.char) ? 'Digit' + key.dataset.char
+      : 'Key' + (key.dataset.char || '').toUpperCase();
     key.addEventListener('pointerdown', () => {
       key.classList.add('is-pressed');
+      if (window.keySounds) window.keySounds.play(soundCode);
       // Enter bounces the moment the finger lands, so the press feels attached
       if (isEnter && !reducedMotion.matches) thunk();
     });
