@@ -112,12 +112,14 @@
 }
 
 /* stages that jump to a spot in the case study */
-.side-nav__stage a {
+.side-nav__stage a,
+.side-nav__item a {
   display: block;
   color: inherit;
 }
 
-.side-nav__stage a:hover {
+.side-nav__stage a:hover,
+.side-nav__item a:hover {
   color: var(--nav-ink);
 }
 
