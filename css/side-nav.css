@@ -219,6 +219,8 @@
 
 .side-nav__next--creek { --flood-color: #a3b3ff; }      /* indigo/300 */
 .side-nav__next--hyperlocal { --flood-color: #f8cb46; } /* Hyperlocal yellow */
+.side-nav__next--cellwars { --flood-color: #282329; }   /* Cell Wars dark plum (Figma 822:1657) */
+.side-nav__next--gwt { --flood-color: #eb7500; }        /* Guwahati Transportation orange (Figma 826:1723) */
 
 .side-nav__next--flood > :not(.side-nav__next-arrow) {
   position: relative; /* text stays above the fill and the art */
@@ -277,6 +279,96 @@
   top: -46.55%;
 }
 
+/* Cell Wars (Figma 822:1657): on a dark flood the text turns white and the
+   arrow (dark ink) is inverted. The arrow stays bottom-right like every other
+   card; the cell artwork is 153 x 108, tucked 16px off the left edge, top 66px. */
+.side-nav__next--cellwars > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: -16px;
+  top: 66px;
+  width: 153px;
+  height: 108px;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--cellwars .side-nav__next-art img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.side-nav__next--cellwars .side-nav__next-label,
+.side-nav__next--cellwars .side-nav__next-title {
+  transition: color 300ms ease 120ms;
+}
+
+.side-nav__next--cellwars .side-nav__next-arrow {
+  transition: filter 300ms ease 120ms;
+}
+
+.side-nav__next--cellwars:hover,
+.side-nav__next--cellwars:focus-visible {
+  color: #fff;
+}
+
+.side-nav__next--cellwars:hover .side-nav__next-label,
+.side-nav__next--cellwars:hover .side-nav__next-title,
+.side-nav__next--cellwars:focus-visible .side-nav__next-label,
+.side-nav__next--cellwars:focus-visible .side-nav__next-title {
+  color: #fff;
+}
+
+.side-nav__next--cellwars:hover > .side-nav__next-art,
+.side-nav__next--cellwars:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
+.side-nav__next--cellwars:hover .side-nav__next-arrow,
+.side-nav__next--cellwars:focus-visible .side-nav__next-arrow {
+  filter: brightness(0) invert(1);
+}
+
+/* Guwahati Transportation (Figma 826:1723): orange flood, ink stays dark, arrow
+   stays put. The bus (109 x 149) is tilted -15deg inside a 144 x 172.5 box that
+   sits 8px off the left edge, top 39px. */
+.side-nav__next--gwt > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: -8px;
+  top: 39px;
+  width: 143.989px;
+  height: 172.543px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(70px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--gwt .side-nav__next-art img {
+  position: static;
+  flex: none;
+  display: block;
+  width: 109.033px;
+  height: 149.415px;
+  max-width: none;
+  transform: rotate(-15deg);
+}
+
+.side-nav__next--gwt:hover > .side-nav__next-art,
+.side-nav__next--gwt:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
 .side-nav__next--flood:hover > .side-nav__next-fill,
 .side-nav__next--flood:focus-visible > .side-nav__next-fill {
   transform: translate(-50%, -50%) scale(1);
@@ -290,7 +382,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .side-nav__next--flood > .side-nav__next-fill,
-  .side-nav__next--creek > .side-nav__next-art {
+  .side-nav__next--creek > .side-nav__next-art,
+  .side-nav__next--gwt > .side-nav__next-art,
+  .side-nav__next--cellwars > .side-nav__next-art,
+  .side-nav__next--cellwars .side-nav__next-arrow,
+  .side-nav__next--cellwars .side-nav__next-label,
+  .side-nav__next--cellwars .side-nav__next-title {
     transition: none;
   }
 }
@@ -321,7 +418,8 @@
   display: none;
 }
 
-.has-side-nav[data-view="tldr"] .case-study-images {
+.has-side-nav[data-view="tldr"] .case-study-images,
+.has-side-nav[data-view="tldr"] .hl-full {
   display: none;
 }
 
