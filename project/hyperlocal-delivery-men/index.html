@@ -27,7 +27,9 @@
     <main class="hl-main">
       <!-- Figma "Thumbnail" 810:2126 (1391 x 760, a looping video in Figma; this is its still frame). The page opens on it; the side nav starts below. -->
       <figure class="hl-hero case-study-hero">
-        <img src="../../assets/case-studies/hyperlocal/hero.webp" width="1391" height="760" alt="A Blinkit rider on a night road, seen from the vehicle behind" />
+        <video class="hl-hero__video" autoplay muted loop playsinline preload="auto" width="1391" height="760" poster="../../assets/case-studies/hyperlocal/hero.webp" aria-label="A Blinkit rider on a night road, seen from the vehicle behind">
+          <source src="../../assets/case-studies/hyperlocal/hero.mp4" type="video/mp4" />
+        </video>
       </figure>
       <div class="hl-layout">
     <!-- Figma: Hyperlocal "Side nav" 810:2128. Stages scroll to their section. It scrolls up with the page, then sticks. -->
@@ -298,5 +300,6 @@
     </main>
     <script src="../../js/main.js"></script>
     <script src="../../js/side-nav.js"></script>
+    <script src="../../js/hl-hero.js"></script>
   </body>
 </html>

@@ -320,10 +320,18 @@
   padding: 24px;
 }
 
-.hl-hero img {
+.hl-hero img,
+.hl-hero__video {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* the Figma frame is 1391 x 760; the clip is 16:9, so it crops a hair top and bottom */
+.hl-hero__video {
+  aspect-ratio: 1391 / 760;
+  object-fit: cover;
+  background: #0c0a09; /* dark while it loads, like the night footage */
 }
 
 .hl-layout {
