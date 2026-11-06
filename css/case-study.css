@@ -45,6 +45,20 @@
   flex-direction: column;
 }
 
+/* an image with side-nav jump spots inside it: each .anchor sits at --y
+   (a % of the image's height), where a section starts in the picture */
+.anchor-host {
+  position: relative;
+}
+
+.anchor-host > .anchor {
+  position: absolute;
+  left: 0;
+  top: var(--y, 0);
+  width: 0;
+  height: 0;
+}
+
 .case-study-images img {
   display: block;
   width: 100%;

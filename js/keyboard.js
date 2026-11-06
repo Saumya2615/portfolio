@@ -44,6 +44,14 @@
     Backspace: 'eyes_emoji',
   };
 
+  // Hotspot name → physical key, so a mouse/touch press can play the same
+  // click sound (js/key-sounds.js) as the real key. First code wins where
+  // two share a name.
+  const NAME_TO_CODE = {};
+  Object.keys(CODE_TO_NAME).forEach((code) => {
+    if (!(CODE_TO_NAME[code] in NAME_TO_CODE)) NAME_TO_CODE[CODE_TO_NAME[code]] = code;
+  });
+
   // Physical keys we deliberately never touch — native browser/scroll
   // behavior stays untouched (per Appendix A: "leave Up/Down alone").
   const NATIVE_ONLY = new Set(['ArrowUp', 'ArrowDown']);
@@ -109,39 +117,68 @@
   // left in the source file. width is % of the key's width, aspect is
   // each SVG's own width/height so it doesn't get stretched.
   const LOUD_MODE_BOLTS = [
-    { src: 'assets/images/keyboard-keys/loud-mode-bolt-top.svg', left: -59.75, top: -6.81, width: 54.5, aspect: 60 / 19 },
-    { src: 'assets/images/keyboard-keys/loud-mode-bolt-upper.svg', left: -9.75, top: -13.76, width: 35.5, aspect: 39 / 27 },
-    { src: 'assets/images/keyboard-keys/loud-mode-bolt-mid.svg', left: -23.49, top: 48.9, width: 28.2, aspect: 31 / 13 },
-    { src: 'assets/images/keyboard-keys/loud-mode-bolt-bottom.svg', left: -33.29, top: 74.6, width: 45.5, aspect: 50 / 40 },
+    // Nudged out from Figma's spots so none of them overlap the key's
+    // "LOUD MODE" text, now that they stay on screen while it's on
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-top.svg', left: -69.75, top: -6.81, width: 54.5, aspect: 60 / 19 },
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-upper.svg', left: -38.75, top: -30.8, width: 35.5, aspect: 39 / 27 },
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-mid.svg', left: -31.5, top: 48.9, width: 28.2, aspect: 31 / 13 },
+    { src: 'assets/images/keyboard-keys/loud-mode-bolt-bottom.svg', left: -48.3, top: 74.6, width: 45.5, aspect: 50 / 40 },
   ];
   let loudModeAnimating = false;
 
-  function spawnLoudModeBolts(keyEl) {
-    keyEl.classList.add('has-loud-bolts');
-    let remaining = LOUD_MODE_BOLTS.length;
-    LOUD_MODE_BOLTS.forEach((b) => {
-      const bolt = document.createElement('img');
-      bolt.className = 'loud-mode-bolt';
-      bolt.src = b.src;
-      bolt.alt = '';
-      bolt.style.left = b.left + '%';
-      bolt.style.top = b.top + '%';
-      bolt.style.width = b.width + '%';
-      bolt.style.aspectRatio = b.aspect;
-      keyEl.appendChild(bolt);
-      bolt.addEventListener('animationend', () => {
-        bolt.remove();
-        remaining -= 1;
-        if (remaining === 0) keyEl.classList.remove('has-loud-bolts');
+  // The bolts stay on screen while Loud Mode is on: built once on the first
+  // turn-on, then popped in / out by toggling .is-on (css/loud-mode.css).
+  function setLoudBolts(keyEl, on) {
+    let bolts = keyEl.querySelectorAll('.loud-mode-bolt');
+    if (!bolts.length && on) {
+      LOUD_MODE_BOLTS.forEach((b, i) => {
+        const bolt = document.createElement('img');
+        bolt.className = 'loud-mode-bolt';
+        bolt.src = b.src;
+        bolt.alt = '';
+        bolt.style.left = b.left + '%';
+        bolt.style.top = b.top + '%';
+        bolt.style.width = b.width + '%';
+        bolt.style.aspectRatio = b.aspect;
+        bolt.style.setProperty('--i', i);
+        keyEl.appendChild(bolt);
       });
+      bolts = keyEl.querySelectorAll('.loud-mode-bolt');
+      void keyEl.offsetWidth; // start from the hidden state so the pop-in plays
+    }
+    keyEl.classList.toggle('has-loud-bolts', on);
+    bolts.forEach((bolt) => bolt.classList.toggle('is-on', on));
+  }
+
+  // Loud Mode is also the keyboard's sound switch: each press of the Caps
+  // Lock key (the real one or either on-screen one) flips it. The page keeps
+  // its own on/off state and never reads the real Caps Lock light, which it
+  // can't know before a key is pressed and which phones don't have.
+  let loudModeOn = false;
+  const LOUD_TIP_OFF = 'loud mode: turn the clicks on';
+  const LOUD_TIP_ON = 'loud mode on: press to mute';
+
+  function setLoudMode(on) {
+    loudModeOn = on;
+    if (window.keySounds) window.keySounds.setEnabled(on);
+    document.querySelectorAll('[data-name="LOUD_MODE_capslock"]').forEach((k) => {
+      k.classList.toggle('is-loud-on', on);
+      if (k.tagName === 'BUTTON') k.setAttribute('aria-pressed', on ? 'true' : 'false');
+      const tip = k.querySelector('.key-tooltip');
+      if (tip) tip.textContent = on ? LOUD_TIP_ON : LOUD_TIP_OFF;
+      // the desktop key hosts its own bolts; the phone pad has Figma's in its markup
+      if (k.classList.contains('key-hotspot')) setLoudBolts(k, on);
     });
+    document.querySelectorAll('.macropad__bolts').forEach((b) => b.classList.toggle('is-on', on));
   }
 
   function triggerLoudMode(keyEl = hotspotsByName['LOUD_MODE_capslock']) {
+    setLoudMode(!loudModeOn);
+    if (!loudModeOn) return; // turning off is quiet: just the unlit key
+    if (window.keySounds) window.keySounds.play('CapsLock'); // the click that turned it on
     if (loudModeAnimating) return;
     loudModeAnimating = true;
     const heading = document.querySelector('#hero h1');
-    if (keyEl) spawnLoudModeBolts(keyEl);
     if (heading) heading.classList.add('loud-mode-shout');
     setTimeout(() => {
       if (heading) heading.classList.remove('loud-mode-shout');
@@ -161,10 +198,12 @@
   ]);
 
   // Keys that skip the click-to-prime step entirely - the jump keys
-  // above (their own slow animation is the "are you sure" beat) plus
-  // the down-arrow scroll hint, which is low-stakes enough (just a
-  // scroll, not a navigate-away) to not need a preview tap either.
-  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal', 'LOUD_MODE_capslock']);
+  // above (their own slow animation is the "are you sure" beat), the
+  // down-arrow scroll hint (just a scroll, not a navigate-away), Resume
+  // (opens in a new tab, so a stray click costs nothing) and Dare to Play.
+  // A first click that only showed a tooltip read as "this is broken"; the
+  // tooltip still shows on hover.
+  const NO_PRIME_KEYS = new Set([...JUMP_ON_NAVIGATE, 'arrow_down_special_green', 'smiley_personal', 'LOUD_MODE_capslock', 'R_key_special_resume_icon', 'Space_DareToPlay']);
 
   const JUMP_DURATION_MS = 750; // matches the .is-jumping keyframe duration in keyboard.css
   // Scroll fires once the icon has visibly cleared the frame, rather
@@ -399,7 +438,10 @@
     const action = ACTIONS[key.name];
 
     // Mouse/touch press visual.
-    const press = () => el.classList.add('is-pressed');
+    const press = () => {
+      el.classList.add('is-pressed');
+      if (window.keySounds) window.keySounds.play(NAME_TO_CODE[key.name]);
+    };
     const release = () => el.classList.remove('is-pressed');
     el.addEventListener('pointerdown', press);
     el.addEventListener('pointerup', release);
@@ -436,9 +478,8 @@
 
     // Click: jump-navigate keys (W/M/C) go straight to their slow,
     // visible jump-out - no priming needed, the animation itself is
-    // the warning. Everything else still uses "first click primes/
-    // shows tooltip, second click navigates" (e.g. R, which opens the
-    // resume in a new tab and benefits from a preview first).
+    // the warning. Any key with a tooltip that isn't in NO_PRIME_KEYS
+    // still uses "first click primes/shows tooltip, second click navigates".
     el.addEventListener('click', () => {
       if (!action) return;
       if (NO_PRIME_KEYS.has(key.name)) {
@@ -469,15 +510,24 @@
     .catch((err) => console.error('keyboard.js: failed to load keyboard-keys.json', err));
 
   // Phone macropad (js/macropad.js) reuses these actions on its own keys
-  window.heroKeys = { trigger: triggerAction };
+  // and plays its click through the same name -> physical key map. Caps Lock
+  // is left out: triggerLoudMode plays its own click when it turns Loud Mode on
+  window.heroKeys = {
+    trigger: triggerAction,
+    sound: (name) => {
+      if (window.keySounds && name !== 'LOUD_MODE_capslock') window.keySounds.play(NAME_TO_CODE[name]);
+    },
+  };
 
   // ── Physical keyboard ─────────────────────────────────────────
+  let capsDownAt = 0; // when Caps Lock was last pressed down (see keyup below)
   window.addEventListener('keydown', (e) => {
     if (e.repeat) return;
     const name = CODE_TO_NAME[e.code];
     if (!name) return;
     const el = hotspotsByName[name];
     if (el) el.classList.add('is-pressed');
+    if (e.code === 'CapsLock') capsDownAt = e.timeStamp;
 
     if (NATIVE_ONLY.has(e.code)) return; // native scroll, no override
 
@@ -498,5 +548,13 @@
     const name = CODE_TO_NAME[e.code];
     const el = name && hotspotsByName[name];
     if (el) el.classList.remove('is-pressed');
+
+    // macOS fires Caps Lock's keydown only when it turns on and its keyup
+    // only when it turns off, so a keyup long after the last keydown, with
+    // the real light now off, is the "off" press.
+    if (e.code === 'CapsLock' && loudModeOn && !e.getModifierState('CapsLock')
+        && e.timeStamp - capsDownAt > 400) {
+      setLoudMode(false);
+    }
   });
 })();

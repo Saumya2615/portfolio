@@ -332,6 +332,15 @@
   }
 }
 
+/* Short phone screens (the browser bars take a third of an iPhone): js sets
+   .is-tight when the pinned list is still taller than the screen, so the
+   closed rows slim down and the open panel stays clear of the nav. */
+@media (max-width: 767px) {
+  #work.is-tight {
+    --bar-h: 40px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .work-item,
   .work-item__panel,

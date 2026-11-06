@@ -2,7 +2,7 @@
 // Main projects render as the Work accordion (js/work-accordion.js drives it).
 
 async function loadProjects() {
-  const res = await fetch('data/projects.json?v=4');
+  const res = await fetch('data/projects.json?v=5');
   const data = await res.json();
 
   renderMainProjects(data.main);
@@ -127,26 +127,29 @@ function renderMainProjects(projects) {
   }).join('');
 }
 
+// "A few more >>" — a 2×2 grid on tablet/desktop, a swipe track on phones (css/few-more.css)
 function renderSecondaryProjects(projects) {
   const grid = document.getElementById('secondary-projects-grid');
   if (!grid) return;
 
   grid.innerHTML = projects.map(p => `
-    <a class="project-card-link" href="${p.link || 'project/'}" data-id="${p.id}">
-      <article class="project-card project-card--secondary">
-        <div class="project-card__image">
+    <a class="more-card-link" href="${p.link || 'project/'}" data-id="${p.id}">
+      <article class="more-card">
+        <div class="more-card__image">
           ${p.image
-            ? `<img src="${p.image}" alt="${p.title}" loading="lazy" />`
-            : '<div class="project-card__image-placeholder"></div>'
+            ? `<img src="${p.image}" alt="${p.imageAlt || p.title}" loading="lazy" />`
+            : '<div class="more-card__image-placeholder"></div>'
           }
         </div>
-        ${p.tags.length ? `
-        <ul class="project-card__tags">
-          ${p.tags.map(tag => `<li class="tag">${tag}</li>`).join('')}
-        </ul>` : ''}
-        <div class="project-card__info">
-          <h3 class="project-card__title">${p.title || '[Project title]'}</h3>
-          <p class="project-card__description">${p.description || ''}</p>
+        <div class="more-card__text">
+          <div class="more-card__heading">
+            <h3 class="more-card__title">${p.title}</h3>
+            ${p.description ? `<p class="more-card__description">${p.description}</p>` : ''}
+          </div>
+          <p class="more-card__meta">
+            <span>${p.category || ''}</span>
+            <span>${p.date || ''}</span>
+          </p>
         </div>
       </article>
     </a>

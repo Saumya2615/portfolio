@@ -1,0 +1,430 @@
+/* ============================================================
+   Case study side nav
+   Figma: AEO "Side nav — v2" (798:20309); Alum Connect "Side nav — v2"
+   (792:20131) — a 236px rail with the back-to-Work link, the stages of the
+   case study, the TL;DR / Full switch and a "next case study" card.
+   Replaces the slim logo bar on desktop and tablet; phones keep the top
+   bar (no room for a rail).
+   Tokens: stone/200 #e7e5e4, stone/400 #a6a09b, stone/800 #292524, and
+   #2a2a28 for the rail's own ink (Work, the current stage, TL;DR border).
+   ============================================================ */
+
+.has-side-nav {
+  --side-nav-width: 236px;
+  --stone-200: #e7e5e4;
+  --stone-400: #a6a09b;
+  --stone-800: #292524;
+  --nav-ink: #2a2a28;
+}
+
+/* a slimmer rail for pages with short stage names (Alum Connect) */
+.has-side-nav.side-nav-narrow {
+  --side-nav-width: 200px;
+}
+
+.side-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .has-side-nav #nav {
+    display: none;
+  }
+
+  .has-side-nav main {
+    margin-left: var(--side-nav-width);
+  }
+
+  .side-nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: var(--side-nav-width);
+    padding: 48px 24px;
+    overflow: hidden; /* never scrolls: shorter windows get tighter spacing, then js/side-nav.js scales it to fit */
+    background: var(--color-bg);
+    border-right: var(--border-thin) solid var(--stone-200);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 23px; /* Figma's 22.4px line, as it lays out: 23px text, 31px rows */
+    color: var(--nav-ink);
+  }
+
+  .side-nav a:hover {
+    opacity: 1;
+  }
+}
+
+.side-nav__back {
+  align-self: flex-start;
+  margin-bottom: 40px;
+}
+
+.side-nav__back,
+.side-nav__stages,
+.side-nav__version,
+.side-nav__next {
+  flex-shrink: 0; /* never squash: js/side-nav.js scales the rail if it runs out of height */
+}
+
+.side-nav__stages {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side-nav__stage,
+.side-nav__act-label,
+.side-nav__item {
+  padding: 4px 0;
+  color: var(--stone-400);
+}
+
+/* a stage inside an act: indented 20px (the Figma frame's 12px right
+   padding sits on a box its text overflows, so the text gets the full width) */
+.side-nav__item {
+  padding-left: 20px;
+  overflow-wrap: break-word;
+}
+
+/* act labels stay on one line, as in the frame ("Act 2 · Ambiguity increases"
+   runs a little past the 187px column, into the rail's right padding) */
+.side-nav__act-label {
+  white-space: nowrap;
+}
+
+.side-nav__stage.is-current,
+.side-nav__item.is-current {
+  color: var(--nav-ink);
+}
+
+/* a flat list of stages (no acts), as on Alum Connect: rows 4px apart */
+.side-nav__stages.side-nav__stages--flat {
+  gap: 4px;
+}
+
+/* stages that jump to a spot in the case study */
+.side-nav__stage a,
+.side-nav__item a {
+  display: block;
+  color: inherit;
+}
+
+.side-nav__stage a:hover,
+.side-nav__item a:hover {
+  color: var(--nav-ink);
+}
+
+/* an act: its label, then its stages, with no gap between them */
+.side-nav__act {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-nav__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side-nav__spacer {
+  flex: 1 0 24px;
+}
+
+/* TL;DR / Full switch */
+.side-nav__version {
+  display: flex;
+  border: var(--border-thin) solid var(--nav-ink);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.side-nav__segment {
+  flex: 1 0 0;
+  padding: 9px 8px;
+  border: 0;
+  background: var(--color-bg);
+  font: inherit;
+  font-size: 14px;
+  line-height: 19.6px;
+  color: var(--stone-800);
+  cursor: pointer;
+}
+
+.side-nav__segment[aria-pressed="true"] {
+  background: var(--stone-800);
+  color: #fff;
+}
+
+.side-nav__segment:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+/* Next case study card */
+.side-nav__next {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 141px; /* Figma 789:20124: the card's own height; it takes the rail's full width */
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px;
+  border: var(--border-thin) solid var(--stone-800);
+  border-radius: 4px;
+  background: var(--color-bg);
+  color: var(--stone-800);
+}
+
+.side-nav__next-label {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 19.6px;
+}
+
+.side-nav__next-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  line-height: 25.2px;
+  letter-spacing: -0.18px;
+}
+
+/* bottom-right, over the title's last line if it wraps to three (as in the
+   Hyperlocal frame), so a long title never pushes the arrow out of the card */
+.side-nav__next-arrow {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  bottom: 14px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Next-case-study hover (Figma 770:19204). The art is in plain px (the card
+   is 141px tall), so it stays put when js/side-nav.js zooms the rail to fit.
+   Rest: plain white. Hover: a coloured circle grows out of the bottom-left
+   corner until it floods the card. --flood-color is set per project; Creek.UI
+   also gets a cake that rises in, tilted (Hyperlocal is the colour only). */
+.side-nav__next--flood {
+  --next-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.side-nav__next--creek { --flood-color: #a3b3ff; }      /* indigo/300 */
+.side-nav__next--hyperlocal { --flood-color: #f8cb46; } /* Hyperlocal yellow */
+.side-nav__next--cellwars { --flood-color: #282329; }   /* Cell Wars dark plum (Figma 822:1657) */
+.side-nav__next--gwt { --flood-color: #eb7500; }        /* Guwahati Transportation orange (Figma 826:1723) */
+
+.side-nav__next--flood > :not(.side-nav__next-arrow) {
+  position: relative; /* text stays above the fill and the art */
+  z-index: 1;
+}
+
+/* the circle: centred exactly on the bottom-left corner, big enough that
+   at full size it covers the whole card. It starts at scale 0, so it
+   grows out of that corner */
+.side-nav__next--flood > .side-nav__next-fill {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 100%;
+  width: 300%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--flood-color);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 550ms var(--next-ease);
+}
+
+/* the cake: a 91 x 96 box (Figma) tilted -17.71deg, low in the card on the
+   left. Sits a little higher than Figma's spot so more of it shows above
+   the bottom edge. */
+.side-nav__next--creek > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: 12px;
+  top: 66px;
+  width: 91.27px;
+  height: 96.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next-art > span {
+  position: relative;
+  flex: none;
+  width: 70.75px;
+  height: 78.5px;
+  overflow: hidden;
+  transform: rotate(-17.71deg);
+}
+
+.side-nav__next-art img {
+  position: absolute;
+  max-width: none;
+  width: 134.67%;
+  height: 263.16%;
+  left: -14.6%;
+  top: -46.55%;
+}
+
+/* Cell Wars (Figma 822:1657): on a dark flood the text turns white and the
+   arrow (dark ink) is inverted. The arrow stays bottom-right like every other
+   card; the cell artwork is 153 x 108, tucked 16px off the left edge, top 66px. */
+.side-nav__next--cellwars > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: -16px;
+  top: 66px;
+  width: 153px;
+  height: 108px;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--cellwars .side-nav__next-art img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.side-nav__next--cellwars .side-nav__next-label,
+.side-nav__next--cellwars .side-nav__next-title {
+  transition: color 300ms ease 120ms;
+}
+
+.side-nav__next--cellwars .side-nav__next-arrow {
+  transition: filter 300ms ease 120ms;
+}
+
+.side-nav__next--cellwars:hover,
+.side-nav__next--cellwars:focus-visible {
+  color: #fff;
+}
+
+.side-nav__next--cellwars:hover .side-nav__next-label,
+.side-nav__next--cellwars:hover .side-nav__next-title,
+.side-nav__next--cellwars:focus-visible .side-nav__next-label,
+.side-nav__next--cellwars:focus-visible .side-nav__next-title {
+  color: #fff;
+}
+
+.side-nav__next--cellwars:hover > .side-nav__next-art,
+.side-nav__next--cellwars:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
+.side-nav__next--cellwars:hover .side-nav__next-arrow,
+.side-nav__next--cellwars:focus-visible .side-nav__next-arrow {
+  filter: brightness(0) invert(1);
+}
+
+/* Guwahati Transportation (Figma 826:1723): orange flood, ink stays dark, arrow
+   stays put. The bus (109 x 149) is tilted -15deg inside a 144 x 172.5 box that
+   sits 8px off the left edge, top 39px. */
+.side-nav__next--gwt > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: -8px;
+  top: 39px;
+  width: 143.989px;
+  height: 172.543px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(70px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--gwt .side-nav__next-art img {
+  position: static;
+  flex: none;
+  display: block;
+  width: 109.033px;
+  height: 149.415px;
+  max-width: none;
+  transform: rotate(-15deg);
+}
+
+.side-nav__next--gwt:hover > .side-nav__next-art,
+.side-nav__next--gwt:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
+.side-nav__next--flood:hover > .side-nav__next-fill,
+.side-nav__next--flood:focus-visible > .side-nav__next-fill {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.side-nav__next--creek:hover > .side-nav__next-art,
+.side-nav__next--creek:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-nav__next--flood > .side-nav__next-fill,
+  .side-nav__next--creek > .side-nav__next-art,
+  .side-nav__next--gwt > .side-nav__next-art,
+  .side-nav__next--cellwars > .side-nav__next-art,
+  .side-nav__next--cellwars .side-nav__next-arrow,
+  .side-nav__next--cellwars .side-nav__next-label,
+  .side-nav__next--cellwars .side-nav__next-title {
+    transition: none;
+  }
+}
+
+/* Shorter windows: the rail's text drops to 14px (the design's "Small"
+   size) and its spacing eases down, so it fits whole without feeling crammed */
+@media (min-width: 768px) and (max-height: 960px) {
+  .side-nav { padding-top: 32px; padding-bottom: 32px; font-size: 14px; line-height: 19.6px; }
+  .side-nav__back { margin-bottom: 24px; }
+  .side-nav__next { margin-top: 12px; }
+}
+
+@media (min-width: 768px) and (max-height: 760px) {
+  .side-nav { padding-top: 24px; padding-bottom: 24px; }
+  .side-nav__back { margin-bottom: 16px; }
+  .side-nav__stage,
+  .side-nav__act-label,
+  .side-nav__item { padding-top: 3px; padding-bottom: 3px; }
+  .side-nav__segment { padding-top: 6px; padding-bottom: 6px; }
+  .side-nav__next { margin-top: 10px; }
+}
+
+/* ============================================================
+   TL;DR view — hides the full case study and shows the short
+   placeholder page instead; the side nav stays put.
+   ============================================================ */
+.case-study-tldr {
+  display: none;
+}
+
+.has-side-nav[data-view="tldr"] .case-study-images,
+.has-side-nav[data-view="tldr"] .hl-full {
+  display: none;
+}
+
+.has-side-nav[data-view="tldr"] .case-study-tldr {
+  display: flex;
+}

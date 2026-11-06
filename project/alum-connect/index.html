@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alum Connect — Saumya</title>
+    <title>Alum Connect — Saumya Jain</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&family=Poppins:wght@400&display=swap" rel="stylesheet" />
@@ -12,64 +15,99 @@
     <link rel="stylesheet" href="../../css/main.css" />
     <link rel="stylesheet" href="../../css/nav.css" />
     <link rel="stylesheet" href="../../css/case-study.css" />
+    <link rel="stylesheet" href="../../css/side-nav.css" />
   </head>
-  <body class="case-study-page">
+  <body class="case-study-page has-side-nav side-nav-narrow" data-view="full">
     <header id="nav">
       <nav>
         <a href="../../" class="nav-logo" aria-label="Saumya — home"><img src="../../assets/images/logo-wink.svg" alt="" width="48" height="48" /></a>
       </nav>
     </header>
+    <!-- Figma: Alum Connect "Side nav — v2" 792:20131. Stages scroll to the image where each one starts. -->
+    <aside class="side-nav" aria-label="Case study">
+      <a class="side-nav__back" href="../../#work">Work</a>
+      <ul class="side-nav__stages side-nav__stages--flat">
+        <li class="side-nav__stage"><a href="#context">Context</a></li>
+        <li class="side-nav__stage"><a href="#research">Research</a></li>
+        <li class="side-nav__stage"><a href="#mvp-development">MVP Development</a></li>
+        <li class="side-nav__stage"><a href="#mvp-testing">MVP Testing</a></li>
+        <li class="side-nav__stage"><a href="#the-pivot">The Pivot</a></li>
+        <li class="side-nav__stage"><a href="#ideation">Ideation</a></li>
+        <li class="side-nav__stage"><a href="#solution">Solution</a></li>
+        <li class="side-nav__stage"><a href="#feedbacks">Feedbacks</a></li>
+      </ul>
+      <div class="side-nav__spacer"></div>
+      <div class="side-nav__version" role="group" aria-label="Version">
+        <button type="button" class="side-nav__segment" data-view-set="tldr" aria-pressed="false">TL;DR</button>
+        <button type="button" class="side-nav__segment" data-view-set="full" aria-pressed="true">Full</button>
+      </div>
+      <!-- Hover: a yellow circle grows from the bottom-left corner and floods the card (Figma 770:19148) -->
+      <a class="side-nav__next side-nav__next--flood side-nav__next--hyperlocal" href="../hyperlocal-delivery-men/">
+        <span class="side-nav__next-fill" aria-hidden="true"></span>
+        <span class="side-nav__next-label">Next case study</span>
+        <span class="side-nav__next-title">Hyperlocal Delivery Systems</span>
+        <img class="side-nav__next-arrow" src="../../assets/images/side-nav-arrow.svg" alt="" width="20" height="20" />
+      </a>
+    </aside>
     <main>
+      <section class="case-study-placeholder case-study-tldr">
+        <p class="case-study-placeholder__eyebrow">You clicked faster than I could type.</p>
+        <p class="case-study-placeholder__message">
+          Here's what I've got so far, or
+          <a href="../../#work">head back to see what's actually ready →</a>
+        </p>
+      </section>
       <section class="case-study-images">
-      <img src="../../assets/case-studies/alumconnect/1.webp" alt="Alum Connect case study image 1" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/2.webp" alt="Alum Connect case study image 2" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/3.webp" alt="Alum Connect case study image 3" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/4.webp" alt="Alum Connect case study image 4" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/5.webp" alt="Alum Connect case study image 5" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/6.webp" alt="Alum Connect case study image 6" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/7.webp" alt="Alum Connect case study image 7" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/8.webp" alt="Alum Connect case study image 8" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/9.webp" alt="Alum Connect case study image 9" loading="lazy" />
+      <img id="context" width="2100" height="1643" src="../../assets/case-studies/alumconnect/1.webp" alt="Alum Connect case study image 1" loading="lazy" />
+      <img width="2100" height="2903" src="../../assets/case-studies/alumconnect/2.webp" alt="Alum Connect case study image 2" loading="lazy" />
+      <img width="2100" height="5037" src="../../assets/case-studies/alumconnect/3.webp" alt="Alum Connect case study image 3" loading="lazy" />
+      <img id="research" width="2100" height="2627" src="../../assets/case-studies/alumconnect/4.webp" alt="Alum Connect case study image 4" loading="lazy" />
+      <img width="2100" height="1068" src="../../assets/case-studies/alumconnect/5.webp" alt="Alum Connect case study image 5" loading="lazy" />
+      <img width="2100" height="2165" src="../../assets/case-studies/alumconnect/6.webp" alt="Alum Connect case study image 6" loading="lazy" />
+      <img width="2100" height="2477" src="../../assets/case-studies/alumconnect/7.webp" alt="Alum Connect case study image 7" loading="lazy" />
+      <img width="2100" height="2136" src="../../assets/case-studies/alumconnect/8.webp" alt="Alum Connect case study image 8" loading="lazy" />
+      <img width="2100" height="435" src="../../assets/case-studies/alumconnect/9.webp" alt="Alum Connect case study image 9" loading="lazy" />
       <p class="case-study-inline-link"><a href="https://docs.google.com/document/d/1I9Gi3obHMhrzOzpuYILJHjBnvylZF0zN4ndSLq6Tf_E/edit?tab=t.0" target="_blank" rel="noopener">Link to questionnaire</a></p>
-      <img src="../../assets/case-studies/alumconnect/11.webp" alt="Alum Connect case study image 11" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/12.webp" alt="Alum Connect case study image 12" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/13.webp" alt="Alum Connect case study image 13" loading="lazy" />
+      <img width="2195" height="3996" src="../../assets/case-studies/alumconnect/11.webp" alt="Alum Connect case study image 11" loading="lazy" />
+      <img width="2100" height="5355" src="../../assets/case-studies/alumconnect/12.webp" alt="Alum Connect case study image 12" loading="lazy" />
+      <img id="mvp-development" width="2100" height="1851" src="../../assets/case-studies/alumconnect/13.webp" alt="Alum Connect case study image 13" loading="lazy" />
       <div class="case-study-link-row">
         <a href="https://www.figma.com/board/PUQA4s4vbMRQ0JQEfMccKF/Alum-Connect?node-id=352-3003&t=gBqTn75C907fltSj-1" target="_blank" rel="noopener">Research</a>
         <a class="case-study-link-row__center" href="https://iitg-alum-sphere.lovable.app/" target="_blank" rel="noopener">Prototype</a>
       </div>
-      <img src="../../assets/case-studies/alumconnect/15.webp" alt="Alum Connect case study image 15" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/16.webp" alt="Alum Connect case study image 16" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/17.webp" alt="Alum Connect case study image 17" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/18.webp" alt="Alum Connect case study image 18" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/19.webp" alt="Alum Connect case study image 19" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/20.webp" alt="Alum Connect case study image 20" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/21.webp" alt="Alum Connect case study image 21" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/22.gif" alt="Alum Connect case study animation 22" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/23.webp" alt="Alum Connect case study image 23" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/24.webp" alt="Alum Connect case study image 24" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/25.webp" alt="Alum Connect case study image 25" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/26.webp" alt="Alum Connect case study image 26" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/27.gif" alt="Alum Connect case study animation 27" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/28.webp" alt="Alum Connect case study image 28" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/29.webp" alt="Alum Connect case study image 29" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/30.webp" alt="Alum Connect case study image 30" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/31.webp" alt="Alum Connect case study image 31" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/32.webp" alt="Alum Connect case study image 32" loading="lazy" />
+      <img id="mvp-testing" width="2124" height="3017" src="../../assets/case-studies/alumconnect/15.webp" alt="Alum Connect case study image 15" loading="lazy" />
+      <img id="the-pivot" width="2100" height="1172" src="../../assets/case-studies/alumconnect/16.webp" alt="Alum Connect case study image 16" loading="lazy" />
+      <img width="2100" height="4047" src="../../assets/case-studies/alumconnect/17.webp" alt="Alum Connect case study image 17" loading="lazy" />
+      <img width="2100" height="5019" src="../../assets/case-studies/alumconnect/18.webp" alt="Alum Connect case study image 18" loading="lazy" />
+      <img id="ideation" width="2100" height="8637" src="../../assets/case-studies/alumconnect/19.webp" alt="Alum Connect case study image 19" loading="lazy" />
+      <img width="2100" height="4284" src="../../assets/case-studies/alumconnect/20.webp" alt="Alum Connect case study image 20" loading="lazy" />
+      <img id="solution" width="2100" height="2628" src="../../assets/case-studies/alumconnect/21.webp" alt="Alum Connect case study image 21" loading="lazy" />
+      <img width="1400" height="240" src="../../assets/case-studies/alumconnect/22.gif" alt="Alum Connect case study animation 22" loading="lazy" />
+      <img width="2100" height="6179" src="../../assets/case-studies/alumconnect/23.webp" alt="Alum Connect case study image 23" loading="lazy" />
+      <img width="2100" height="2315" src="../../assets/case-studies/alumconnect/24.webp" alt="Alum Connect case study image 24" loading="lazy" />
+      <img width="2100" height="5633" src="../../assets/case-studies/alumconnect/25.webp" alt="Alum Connect case study image 25" loading="lazy" />
+      <img width="2100" height="1473" src="../../assets/case-studies/alumconnect/26.webp" alt="Alum Connect case study image 26" loading="lazy" />
+      <img width="1400" height="945" src="../../assets/case-studies/alumconnect/27.gif" alt="Alum Connect case study animation 27" loading="lazy" />
+      <img width="2100" height="2900" src="../../assets/case-studies/alumconnect/28.webp" alt="Alum Connect case study image 28" loading="lazy" />
+      <img width="2100" height="3735" src="../../assets/case-studies/alumconnect/29.webp" alt="Alum Connect case study image 29" loading="lazy" />
+      <img width="2100" height="4001" src="../../assets/case-studies/alumconnect/30.webp" alt="Alum Connect case study image 30" loading="lazy" />
+      <img width="2102" height="572" src="../../assets/case-studies/alumconnect/31.webp" alt="Alum Connect case study image 31" loading="lazy" />
+      <img width="2100" height="1670" src="../../assets/case-studies/alumconnect/32.webp" alt="Alum Connect case study image 32" loading="lazy" />
       <div class="case-study-video">
         <iframe src="https://player.vimeo.com/video/1117910886" title="Alum Connect video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
-      <img src="../../assets/case-studies/alumconnect/34.webp" alt="Alum Connect case study image 34" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/35.webp" alt="Alum Connect case study image 35" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/36.webp" alt="Alum Connect case study image 36" loading="lazy" />
+      <img width="2102" height="7289" src="../../assets/case-studies/alumconnect/34.webp" alt="Alum Connect case study image 34" loading="lazy" />
+      <img width="2100" height="2462" src="../../assets/case-studies/alumconnect/35.webp" alt="Alum Connect case study image 35" loading="lazy" />
+      <img width="2100" height="3125" src="../../assets/case-studies/alumconnect/36.webp" alt="Alum Connect case study image 36" loading="lazy" />
       <audio src="../../assets/case-studies/alumconnect/pizza story ver.2.mp3" controls style="width: 100%;"></audio>
-      <img src="../../assets/case-studies/alumconnect/38.webp" alt="Alum Connect case study image 38" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/39.webp" alt="Alum Connect case study image 39" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/40.webp" alt="Alum Connect case study image 40" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/41.webp" alt="Alum Connect case study image 41" loading="lazy" />
-      <img src="../../assets/case-studies/alumconnect/42.webp" alt="Alum Connect case study image 42" loading="lazy" />
+      <img width="2100" height="6333" src="../../assets/case-studies/alumconnect/38.webp" alt="Alum Connect case study image 38" loading="lazy" />
+      <img width="2100" height="9311" src="../../assets/case-studies/alumconnect/39.webp" alt="Alum Connect case study image 39" loading="lazy" />
+      <img width="2100" height="1302" src="../../assets/case-studies/alumconnect/40.webp" alt="Alum Connect case study image 40" loading="lazy" />
+      <img id="feedbacks" width="2100" height="1280" src="../../assets/case-studies/alumconnect/41.webp" alt="Alum Connect case study image 41" loading="lazy" />
+      <img width="2100" height="698" src="../../assets/case-studies/alumconnect/42.webp" alt="Alum Connect case study image 42" loading="lazy" />
       </section>
     </main>
     <script src="../../js/main.js"></script>
+    <script src="../../js/side-nav.js"></script>
   </body>
 </html>

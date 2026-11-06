@@ -3,31 +3,303 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hyperlocal Delivery Men — Saumya</title>
+    <title>Hyperlocal Delivery Men — Saumya Jain</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/reset.css" />
     <link rel="stylesheet" href="../../css/variables.css" />
     <link rel="stylesheet" href="../../css/main.css" />
     <link rel="stylesheet" href="../../css/nav.css" />
     <link rel="stylesheet" href="../../css/case-study.css" />
+    <link rel="stylesheet" href="../../css/side-nav.css" />
+    <link rel="stylesheet" href="../../css/hyperlocal.css" />
   </head>
-  <body class="case-study-page">
+  <body class="case-study-page has-side-nav hl-page" data-view="full">
     <header id="nav">
       <nav>
         <a href="../../" class="nav-logo" aria-label="Saumya — home"><img src="../../assets/images/logo-wink.svg" alt="" width="48" height="48" /></a>
       </nav>
     </header>
-    <main>
-      <section class="case-study-placeholder">
+    <main class="hl-main">
+      <!-- Figma "Thumbnail" 810:2126 (1391 x 760, a looping video in Figma; this is its still frame). The page opens on it; the side nav starts below. -->
+      <figure class="hl-hero case-study-hero">
+        <video class="hl-hero__video" autoplay muted loop playsinline preload="auto" width="1391" height="760" poster="../../assets/case-studies/hyperlocal/hero.webp" aria-label="A Blinkit rider on a night road, seen from the vehicle behind">
+          <source src="../../assets/case-studies/hyperlocal/hero.mp4" type="video/mp4" />
+        </video>
+      </figure>
+      <div class="hl-layout">
+    <!-- Figma: Hyperlocal "Side nav" 810:2128. Stages scroll to their section. It scrolls up with the page, then sticks. -->
+    <aside class="side-nav" aria-label="Case study">
+      <a class="side-nav__back" href="../../#work">Work</a>
+      <ul class="side-nav__stages side-nav__stages--flat">
+        <li class="side-nav__stage"><a href="#context">Context</a></li>
+        <li class="side-nav__stage"><a href="#research">Research</a></li>
+        <li class="side-nav__stage"><a href="#systems-mapping">Systems mapping</a></li>
+        <li class="side-nav__stage"><a href="#insight">Insight</a></li>
+        <li class="side-nav__stage"><a href="#direction">Direction</a></li>
+        <li class="side-nav__stage"><a href="#ideation">Ideation</a></li>
+        <li class="side-nav__stage"><a href="#takeaways">Takeaways</a></li>
+      </ul>
+      <div class="side-nav__spacer"></div>
+      <div class="side-nav__version" role="group" aria-label="Version">
+        <button type="button" class="side-nav__segment" data-view-set="tldr" aria-pressed="false">TL;DR</button>
+        <button type="button" class="side-nav__segment" data-view-set="full" aria-pressed="true">Full</button>
+      </div>
+      <!-- Figma 826:1723. Hover: an orange circle grows from the bottom-left corner and floods the card, and the bus rises in, tilted -->
+      <a class="side-nav__next side-nav__next--flood side-nav__next--gwt" href="../guwahati-public-transit/">
+        <span class="side-nav__next-fill" aria-hidden="true"></span>
+        <span class="side-nav__next-art" aria-hidden="true"><img src="../../assets/images/next-gwt-bus.webp" alt="" width="460" height="630" /></span>
+        <span class="side-nav__next-label">Next case study</span>
+        <span class="side-nav__next-title">Guwahati Transportation</span>
+        <img class="side-nav__next-arrow" src="../../assets/images/side-nav-arrow.svg" alt="" width="20" height="20" />
+      </a>
+    </aside>
+    <div class="hl-body">
+      <section class="case-study-placeholder case-study-tldr">
         <p class="case-study-placeholder__eyebrow">You clicked faster than I could type.</p>
         <p class="case-study-placeholder__message">
           Here's what I've got so far, or
           <a href="../../#work">head back to see what's actually ready →</a>
         </p>
       </section>
+
+      <div class="hl hl-full">
+        <div class="hl-story">
+          <h1 class="hl-sr">Life in the Last Mile: Hyperlocal Delivery Men</h1>
+
+          <!-- Context — Figma 810:2168, metadata 810:2822 -->
+          <section class="hl-section" id="context" aria-labelledby="context-h">
+            <h2 class="hl-lead" id="context-h">Context</h2>
+            <dl class="hl-meta hl-small">
+              <div><dt>Project</dt><dd>Semester thesis, IIT Guwahati</dd></div>
+              <div><dt>Guide</dt><dd>Dr. Debayan Dhar</dd></div>
+              <div><dt>Team</dt><dd>Saumya Jain<br />Vishesh Katiyar</dd></div>
+              <div><dt>Duration</dt><dd>February to April 2026</dd></div>
+              <div><dt>Type</dt><dd>UX research, service design, mobile UX</dd></div>
+            </dl>
+            <img src="../../assets/case-studies/hyperlocal/context-rider.webp" width="920" height="519" alt="A rider's hand on a scooter's handlebar, with a navigation app open on the phone mounted beside it" />
+            <p>Each bag holds a story. For us, a 10-minute delivery is a convenience. For the person carrying it, it’s a piece of a much larger puzzle. We started with the story told about that person. Raghav Chadha’s widely shared take on “10-minute delivery culture” had put the gig economy in the spotlight, and we took on its picture of the work: unstable, no job security, brutal heat, low pay for the risk. We assumed riders would be burdened and worn down. Over one semester we followed riders and darkstores to test that.</p>
+          </section>
+
+          <!-- Research — Figma 810:2172 -->
+          <section class="hl-section" id="research" aria-labelledby="research-h">
+            <h2 class="hl-lead" id="research-h">Research</h2>
+            <p class="hl-note hl-note--a">We tried to be riders for a day. The darkstore near us was already at full rider capacity, so we rode along instead.</p>
+            <div class="hl-photos">
+              <img src="../../assets/case-studies/hyperlocal/fieldwork-1.webp" width="566" height="326" alt="The team sitting with a group of darkstore riders and staff" loading="lazy" />
+              <img src="../../assets/case-studies/hyperlocal/fieldwork-2.webp" width="330" height="326" alt="Riding along with a Blinkit rider on a live delivery" loading="lazy" />
+            </div>
+            <p class="hl-note hl-note--b">Our first few visits were simple: we walked up to riders and asked, “what problems do you face?” We didn’t get much. Our professor had warned us that people rarely name their problems. It’s just the job, so they’ve stopped noticing. So we stopped asking and started watching.</p>
+            <div class="hl-group">
+              <h3 class="hl-strong">How we learned</h3>
+              <div class="hl-cols">
+                <div class="hl-item">
+                  <h4 class="hl-strong">Multi-stakeholder mapping</h4>
+                  <p>Interviews with store captains and pickers, to see how warehouse efficiency drives the rider’s rush on the road.</p>
+                </div>
+                <div class="hl-item">
+                  <h4 class="hl-strong">Shadowing and service safaris</h4>
+                  <p>Riding along on live deliveries to feel the friction of the “last 100 metres”, from darkstore to doorstep.</p>
+                </div>
+                <div class="hl-item">
+                  <h4 class="hl-strong">Naturalistic observation</h4>
+                  <p>Watching unfiltered culture and coping mechanisms, to map the psychological toll of gig work.</p>
+                </div>
+                <div class="hl-item">
+                  <h4 class="hl-strong">Artifact and ergonomic analysis</h4>
+                  <p>Looking at bags, uniforms and phone mounts for “gaps in provision”, where riders hack their own solutions.</p>
+                </div>
+              </div>
+            </div>
+            <div class="hl-group">
+              <h3 class="hl-strong">By the numbers</h3>
+              <div class="hl-chips">
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">20+</span>riders<span class="hl-chip__sub">5 in-depth interviews + 15+ on-the-go interactions</span></div>
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">3</span>darkstores<span class="hl-chip__sub">repeated visits to observe high-pressure operations</span></div>
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">3</span>live deliveries<span class="hl-chip__sub">firsthand “service safari”</span></div>
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">2</span>store managers<span class="hl-chip__sub">interviews to understand backend metrics</span></div>
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">2</span>platforms<span class="hl-chip__sub">Blinkit vs Flipkart Minutes</span></div>
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">40+</span>hours<span class="hl-chip__sub">of direct frontline observation, combined</span></div>
+              </div>
+            </div>
+            <div class="hl-group">
+              <h3 class="hl-strong">What we found</h3>
+              <p>Some of our assumptions held, but the picture was incomplete.</p>
+              <div class="hl-cols hl-cols--3">
+                <div class="hl-item">
+                  <h4 class="hl-strong">Happy</h4>
+                  <p>Higher pay, flexible shifts and low-cost EV rentals make quick commerce a strategic choice for financial mobility.</p>
+                </div>
+                <div class="hl-item">
+                  <h4 class="hl-strong">Neutral</h4>
+                  <p>Dark stores provide essential amenities, but act as “digital anchors” that strictly regulate rider movement and facility access.</p>
+                </div>
+                <div class="hl-item">
+                  <h4 class="hl-strong">Sad</h4>
+                  <p>Riders bear the brunt of the “last-mile risk”, absorbing financial losses from cancellations, return loops and damaged goods.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Systems mapping — Figma 810:2235 … 810:2238 -->
+          <section class="hl-section" id="systems-mapping" aria-labelledby="systems-h" style="gap: 20px">
+            <h2 class="hl-h" id="systems-h" style="margin-bottom: 12px">Systems mapping</h2>
+            <p>The macro view: the whole delivery system in one ERAF diagram.</p>
+            <figure class="hl-figure hl-figure--round">
+              <img src="../../assets/case-studies/hyperlocal/eraf-macro.webp" width="920" height="522" alt="Hand-drawn ERAF diagram of the delivery system: government, management, main warehouse, darkstore, vendors, customer, app and rider, joined by flows of orders, supplies, instructions and support" loading="lazy" />
+            </figure>
+            <p style="margin-top: 60px">The micro view: a rider’s journey through the app, order by order.</p>
+            <figure class="hl-figure hl-figure--round">
+              <img src="../../assets/case-studies/hyperlocal/eraf-micro.webp" width="920" height="506" alt="Flowchart of a rider's journey through the app: booking a slot, logging in, scanning, accepting an order, reaching the customer, calling twice, and what happens when the customer doesn't answer" loading="lazy" />
+            </figure>
+            <div class="hl-cols" style="margin-top: 40px; gap: 32px 24px">
+              <div class="hl-item">
+                <h3 class="hl-strong">The Only Human Face</h3>
+                <p>The rider is the only part of a massive, invisible supply chain that the customer actually sees and interacts with.</p>
+              </div>
+              <div class="hl-item">
+                <h3 class="hl-strong">A Smart, Tactical Choice</h3>
+                <p>Most riders choose this work for the flexibility and easy entry, not out of a lack of skill or options.</p>
+              </div>
+              <div class="hl-item">
+                <h3 class="hl-strong">Bearing the System’s Burden</h3>
+                <p>When warehouses lack basic facilities, the rider absorbs the physical stress of that neglect.</p>
+              </div>
+              <div class="hl-item">
+                <h3 class="hl-strong">Unmediated Empathy</h3>
+                <p>A tip is a rare, direct human connection that bypasses the algorithm to show genuine appreciation.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Insight — Figma 810:2253 -->
+          <section class="hl-section" id="insight" aria-labelledby="insight-h">
+            <h2 class="hl-h" id="insight-h">Insight</h2>
+            <p>While riders are happy with their autonomy, they are sad because the system forces them to absorb the cost of customer delays. Waiting at the doorstep doesn’t just stall a delivery. It creates a “Payment Gap” by blocking them from their next order.</p>
+            <div class="hl-cols">
+              <div class="hl-item">
+                <h3 class="hl-strong">Wasted Trips</h3>
+                <p>When an order is cancelled or the customer can’t be reached, the rider heads back to the hub with nothing delivered, wasting time and fuel.</p>
+              </div>
+              <div class="hl-item">
+                <h3 class="hl-strong">Doorstep Delays</h3>
+                <p>The high-speed system stalls when riders wait 15 to 20 minutes at the destination for a customer.</p>
+              </div>
+              <div class="hl-item">
+                <h3 class="hl-strong">The Payment Gap</h3>
+                <p>Earnings depend on how many orders a rider completes. The time lost to one failed delivery could have gone to a second one, so riders earn less than their time was worth, even when they are paid.</p>
+              </div>
+              <div class="hl-item">
+                <h3 class="hl-strong">Money Penalties</h3>
+                <p>Riders are charged directly for “damaged” items, shifting the platform’s financial risk onto the worker.</p>
+              </div>
+            </div>
+            <div class="hl-group">
+              <h3 class="hl-strong">What a rider is paid when a delivery fails</h3>
+              <div class="hl-chips hl-chips--2" style="gap: 25px">
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">100%</span>Blinkit<span class="hl-chip__sub">of the fare, but the rider’s time is lost</span></div>
+                <div class="hl-chip hl-chip--stat"><span class="hl-chip__num">50%</span>Flipkart Minutes<span class="hl-chip__sub">of the fare, whatever the reason</span></div>
+              </div>
+            </div>
+            <div class="hl-stack">
+              <h3 class="hl-h">Because of gaps in the system, the rider pays for everyone else’s delays: in time, in fuel, and in lost orders.</h3>
+              <p>A delivery that should take 30 minutes can stall for 45 to 60 when a customer doesn’t pick up, and the time a rider loses is time they could have spent earning.</p>
+            </div>
+            <p>To move beyond symptoms, we mapped every systemic failure that leads to a rider’s loss of income.</p>
+            <figure class="hl-figure">
+              <img src="../../assets/case-studies/hyperlocal/root-cause-map.webp" width="920" height="518" alt="Root-cause analysis: a hand-drawn mind map of every systemic failure that leads to a rider's loss of income" loading="lazy" />
+            </figure>
+            <ul class="hl-tags" aria-label="Root-cause categories" style="margin: 0; padding: 0; list-style: none">
+              <li class="hl-tag">Navigational &amp; Environmental Precision</li>
+              <li class="hl-tag">Technical Reliability &amp; Connectivity</li>
+              <li class="hl-tag">Communication and language barrier</li>
+              <li class="hl-tag">Customer delays</li>
+              <li class="hl-tag">Darkstore Friction</li>
+              <li class="hl-tag">Rider health and well-being</li>
+              <li class="hl-tag">Rider faults</li>
+              <li class="hl-tag">Rider Awareness</li>
+            </ul>
+          </section>
+
+          <!-- Direction — Figma 810:2311 -->
+          <section class="hl-section" id="direction" aria-labelledby="direction-h">
+            <h2 class="hl-h" id="direction-h">Direction</h2>
+            <p>From the root causes we picked the one that touches both sides: how customers and riders reach each other. Our approach: humanize the exchange between them, and clear up the small operational frictions that cause delays. We designed on Blinkit because it was the closest to us: its darkstore is right outside our usual hangout, the khokha on campus, so we could keep going back.</p>
+            <p class="hl-h">What intuitive interaction can be designed to enhance the communication experience between customers and delivery agents?</p>
+            <p>We designed for four situations at the door:</p>
+            <ul class="hl-chips hl-chips--wide" style="margin: 0; padding: 0; list-style: none">
+              <li class="hl-chip">The customer answers, but wastes time.</li>
+              <li class="hl-chip">No call, but messaging is possible.</li>
+              <li class="hl-chip">No call and no messaging.</li>
+              <li class="hl-chip">Extreme conditions, where no one is available to contact.</li>
+            </ul>
+          </section>
+
+          <!-- Ideation — Figma 810:2327 -->
+          <section class="hl-section hl-ideation" id="ideation" aria-labelledby="ideation-h">
+            <div class="hl-ideation__head">
+              <h2 class="hl-h" id="ideation-h">Ideation</h2>
+              <p class="hl-small">Concept designs on the Blinkit app. Not affiliated with Blinkit.</p>
+            </div>
+
+            <article class="hl-concept" id="verified-rider-call">
+              <p class="hl-for hl-small">For customers</p>
+              <h3 class="hl-strong">Verified rider call</h3>
+              <p>Calls arrive as “Blinkit Rider” with the reason on screen: “Need security code to enter.” Routing calls through VoIP protects privacy, but it makes riders look like telemarketers. This fixes that.</p>
+              <img src="../../assets/case-studies/hyperlocal/verified-call-1.webp" width="920" height="518" alt="Concept: an incoming call labelled Blinkit Rider with the reason shown on screen" loading="lazy" />
+              <img src="../../assets/case-studies/hyperlocal/verified-call-2.webp" width="920" height="518" alt="Concept: the verified rider call flow, continued" loading="lazy" />
+            </article>
+
+            <article class="hl-concept" id="status-updates">
+              <p class="hl-for hl-small">For customers</p>
+              <h3 class="hl-strong">Status updates</h3>
+              <p>“Rider is 2 minutes away” says nothing. “Rider is navigating heavy rain and traffic” gives the customer a reason to meet them at the door.</p>
+              <img src="../../assets/case-studies/hyperlocal/status-updates-1.webp" width="920" height="518" alt="Concept: order status updates that say why the rider is delayed" loading="lazy" />
+            </article>
+
+            <article class="hl-concept" id="contacts-directory">
+              <p class="hl-for hl-small">For customers</p>
+              <h3 class="hl-strong">Contacts directory</h3>
+              <p>Pair backup contacts with saved addresses: a spouse for Home, a colleague for Office. When the main person doesn’t answer, the app suggests the right backup. Estimated saving: about 10 minutes per failed delivery.</p>
+              <img src="../../assets/case-studies/hyperlocal/contacts-1.webp" width="920" height="518" alt="Concept: backup contacts saved against each address" loading="lazy" />
+              <img src="../../assets/case-studies/hyperlocal/contacts-2.webp" width="920" height="518" alt="Concept: the app suggesting the right backup contact when the main person doesn't answer" loading="lazy" />
+            </article>
+
+            <article class="hl-concept" id="active-order-bar">
+              <p class="hl-for hl-small">For customers</p>
+              <h3 class="hl-strong">Active order bar</h3>
+              <p>A thin persistent bar at the screen edge during a live delivery, for people who have notifications switched off.</p>
+              <img src="../../assets/case-studies/hyperlocal/active-order-1.webp" width="920" height="518" alt="Concept: a thin active order bar at the edge of the screen during a live delivery" loading="lazy" />
+            </article>
+
+            <article class="hl-concept" id="crowd-sourced-map">
+              <p class="hl-for hl-small">For riders</p>
+              <h3 class="hl-strong">Crowd-sourced map</h3>
+              <p>Maps get a rider to the building, not to the right lift. Paths from earlier deliveries show the way from the security gate to the exact tower and elevator.</p>
+              <img src="../../assets/case-studies/hyperlocal/crowd-map-1.webp" width="920" height="518" alt="Concept: a map with paths from earlier deliveries, from the security gate to the right tower" loading="lazy" />
+              <img src="../../assets/case-studies/hyperlocal/crowd-map-2.webp" width="920" height="518" alt="Concept: the crowd-sourced path, continued to the exact elevator" loading="lazy" />
+            </article>
+          </section>
+
+          <!-- Takeaways — Figma 810:2817 -->
+          <section class="hl-section" id="takeaways" aria-labelledby="takeaways-h" style="gap: 24px">
+            <h2 class="hl-h" id="takeaways-h">Takeaways</h2>
+            <p>The story we started with was only partly true. We only found that out by stepping out of the studio and watching riders in their element. Narratives and desk research get you to the starting line. The real brief is out in the field, and that holds for every project.</p>
+            <p>Some problems only show up on the ground. The wait at the door, the walk from the gate to the right lift: nobody puts these in a brief. We found them by riding along (quite literally).</p>
+            <p>We chose not to continue this into BTP, so the designs haven’t been tested with riders or customers. They are well-grounded ideas, not proven fixes.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+      </div>
     </main>
     <script src="../../js/main.js"></script>
+    <script src="../../js/side-nav.js"></script>
+    <script src="../../js/hl-hero.js"></script>
   </body>
 </html>

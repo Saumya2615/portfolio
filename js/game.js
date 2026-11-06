@@ -62,8 +62,11 @@
   let chargeDurationMs = DIFFICULTY_TIERS[0].chargeMs;
   let sweetSpot = DIFFICULTY_TIERS[0].sweetSpot;
 
+  // Phone HUD shows four score digits ("0000", Figma 672:17674), larger screens two
+  const phoneQuery = window.matchMedia('(max-width: 767px)');
+
   function pad2(n) {
-    return String(n).padStart(2, '0');
+    return String(n).padStart(phoneQuery.matches ? 4 : 2, '0');
   }
 
   function formatTime(s) {
@@ -337,10 +340,18 @@
     }
   });
 
-  // Mouse/touch parity for the on-screen key visuals
-  spaceKey.addEventListener('mousedown', startCharge);
-  spaceKey.addEventListener('mouseup', releaseCharge);
-  spaceKey.addEventListener('mouseleave', () => { if (state === 'CHARGING') releaseCharge(); });
+  // Mouse/touch/pen parity for the on-screen key. Pointer events (not mouse
+  // events) so a finger held down keeps charging — touch only fakes mouse
+  // events after the finger lifts. The capture makes the release fire even
+  // if the finger slides off the key.
+  spaceKey.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;
+    try { spaceKey.setPointerCapture(e.pointerId); } catch (_) { /* pointer already gone */ }
+    startCharge();
+  });
+  spaceKey.addEventListener('pointerup', releaseCharge);
+  spaceKey.addEventListener('pointercancel', () => { if (state === 'CHARGING') cancelCharge(); });
+  spaceKey.addEventListener('contextmenu', (e) => e.preventDefault()); // long-press menu on touch
   escapeKey.addEventListener('click', openExitModal);
 
   exitConfirm.addEventListener('click', () => closeExitModal(true));

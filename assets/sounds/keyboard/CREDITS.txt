@@ -1,0 +1,4 @@
+Keyboard click sounds: "Wooting 80HE Keyboard" Mechvibes pack by w.ktz.
+Used on this site with the author's permission.
+keys.wav is the pack's concatenated_audio.wav; config.json is the pack's own
+key-to-timing map (start/end in ms inside keys.wav).

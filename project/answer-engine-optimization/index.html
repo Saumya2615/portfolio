@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Answer Engine Optimization — Saumya</title>
+    <title>Answer Engine Optimization — Saumya Jain</title>
+    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&family=Space+Grotesk:wght@400;500;700&family=Lora:wght@500&display=swap" rel="stylesheet" />
@@ -11,17 +14,74 @@
     <link rel="stylesheet" href="../../css/variables.css" />
     <link rel="stylesheet" href="../../css/main.css" />
     <link rel="stylesheet" href="../../css/nav.css" />
-    <link rel="stylesheet" href="../../css/case-study.css" />
+    <link rel="stylesheet" href="../../css/case-study.css?v=2" />
+    <link rel="stylesheet" href="../../css/side-nav.css?v=2" />
   </head>
-  <body class="case-study-page">
+  <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
       <nav>
         <a href="../../" class="nav-logo" aria-label="Saumya — home"><img src="../../assets/images/logo-wink.svg" alt="" width="48" height="48" /></a>
       </nav>
     </header>
+    <!-- Figma: AEO "Side nav — v2" 798:20309 -->
+    <aside class="side-nav" aria-label="Case study">
+      <a class="side-nav__back" href="../../#work">Work</a>
+      <ul class="side-nav__stages">
+        <li class="side-nav__stage"><a href="#context">Context</a></li>
+        <li class="side-nav__stage"><a href="#problem">Problem</a></li>
+        <li class="side-nav__stage"><a href="#research">Research</a></li>
+        <li class="side-nav__act">
+          <span class="side-nav__act-label">Act 1 · Clear problems</span>
+          <ul class="side-nav__items">
+            <li class="side-nav__item"><a href="#aeo-score">AEO Score</a></li>
+            <li class="side-nav__item"><a href="#competitor-comparison">Competitor Comparison (Shipped)</a></li>
+          </ul>
+        </li>
+        <li class="side-nav__act">
+          <span class="side-nav__act-label">Act 2 · Ambiguity increases</span>
+          <ul class="side-nav__items">
+            <li class="side-nav__item"><a href="#content-optimizer">Content Optimizer</a></li>
+            <li class="side-nav__item"><a href="#onboarding">Onboarding</a></li>
+            <li class="side-nav__item"><a href="#managing-questions">Managing Questions</a></li>
+          </ul>
+        </li>
+        <li class="side-nav__act">
+          <span class="side-nav__act-label">Act 3 · Owning the system</span>
+          <ul class="side-nav__items">
+            <li class="side-nav__item"><a href="#product-vocabulary">Product Vocabulary</a></li>
+            <li class="side-nav__item"><a href="#information-architecture">Information Architecture</a></li>
+            <li class="side-nav__item"><a href="#north-star">North Star</a></li>
+          </ul>
+        </li>
+        <li class="side-nav__stage">Impact and Learnings</li>
+      </ul>
+      <div class="side-nav__spacer"></div>
+      <div class="side-nav__version" role="group" aria-label="Version">
+        <button type="button" class="side-nav__segment" data-view-set="tldr" aria-pressed="false">TL;DR</button>
+        <button type="button" class="side-nav__segment" data-view-set="full" aria-pressed="true">Full</button>
+      </div>
+      <!-- Figma: Section 3 770:19204. Hover: an indigo circle grows from the bottom-left corner and the cake rises in -->
+      <a class="side-nav__next side-nav__next--flood side-nav__next--creek" href="../creek-ui/">
+        <span class="side-nav__next-fill" aria-hidden="true"></span>
+        <span class="side-nav__next-art" aria-hidden="true"><span><img src="../../assets/images/next-creek-cake.webp" alt="" /></span></span>
+        <span class="side-nav__next-label">Next case study</span>
+        <span class="side-nav__next-title">Creek.UI</span>
+        <img class="side-nav__next-arrow" src="../../assets/images/side-nav-arrow.svg" alt="" width="20" height="20" />
+      </a>
+    </aside>
     <main>
+      <section class="case-study-placeholder case-study-tldr">
+        <p class="case-study-placeholder__eyebrow">You clicked faster than I could type.</p>
+        <p class="case-study-placeholder__message">
+          Here's what I've got so far, or
+          <a href="../../#work">head back to see what's actually ready →</a>
+        </p>
+      </section>
       <section class="case-study-images">
-      <img src="../../assets/case-studies/aeo/1.webp" alt="Answer Engine Optimization case study image 1" loading="lazy" />
+      <div class="anchor-host" id="context">
+        <span class="anchor" id="problem" style="--y: 45.67%"></span>
+        <img width="3840" height="15224" src="../../assets/case-studies/aeo/1.webp?v=2" alt="Answer Engine Optimization case study image 1" loading="lazy" />
+      </div>
       <!-- Before/after toggle - Figma: AEO-Compilation 336:35177 (old) / 336:35187 (new) -->
       <div class="before-after" data-before-after>
         <div class="before-after__slide">
@@ -42,15 +102,32 @@
           <p class="before-after__caption">Just a sneak peek. Let me walk you through how I got here.</p>
         </div>
       </div>
-      <img src="../../assets/case-studies/aeo/3.webp" alt="Answer Engine Optimization case study image 3" loading="lazy" />
-      <img src="../../assets/case-studies/aeo/4.webp" alt="Answer Engine Optimization case study image 4" loading="lazy" />
+      <div class="anchor-host" id="research">
+        <img width="3333" height="16383" src="../../assets/case-studies/aeo/3.webp" alt="Answer Engine Optimization case study image 3" loading="lazy" />
+      </div>
+      <div class="anchor-host" id="aeo-score">
+        <span class="anchor" id="competitor-comparison" style="--y: 56.99%"></span>
+        <img width="3428" height="16383" src="../../assets/case-studies/aeo/4.webp" alt="Answer Engine Optimization case study image 4" loading="lazy" />
+      </div>
       <!-- 5 is split in two: the export was too tall for WebP (16383px max) -->
-      <img src="../../assets/case-studies/aeo/5a.webp" alt="Answer Engine Optimization case study image 5" loading="lazy" />
-      <img src="../../assets/case-studies/aeo/5b.webp" alt="" loading="lazy" />
-      <img src="../../assets/case-studies/aeo/6.webp" alt="Answer Engine Optimization case study image 6" loading="lazy" />
+      <div class="anchor-host" id="content-optimizer">
+        <span class="anchor" id="onboarding" style="--y: 87.62%"></span>
+        <img width="2876" height="16383" src="../../assets/case-studies/aeo/5a.webp" alt="Answer Engine Optimization case study image 5" loading="lazy" />
+      </div>
+      <div class="anchor-host">
+        <span class="anchor" id="managing-questions" style="--y: 53.38%"></span>
+        <img width="2876" height="16383" src="../../assets/case-studies/aeo/5b.webp" alt="" loading="lazy" />
+      </div>
+      <div class="anchor-host">
+        <span class="anchor" id="product-vocabulary" style="--y: 8.57%"></span>
+        <span class="anchor" id="information-architecture" style="--y: 20.27%"></span>
+        <span class="anchor" id="north-star" style="--y: 68.8%"></span>
+        <img width="3214" height="16383" src="../../assets/case-studies/aeo/6.webp" alt="Answer Engine Optimization case study image 6" loading="lazy" />
+      </div>
       </section>
     </main>
     <script src="../../js/main.js"></script>
     <script src="../../js/before-after.js"></script>
+    <script src="../../js/side-nav.js?v=2"></script>
   </body>
 </html>
