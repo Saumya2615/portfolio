@@ -37,7 +37,7 @@
   // Stages that point at a spot in the case study: <a href="#id">. Clicking
   // scrolls there (no hash change, so it can't clash with #tldr), and the
   // stage whose spot has reached the upper part of the window is marked current.
-  const links = Array.from(document.querySelectorAll('.side-nav__stage a[href^="#"]'));
+  const links = Array.from(document.querySelectorAll('.side-nav__stage a[href^="#"], .side-nav__item a[href^="#"]'));
   const spots = links.map((a) => document.getElementById(a.getAttribute('href').slice(1)));
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
