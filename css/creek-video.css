@@ -1,0 +1,25 @@
+/* ============================================================
+   Creek.UI case study — demo video inside image 3
+   Image 3 has an empty dark rounded box (#101828). The video sits exactly
+   over it: the box measures 3278 x 1760 at (280, 196) in the 3840 x 2160
+   export, so the player is placed in percentages of the picture and scales
+   with it. The video is 16:9 and the box is a little wider, so it is
+   letterboxed (object-fit: contain) on black, like the recording's own bars.
+   To change the video, replace assets/case-studies/creek-ui/creek-ui-demo.mp4.
+   ============================================================ */
+
+.creek-video {
+  position: relative;
+  container-type: inline-size;
+}
+
+.creek-video__player {
+  position: absolute;
+  left: 7.2917%;   /* 280 / 3840 */
+  top: 9.0741%;    /* 196 / 2160 */
+  width: 85.3646%; /* 3278 / 3840 */
+  height: 81.4815%; /* 1760 / 2160 */
+  border-radius: 0.6cqw; /* the box's ~23px corner at 3840 */
+  background: #000; /* the recording has black side bars; a navy player behind it showed as two blue strips */
+  object-fit: contain;
+}

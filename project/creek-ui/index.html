@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../../css/main.css" />
     <link rel="stylesheet" href="../../css/nav.css" />
     <link rel="stylesheet" href="../../css/case-study.css" />
+    <link rel="stylesheet" href="../../css/creek-video.css" />
+    <link rel="stylesheet" href="../../css/creek-timeline.css" />
   </head>
   <body class="case-study-page">
     <header id="nav">
@@ -24,18 +26,60 @@
     </header>
     <main>
       <section class="case-study-images">
-      <img src="../../assets/case-studies/creek-ui/1.webp" alt="Creek.UI case study image 1" width="3840" height="2160" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/2.webp" alt="Creek.UI case study image 2" width="3840" height="2160" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/3.webp" alt="Creek.UI case study image 3" width="3840" height="2160" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/4.webp" alt="Creek.UI case study image 4" width="1920" height="1080" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/5.webp" alt="Creek.UI case study image 5" width="1920" height="1080" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/6.webp" alt="Creek.UI case study image 6" width="1920" height="1080" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/7.webp" alt="Creek.UI case study image 7" width="1920" height="1080" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/8.webp" alt="Creek.UI case study image 8" width="1920" height="1080" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/9.webp" alt="Creek.UI case study image 9" width="1920" height="1080" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/10.webp" alt="Creek.UI case study image 10" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/1.webp" alt="Creek.UI case study image 1" width="3840" height="3242" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/2.webp" alt="Creek.UI case study image 2" width="3840" height="1510" loading="lazy" />
+      <!-- Image 3 has an empty dark box; the demo video plays inside it. To change the video, replace assets/case-studies/creek-ui/creek-ui-demo.mp4 -->
+      <div class="creek-video">
+        <img src="../../assets/case-studies/creek-ui/3.webp" alt="" width="3840" height="2160" loading="lazy" />
+        <video class="creek-video__player" controls playsinline preload="none" poster="../../assets/case-studies/creek-ui/creek-ui-demo-poster.webp" aria-label="Creek.UI demo video">
+          <source src="../../assets/case-studies/creek-ui/creek-ui-demo.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <img src="../../assets/case-studies/creek-ui/4.webp" alt="Creek.UI case study image 4" width="3840" height="2238" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/5.webp" alt="Creek.UI case study image 5" width="3840" height="3314" loading="lazy" />
+      <!-- Image 6 is the timelines slide, rebuilt with working tabs. Figma: Creek.UI Compilation, Section 12 (714:9331) -->
+      <div class="creek-timeline">
+        <div class="creek-timeline__tabs" role="tablist" aria-label="Timeline by team">
+          <button type="button" class="creek-timeline__tab" role="tab" id="timeline-tab-design" aria-controls="timeline-panel-design" aria-selected="true">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M14.8742 9.84L14.285 9.25083L6.035 17.5008H2.5V13.965L11.9275 4.53667L16.6417 9.25083C16.7979 9.40711 16.8857 9.61903 16.8857 9.84C16.8857 10.061 16.7979 10.2729 16.6417 10.4292L10.75 16.3217L9.57083 15.1433L14.8742 9.84V9.84ZM15.4633 2.18L17.8208 4.53667C17.9771 4.69294 18.0648 4.90486 18.0648 5.12583C18.0648 5.3468 17.9771 5.55873 17.8208 5.715L16.6417 6.89417L13.1067 3.35833L14.285 2.18C14.4413 2.02377 14.6532 1.93601 14.8742 1.93601C15.0951 1.93601 15.3071 2.02377 15.4633 2.18V2.18Z"/></svg>
+            Design
+          </button>
+          <button type="button" class="creek-timeline__tab" role="tab" id="timeline-tab-product" aria-controls="timeline-panel-product" aria-selected="false">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6.66667 15H15.1975L16.6667 16.1542V7.5H17.5C17.721 7.5 17.933 7.5878 18.0893 7.74408C18.2455 7.90036 18.3333 8.11232 18.3333 8.33333V19.5833L14.6208 16.6667H7.5C7.27899 16.6667 7.06702 16.5789 6.91074 16.4226C6.75446 16.2663 6.66667 16.0543 6.66667 15.8333V15ZM4.54583 13.3333L0.833333 16.25V3.33333C0.833333 3.11232 0.921131 2.90036 1.07741 2.74408C1.23369 2.5878 1.44565 2.5 1.66667 2.5H14.1667C14.3877 2.5 14.5996 2.5878 14.7559 2.74408C14.9122 2.90036 15 3.11232 15 3.33333V13.3333H4.54583Z"/></svg>
+            Product
+          </button>
+          <button type="button" class="creek-timeline__tab" role="tab" id="timeline-tab-ml" aria-controls="timeline-panel-ml" aria-selected="false">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.2513 3.98568V6.39209L18.3346 7.59489V12.4053L16.2505 13.6089L16.2513 16.0145L12.0846 18.4201L10.0013 17.2173L7.91797 18.4201L3.7513 16.0145V13.6089L1.66797 12.4061L1.66879 7.59408L3.7513 6.39128V3.98649L7.91797 1.58089L10.0005 2.78369L12.0855 1.58008L16.2513 3.98568ZM12.2808 10.9665C12.2072 10.7891 11.9621 10.7891 11.8885 10.9665L11.7827 11.2203C11.6028 11.6547 11.2673 12.0019 10.8452 12.1896L10.5466 12.3223C10.3755 12.3983 10.3755 12.6473 10.5466 12.7235L10.8631 12.8643C11.2746 13.0473 11.6046 13.3818 11.7876 13.8018L11.8901 14.0369C11.9653 14.2094 12.204 14.2094 12.2791 14.0369L12.3816 13.8018C12.5647 13.3818 12.8947 13.0473 13.3061 12.8643L13.6227 12.7235C13.7939 12.6474 13.7939 12.3983 13.6227 12.3223L13.3241 12.1896C12.9019 12.0019 12.5657 11.6547 12.3857 11.2203L12.2808 10.9665ZM8.67805 6.48243C8.54939 6.17209 8.12001 6.1721 7.99121 6.48243L7.80648 6.92839C7.49159 7.6888 6.90452 8.29653 6.16585 8.62518L5.64258 8.85793C5.34324 8.99118 5.34321 9.42701 5.64258 9.56026L6.19678 9.80601C6.91689 10.1263 7.49415 10.7121 7.81462 11.4474L7.99447 11.86C8.12608 12.162 8.54322 12.162 8.6748 11.86L8.85463 11.4474C9.17514 10.7121 9.75239 10.1263 10.4725 9.80601L11.0267 9.56026C11.3261 9.42701 11.3261 8.99126 11.0267 8.85793L10.5034 8.62518C9.76472 8.29653 9.17697 7.68881 8.86197 6.92839L8.67805 6.48243Z"/></svg>
+            ML
+          </button>
+          <button type="button" class="creek-timeline__tab" role="tab" id="timeline-tab-dev" aria-controls="timeline-panel-dev" aria-selected="false">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M20 10L15.2858 14.7142L14.1075 13.5358L17.6433 10L14.1075 6.46417L15.2858 5.28583L20 10ZM2.35667 10L5.8925 13.5358L4.71417 14.7142L0 10L4.71417 5.28583L5.89167 6.46417L2.35667 10ZM8.15667 17.5H6.38333L11.8433 2.5H13.6167L8.15667 17.5Z"/></svg>
+            Dev
+          </button>
+        </div>
+        <div class="creek-timeline__stage">
+          <img class="creek-timeline__panel is-active" id="timeline-panel-design" role="tabpanel" aria-labelledby="timeline-tab-design" src="../../assets/case-studies/creek-ui/timeline-design.webp" alt="Design timeline over four weeks: research and define in week 1, ideation and feasibility checks, design, and handoff and build, then Version 2.0 after the 11 December 2025 presentation." width="3840" height="2430" loading="lazy" />
+          <img class="creek-timeline__panel" id="timeline-panel-product" role="tabpanel" aria-labelledby="timeline-tab-product" src="../../assets/case-studies/creek-ui/timeline-product.webp" alt="Product timeline over four weeks: research, then prioritisation, then documentation, ending with the 11 December 2025 presentation." width="3840" height="2430" loading="lazy" />
+          <img class="creek-timeline__panel" id="timeline-panel-ml" role="tabpanel" aria-labelledby="timeline-tab-ml" src="../../assets/case-studies/creek-ui/timeline-ml.webp" alt="ML timeline over four weeks: research, prototyping and optimisation, integration, then evaluation, ending with the 11 December 2025 presentation." width="3840" height="2430" loading="lazy" />
+          <img class="creek-timeline__panel" id="timeline-panel-dev" role="tabpanel" aria-labelledby="timeline-tab-dev" src="../../assets/case-studies/creek-ui/timeline-dev.webp" alt="Dev timeline over four weeks: feasibility, build, hardening, then release, ending with the 11 December 2025 presentation." width="3840" height="2430" loading="lazy" />
+        </div>
+      </div>
+      <img src="../../assets/case-studies/creek-ui/7.webp" alt="Creek.UI case study image 7" width="3840" height="2464" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/8.webp" alt="Creek.UI case study image 8" width="3840" height="3238" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/9.webp" alt="Creek.UI case study image 9" width="3840" height="1688" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/10.webp" alt="Creek.UI case study image 10" width="3840" height="3057" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/11.webp" alt="Creek.UI case study image 11" width="3840" height="1702" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/12.webp" alt="Creek.UI case study image 12" width="3840" height="1972" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/13.webp" alt="Creek.UI case study image 13" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/14.webp" alt="Creek.UI case study image 14" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/15.webp" alt="Creek.UI case study image 15" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/16.webp" alt="Creek.UI case study image 16" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/17.webp" alt="Creek.UI case study image 17" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/18.webp" alt="Creek.UI case study image 18" width="3840" height="2160" loading="lazy" />
+      <img src="../../assets/case-studies/creek-ui/19.webp" alt="Creek.UI case study image 19" width="3840" height="2160" loading="lazy" />
       </section>
     </main>
     <script src="../../js/main.js"></script>
+    <script src="../../js/creek-timeline.js"></script>
   </body>
 </html>

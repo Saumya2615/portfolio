@@ -1,0 +1,118 @@
+/* ============================================================
+   Creek.UI case study — "Timelines" slide with working tabs
+   Figma: Creek.UI Compilation, Section 12 (714:9331): four 1920 x 1215
+   frames (Design, Product, ML, Dev), each with the tab row at x 187,
+   y 137. The tab row is rebuilt here as real buttons; the four timeline
+   images are the frames with that row erased (flat #030712 behind it).
+   --u is one Figma pixel of the 1920px frame, so everything scales with
+   the page like the case study images around it. Text and tabs have
+   floors so they stay readable and tappable on smaller screens.
+   js/creek-timeline.js switches the panels.
+   ============================================================ */
+
+.creek-timeline {
+  position: relative;
+  container-type: inline-size;
+  background: #030712; /* surface/surface-dark */
+}
+
+.creek-timeline > * {
+  --u: calc(100cqw / 1920);
+}
+
+.creek-timeline__tabs {
+  position: absolute;
+  z-index: 1;
+  left: calc(187 * var(--u));
+  top: calc(137 * var(--u));
+  display: flex;
+  gap: max(calc(24 * var(--u)), 8px);
+}
+
+.creek-timeline__tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: max(calc(8 * var(--u)), 5px);
+  min-width: max(calc(137 * var(--u)), 80px);
+  height: max(calc(44 * var(--u)), 32px);
+  padding: 0 max(calc(16 * var(--u)), 10px) 0 max(calc(20 * var(--u)), 12px);
+  border: 1px solid #99a1af; /* elements/secondary-on-dark */
+  border-radius: 99px;
+  background: #030712;
+  color: #99a1af;
+  font-family: var(--font-body);
+  font-size: max(calc(20 * var(--u)), 13px);
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
+}
+
+.creek-timeline__tab svg {
+  flex: none;
+  width: max(calc(20 * var(--u)), 14px);
+  height: max(calc(20 * var(--u)), 14px);
+  fill: currentColor;
+}
+
+.creek-timeline__tab:hover {
+  color: #d1d5dc;
+  border-color: #d1d5dc;
+}
+
+.creek-timeline__tab[aria-selected="true"] {
+  background: #101828; /* elements/primary-text */
+  border-color: #a3b3ff; /* elements/accent-on-dark */
+  color: #a3b3ff;
+}
+
+.creek-timeline__tab:focus-visible {
+  outline: 2px solid #a3b3ff;
+  outline-offset: 3px;
+}
+
+/* the four frames stack in one cell and cross-fade */
+.creek-timeline__stage {
+  display: grid;
+}
+
+.creek-timeline__panel {
+  grid-area: 1 / 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 250ms ease, visibility 0s linear 250ms;
+}
+
+.creek-timeline__panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 250ms ease;
+}
+
+/* Phones: the tab row sits above the picture and scrolls sideways if it
+   has to, instead of floating over a very small timeline */
+@media (max-width: 767px) {
+  .creek-timeline__tabs {
+    position: static;
+    padding: 20px 16px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .creek-timeline__tabs::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creek-timeline__tab,
+  .creek-timeline__panel,
+  .creek-timeline__panel.is-active {
+    transition: none;
+  }
+}
