@@ -11,9 +11,18 @@
 
 .has-side-nav {
   --side-nav-width: 236px;
+  --side-nav-content: 187px; /* what the open rail's content measures: 236 less 24px padding each side and the 1px line */
+  --side-nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --stone-200: #e7e5e4;
   --stone-400: #a6a09b;
   --stone-800: #292524;
+}
+
+/* Collapsed (Figma "Side nav" 839:1593): a 45px strip holding just the toggle.
+   js/side-nav.js sets the class on <html> (and a tiny script in each page's
+   <head> sets it before first paint, so a collapsed rail doesn't flash open). */
+html.side-nav-collapsed .has-side-nav {
+  --side-nav-width: 45px;
 }
 
 .side-nav {
@@ -27,6 +36,7 @@
 
   .has-side-nav main {
     margin-left: var(--side-nav-width);
+    transition: margin-left 300ms var(--side-nav-ease);
   }
 
   .side-nav {
@@ -37,7 +47,7 @@
     z-index: 100;
     display: flex;
     flex-direction: column;
-    width: var(--side-nav-width);
+    width: calc(var(--side-nav-width) / var(--side-nav-zoom, 1)); /* js/side-nav.js scales a tall rail with CSS zoom; this keeps its on-screen width at 236 / 45 */
     padding: 48px 24px;
     overflow: hidden; /* never scrolls: shorter windows get tighter spacing, then js/side-nav.js scales it to fit */
     background: var(--color-bg);
@@ -46,11 +56,55 @@
     font-size: 16px;
     line-height: 23px; /* Figma's 22.4px line, as it lays out: 23px text, 31px rows */
     color: var(--stone-800);
+    transition: width 300ms var(--side-nav-ease), padding 300ms var(--side-nav-ease);
+  }
+
+  html.side-nav-collapsed .side-nav {
+    padding-left: 12px; /* the toggle sits 12px from the edge when collapsed, 24px when open */
+    padding-right: 12px;
   }
 
   .side-nav a:hover {
     opacity: 1;
   }
+}
+
+/* The toggle: Figma "side-bar-fill", 20 x 20, 20px above "Work". Dark when the
+   rail is open, grey (stone/400) when it is collapsed. */
+.side-nav__toggle {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--stone-800);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 200ms ease;
+}
+
+.side-nav__toggle svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+html.side-nav-collapsed .side-nav__toggle {
+  color: var(--stone-400);
+}
+
+html.side-nav-collapsed .side-nav__toggle:hover {
+  color: var(--stone-800);
+}
+
+.side-nav__toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 .side-nav__back {
@@ -61,16 +115,37 @@
 
 .side-nav__back,
 .side-nav__stages,
+.side-nav__spacer,
 .side-nav__version,
 .side-nav__next {
   flex-shrink: 0; /* never squash: js/side-nav.js scales the rail if it runs out of height */
+  transition: opacity 220ms ease 90ms;
+}
+
+/* Everything but the toggle fades out as the rail closes, and drops out of
+   the tab order. The content keeps its open width while the rail animates, so
+   nothing re-wraps mid-slide. */
+html.side-nav-collapsed .side-nav__back,
+html.side-nav-collapsed .side-nav__stages,
+html.side-nav-collapsed .side-nav__spacer,
+html.side-nav-collapsed .side-nav__version,
+html.side-nav-collapsed .side-nav__next {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 120ms ease, visibility 0s linear 120ms;
+}
+
+.side-nav__stages,
+.side-nav__version,
+.side-nav__next {
+  width: var(--side-nav-content);
 }
 
 .side-nav__stages {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -413,6 +488,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .side-nav,
+  .has-side-nav main,
+  .side-nav__toggle,
+  .side-nav__back,
+  .side-nav__stages,
+  .side-nav__spacer,
+  .side-nav__version,
+  .side-nav__next,
+  html.side-nav-collapsed .side-nav__back,
+  html.side-nav-collapsed .side-nav__stages,
+  html.side-nav-collapsed .side-nav__spacer,
+  html.side-nav-collapsed .side-nav__version,
+  html.side-nav-collapsed .side-nav__next,
   .side-nav__next--flood > .side-nav__next-fill,
   .side-nav__next--creek > .side-nav__next-art,
   .side-nav__next--alum > .side-nav__next-art,
@@ -429,12 +517,14 @@
    size) and its spacing eases down, so it fits whole without feeling crammed */
 @media (min-width: 768px) and (max-height: 960px) {
   .side-nav { padding-top: 32px; padding-bottom: 32px; font-size: 14px; line-height: 19.6px; }
+  .side-nav__toggle { margin-bottom: 14px; }
   .side-nav__back { margin-bottom: 24px; }
   .side-nav__next { margin-top: 12px; }
 }
 
 @media (min-width: 768px) and (max-height: 760px) {
   .side-nav { padding-top: 24px; padding-bottom: 24px; }
+  .side-nav__toggle { margin-bottom: 10px; }
   .side-nav__back { margin-bottom: 16px; }
   .side-nav__stage,
   .side-nav__act-label,

@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Side nav: read the saved collapsed/open choice before first paint so it never flashes open -->
+    <script>try{if(localStorage.getItem('side-nav')==='collapsed')document.documentElement.classList.add('side-nav-collapsed')}catch(e){}</script>
     <title>Creek.UI — Saumya Jain</title>
     <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="../../favicon.ico" sizes="48x48" />
@@ -27,6 +29,10 @@
     </header>
     <!-- Side nav: stops link to the slide where each starts (Figma side nav v2, 236px). "What's next (V2)" will be added when its slide exists. -->
     <aside class="side-nav" aria-label="Case study">
+      <!-- Figma "Side nav" 840:1654 (open) / 839:1593 (collapsed). js/side-nav.js flips it. -->
+      <button type="button" class="side-nav__toggle" aria-expanded="true" aria-label="Collapse side navigation" title="Collapse side navigation">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2.5 2.5H17.5C17.9602 2.5 18.3333 2.8731 18.3333 3.33333V16.6667C18.3333 17.1269 17.9602 17.5 17.5 17.5H2.5C2.03977 17.5 1.66667 17.1269 1.66667 16.6667V3.33333C1.66667 2.8731 2.03977 2.5 2.5 2.5ZM7.5 4.16667V15.8333H16.6667V4.16667H7.5Z"/></svg>
+      </button>
       <a class="side-nav__back" href="../../#work">Work</a>
       <ul class="side-nav__stages side-nav__stages--flat">
         <li class="side-nav__stage"><a href="#context">Context</a></li>
