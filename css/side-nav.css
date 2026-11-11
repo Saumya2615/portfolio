@@ -17,11 +17,6 @@
   --nav-ink: #2a2a28;
 }
 
-/* a slimmer rail for pages with short stage names (Alum Connect) */
-.has-side-nav.side-nav-narrow {
-  --side-nav-width: 200px;
-}
-
 .side-nav {
   display: none;
 }
@@ -221,6 +216,7 @@
 
 .side-nav__next--creek { --flood-color: #a3b3ff; }      /* indigo/300 */
 .side-nav__next--hyperlocal { --flood-color: #f8cb46; } /* Hyperlocal yellow */
+.side-nav__next--alum { --flood-color: #bca7f6; }       /* Alum Connect lilac (Figma 832:1692) */
 .side-nav__next--cellwars { --flood-color: #282329; }   /* Cell Wars dark plum (Figma 822:1657) */
 .side-nav__next--gwt { --flood-color: #eb7500; }        /* Guwahati Transportation orange (Figma 826:1723) */
 
@@ -377,14 +373,49 @@
 }
 
 .side-nav__next--creek:hover > .side-nav__next-art,
-.side-nav__next--creek:focus-visible > .side-nav__next-art {
+.side-nav__next--creek:focus-visible > .side-nav__next-art,
+.side-nav__next--alum:hover > .side-nav__next-art,
+.side-nav__next--alum:focus-visible > .side-nav__next-art {
   transform: none;
   opacity: 1;
+}
+
+/* Alum Connect (Figma 832:1692): the goose, an 89.7 x 93 box tilted 16.54deg,
+   rises into the card at (76.6, 63.1), its feet running off the bottom edge,
+   as the lilac floods in. It starts a little left and low (the "Mouse enter"
+   frame), and slides up and right into place. */
+.side-nav__next--alum > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: 75.63px;
+  top: 62.07px;
+  width: 89.68px;
+  height: 93.05px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-14px, 90px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--alum .side-nav__next-art > span {
+  width: 70.983px;
+  height: 75.985px;
+  transform: rotate(16.54deg);
+}
+
+.side-nav__next--alum .side-nav__next-art img {
+  width: 259.34%;
+  height: 168.35%;
+  left: -76.55%;
+  top: -37.72%;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .side-nav__next--flood > .side-nav__next-fill,
   .side-nav__next--creek > .side-nav__next-art,
+  .side-nav__next--alum > .side-nav__next-art,
   .side-nav__next--gwt > .side-nav__next-art,
   .side-nav__next--cellwars > .side-nav__next-art,
   .side-nav__next--cellwars .side-nav__next-arrow,

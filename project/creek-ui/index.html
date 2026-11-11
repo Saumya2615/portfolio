@@ -15,18 +15,53 @@
     <link rel="stylesheet" href="../../css/main.css" />
     <link rel="stylesheet" href="../../css/nav.css" />
     <link rel="stylesheet" href="../../css/case-study.css" />
+    <link rel="stylesheet" href="../../css/side-nav.css" />
     <link rel="stylesheet" href="../../css/creek-video.css" />
     <link rel="stylesheet" href="../../css/creek-timeline.css" />
   </head>
-  <body class="case-study-page">
+  <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
       <nav>
         <a href="../../" class="nav-logo" aria-label="Saumya — home"><img src="../../assets/images/logo-wink.svg" alt="" width="48" height="48" /></a>
       </nav>
     </header>
+    <!-- Side nav: stops link to the slide where each starts (Figma side nav v2, 236px). "What's next (V2)" will be added when its slide exists. -->
+    <aside class="side-nav" aria-label="Case study">
+      <a class="side-nav__back" href="../../#work">Work</a>
+      <ul class="side-nav__stages side-nav__stages--flat">
+        <li class="side-nav__stage"><a href="#context">Context</a></li>
+        <li class="side-nav__stage"><a href="#problem-statement">Problem statement</a></li>
+        <li class="side-nav__stage"><a href="#research">Research</a></li>
+        <li class="side-nav__stage"><a href="#define">Define</a></li>
+        <li class="side-nav__stage"><a href="#ideation">Ideation</a></li>
+        <li class="side-nav__stage"><a href="#solution">Solution</a></li>
+        <li class="side-nav__stage"><a href="#a-day-with-creek">A day with Creek in 2030</a></li>
+        <li class="side-nav__stage"><a href="#testing-and-feedback">Testing and feedback</a></li>
+      </ul>
+      <div class="side-nav__spacer"></div>
+      <div class="side-nav__version" role="group" aria-label="Version">
+        <button type="button" class="side-nav__segment" data-view-set="tldr" aria-pressed="false">TL;DR</button>
+        <button type="button" class="side-nav__segment" data-view-set="full" aria-pressed="true">Full</button>
+      </div>
+      <!-- Hover: a lilac circle grows from the bottom-left corner and floods the card; the goose rises in (Figma 832:1692) -->
+      <a class="side-nav__next side-nav__next--flood side-nav__next--alum" href="../alum-connect/">
+        <span class="side-nav__next-fill" aria-hidden="true"></span>
+        <span class="side-nav__next-art" aria-hidden="true"><span><img src="../../assets/images/next-alum-goose.webp" alt="" /></span></span>
+        <span class="side-nav__next-label">Next case study</span>
+        <span class="side-nav__next-title">Alum Connect</span>
+        <img class="side-nav__next-arrow" src="../../assets/images/side-nav-arrow.svg" alt="" width="20" height="20" />
+      </a>
+    </aside>
     <main>
+      <section class="case-study-placeholder case-study-tldr">
+        <p class="case-study-placeholder__eyebrow">You clicked faster than I could type.</p>
+        <p class="case-study-placeholder__message">
+          Here's what I've got so far, or
+          <a href="../../#work">head back to see what's actually ready →</a>
+        </p>
+      </section>
       <section class="case-study-images">
-      <img src="../../assets/case-studies/creek-ui/1.webp" alt="Creek.UI case study image 1" width="3840" height="3242" loading="lazy" />
+      <img id="context" src="../../assets/case-studies/creek-ui/1.webp" alt="Creek.UI case study image 1" width="3840" height="3242" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/2.webp" alt="Creek.UI case study image 2" width="3840" height="1510" loading="lazy" />
       <!-- Image 3 has a phone with a black screen; the demo video plays inside it (click to play).
            To change the video, replace assets/case-studies/creek-ui/creek-ui-demo.mp4 -->
@@ -65,19 +100,19 @@
           <img class="creek-timeline__panel" id="timeline-panel-dev" role="tabpanel" aria-labelledby="timeline-tab-dev" src="../../assets/case-studies/creek-ui/timeline-dev.webp" alt="Dev timeline over four weeks: feasibility, build, hardening, then release, ending with the 11 December 2025 presentation." width="3840" height="2430" loading="lazy" />
         </div>
       </div>
-      <img src="../../assets/case-studies/creek-ui/7.webp" alt="Creek.UI case study image 7" width="3840" height="2704" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/8.webp" alt="Creek.UI case study image 8" width="3840" height="3398" loading="lazy" />
+      <img id="problem-statement" src="../../assets/case-studies/creek-ui/7.webp" alt="Creek.UI case study image 7" width="3840" height="2704" loading="lazy" />
+      <img id="research" src="../../assets/case-studies/creek-ui/8.webp" alt="Creek.UI case study image 8" width="3840" height="3398" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/9.webp" alt="Creek.UI case study image 9" width="3840" height="1688" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/10.webp" alt="Creek.UI case study image 10" width="3840" height="3297" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/11.webp" alt="Creek.UI case study image 11" width="3840" height="2182" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/12.webp" alt="Creek.UI case study image 12" width="3840" height="5786" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/13.webp" alt="Creek.UI case study image 13" width="3840" height="2174" loading="lazy" />
+      <img id="define" src="../../assets/case-studies/creek-ui/13.webp" alt="Creek.UI case study image 13" width="3840" height="2174" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/14.webp" alt="Creek.UI case study image 14" width="3840" height="5410" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/15.webp" alt="Creek.UI case study image 15" width="3840" height="1584" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/16.webp" alt="Creek.UI case study image 16" width="3840" height="7274" loading="lazy" />
+      <img id="ideation" src="../../assets/case-studies/creek-ui/16.webp" alt="Creek.UI case study image 16" width="3840" height="7274" loading="lazy" />
       <!-- Slide 17 is a silent looping video ("Introducing Creek.UI") that plays while it is on screen.
            To change it, replace assets/case-studies/creek-ui/introducing-creek.mp4 -->
-      <video class="creek-autoplay" data-autoplay muted loop playsinline preload="metadata" width="1152" height="720" poster="../../assets/case-studies/creek-ui/introducing-creek-poster.webp" aria-label="Introducing Creek.UI">
+      <video id="solution" class="creek-autoplay" data-autoplay muted loop playsinline preload="metadata" width="1152" height="720" poster="../../assets/case-studies/creek-ui/introducing-creek-poster.webp" aria-label="Introducing Creek.UI">
         <source src="../../assets/case-studies/creek-ui/introducing-creek.mp4" type="video/mp4" />
       </video>
       <img src="../../assets/case-studies/creek-ui/18.webp" alt="Creek.UI case study image 18" width="3840" height="5378" loading="lazy" />
@@ -87,8 +122,8 @@
       <img src="../../assets/case-studies/creek-ui/22.webp" alt="Creek.UI case study image 22" width="3840" height="4088" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/23.webp" alt="Creek.UI case study image 23" width="3840" height="5380" loading="lazy" />
       <img src="../../assets/case-studies/creek-ui/24.webp" alt="Creek.UI case study image 24" width="3840" height="10612" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/25.webp" alt="Creek.UI case study image 25" width="3840" height="6848" loading="lazy" />
-      <img src="../../assets/case-studies/creek-ui/26.webp" alt="Creek.UI case study image 26" width="3840" height="1660" loading="lazy" />
+      <img id="a-day-with-creek" src="../../assets/case-studies/creek-ui/25.webp" alt="Creek.UI case study image 25" width="3840" height="6848" loading="lazy" />
+      <img id="testing-and-feedback" src="../../assets/case-studies/creek-ui/26.webp" alt="Creek.UI case study image 26" width="3840" height="1660" loading="lazy" />
       <!-- Slide 27: the styles-test video plays inside the panel at the bottom right, clipped to the same torn-edge shape as the design.
            To change it, replace assets/case-studies/creek-ui/styles-test.mp4 -->
       <div class="creek-masked">
@@ -105,6 +140,7 @@
       </section>
     </main>
     <script src="../../js/main.js"></script>
+    <script src="../../js/side-nav.js"></script>
     <script src="../../js/creek-timeline.js"></script>
     <script src="../../js/creek-autoplay.js"></script>
   </body>
