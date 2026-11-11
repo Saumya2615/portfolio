@@ -1,10 +1,11 @@
 /* ============================================================
    Creek.UI case study — demo video inside image 3
-   Image 3 has an empty dark rounded box (#101828). The video sits exactly
-   over it: the box measures 3278 x 1760 at (280, 196) in the 3840 x 2160
-   export, so the player is placed in percentages of the picture and scales
-   with it. The video is 16:9 and the box is a little wider, so it is
-   letterboxed (object-fit: contain) on black, like the recording's own bars.
+   Image 3 has a phone with a black screen ("From inspiration to creation").
+   The video plays inside that screen. The screen measures 824 x 1715 at
+   (1507, 227) in the 3840 x 2160 export, so the player is placed in
+   percentages of the picture and scales with it. The recording is 9:16
+   and the screen is a little taller and narrower, so it is letterboxed
+   (object-fit: contain) on black, which is the screen's own colour.
    To change the video, replace assets/case-studies/creek-ui/creek-ui-demo.mp4.
    ============================================================ */
 
@@ -15,11 +16,57 @@
 
 .creek-video__player {
   position: absolute;
-  left: 7.2917%;   /* 280 / 3840 */
-  top: 9.0741%;    /* 196 / 2160 */
-  width: 85.3646%; /* 3278 / 3840 */
-  height: 81.4815%; /* 1760 / 2160 */
-  border-radius: 0.6cqw; /* the box's ~23px corner at 3840 */
-  background: #000; /* the recording has black side bars; a navy player behind it showed as two blue strips */
+  left: 39.2448%;   /* 1507 / 3840 */
+  top: 10.5093%;    /* 227 / 2160 */
+  width: 21.4583%;  /* 824 / 3840 */
+  height: 79.3981%; /* 1715 / 2160 */
+  border-radius: 2.4cqw; /* the screen's ~93px corner at 3840 */
+  background: #000;
   object-fit: contain;
+}
+
+/* ============================================================
+   Slide 17 — "Introducing Creek.UI" loop (js/creek-autoplay.js)
+   Replaces the old empty dark slide. It is 1152 x 720 (16:10), shown full
+   width at its own shape; plays silently and loops while on screen.
+   To change it, replace assets/case-studies/creek-ui/introducing-creek.mp4.
+   ============================================================ */
+.creek-autoplay {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
+}
+
+/* ============================================================
+   Slide 27 — styles test video inside its torn-edge panel
+   Figma: Creek.UI Compilation, frame "27" (997:16819). The video is clipped
+   by the same 6-point shape the design uses (Mask group 997:16821, 699 x 325
+   at (901, 835) in the 1920 x 1350 frame); the video itself is 695 x 356 at
+   (900, 820), so it overshoots the shape slightly and the slide's purple
+   shows at the right edge, as in the design. Plays silently while on screen.
+   To change it, replace assets/case-studies/creek-ui/styles-test.mp4.
+   ============================================================ */
+.creek-masked {
+  position: relative;
+}
+
+.creek-masked__clip {
+  position: absolute;
+  left: 46.9271%;   /* 901 / 1920 */
+  top: 61.8519%;    /* 835 / 1350 */
+  width: 36.4063%;  /* 699 / 1920 */
+  height: 24.0741%; /* 325 / 1350 */
+  /* the shape's six points, as a share of its 699 x 325 box */
+  clip-path: polygon(0% 8.0153%, 6.7416% 0%, 98.3150% 2.6717%, 100% 30.5343%, 94.7570% 100%, 5.4308% 96.5650%);
+}
+
+.creek-masked__video {
+  position: absolute;
+  left: -0.1431%;   /* (900 - 901) / 699 */
+  top: -4.6154%;    /* (820 - 835) / 325 */
+  width: 99.4278%;  /* 695 / 699 */
+  height: 109.5385%; /* 356 / 325 */
+  object-fit: cover;
+  display: block;
 }
