@@ -35,38 +35,54 @@
     }
   }
 
-  // While the rail slides, the slides re-flow (they widen or narrow). Keep the
-  // spot the reader is looking at put: remember which element sits at the
-  // reading line and how far down it, and nudge the scroll each frame so that
-  // point stays where it was.
-  function keepPlace(duration) {
+  // Opening or closing the rail re-flows the slides (they widen or narrow).
+  // Keep the spot the reader is looking at put: before the change, note which
+  // element sits at the reading line and how far down it; after the change,
+  // scroll so that same point is back on the line. Done once, in one step.
+  function noteReadingPlace() {
     const x = Math.round(window.innerWidth * 0.6);
     const y = Math.round(window.innerHeight * 0.35);
     const el = document.elementFromPoint(x, y);
-    if (!el || el === body || el === root) return;
-    const r0 = el.getBoundingClientRect();
-    if (!r0.height) return;
-    const frac = (y - r0.top) / r0.height;
-    const start = performance.now();
-    root.style.overflowAnchor = 'none'; // we do the anchoring; don't let the browser do it twice
-    (function frame(now) {
-      const r = el.getBoundingClientRect();
-      const delta = r.top + frac * r.height - y;
-      if (Math.abs(delta) > 0.5) window.scrollBy({ top: delta, behavior: 'instant' });
-      if (now - start < duration) requestAnimationFrame(frame);
-      else root.style.overflowAnchor = '';
-    })(start);
+    if (!el || el === body || el === root) return null;
+    const r = el.getBoundingClientRect();
+    if (!r.height) return null;
+    return { el, y, frac: (y - r.top) / r.height };
   }
 
+  function restoreReadingPlace(place) {
+    if (!place) return;
+    const r = place.el.getBoundingClientRect();
+    const delta = r.top + place.frac * r.height - place.y;
+    if (Math.abs(delta) > 0.5) window.scrollBy({ top: delta, behavior: 'instant' });
+  }
+
+  // The slide itself is a view transition: the page switches to its new layout
+  // at once and the browser slides between a picture of the old state and one
+  // of the new, on the GPU. (Animating the rail's width and the page's margin
+  // instead re-laid-out the huge slide images on every frame, which was choppy.)
+  // Browsers without view transitions, and "reduce motion", switch instantly.
+  let transitioning = false;
+
   function setCollapsed(collapsed, save) {
-    if (isCollapsed() === collapsed) return;
-    if (!reduced.matches) keepPlace(340);
-    root.classList.toggle('side-nav-collapsed', collapsed);
-    syncToggle();
+    if (transitioning || isCollapsed() === collapsed) return;
+    const place = noteReadingPlace();
+    const apply = () => {
+      root.classList.toggle('side-nav-collapsed', collapsed);
+      syncToggle();
+      fit();
+      restoreReadingPlace(place);
+    };
     if (save) {
       try { localStorage.setItem('side-nav', collapsed ? 'collapsed' : 'open'); } catch (e) { /* private mode: just don't remember */ }
     }
-    fit();
+    if (document.startViewTransition && !reduced.matches && window.innerWidth >= 768) {
+      transitioning = true;
+      const vt = document.startViewTransition(apply);
+      vt.ready.catch(() => {}); // rejects when the browser skips the animation (e.g. a hidden tab); the change still applies
+      vt.finished.catch(() => {}).then(() => { transitioning = false; });
+    } else {
+      apply();
+    }
   }
 
   function syncToggle() {

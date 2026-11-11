@@ -36,7 +36,6 @@ html.side-nav-collapsed .has-side-nav {
 
   .has-side-nav main {
     margin-left: var(--side-nav-width);
-    transition: margin-left 300ms var(--side-nav-ease);
   }
 
   .side-nav {
@@ -56,7 +55,6 @@ html.side-nav-collapsed .has-side-nav {
     font-size: 16px;
     line-height: 23px; /* Figma's 22.4px line, as it lays out: 23px text, 31px rows */
     color: var(--stone-800);
-    transition: width 300ms var(--side-nav-ease), padding 300ms var(--side-nav-ease);
   }
 
   html.side-nav-collapsed .side-nav {
@@ -83,7 +81,6 @@ html.side-nav-collapsed .has-side-nav {
   color: var(--stone-800);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  transition: color 200ms ease;
 }
 
 .side-nav__toggle svg {
@@ -119,21 +116,18 @@ html.side-nav-collapsed .side-nav__toggle:hover {
 .side-nav__version,
 .side-nav__next {
   flex-shrink: 0; /* never squash: js/side-nav.js scales the rail if it runs out of height */
-  transition: opacity 220ms ease 90ms;
 }
 
-/* Everything but the toggle fades out as the rail closes, and drops out of
-   the tab order. The content keeps its open width while the rail animates, so
-   nothing re-wraps mid-slide. */
+/* Everything but the toggle disappears when the rail is collapsed, and drops
+   out of the tab order. (The slide itself is animated by a view transition,
+   see the end of this file.) */
 html.side-nav-collapsed .side-nav__back,
 html.side-nav-collapsed .side-nav__stages,
 html.side-nav-collapsed .side-nav__spacer,
 html.side-nav-collapsed .side-nav__version,
 html.side-nav-collapsed .side-nav__next {
-  opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 120ms ease, visibility 0s linear 120ms;
 }
 
 .side-nav__stages,
@@ -487,20 +481,41 @@ html.side-nav-collapsed .side-nav__next {
   top: -37.72%;
 }
 
+/* ============================================================
+   Collapse / expand animation — a view transition (js/side-nav.js).
+   The page switches to its new layout at once; the browser then slides
+   between a picture of the old state and a picture of the new one on the
+   GPU, so the heavy slide images are never re-laid-out frame by frame
+   (which is what made animating the width choppy). The rail gets its own
+   layer so it slides shut instead of cross-fading in place. Browsers
+   without view transitions just switch instantly.
+   ============================================================ */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .side-nav {
+    view-transition-name: side-nav;
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* the rail's box animates 236 <-> 45px wide; its pictures stay at their own
+     size, pinned top-left and clipped, so they are not squashed on the way */
+  ::view-transition-group(side-nav) {
+    overflow: hidden;
+  }
+
+  ::view-transition-old(side-nav),
+  ::view-transition-new(side-nav) {
+    width: 100%;
+    height: 100%;
+    object-fit: none;
+    object-position: left top;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .side-nav,
-  .has-side-nav main,
-  .side-nav__toggle,
-  .side-nav__back,
-  .side-nav__stages,
-  .side-nav__spacer,
-  .side-nav__version,
-  .side-nav__next,
-  html.side-nav-collapsed .side-nav__back,
-  html.side-nav-collapsed .side-nav__stages,
-  html.side-nav-collapsed .side-nav__spacer,
-  html.side-nav-collapsed .side-nav__version,
-  html.side-nav-collapsed .side-nav__next,
   .side-nav__next--flood > .side-nav__next-fill,
   .side-nav__next--creek > .side-nav__next-art,
   .side-nav__next--alum > .side-nav__next-art,
