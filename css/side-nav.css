@@ -847,10 +847,11 @@ html.side-nav-collapsed .side-nav__next {
      No hover needed: the colour and the picture are always there. */
   .topnav-next {
     display: block;
-    padding: 48px var(--page-pad) 16px;
+    padding: 48px 0 0;
     background: var(--color-bg);
   }
 
+  /* a full-width band on every size: edge to edge, no margin around it */
   .endcard {
     --endcard-bg: #fff;
     --endcard-ink: #292524;
@@ -858,12 +859,12 @@ html.side-nav-collapsed .side-nav__next {
     display: block;
     height: 144px;
     width: 100%;
-    max-width: 358px;
-    margin: 0 auto;
+    margin: 0;
     overflow: hidden;
     background: var(--endcard-bg);
-    border: var(--border-thin) solid #292524;
-    border-radius: 4px;
+    border: solid #292524;
+    border-width: var(--border-thin) 0;
+    border-radius: 0;
     color: var(--endcard-ink);
     -webkit-tap-highlight-color: transparent;
     transition: transform 120ms ease;
@@ -921,6 +922,13 @@ html.side-nav-collapsed .side-nav__next {
   }
 
   /* the pictures, placed as in Figma and anchored to the right so they stay by the arrow on narrow phones */
+  .endcard__stage {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+  }
+
   .endcard__art {
     position: absolute;
     z-index: 1;
@@ -970,6 +978,58 @@ html.side-nav-collapsed .side-nav__next {
   }
 }
 
+/* a wide phone or small tablet (520 to 767px): a 358px card would float in empty space, so the
+   next case study is already a full-width band here, a size down from the tablet one */
+@media (min-width: 520px) and (max-width: 767px) {
+  .topnav-next {
+    padding: 56px 0 0;
+  }
+
+  .endcard {
+    height: 176px;
+    max-width: none;
+    margin: 0;
+    border-width: var(--border-thin) 0;
+    border-radius: 0;
+  }
+
+  .endcard__label,
+  .endcard__title {
+    margin-left: var(--page-pad);
+    margin-right: var(--page-pad);
+  }
+
+  .endcard__label {
+    margin-top: 32px;
+  }
+
+  .endcard__title {
+    margin-top: 10px;
+    max-width: 45%;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.24px;
+  }
+
+  .endcard__arrow {
+    right: var(--page-pad);
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    margin-top: -18px;
+  }
+
+  .endcard__stage {
+    inset: auto;
+    right: 72px;
+    bottom: 0;
+    width: 358px;
+    height: 144px;
+    transform: scale(1.22);
+    transform-origin: 100% 100%;
+  }
+}
+
 /* tablet: the bar is a little taller and the sheet is a panel under the stop, not full width */
 @media (min-width: 768px) and (max-width: 1199px) {
   .has-side-nav {
@@ -986,6 +1046,58 @@ html.side-nav-collapsed .side-nav__next {
 
   .topnav__current {
     gap: 6px;
+  }
+
+  /* the end of the page on a tablet: the next case study as a full-width coloured band.
+     Words on the left; the picture, scaled up from its phone frame, and the arrow on the right. */
+  .topnav-next {
+    padding: 64px 0 0;
+  }
+
+  .endcard {
+    height: 200px;
+    max-width: none;
+    margin: 0;
+    border-width: var(--border-thin) 0;
+    border-radius: 0;
+  }
+
+  .endcard__label,
+  .endcard__title {
+    margin-left: var(--page-pad);
+    margin-right: var(--page-pad);
+  }
+
+  .endcard__label {
+    margin-top: 40px;
+    font-size: 16px;
+    line-height: 22.4px;
+  }
+
+  .endcard__title {
+    margin-top: 12px;
+    max-width: 50%;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.32px;
+  }
+
+  .endcard__arrow {
+    right: var(--page-pad);
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+  }
+
+  .endcard__stage {
+    inset: auto;
+    right: 88px;
+    bottom: 0;
+    width: 358px;
+    height: 144px;
+    transform: scale(1.39);
+    transform-origin: 100% 100%;
   }
 
   .topnav__version button {

@@ -194,11 +194,14 @@
       const art = { alum: 'next-alum-goose.webp', creek: 'next-creek-cake.webp', gwt: 'next-gwt-bus.webp', cellwars: 'next-cell-wars.webp', hyperlocal: 'next-hyperlocal-bike.webp' };
       const card = el('a', 'endcard' + (variant ? ' endcard--' + variant : ''), { href: next.getAttribute('href') });
       if (variant && imgBase) {
-        const pic = el('span', 'endcard__art', { 'aria-hidden': 'true' });
+        // the stage is the picture's 358 x 144 frame from Figma; a tablet scales the whole frame up
+        const stage = el('span', 'endcard__stage', { 'aria-hidden': 'true' });
+        const pic = el('span', 'endcard__art');
         const inner = el('span');
         inner.appendChild(el('img', '', { src: imgBase + art[variant], alt: '', loading: 'lazy', decoding: 'async' }));
         pic.appendChild(inner);
-        card.appendChild(pic);
+        stage.appendChild(pic);
+        card.appendChild(stage);
       }
       const lab = el('span', 'endcard__label'); lab.textContent = ((next.querySelector('.side-nav__next-label') || {}).textContent || 'Next case study').trim();
       const title = el('span', 'endcard__title'); title.textContent = ((next.querySelector('.side-nav__next-title') || {}).textContent || '').trim();
