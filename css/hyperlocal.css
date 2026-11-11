@@ -338,7 +338,7 @@
   display: block;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .hl-page main.hl-main {
     margin-left: 0; /* the rail is part of the layout now, not a fixed bar */
   }
