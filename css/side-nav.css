@@ -5,8 +5,8 @@
    case study, the TL;DR / Full switch and a "next case study" card.
    Replaces the slim logo bar on desktop and tablet; phones keep the top
    bar (no room for a rail).
-   Tokens: stone/200 #e7e5e4, stone/400 #a6a09b, stone/800 #292524, and
-   #2a2a28 for the rail's own ink (Work, the current stage, TL;DR border).
+   Tokens: stone/200 #e7e5e4, stone/400 #a6a09b, stone/800 #292524 (all the
+   rail's dark ink: Work, the current stage, the TL;DR switch, the button).
    ============================================================ */
 
 .has-side-nav {
@@ -14,7 +14,6 @@
   --stone-200: #e7e5e4;
   --stone-400: #a6a09b;
   --stone-800: #292524;
-  --nav-ink: #2a2a28;
 }
 
 .side-nav {
@@ -46,7 +45,7 @@
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 23px; /* Figma's 22.4px line, as it lays out: 23px text, 31px rows */
-    color: var(--nav-ink);
+    color: var(--stone-800);
   }
 
   .side-nav a:hover {
@@ -57,6 +56,7 @@
 .side-nav__back {
   align-self: flex-start;
   margin-bottom: 40px;
+  color: var(--stone-800); /* the site's link colour is near-black #0c0a09; the rail uses stone/800 */
 }
 
 .side-nav__back,
@@ -98,7 +98,7 @@
 
 .side-nav__stage.is-current,
 .side-nav__item.is-current {
-  color: var(--nav-ink);
+  color: var(--stone-800);
 }
 
 /* a flat list of stages (no acts), as on Alum Connect: rows 4px apart */
@@ -115,7 +115,7 @@
 
 .side-nav__stage a:hover,
 .side-nav__item a:hover {
-  color: var(--nav-ink);
+  color: var(--stone-800);
 }
 
 /* an act: its label, then its stages, with no gap between them */
@@ -137,7 +137,7 @@
 /* TL;DR / Full switch */
 .side-nav__version {
   display: flex;
-  border: var(--border-thin) solid var(--nav-ink);
+  border: var(--border-thin) solid var(--stone-800);
   border-radius: 4px;
   overflow: hidden;
 }
