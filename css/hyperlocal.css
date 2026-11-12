@@ -1,0 +1,370 @@
+/* ============================================================
+   Hyperlocal Delivery Men — "Life in the Last Mile" case study.
+   Figma: Portfolio › Case studies › 810:2125. Unlike Alum / AEO this one
+   is coded text (real headings, notes, chips) with images only for the
+   photos, diagrams and concept slides.
+   Desktop layout: a 920px column + a 212px margin column (metadata,
+   margin notes, "For customers" tags), 24px apart. Below that width the
+   margin column folds into the flow.
+   Tokens: stone/50 #fafaf9, stone/200 #e7e5e4, muted #a3a39e.
+   ============================================================ */
+
+.hl {
+  --hl-col: 920px;
+  --hl-note: 212px;
+  --hl-gap: 24px;
+  --hl-section-gap: 150px;
+  --hl-stone-50: #fafaf9;
+  --hl-stone-200: #e7e5e4;
+  --hl-muted: #a3a39e;
+  container-type: inline-size;
+  padding: 43px var(--space-lg) 160px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 25.2px;
+  color: #000;
+}
+
+.hl-story {
+  max-width: calc(var(--hl-col) + var(--hl-gap) + var(--hl-note));
+  margin: 0 auto;
+}
+
+.hl-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.hl-section {
+  position: relative;
+  max-width: var(--hl-col);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: var(--hl-section-gap);
+  scroll-margin-top: 43px;
+}
+
+.hl-section:last-child {
+  margin-bottom: 0;
+}
+
+.hl p,
+.hl h2,
+.hl h3,
+.hl h4 {
+  margin: 0;
+  font-family: var(--font-body); /* main.css sets headings in Space Grotesk; this page is all DM Sans */
+}
+
+/* ── type ── */
+.hl-lead,
+.hl-h {
+  font-weight: 400;
+  color: #000;
+}
+
+.hl-lead { /* Type/Lead: Context, Research */
+  font-size: 28px;
+  line-height: 32.2px;
+  letter-spacing: -0.14px;
+}
+
+.hl-h { /* Type/Heading 3 */
+  font-size: 36px;
+  line-height: 43.2px;
+  letter-spacing: -0.54px;
+}
+
+.hl-strong { /* Type/Body strong */
+  font-weight: 400;
+}
+
+.hl-small {
+  font-size: 14px;
+  line-height: 19.6px;
+}
+
+/* ── images ── */
+.hl img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hl-figure {
+  margin: 0;
+}
+
+.hl-figure--round img {
+  border-radius: 16px;
+}
+
+.hl-photos {
+  display: grid;
+  grid-template-columns: 566fr 330fr;
+  gap: 24px;
+}
+
+.hl-photos img {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── two / three column text ── */
+.hl-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 24px;
+}
+
+.hl-cols--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.hl-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hl-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hl-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── grey chips ── */
+.hl-chips {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.hl-chips--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.hl-chips--wide {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.hl-chip {
+  background: var(--hl-stone-200);
+  padding: 24px 12px;
+}
+
+.hl-chip--stat {
+  min-height: 176px;
+}
+
+.hl-chip__num {
+  display: block;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 43.2px;
+  letter-spacing: -0.54px;
+}
+
+.hl-chip__sub {
+  display: block;
+  font-size: 14px;
+  line-height: 19.6px;
+}
+
+.hl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hl-tag {
+  background: var(--hl-stone-200);
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 19.6px;
+}
+
+/* ── ideation ── */
+.hl-ideation {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.hl-ideation__head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hl-concept {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  scroll-margin-top: 43px;
+}
+
+/* ── margin column ── */
+.hl-note {
+  font-size: 14px;
+  line-height: 19.6px;
+  color: #000;
+}
+
+.hl-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hl-meta dt {
+  color: var(--hl-muted);
+}
+
+.hl-meta dd {
+  margin: 2px 0 0;
+  color: #000;
+}
+
+.hl-for {
+  color: var(--hl-muted);
+}
+
+/* narrow: notes fold into the flow */
+.hl-note {
+  padding-left: 12px;
+  border-left: 2px solid var(--hl-stone-200);
+}
+
+.hl-meta,
+.hl-for {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.hl-for {
+  margin-bottom: -16px; /* tag sits snug above its concept title */
+}
+
+/* wide: the 212px margin column beside the 920px one */
+@container (min-width: 1100px) {
+  /* the 920px column gives up a little width when the page is a bit narrower than the Figma frame */
+  .hl-section { max-width: min(var(--hl-col), calc(100% - var(--hl-gap) - var(--hl-note))); }
+
+  .hl-note,
+  .hl-meta,
+  .hl-for {
+    position: absolute;
+    left: calc(100% + var(--hl-gap));
+    width: var(--hl-note);
+    padding-left: 0;
+    border-left: 0;
+    margin: 0;
+  }
+
+  .hl-meta { top: 76px; }
+  .hl-note--a { top: 76px; }
+  .hl-note--b { top: 434px; }
+  .hl-for { top: 8px; }
+}
+
+/* ── tablet ── */
+@media (max-width: 1199px) {
+  .hl-section { gap: 28px; }
+}
+
+/* ── phone ── */
+@media (max-width: 767px) {
+  .hl {
+    --hl-section-gap: 96px;
+    padding-top: 8px;
+    padding-bottom: 96px;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .hl-lead { font-size: 24px; line-height: 28px; }
+  .hl-h { font-size: 28px; line-height: 33px; letter-spacing: -0.4px; }
+  .hl-photos,
+  .hl-cols,
+  .hl-cols--3 { grid-template-columns: 1fr; }
+  .hl-chips,
+  .hl-chips--wide { grid-template-columns: 1fr; gap: 16px; }
+  .hl-chips--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .hl-chip--stat { min-height: 0; }
+  .hl-ideation { gap: 56px; }
+}
+
+/* ============================================================
+   Page frame: the case study opens on the thumbnail (Figma 810:2126,
+   24px around it), then the side nav and the story sit side by side.
+   The nav starts below the thumbnail, scrolls up with the page, then
+   sticks to the top while the story scrolls. Phones have no rail.
+   ============================================================ */
+.hl-hero {
+  margin: 0;
+  padding: 24px;
+}
+
+.hl-hero img,
+.hl-hero__video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* the Figma frame is 1391 x 760; the clip is 16:9, so it crops a hair top and bottom */
+.hl-hero__video {
+  aspect-ratio: 1391 / 760;
+  object-fit: cover;
+  background: #0c0a09; /* dark while it loads, like the night footage */
+}
+
+.hl-layout {
+  display: block;
+}
+
+@media (min-width: 1200px) {
+  .hl-page main.hl-main {
+    margin-left: 0; /* the rail is part of the layout now, not a fixed bar */
+  }
+
+  .hl-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .hl-body {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .hl-page .side-nav {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    left: auto;
+    flex: none;
+    align-self: flex-start;
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+@media (max-width: 767px) {
+  .hl-hero { padding: 16px; }
+}

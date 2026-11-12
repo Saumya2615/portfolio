@@ -3,34 +3,39 @@
    Figma: AEO "Side nav — v2" (798:20309); Alum Connect "Side nav — v2"
    (792:20131) — a 236px rail with the back-to-Work link, the stages of the
    case study, the TL;DR / Full switch and a "next case study" card.
-   Replaces the slim logo bar on desktop and tablet; phones keep the top
-   bar (no room for a rail).
-   Tokens: stone/200 #e7e5e4, stone/400 #a6a09b, stone/800 #292524, and
-   #2a2a28 for the rail's own ink (Work, the current stage, TL;DR border).
+   On desktop (1200px and up) it is this rail. On tablet and phone a rail
+   would shrink the slides too much, so the same stops live in a top bar
+   instead (see "Top bar" at the end of this file, built by js/side-nav.js).
+   Tokens: stone/200 #e7e5e4, stone/400 #a6a09b, stone/800 #292524 (all the
+   rail's dark ink: Work, the current stage, the TL;DR switch, the button).
    ============================================================ */
 
 .has-side-nav {
   --side-nav-width: 236px;
+  --side-nav-content: 187px; /* what the open rail's content measures: 236 less 24px padding each side and the 1px line */
+  --side-nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --stone-200: #e7e5e4;
   --stone-400: #a6a09b;
   --stone-800: #292524;
-  --nav-ink: #2a2a28;
 }
 
-/* a slimmer rail for pages with short stage names (Alum Connect) */
-.has-side-nav.side-nav-narrow {
-  --side-nav-width: 200px;
+/* Collapsed (Figma "Side nav" 839:1593): a 45px strip holding just the toggle.
+   js/side-nav.js sets the class on <html> (and a tiny script in each page's
+   <head> sets it before first paint, so a collapsed rail doesn't flash open). */
+html.side-nav-collapsed .has-side-nav {
+  --side-nav-width: 45px;
 }
 
 .side-nav {
   display: none;
 }
 
-@media (min-width: 768px) {
-  .has-side-nav #nav {
-    display: none;
-  }
+/* the site's logo bar is replaced by the rail (desktop) or the top bar (below) */
+.has-side-nav #nav {
+  display: none;
+}
 
+@media (min-width: 1200px) {
   .has-side-nav main {
     margin-left: var(--side-nav-width);
   }
@@ -43,7 +48,7 @@
     z-index: 100;
     display: flex;
     flex-direction: column;
-    width: var(--side-nav-width);
+    width: calc(var(--side-nav-width) / var(--side-nav-zoom, 1)); /* js/side-nav.js scales a tall rail with CSS zoom; this keeps its on-screen width at 236 / 45 */
     padding: 48px 24px;
     overflow: hidden; /* never scrolls: shorter windows get tighter spacing, then js/side-nav.js scales it to fit */
     background: var(--color-bg);
@@ -51,7 +56,12 @@
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 23px; /* Figma's 22.4px line, as it lays out: 23px text, 31px rows */
-    color: var(--nav-ink);
+    color: var(--stone-800);
+  }
+
+  html.side-nav-collapsed .side-nav {
+    padding-left: 12px; /* the toggle sits 12px from the edge when collapsed, 24px when open */
+    padding-right: 12px;
   }
 
   .side-nav a:hover {
@@ -59,23 +69,79 @@
   }
 }
 
+/* The toggle: Figma "side-bar-fill", 20 x 20, 20px above "Work". Dark when the
+   rail is open, grey (stone/400) when it is collapsed. */
+.side-nav__toggle {
+  display: block;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--stone-800);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.side-nav__toggle svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+html.side-nav-collapsed .side-nav__toggle {
+  color: var(--stone-400);
+}
+
+html.side-nav-collapsed .side-nav__toggle:hover {
+  color: var(--stone-800);
+}
+
+.side-nav__toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 .side-nav__back {
   align-self: flex-start;
   margin-bottom: 40px;
+  color: var(--stone-800); /* the site's link colour is near-black #0c0a09; the rail uses stone/800 */
 }
 
 .side-nav__back,
 .side-nav__stages,
+.side-nav__spacer,
 .side-nav__version,
 .side-nav__next {
   flex-shrink: 0; /* never squash: js/side-nav.js scales the rail if it runs out of height */
+}
+
+/* Everything but the toggle disappears when the rail is collapsed, and drops
+   out of the tab order. (The slide itself is animated by a view transition,
+   see the end of this file.) */
+html.side-nav-collapsed .side-nav__back,
+html.side-nav-collapsed .side-nav__stages,
+html.side-nav-collapsed .side-nav__spacer,
+html.side-nav-collapsed .side-nav__version,
+html.side-nav-collapsed .side-nav__next {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.side-nav__stages,
+.side-nav__version,
+.side-nav__next {
+  width: var(--side-nav-content);
 }
 
 .side-nav__stages {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -103,7 +169,7 @@
 
 .side-nav__stage.is-current,
 .side-nav__item.is-current {
-  color: var(--nav-ink);
+  color: var(--stone-800);
 }
 
 /* a flat list of stages (no acts), as on Alum Connect: rows 4px apart */
@@ -120,7 +186,7 @@
 
 .side-nav__stage a:hover,
 .side-nav__item a:hover {
-  color: var(--nav-ink);
+  color: var(--stone-800);
 }
 
 /* an act: its label, then its stages, with no gap between them */
@@ -142,7 +208,7 @@
 /* TL;DR / Full switch */
 .side-nav__version {
   display: flex;
-  border: var(--border-thin) solid var(--nav-ink);
+  border: var(--border-thin) solid var(--stone-800);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -221,6 +287,9 @@
 
 .side-nav__next--creek { --flood-color: #a3b3ff; }      /* indigo/300 */
 .side-nav__next--hyperlocal { --flood-color: #f8cb46; } /* Hyperlocal yellow */
+.side-nav__next--alum { --flood-color: #bca7f6; }       /* Alum Connect lilac (Figma 832:1692) */
+.side-nav__next--cellwars { --flood-color: #282329; }   /* Cell Wars dark plum (Figma 822:1657) */
+.side-nav__next--gwt { --flood-color: #eb7500; }        /* Guwahati Transportation orange (Figma 826:1723) */
 
 .side-nav__next--flood > :not(.side-nav__next-arrow) {
   position: relative; /* text stays above the fill and the art */
@@ -279,34 +348,200 @@
   top: -46.55%;
 }
 
+/* Cell Wars (Figma 822:1657): on a dark flood the text turns white and the
+   arrow (dark ink) is inverted. The arrow stays bottom-right like every other
+   card; the cell artwork is 153 x 108, tucked 16px off the left edge, top 66px. */
+.side-nav__next--cellwars > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: -16px;
+  top: 66px;
+  width: 153px;
+  height: 108px;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--cellwars .side-nav__next-art img {
+  position: static;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.side-nav__next--cellwars .side-nav__next-label,
+.side-nav__next--cellwars .side-nav__next-title {
+  transition: color 300ms ease 120ms;
+}
+
+.side-nav__next--cellwars .side-nav__next-arrow {
+  transition: filter 300ms ease 120ms;
+}
+
+.side-nav__next--cellwars:hover,
+.side-nav__next--cellwars:focus-visible {
+  color: #fff;
+}
+
+.side-nav__next--cellwars:hover .side-nav__next-label,
+.side-nav__next--cellwars:hover .side-nav__next-title,
+.side-nav__next--cellwars:focus-visible .side-nav__next-label,
+.side-nav__next--cellwars:focus-visible .side-nav__next-title {
+  color: #fff;
+}
+
+.side-nav__next--cellwars:hover > .side-nav__next-art,
+.side-nav__next--cellwars:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
+.side-nav__next--cellwars:hover .side-nav__next-arrow,
+.side-nav__next--cellwars:focus-visible .side-nav__next-arrow {
+  filter: brightness(0) invert(1);
+}
+
+/* Guwahati Transportation (Figma 826:1723): orange flood, ink stays dark, arrow
+   stays put. The bus (109 x 149) is tilted -15deg inside a 144 x 172.5 box that
+   sits 8px off the left edge, top 39px. */
+.side-nav__next--gwt > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: -8px;
+  top: 39px;
+  width: 143.989px;
+  height: 172.543px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(70px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--gwt .side-nav__next-art img {
+  position: static;
+  flex: none;
+  display: block;
+  width: 109.033px;
+  height: 149.415px;
+  max-width: none;
+  transform: rotate(-15deg);
+}
+
+.side-nav__next--gwt:hover > .side-nav__next-art,
+.side-nav__next--gwt:focus-visible > .side-nav__next-art {
+  transform: none;
+  opacity: 1;
+}
+
 .side-nav__next--flood:hover > .side-nav__next-fill,
 .side-nav__next--flood:focus-visible > .side-nav__next-fill {
   transform: translate(-50%, -50%) scale(1);
 }
 
 .side-nav__next--creek:hover > .side-nav__next-art,
-.side-nav__next--creek:focus-visible > .side-nav__next-art {
+.side-nav__next--creek:focus-visible > .side-nav__next-art,
+.side-nav__next--alum:hover > .side-nav__next-art,
+.side-nav__next--alum:focus-visible > .side-nav__next-art {
   transform: none;
   opacity: 1;
 }
 
+/* Alum Connect (Figma 832:1692): the goose, an 89.7 x 93 box tilted 16.54deg,
+   rises into the card at (76.6, 63.1), its feet running off the bottom edge,
+   as the lilac floods in. It starts a little left and low (the "Mouse enter"
+   frame), and slides up and right into place. */
+.side-nav__next--alum > .side-nav__next-art {
+  position: absolute;
+  z-index: 0;
+  left: 75.63px;
+  top: 62.07px;
+  width: 89.68px;
+  height: 93.05px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-14px, 90px);
+  opacity: 0;
+  transition: transform 550ms var(--next-ease) 90ms, opacity 200ms ease 90ms;
+}
+
+.side-nav__next--alum .side-nav__next-art > span {
+  width: 70.983px;
+  height: 75.985px;
+  transform: rotate(16.54deg);
+}
+
+.side-nav__next--alum .side-nav__next-art img {
+  width: 259.34%;
+  height: 168.35%;
+  left: -76.55%;
+  top: -37.72%;
+}
+
+/* ============================================================
+   Collapse / expand animation — a view transition (js/side-nav.js).
+   The page switches to its new layout at once; the browser then slides
+   between a picture of the old state and a picture of the new one on the
+   GPU, so the heavy slide images are never re-laid-out frame by frame
+   (which is what made animating the width choppy). The rail gets its own
+   layer so it slides shut instead of cross-fading in place. Browsers
+   without view transitions just switch instantly.
+   ============================================================ */
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) {
+  .side-nav {
+    view-transition-name: side-nav;
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* the rail's box animates 236 <-> 45px wide; its pictures stay at their own
+     size, pinned top-left and clipped, so they are not squashed on the way */
+  ::view-transition-group(side-nav) {
+    overflow: hidden;
+  }
+
+  ::view-transition-old(side-nav),
+  ::view-transition-new(side-nav) {
+    width: 100%;
+    height: 100%;
+    object-fit: none;
+    object-position: left top;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .side-nav__next--flood > .side-nav__next-fill,
-  .side-nav__next--creek > .side-nav__next-art {
+  .side-nav__next--creek > .side-nav__next-art,
+  .side-nav__next--alum > .side-nav__next-art,
+  .side-nav__next--gwt > .side-nav__next-art,
+  .side-nav__next--cellwars > .side-nav__next-art,
+  .side-nav__next--cellwars .side-nav__next-arrow,
+  .side-nav__next--cellwars .side-nav__next-label,
+  .side-nav__next--cellwars .side-nav__next-title {
     transition: none;
   }
 }
 
 /* Shorter windows: the rail's text drops to 14px (the design's "Small"
    size) and its spacing eases down, so it fits whole without feeling crammed */
-@media (min-width: 768px) and (max-height: 960px) {
+@media (min-width: 1200px) and (max-height: 960px) {
   .side-nav { padding-top: 32px; padding-bottom: 32px; font-size: 14px; line-height: 19.6px; }
+  .side-nav__toggle { margin-bottom: 14px; }
   .side-nav__back { margin-bottom: 24px; }
   .side-nav__next { margin-top: 12px; }
 }
 
-@media (min-width: 768px) and (max-height: 760px) {
+@media (min-width: 1200px) and (max-height: 760px) {
   .side-nav { padding-top: 24px; padding-bottom: 24px; }
+  .side-nav__toggle { margin-bottom: 10px; }
   .side-nav__back { margin-bottom: 16px; }
   .side-nav__stage,
   .side-nav__act-label,
@@ -323,10 +558,574 @@
   display: none;
 }
 
-.has-side-nav[data-view="tldr"] .case-study-images {
+.has-side-nav[data-view="tldr"] .case-study-images,
+.has-side-nav[data-view="tldr"] .hl-full {
   display: none;
 }
 
 .has-side-nav[data-view="tldr"] .case-study-tldr {
   display: flex;
+}
+
+/* ============================================================
+   Top bar — case study navigation on tablet and phone (below 1200px)
+   A rail would squeeze the slides, so the same stops move to a bar along
+   the top. js/side-nav.js builds it from the rail's markup, so every
+   case study page gets it without extra HTML:
+     [logo]  [current stop ⌄]  [TL;DR | Full]   + a thin reading-progress line
+   Tapping the current stop opens a sheet with every stop and the next
+   case study. At the end of the page the "next case study" card repeats,
+   so it is reachable without opening anything.
+   Tokens: the site's own (DM Sans, stone/200 line, stone/800 ink, the
+   4px radius, the orange square dot from the page decoration).
+   ============================================================ */
+.topnav,
+.topnav-next {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  .has-side-nav {
+    --topnav-h: 56px;
+  }
+
+  .has-side-nav main {
+    margin-left: 0; /* case-study.css leaves room for its old 64px logo bar from 768px up; the top bar needs none */
+    padding-top: var(--topnav-h);
+  }
+
+  /* jumping to a slide lands it just under the bar */
+  .has-side-nav [id] {
+    scroll-margin-top: calc(var(--topnav-h) + 8px);
+  }
+
+  body.topnav-open {
+    overflow: hidden;
+  }
+
+  .topnav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: var(--topnav-h);
+    padding: 0 var(--page-pad);
+    background: rgba(255, 255, 255, 0.94);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: var(--border-thin) solid var(--stone-200);
+    font-family: var(--font-body);
+    color: var(--stone-800);
+  }
+
+  /* the logo is for tablet only (Figma 846:1629); the phone bar has none, the sheet's "Work" is the way out */
+  .topnav__logo {
+    flex: none;
+    display: none;
+    width: 32px;
+    height: 32px;
+    line-height: 0;
+  }
+
+  .topnav__logo img {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* the current stop; tapping it opens the sheet */
+  .topnav__current {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 16px;
+    line-height: 22.4px;
+    color: var(--stone-800);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .topnav__current-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .topnav__chevron {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 200ms ease;
+  }
+
+  .topnav__current[aria-expanded="true"] .topnav__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* TL;DR / Full (Figma 846:1653): 12px type on a phone, 14px on a tablet */
+  .topnav__version {
+    flex: none;
+    display: flex;
+    border: var(--border-thin) solid var(--stone-800);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .topnav__version button {
+    min-width: 56px;
+    padding: 4px 12px;
+    border: 0;
+    background: var(--color-bg);
+    font: inherit;
+    font-size: 12px;
+    line-height: 19.6px;
+    color: var(--stone-800);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .topnav__version button:first-child {
+    min-width: 0;
+  }
+
+  .topnav__version button[aria-pressed="true"] {
+    background: var(--stone-800);
+    color: #fff;
+  }
+
+  .topnav__current:focus-visible,
+  .topnav__version button:focus-visible,
+  .topnav__logo:focus-visible,
+  .topnav__sheet a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* how far through the case study you are */
+  .topnav__progress {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 2px;
+    background: var(--stone-800);
+    transform-origin: left center;
+    transform: scaleX(var(--topnav-progress, 0));
+  }
+
+  /* the sheet: every stop, and the next case study */
+  .topnav__sheet {
+    position: fixed;
+    top: var(--topnav-h);
+    left: 0;
+    right: 0;
+    z-index: 109;
+    max-height: calc(100vh - var(--topnav-h));
+    max-height: calc(100dvh - var(--topnav-h));
+    overflow-y: auto;
+    padding: 8px var(--page-pad) 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--color-bg);
+    border-bottom: var(--border-thin) solid var(--stone-200);
+    box-shadow: 0 16px 32px rgba(12, 10, 9, 0.08);
+    font-family: var(--font-body);
+    animation: topnav-sheet-in 200ms ease;
+  }
+
+  .topnav__sheet[hidden],
+  .topnav__scrim[hidden] {
+    display: none !important;
+  }
+
+  @keyframes topnav-sheet-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .topnav__scrim {
+    position: fixed;
+    top: var(--topnav-h);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 108;
+    background: rgba(12, 10, 9, 0.2);
+  }
+
+  .topnav__work,
+  .topnav__stops a,
+  .topnav__stops span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    font-size: 16px;
+    line-height: 22.4px;
+  }
+
+  .topnav__work {
+    color: var(--stone-800);
+  }
+
+  .topnav__work img {
+    width: 20px;
+    height: 20px;
+    transform: scaleX(-1); /* the arrow, pointing back */
+  }
+
+  .topnav__stops {
+    margin: 0;
+    padding: 4px 0 0;
+    list-style: none;
+  }
+
+  /* stop states (Figma 846:1628): linked stops grey, the current one dark and medium, unlinked ones faint */
+  .topnav__stops a {
+    color: var(--stone-400);
+  }
+
+  .topnav__stops a.is-current {
+    color: var(--stone-800);
+    font-weight: 500;
+  }
+
+  .topnav__stops span {
+    color: var(--stone-200);
+  }
+
+  /* the next case study: one bordered row at the foot of the sheet (Figma 858:2028) */
+  .topnav__next-wrap {
+    padding-top: 8px;
+    opacity: 0.8;
+  }
+
+  .topnav__next {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border: var(--border-thin) solid var(--stone-800);
+    border-radius: 4px;
+    color: var(--stone-800);
+  }
+
+  .topnav__next-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    line-height: 25.2px;
+    letter-spacing: -0.18px;
+  }
+
+  .topnav__next img {
+    flex: none;
+    width: 20px;
+    height: 20px;
+  }
+
+  /* the end of the page: the next case study as a coloured card (Figma 855:1984, 858:2037).
+     No hover needed: the colour and the picture are always there. */
+  .topnav-next {
+    display: block;
+    padding: 48px 0 0;
+    background: var(--color-bg);
+  }
+
+  /* a full-width band on every size: edge to edge, no margin around it */
+  .endcard {
+    --endcard-bg: #fff;
+    --endcard-ink: #292524;
+    position: relative;
+    display: block;
+    height: 144px;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--endcard-bg);
+    border: solid #292524;
+    border-width: var(--border-thin) 0;
+    border-radius: 0;
+    color: var(--endcard-ink);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 120ms ease;
+  }
+
+  .endcard:active {
+    transform: scale(0.98);
+  }
+
+  .endcard:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .endcard--alum { --endcard-bg: #bca7f6; }
+  .endcard--gwt { --endcard-bg: #eb7500; }
+  .endcard--hyperlocal { --endcard-bg: #f8cb46; }
+  .endcard--creek { --endcard-bg: #a3b3ff; }
+  .endcard--cellwars { --endcard-bg: #282329; --endcard-ink: #fff; }
+
+  .endcard__label,
+  .endcard__title {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: 0 16px;
+  }
+
+  .endcard__label {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 19.6px;
+  }
+
+  .endcard__title {
+    margin-top: 8px;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    line-height: 25.2px;
+    letter-spacing: -0.18px;
+  }
+
+  .endcard__arrow {
+    position: absolute;
+    z-index: 2;
+    right: 16px;
+    top: 82px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .endcard--cellwars .endcard__arrow {
+    filter: invert(1);
+  }
+
+  /* the pictures, placed as in Figma and anchored to the right so they stay by the arrow on narrow phones */
+  .endcard__stage {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .endcard__art {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .endcard__art > span {
+    position: relative;
+    flex: none;
+    display: block;
+  }
+
+  .endcard__art img {
+    position: absolute;
+    max-width: none;
+  }
+
+  /* cropped sources: the goose and the cake sit inside a clipped, tilted box */
+  .endcard--alum .endcard__art { right: 47.4px; top: 33px; width: 124.561px; height: 129.243px; }
+  .endcard--alum .endcard__art > span { width: 98.594px; height: 105.541px; overflow: hidden; transform: rotate(16.54deg); }
+  .endcard--alum .endcard__art img { width: 259.34%; height: 168.35%; left: -76.55%; top: -37.72%; }
+
+  .endcard--creek .endcard__art { right: 61.4px; top: 33px; width: 138.552px; height: 146.177px; }
+  .endcard--creek .endcard__art > span { width: 107.399px; height: 119.158px; overflow: hidden; transform: rotate(-17.71deg); }
+  .endcard--creek .endcard__art img { width: 134.67%; height: 263.16%; left: -14.6%; top: -46.55%; }
+
+  /* whole pictures */
+  .endcard--gwt .endcard__art { right: -1.4px; top: -43px; width: 254.416px; height: 304.87px; }
+  .endcard--gwt .endcard__art > span { width: 192.652px; height: 264.004px; transform: rotate(-15deg); }
+
+  .endcard--hyperlocal .endcard__art { right: 22px; top: -8px; width: 173px; height: 237px; }
+  .endcard--hyperlocal .endcard__art > span { width: 100%; height: 100%; }
+
+  .endcard--cellwars .endcard__art { right: 39px; top: 44px; width: 197px; height: 139px; }
+  .endcard--cellwars .endcard__art > span { width: 100%; height: 100%; }
+
+  .endcard--gwt .endcard__art img,
+  .endcard--hyperlocal .endcard__art img,
+  .endcard--cellwars .endcard__art img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* a wide phone or small tablet (520 to 767px): a 358px card would float in empty space, so the
+   next case study is already a full-width band here, a size down from the tablet one */
+@media (min-width: 520px) and (max-width: 767px) {
+  .topnav-next {
+    padding: 56px 0 0;
+  }
+
+  .endcard {
+    height: 176px;
+    max-width: none;
+    margin: 0;
+    border-width: var(--border-thin) 0;
+    border-radius: 0;
+  }
+
+  .endcard__label,
+  .endcard__title {
+    margin-left: var(--page-pad);
+    margin-right: var(--page-pad);
+  }
+
+  .endcard__label {
+    margin-top: 32px;
+  }
+
+  .endcard__title {
+    margin-top: 10px;
+    max-width: 45%;
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.24px;
+  }
+
+  .endcard__arrow {
+    right: var(--page-pad);
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    margin-top: -18px;
+  }
+
+  .endcard__stage {
+    inset: auto;
+    right: 72px;
+    bottom: 0;
+    width: 358px;
+    height: 144px;
+    transform: scale(1.22);
+    transform-origin: 100% 100%;
+  }
+}
+
+/* tablet: the bar is a little taller and the sheet is a panel under the stop, not full width */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .has-side-nav {
+    --topnav-h: 64px;
+  }
+
+  .topnav {
+    gap: 16px;
+  }
+
+  .topnav__logo {
+    display: block;
+  }
+
+  .topnav__current {
+    gap: 6px;
+  }
+
+  /* the end of the page on a tablet: the next case study as a full-width coloured band.
+     Words on the left; the picture, scaled up from its phone frame, and the arrow on the right. */
+  .topnav-next {
+    padding: 64px 0 0;
+  }
+
+  .endcard {
+    height: 200px;
+    max-width: none;
+    margin: 0;
+    border-width: var(--border-thin) 0;
+    border-radius: 0;
+  }
+
+  .endcard__label,
+  .endcard__title {
+    margin-left: var(--page-pad);
+    margin-right: var(--page-pad);
+  }
+
+  .endcard__label {
+    margin-top: 40px;
+    font-size: 16px;
+    line-height: 22.4px;
+  }
+
+  .endcard__title {
+    margin-top: 12px;
+    max-width: 50%;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.32px;
+  }
+
+  .endcard__arrow {
+    right: var(--page-pad);
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+  }
+
+  .endcard__stage {
+    inset: auto;
+    right: 88px;
+    bottom: 0;
+    width: 358px;
+    height: 144px;
+    transform: scale(1.39);
+    transform-origin: 100% 100%;
+  }
+
+  .topnav__version button {
+    min-width: 69px;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 19.6px;
+  }
+
+  .topnav__version button:first-child {
+    min-width: 0;
+  }
+
+  .topnav__sheet {
+    left: var(--page-pad);
+    right: auto;
+    width: 360px;
+    max-width: calc(100vw - 2 * var(--page-pad));
+    top: calc(var(--topnav-h) + 4px);
+    max-height: calc(100vh - var(--topnav-h) - 16px);
+    max-height: calc(100dvh - var(--topnav-h) - 16px);
+    border: var(--border-thin) solid var(--stone-200);
+    border-radius: 4px;
+    padding: 8px 24px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topnav__chevron { transition: none; }
+  .topnav__sheet { animation: none; }
 }
