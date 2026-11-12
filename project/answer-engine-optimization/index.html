@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../css/case-study.css?v=2" />
     <link rel="stylesheet" href="../../css/side-nav.css?v=2" />
     <link rel="stylesheet" href="../../css/aeo-widgets.css?v=6" />
+    <link rel="stylesheet" href="../../css/aeo-where.css?v=5" />
   </head>
   <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
@@ -106,9 +107,100 @@
       <div class="anchor-host" id="research">
         <img width="3333" height="16383" src="../../assets/case-studies/aeo/3.webp" alt="Answer Engine Optimization case study image 3" loading="lazy" />
       </div>
-      <div class="anchor-host" id="aeo-score">
-        <span class="anchor" id="competitor-comparison" style="--y: 56.99%"></span>
-        <img width="3428" height="16383" src="../../assets/case-studies/aeo/4.webp" alt="Answer Engine Optimization case study image 4" loading="lazy" />
+      <!-- 4 is cut in two around the live "Where I started" section -->
+      <img id="aeo-score" width="3840" height="2054" src="../../assets/case-studies/aeo/4a.webp" alt="Answer Engine Optimization case study image 4" loading="lazy" />
+      <!-- "Where I started": hover the marked areas of the dashboard to see each issue. Figma: AEO-Compilation 721:8591. css/aeo-where.css, js/aeo-where.js -->
+      <section class="where" data-where aria-labelledby="where-title">
+        <div class="where__slide">
+          <h2 class="where__title" id="where-title">Where I started</h2>
+          <p class="where__intro">I first wanted to understand <strong>why the score felt like a black box</strong>. A heuristic evaluation would have found polish issues, but not that. So I checked the page against the questions a marketer comes with.</p>
+          <p class="where__note">Derived from the marketer's jobs to be done, narrowed to what a dashboard can answer.</p>
+
+          <div class="where__band"></div>
+
+          <p class="where__hint"><span data-where-hint>Hover to see</span></p>
+
+          <div class="where__legend" aria-label="Key: how well the old dashboard answered each question">
+            <span class="where__legend-line" aria-hidden="true"></span>
+            <span class="where__legend-item"><i class="where__dot where__dot--missing"></i>Missing</span>
+            <span class="where__legend-item"><i class="where__dot where__dot--partial"></i>Partial</span>
+            <span class="where__legend-item"><i class="where__dot where__dot--covered"></i>Covered</span>
+          </div>
+
+          <div class="where__stage" data-where-stage>
+            <div class="where__shot">
+              <img src="../../assets/images/aeo-where/screenshot.webp" width="3420" height="2224" alt="The old AEO dashboard for Descope for B2B: the AEO visibility score, brand mentions, queries tracked and mention rate, a visibility trend chart, competitor comparison, engine breakdown and top citations." loading="lazy" />
+            </div>
+            <span class="where__mask" aria-hidden="true"></span>
+
+            <!-- the marked areas (mouse only; the numbered badges are the keyboard way in) -->
+            <div class="where__area where__area--missing" data-area="score" data-primary="2" style="--x:262.5;--y:174.5;--w:288;--h:108;--c:202 53 0" aria-hidden="true"></div>
+            <div class="where__area where__area--note" data-area="kpis" style="--x:562.5;--y:174.5;--w:893;--h:108;--c:113 113 123" aria-hidden="true"></div>
+            <div class="where__area" data-area="trend" data-primary="4" style="--x:261.5;--y:303.5;--w:1195;--h:263;--c:255 137 4" aria-hidden="true"></div>
+            <div class="where__area" data-area="comp" data-primary="5" style="--x:261.5;--y:588.5;--w:588;--h:134;--c:255 137 4" aria-hidden="true"></div>
+            <div class="where__area where__area--dashed" data-area="engine" data-primary="3" style="--x:868.5;--y:587.5;--w:586;--h:135;--c:255 137 4" aria-hidden="true"></div>
+            <div class="where__area where__area--covered" data-area="cites" data-primary="6" style="--x:261.5;--y:740.5;--w:1195;--h:190;--c:255 184 106" aria-hidden="true"></div>
+            <div class="where__area where__area--note" data-area="industry" style="--x:268.5;--y:250.5;--w:100;--h:22;--c:113 113 123" aria-hidden="true"></div>
+
+            <!-- numbered badges -->
+            <button type="button" class="where__badge where__badge--partial" data-id="1" data-area="score" style="--x:521.5;--y:164.5" aria-describedby="where-card-1" aria-label="Issue 1: Am I visible? Partial.">1</button>
+            <button type="button" class="where__badge where__badge--missing" data-id="2" data-area="score" style="--x:521.5;--y:251.5" aria-describedby="where-card-2" aria-label="Issue 2: What's driving my visibility? Missing.">2</button>
+            <button type="button" class="where__badge where__badge--partial" data-id="3" data-area="engine" style="--x:1429.5;--y:696.5" aria-describedby="where-card-3" aria-label="Issue 3: How often does each engine mention me? Partial.">3</button>
+            <button type="button" class="where__badge where__badge--partial" data-id="4" data-area="trend" style="--x:1424.5;--y:290.5" aria-describedby="where-card-4" aria-label="Issue 4: Am I improving over time? Partial.">4</button>
+            <button type="button" class="where__badge where__badge--partial" data-id="5" data-area="comp" style="--x:244.5;--y:581.5" aria-describedby="where-card-5" aria-label="Issue 5: Why are competitors ahead of me? Partial.">5</button>
+            <button type="button" class="where__badge where__badge--covered" data-id="6" data-area="cites" style="--x:1429.5;--y:882.5" aria-describedby="where-card-6" aria-label="Issue 6: Where exactly am I being cited? Covered.">6</button>
+            <span class="where__badge where__badge--note" style="--x:1424.5;--y:164.5" aria-hidden="true">A</span>
+            <span class="where__badge where__badge--note" style="--x:358.5;--y:243.5" aria-hidden="true">B</span>
+
+            <!-- the issue cards: shown next to the area, on hover / focus / tap -->
+            <div class="where__card where__card--missing" id="where-card-2" data-card="2" style="--x:570.5;--y:228.5" role="note">
+              <span class="where__card-badge">2</span>
+              <div class="where__card-text"><p class="where__card-title">What's driving my visibility?</p><p class="where__card-body">The breakdown was calculated but never shown.</p></div>
+              <span class="where__pill">Missing</span>
+            </div>
+            <div class="where__card where__card--partial" id="where-card-1" data-card="1" style="--x:570.5;--y:164.5;--bw:385" role="note">
+              <span class="where__card-badge">1</span>
+              <div class="where__card-text"><p class="where__card-title">Am I visible?</p><p class="where__card-body">The score had no scale. The marketer couldn't tell if it was good.</p></div>
+              <span class="where__pill">Partial</span>
+            </div>
+            <div class="where__card where__card--partial" id="where-card-3" data-card="3" style="--x:876;--b:356;--bw:478" role="note">
+              <span class="where__card-badge">3</span>
+              <div class="where__card-text"><p class="where__card-title">How often does each engine mention me?</p><p class="where__card-body">The numbers were split across the page. The marketer had to join them up.</p></div>
+              <span class="where__pill">Partial</span>
+            </div>
+            <div class="where__card where__card--partial" id="where-card-4" data-card="4" style="--x:878;--b:640" role="note">
+              <span class="where__card-badge">4</span>
+              <div class="where__card-text"><p class="where__card-title">Am I improving over time?</p><p class="where__card-body">It showed the score going up or down, but not why.</p></div>
+              <span class="where__pill">Partial</span>
+            </div>
+            <div class="where__card where__card--partial" id="where-card-5" data-card="5" style="--x:868;--y:588.5" role="note">
+              <span class="where__card-badge">5</span>
+              <div class="where__card-text"><p class="where__card-title">Why are competitors ahead of me?</p><p class="where__card-body">Just a list of scores. Nothing on why rivals were ahead.</p></div>
+              <span class="where__pill">Partial</span>
+            </div>
+            <div class="where__card where__card--covered" id="where-card-6" data-card="6" style="--x:876;--b:203" role="note">
+              <span class="where__card-badge">6</span>
+              <div class="where__card-text"><p class="where__card-title">Where exactly am I being cited?</p><p class="where__card-body">Top Citations listed the exact pages being cited.</p></div>
+              <span class="where__pill">Covered</span>
+            </div>
+          </div>
+
+          <p class="where__more">Two more problems came from the screen itself.</p>
+          <div class="where__extra" style="--x:970">
+            <span class="where__extra-badge">A</span>
+            <p class="where__extra-title">Three cards, one equation</p>
+            <p class="where__extra-body">Mentions, questions tracked and mention rate looked like separate facts, but they were one sum (117 ÷(135*3) = 29%). The maths was invisible.</p>
+          </div>
+          <div class="where__extra" style="--x:1419">
+            <span class="where__extra-badge">B</span>
+            <p class="where__extra-title">The benchmark was buried</p>
+            <p class="where__extra-body">The industry average sat in tiny grey text under the score, even though it's what gives the score meaning.</p>
+          </div>
+        </div>
+      </section>
+      <div class="anchor-host">
+        <span class="anchor" id="competitor-comparison" style="--y: 39.31%"></span>
+        <img width="3840" height="13006" src="../../assets/case-studies/aeo/4b.webp" alt="" loading="lazy" />
       </div>
       <!-- 5 is split in two: the export was too tall for WebP (16383px max) -->
       <div class="anchor-host" id="content-optimizer">
@@ -372,5 +464,6 @@
     <script src="../../js/before-after.js"></script>
     <script src="../../js/side-nav.js?v=2"></script>
     <script src="../../js/aeo-widgets.js?v=4"></script>
+    <script src="../../js/aeo-where.js?v=2"></script>
   </body>
 </html>

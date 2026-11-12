@@ -1,0 +1,428 @@
+/* ============================================================
+   AEO case study: "Where I started"
+   Hover (or focus / tap) a marked area of the old dashboard to see the
+   issue it raised (js/aeo-where.js). Figma: AEO-Compilation, frame 721:8591.
+
+   Scales with the page like the case study images around it: --u is one
+   Figma pixel of the 1920px-wide slide, so lengths are calc(N * var(--u)).
+   ============================================================ */
+
+.where {
+  container-type: inline-size;
+
+  --wh-zinc-50: #fafafa;
+  --wh-zinc-100: #f4f4f5;
+  --wh-zinc-500: #71717b;
+  --wh-zinc-600: #52525c;
+  --wh-zinc-700: #3f3f47;
+  --wh-zinc-800: #27272a;
+  --wh-zinc-900: #18181b;
+  --wh-orange-50: #fff7ed;
+  --wh-orange-200: #ffd6a8;
+  --wh-orange-300: #ffb86a;
+  --wh-orange-400: #ff8904;
+  --wh-orange-500: #ff6900;
+  --wh-orange-700: #ca3500;
+
+  /* Figma uses SF Pro (the system font on Apple devices) and Lora */
+  --wh-sf: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --wh-lora: 'Lora', Georgia, serif;
+  --wh-ease: 160ms ease;
+}
+
+.where *,
+.where *::before,
+.where *::after {
+  box-sizing: border-box;
+}
+
+:where(.where) :where(p, h2) {
+  margin: 0;
+  padding: 0;
+}
+
+.where__slide {
+  --u: calc(100cqw / 1920);
+  position: relative;
+  height: calc(1646 * var(--u));
+  overflow: hidden;
+  background: #fff;
+  font-family: var(--wh-sf);
+  font-weight: 400;
+  /* SF Pro's "normal" line height is about 1.19. Fixed here so other system
+     fonts (Segoe UI, Roboto) don't make the text, and the cards, taller. */
+  line-height: 1.19;
+  letter-spacing: 0;
+}
+
+/* ── Heading row ── */
+.where__title {
+  position: absolute;
+  left: calc(72 * var(--u));
+  top: 0;
+  font-family: var(--wh-lora);
+  font-weight: 500;
+  font-size: calc(48 * var(--u));
+  color: var(--wh-zinc-800);
+  white-space: nowrap;
+}
+
+.where__intro {
+  position: absolute;
+  left: calc(821 * var(--u));
+  top: 0;
+  width: calc(578 * var(--u));
+  font-size: calc(24 * var(--u));
+  color: var(--wh-zinc-500);
+}
+
+.where__intro strong {
+  font-weight: 700;
+  color: var(--wh-zinc-900);
+}
+
+.where__note {
+  position: absolute;
+  left: calc(1418.5 * var(--u));
+  top: 0;
+  width: calc(340 * var(--u));
+  font-size: calc(16 * var(--u));
+  color: var(--wh-zinc-600);
+}
+
+.where__band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(200 * var(--u));
+  height: calc(1127 * var(--u));
+  background: var(--wh-zinc-50);
+}
+
+.where__hint {
+  position: absolute;
+  left: calc(222 * var(--u));
+  top: calc(275 * var(--u));
+  font-size: calc(15 * var(--u));
+  color: var(--wh-zinc-500);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── Key: Missing > Partial > Covered ── */
+.where__legend {
+  position: absolute;
+  left: calc(1419 * var(--u));
+  top: calc(235 * var(--u));
+  display: flex;
+  gap: calc(54 * var(--u));
+  width: calc(321 * var(--u));
+  height: calc(58 * var(--u));
+}
+
+.where__legend-line {
+  position: absolute;
+  left: calc(24 * var(--u));
+  top: calc(11 * var(--u));
+  width: calc(272 * var(--u));
+  height: calc(4 * var(--u));
+  background: url('../assets/images/aeo-where/legend-line.svg') 0 0 / 100% 100% no-repeat;
+  transform: scaleX(-1); /* missing on the left, covered on the right */
+}
+
+.where__legend-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(16 * var(--u));
+  width: calc(71 * var(--u));
+  font-size: calc(15 * var(--u));
+  color: var(--wh-zinc-500);
+  text-transform: uppercase;
+}
+
+.where__dot {
+  display: block;
+  width: calc(24 * var(--u));
+  height: calc(24 * var(--u));
+  background-position: 0 0;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.where__dot--missing { background-image: url('../assets/images/aeo-where/dot-missing.svg'); }
+.where__dot--partial { background-image: url('../assets/images/aeo-where/dot-partial.svg'); }
+.where__dot--covered { background-image: url('../assets/images/aeo-where/dot-covered.svg'); }
+
+/* ── The dashboard screenshot and what sits on it ── */
+.where__stage {
+  position: absolute;
+  left: calc(221.5 * var(--u));
+  top: calc(309 * var(--u));
+  width: calc(1476 * var(--u));
+  height: calc(931 * var(--u));
+  overflow: hidden;
+  border: calc(0.5 * var(--u)) solid #000;
+  border-radius: calc(12 * var(--u));
+  background: #fff;
+}
+
+.where__shot {
+  position: absolute;
+  left: calc(-0.5 * var(--u));
+  top: calc(-0.5 * var(--u));
+  width: calc(1476 * var(--u));
+  height: calc(931 * var(--u));
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.where__shot img {
+  position: absolute;
+  left: 0;
+  top: -3.01%;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 103.01%;
+}
+
+/* hides the page address in the screenshot */
+.where__mask {
+  position: absolute;
+  left: calc(280.5 * var(--u));
+  top: calc(11.5 * var(--u));
+  width: calc(467 * var(--u));
+  height: calc(23 * var(--u));
+  background: #1f2020;
+  pointer-events: none;
+}
+
+/* The marked areas. At rest they're a faint outline; the one being looked
+   at gets its full colour, a light tint and a thin ring. The screenshot
+   itself never changes, so nothing flickers as the pointer moves around. */
+.where__area {
+  position: absolute;
+  z-index: 1;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  border: calc(2 * var(--u)) solid rgb(var(--c) / 0.45);
+  border-radius: calc(16 * var(--u));
+  background: rgb(var(--c) / 0.03);
+  cursor: pointer;
+  transition: border-color var(--wh-ease), background-color var(--wh-ease), box-shadow 220ms ease;
+}
+
+.where__area--dashed { border-style: dashed; }
+/* A and B only point at the two "from the screen itself" cards below the
+   screenshot: no hover, no cursor change */
+.where__area--note { background: none; pointer-events: none; cursor: default; }
+
+.where__area.is-active {
+  z-index: 2;
+  border-color: rgb(var(--c));
+  background: rgb(var(--c) / 0.09);
+  /* a thin extra ring instead of a thicker border, so nothing shifts */
+  box-shadow: 0 0 0 calc(2 * var(--u)) rgb(var(--c) / 0.35);
+}
+
+/* ── Numbered badges ── */
+.where__badge {
+  position: absolute;
+  z-index: 3;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  font: inherit;
+  font-size: calc(16 * var(--u));
+  line-height: 1;
+  cursor: pointer;
+  transition: transform var(--wh-ease), box-shadow var(--wh-ease);
+}
+
+.where__badge--partial { background: var(--wh-orange-400); color: #000; }
+.where__badge--missing { background: var(--wh-orange-700); color: var(--wh-orange-50); }
+.where__badge--covered { background: #ffedd4; border-color: var(--wh-orange-300); color: #000; }
+.where__badge--note { background: var(--wh-zinc-500); border-color: var(--wh-zinc-500); color: var(--wh-zinc-50); pointer-events: none; cursor: default; }
+
+.where__badge.is-active {
+  transform: scale(1.14);
+  box-shadow: 0 calc(3 * var(--u)) calc(10 * var(--u)) rgba(24, 24, 27, 0.25);
+}
+
+.where__badge:focus-visible {
+  outline: 2px solid var(--wh-zinc-900);
+  outline-offset: 2px;
+}
+
+/* the intro: each badge pulses once, one after another */
+.where__badge.is-pulse {
+  animation: where-pulse 900ms ease-out;
+}
+
+@keyframes where-pulse {
+  0%   { transform: scale(1); box-shadow: 0 0 0 0 rgb(255 137 4 / 0.55); }
+  35%  { transform: scale(1.2); }
+  100% { transform: scale(1); box-shadow: 0 0 0 calc(16 * var(--u)) rgb(255 137 4 / 0); }
+}
+
+/* ── Issue cards ── */
+.where__card {
+  position: absolute;
+  z-index: 5;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  bottom: calc(var(--b) * var(--u));
+  /* Figma (723:8765): 578 wide, 24 padding, badge + 16 gap + text. The title
+     wraps at 357, but the line under it uses the full width, and the pill
+     sits beside the title. That's what makes every card 160 or 198 tall. */
+  display: grid;
+  grid-template-columns: calc(36 * var(--u)) minmax(0, 1fr);
+  column-gap: calc(16 * var(--u));
+  align-items: start;
+  width: calc(578 * var(--u));
+  padding: calc(24 * var(--u));
+  border: 1px solid var(--wh-zinc-500);
+  border-radius: calc(16 * var(--u));
+  background: var(--wh-zinc-50);
+  box-shadow: calc(5 * var(--u)) calc(2 * var(--u)) calc(18.25 * var(--u)) rgb(24 24 27 / 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(6 * var(--u)));
+  pointer-events: none; /* never blocks the areas underneath, so nothing feels sticky */
+  transition: opacity var(--wh-ease), transform var(--wh-ease), visibility 0s linear 160ms;
+}
+
+.where__card.is-on {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity var(--wh-ease), transform var(--wh-ease), visibility 0s;
+}
+
+.where__card-badge {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+  border-radius: 50%;
+  font-size: calc(16 * var(--u));
+  line-height: 1;
+}
+
+.where__card-text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(16 * var(--u));
+  min-width: 0;
+}
+
+.where__card-title {
+  max-width: calc(357 * var(--u));
+  font-size: calc(32 * var(--u));
+  color: var(--wh-zinc-900);
+}
+
+/* Figma sets the text width per card: 357 by default, 385 on card 1, 478 on card 3 */
+.where__card-body {
+  max-width: calc(var(--bw, 357) * var(--u));
+  font-size: calc(24 * var(--u));
+  color: var(--wh-zinc-700);
+}
+
+.where__pill {
+  position: absolute;
+  top: calc(24 * var(--u));
+  right: calc(24 * var(--u));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(32 * var(--u));
+  padding: 0 calc(12 * var(--u));
+  border-radius: 999px;
+  font-size: calc(15 * var(--u));
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.where__card--missing .where__card-badge { background: var(--wh-orange-700); color: var(--wh-orange-50); }
+.where__card--missing .where__pill { background: var(--wh-orange-700); color: #fff; }
+.where__card--partial .where__card-badge,
+.where__card--partial .where__pill { background: var(--wh-orange-400); color: var(--wh-zinc-900); }
+.where__card--covered .where__card-badge,
+.where__card--covered .where__pill { background: var(--wh-orange-200); color: var(--wh-zinc-900); }
+
+/* ── The two extra problems under the screenshot ── */
+.where__more {
+  position: absolute;
+  left: calc(72 * var(--u));
+  top: calc(1392 * var(--u));
+  width: calc(654 * var(--u));
+  font-size: calc(32 * var(--u));
+  color: var(--wh-zinc-600);
+}
+
+.where__extra {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(1392 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--u));
+  width: calc(429 * var(--u));
+  min-height: calc(254 * var(--u));
+  padding: calc(24 * var(--u));
+  border-radius: calc(16 * var(--u));
+  background: var(--wh-zinc-100);
+}
+
+.where__extra-badge {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(48 * var(--u));
+  height: calc(48 * var(--u));
+  border-radius: 999px;
+  background: var(--wh-zinc-500);
+  font-size: calc(16 * var(--u));
+  line-height: 1;
+  color: #fff;
+}
+
+.where__extra-title {
+  font-size: calc(32 * var(--u));
+  color: var(--wh-orange-500);
+}
+
+.where__extra-body {
+  margin-top: calc(-8 * var(--u)); /* 8px gap under the title, not 16 */
+  font-size: calc(20 * var(--u));
+  color: var(--wh-zinc-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .where__area,
+  .where__badge,
+  .where__card {
+    transition: none !important;
+  }
+
+  .where__badge.is-pulse {
+    animation: none;
+  }
+}
