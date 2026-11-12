@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../../css/aeo-widgets.css?v=6" />
     <link rel="stylesheet" href="../../css/aeo-where.css?v=5" />
     <link rel="stylesheet" href="../../css/aeo-lit.css?v=3" />
+    <link rel="stylesheet" href="../../css/aeo-structure.css?v=1" />
   </head>
   <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
@@ -253,9 +254,67 @@
         <img width="3840" height="13006" src="../../assets/case-studies/aeo/4b.webp" alt="" loading="lazy" />
       </div>
       <!-- 5 is split in two: the export was too tall for WebP (16383px max) -->
+      <!-- 5a is cut around the live "How I landed on this structure" accordion (Figma: AEO-Compilation 716:8108. css/aeo-structure.css, js/aeo-lit.js) -->
       <div class="anchor-host" id="content-optimizer">
-        <span class="anchor" id="onboarding" style="--y: 87.62%"></span>
-        <img width="2876" height="16383" src="../../assets/case-studies/aeo/5a.webp" alt="Answer Engine Optimization case study image 5" loading="lazy" />
+        <img width="2876" height="5750" src="../../assets/case-studies/aeo/5a1.webp" alt="Answer Engine Optimization case study image 5" loading="lazy" />
+      </div>
+      <section class="lit lit--structure" data-lit aria-label="How I landed on this structure">
+        <div class="lit__slide">
+          <div class="lit__card">
+            <button type="button" class="lit__head" data-lit-toggle aria-expanded="false" aria-controls="structure-body">
+              <span class="lit__title">How I landed on this structure</span>
+              <img class="lit__arrow" src="../../assets/images/aeo-structure/arrow.svg" alt="" width="42" height="42" />
+            </button>
+            <div class="lit__body" id="structure-body" data-lit-body>
+              <div class="lit__clip">
+                <div class="lit__stage">
+                  <div class="st__abs st__shot" aria-hidden="true">
+                    <div class="st__shot-clip"><img src="../../assets/images/aeo-structure/diff.webp" alt="" loading="lazy" /></div>
+                  </div>
+
+                  <div class="st__abs st__showstopper">
+                    <p class="st__eyebrow">Showstopper</p>
+                    <p>The side-by-side diff was Evolve's showpiece.</p>
+                  </div>
+                  <div class="st__abs st__copy">
+                    <p>It kept what the page meant and <strong>only changed how it was said</strong> (tighter phrasing, clearer structure, FAQs section etc.), so AI engines could read it easily.</p>
+                    <p>It also showed the rewrite in the brand’s own design, so a marketer could see exactly how the new page would look.</p>
+                  </div>
+                  <p class="st__abs st__center">In demo calls, it was the moment clients lit up, so two of my first three layouts were built around it.</p>
+
+                  <p class="st__abs st__label" style="--x:25;--y:1133.84">A. Diff Aggressive</p>
+                  <p class="st__abs st__label" style="--x:607.1;--y:1133.84">B. Results Page First</p>
+                  <p class="st__abs st__label" style="--x:1188.1;--y:1133.84">C. Hybrid</p>
+
+                  <div class="st__abs st__mock st__mock--a" aria-hidden="true">
+                    <div class="st__row"><span class="st__box"></span><span class="st__box st__box--dark"></span></div>
+                  </div>
+                  <div class="st__abs st__mock st__mock--b" aria-hidden="true">
+                    <span class="st__bar st__bar--tall"></span>
+                    <span class="st__line"></span>
+                    <span class="st__line"></span>
+                    <span class="st__line st__line--fill"></span>
+                  </div>
+                  <div class="st__abs st__mock st__mock--c" aria-hidden="true">
+                    <span class="st__bar st__bar--strip"></span>
+                    <div class="st__row"><span class="st__box"></span><span class="st__box st__box--dark"></span></div>
+                  </div>
+
+                  <p class="st__abs st__caption st__caption--a">The diff is the centre of gravity: review changes side by side first.</p>
+                  <p class="st__abs st__caption st__caption--b">Score and change → actions → diagnostics → inputs. The diff is one click away.</p>
+                  <p class="st__abs st__caption st__caption--c">A persistent score strip with an embedded diff preview, the full diff one click away.</p>
+
+                  <span class="st__abs st__dash" aria-hidden="true"><img src="../../assets/images/aeo-structure/dash.svg" alt="" /></span>
+                  <p class="st__abs st__verdict">Clients loved the diff in demo calls, but in practice, they rarely used it. The real work happened on the results page.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="anchor-host">
+        <span class="anchor" id="onboarding" style="--y: 80.28%"></span>
+        <img width="2876" height="10283" src="../../assets/case-studies/aeo/5a2.webp" alt="" loading="lazy" />
       </div>
       <div class="anchor-host">
         <span class="anchor" id="managing-questions" style="--y: 53.38%"></span>

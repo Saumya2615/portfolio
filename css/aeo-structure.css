@@ -1,0 +1,228 @@
+/* ============================================================
+   AEO case study: "How I landed on this structure" accordion
+   Same accordion as the Literature review (css/aeo-lit.css, js/aeo-lit.js),
+   with its own bar size and its own contents.
+   Figma: AEO-Compilation, node 716:8108. 1 Figma px = var(--u).
+   Collapsed, the section is exactly as tall as the image slice it replaced.
+   ============================================================ */
+
+.lit--structure .lit__slide {
+  /* 350px of the 2876px-wide image = 233.65 Figma px: 68.1 above the bar,
+     the 106px bar, then the rest */
+  padding: calc(68.1 * var(--u)) 0 calc(59.55 * var(--u)) calc(72 * var(--u));
+}
+
+.lit--structure .lit__head {
+  height: calc(106 * var(--u));
+  align-items: center;
+}
+
+.lit--structure .lit__title {
+  font-size: calc(32 * var(--u));
+  color: var(--lit-zinc-900);
+}
+
+.lit.lit--structure .lit__arrow {
+  width: calc(42 * var(--u));
+  height: calc(42 * var(--u));
+}
+
+/* a hairline around the open card (the bar covers it at the top) */
+.lit--structure .lit__card {
+  box-shadow: inset 0 0 0 calc(1 * var(--u)) var(--lit-zinc-200);
+}
+
+/* 2223 Figma frame - 106 bar */
+.lit--structure .lit__stage {
+  height: calc(2117 * var(--u));
+}
+
+/* ── Positioned pieces: --x / --y are in Figma px from the stage's top left ── */
+.st__abs {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+}
+
+.st__shot {
+  --x: 748.07;
+  --y: 142;
+  width: calc(878 * var(--u));
+  height: calc(545 * var(--u));
+  border: calc(1 * var(--u)) solid #d4d4d8;
+  border-radius: calc(8 * var(--u));
+}
+
+.st__shot-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: calc(8 * var(--u));
+  pointer-events: none;
+}
+
+.lit .st__shot-clip img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  width: 103.42%;
+  height: 108.35%;
+  left: -3.42%;
+  top: -8.35%;
+}
+
+.st__showstopper {
+  --x: 150;
+  --y: 242;
+  width: calc(473 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(9 * var(--u));
+  font-size: calc(24 * var(--u));
+  color: var(--lit-zinc-600);
+}
+
+.st__eyebrow {
+  font-size: calc(15 * var(--u));
+  color: #f54900;
+  text-transform: uppercase;
+}
+
+.st__copy {
+  --x: 150;
+  --y: 363;
+  width: calc(429 * var(--u));
+  font-size: calc(24 * var(--u));
+  color: var(--lit-zinc-600);
+}
+
+.st__copy p + p {
+  margin-top: calc(24 * 1.19 * var(--u));
+}
+
+.st__copy strong {
+  font-weight: 700;
+  color: #09090b;
+}
+
+.st__center {
+  --x: 599;
+  --y: 878;
+  width: calc(578 * var(--u));
+  font-size: calc(24 * var(--u));
+  color: var(--lit-zinc-600);
+  text-align: center;
+}
+
+.st__label,
+.st__caption {
+  font-size: calc(15 * var(--u));
+  color: var(--lit-zinc-600);
+  text-transform: uppercase;
+}
+
+.st__label {
+  width: calc(198.486 * var(--u));
+}
+
+.st__dash {
+  --x: 877.6;
+  --y: 1573;
+  width: calc(1 * var(--u));
+  height: calc(682 * var(--u));
+}
+
+.lit .st__dash img {
+  display: block;
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+.st__verdict {
+  --x: 918.9;
+  --y: 1771;
+  width: calc(578 * var(--u));
+  font-size: calc(32 * var(--u));
+  color: var(--lit-zinc-900);
+}
+
+/* ── The three layout sketches ── */
+.st__mock {
+  --y: 1164.97;
+  display: flex;
+  flex-direction: column;
+  gap: calc(15.364 * var(--u));
+  height: calc(332.889 * var(--u));
+  padding: calc(30.728 * var(--u));
+  overflow: hidden;
+  border: calc(1.921 * var(--u)) solid #9f9fa9;
+  border-radius: calc(20.486 * var(--u));
+  background: #f4f4f5;
+}
+
+.st__mock--a { --x: 25; width: calc(563.351 * var(--u)); }
+.st__mock--b {
+  --x: 607.3;
+  width: calc(562.378 * var(--u));
+  height: calc(332.314 * var(--u));
+  border-color: #ffd6a8;
+  background: #fff7ed;
+}
+.st__mock--c { --x: 1188.4; width: calc(563.351 * var(--u)); }
+
+.st__row {
+  display: flex;
+  flex: 1 0 0;
+  gap: calc(17.925 * var(--u));
+  min-height: 0;
+  overflow: hidden;
+}
+
+.st__box {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 100%;
+  border: calc(2.561 * var(--u)) solid #d4d4d8;
+  border-radius: calc(12.803 * var(--u));
+  background: #e4e4e7;
+}
+
+.st__box--dark {
+  border-color: #9f9fa9;
+  background: #d4d4d8;
+}
+
+.st__bar {
+  flex: none;
+  border: calc(2.561 * var(--u)) solid #ff8904;
+  border-radius: calc(12.803 * var(--u));
+  background: #ffd6a8;
+}
+
+.st__bar--tall { height: calc(61.35 * var(--u)); }
+.st__bar--strip { height: calc(56.335 * var(--u)); }
+
+.st__line {
+  flex: none;
+  height: calc(43.457 * var(--u));
+  border: calc(2.556 * var(--u)) solid #ffd6a8;
+  border-radius: calc(12.781 * var(--u));
+  background: #ffedd4;
+}
+
+.st__line--fill {
+  flex: 1 0 0;
+  height: auto;
+  min-height: 0;
+  border-style: dashed;
+}
+
+.st__caption {
+  --y: 1519;
+  line-height: 1.19;
+}
+
+.st__caption--a { --x: 25; width: calc(501 * var(--u)); }
+.st__caption--b { --x: 607.3; width: calc(525 * var(--u)); }
+.st__caption--c { --x: 1188.7; width: calc(507 * var(--u)); }
