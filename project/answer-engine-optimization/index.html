@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../../css/nav.css" />
     <link rel="stylesheet" href="../../css/case-study.css?v=2" />
     <link rel="stylesheet" href="../../css/side-nav.css?v=2" />
+    <link rel="stylesheet" href="../../css/aeo-widgets.css?v=6" />
   </head>
   <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
@@ -119,15 +120,257 @@
         <img width="2876" height="16383" src="../../assets/case-studies/aeo/5b.webp" alt="" loading="lazy" />
       </div>
       <div class="anchor-host">
-        <span class="anchor" id="product-vocabulary" style="--y: 8.57%"></span>
-        <span class="anchor" id="information-architecture" style="--y: 20.27%"></span>
-        <span class="anchor" id="north-star" style="--y: 68.8%"></span>
-        <img width="3214" height="16383" src="../../assets/case-studies/aeo/6.webp" alt="Answer Engine Optimization case study image 6" loading="lazy" />
+        <span class="anchor" id="product-vocabulary" style="--y: 10.31%"></span>
+        <span class="anchor" id="information-architecture" style="--y: 24.38%"></span>
+        <span class="anchor" id="north-star" style="--y: 82.76%"></span>
+        <img width="3840" height="16270" src="../../assets/case-studies/aeo/6.webp?v=2" alt="Answer Engine Optimization case study image 6" loading="lazy" />
       </div>
+      <!-- Interactive widgets slide - Figma: AEO-Compilation 715:4025 (funnel), 715:4103 (fix this leak), 715:4281 (response trend). css/aeo-widgets.css, js/aeo-widgets.js -->
+      <section class="widgets" data-widgets aria-labelledby="widgets-lead">
+        <div class="widgets__slide">
+          <h2 class="widgets__lead" id="widgets-lead">Taking a closer look at some widgets</h2>
+
+          <div class="widgets__card">
+            <div class="widgets__tabs" role="tablist" aria-label="Widget views">
+              <button type="button" role="tab" class="widgets__tab" id="widgets-tab-funnel" aria-controls="widgets-panel-funnel" aria-selected="true" data-tab="funnel">
+                <span class="widgets__tab-label">Visibility funnel</span>
+              </button>
+              <button type="button" role="tab" class="widgets__tab" id="widgets-tab-fix" aria-controls="widgets-panel-fix" aria-selected="false" tabindex="-1" data-tab="fix">
+                <span class="widgets__tab-label">Fix this leak</span>
+              </button>
+              <button type="button" role="tab" class="widgets__tab" id="widgets-tab-trend" aria-controls="widgets-panel-trend" aria-selected="false" tabindex="-1" data-tab="trend">
+                <span class="widgets__tab-label">Response trend</span>
+              </button>
+            </div>
+
+            <div class="widgets__panels">
+              <!-- 1. Visibility funnel -->
+              <div class="widgets__panel is-active" role="tabpanel" id="widgets-panel-funnel" aria-labelledby="widgets-tab-funnel" data-panel="funnel">
+                <span class="widgets__blob widgets__blob--a" aria-hidden="true"><span><span></span></span></span>
+                <span class="widgets__blob widgets__blob--b" aria-hidden="true"><span><span></span></span></span>
+
+                <span class="widgets__quote-mark widgets__quote-mark--open" style="--x:150;--y:88" aria-hidden="true">“</span>
+                <span class="widgets__quote-mark widgets__quote-mark--close" style="--x:719;--y:138" aria-hidden="true">”</span>
+                <p class="widgets__ask" style="--x:194;--y:128">Do AI engines talk about us at all,</p>
+                <p class="widgets__ask" style="--x:406;--y:178">and where do we lose?</p>
+
+                <div class="widgets__copy" style="--x:150;--y:264;--w:728">
+                  <p>A brand can be named, cited, or picked as the top answer, and each stage needs a different fix:</p>
+                  <ul>
+                    <li><strong>Not mentioned:</strong> AI engines can’t read the brand’s content, or there’s none on the topic.</li>
+                    <li><strong>Mentioned, not cited</strong>: its pages aren’t trusted or clear enough to quote.</li>
+                    <li><strong>Cited, not top pick</strong>: a competitor’s content is stronger.</li>
+                  </ul>
+                  <p class="widgets__copy-gap">A single score would hide this. The funnel shows <strong>where the brand loses</strong> most, and so <strong>what work comes next</strong>. The<strong> comparison with the last run</strong> closes the AEO loop: publish, wait for the next run, check.</p>
+                </div>
+
+                <span class="widgets__icon-tile widgets__icon-tile--lg" style="--x:1607;--y:156" aria-hidden="true"><span class="widgets__icon widgets__icon--funnel"></span></span>
+
+                <!-- Figma "Final widget" -->
+                <div class="fw" style="--x:987;--y:195">
+                  <p class="fw__title">How you're showing up</p>
+                  <div class="fw__stat">
+                    <p class="fw__stat-label">Named in</p>
+                    <p class="fw__stat-value"><strong>148</strong> <span>/ 240 questions</span></p>
+                  </div>
+                  <div class="fw__funnel">
+                    <div class="fw__head">
+                      <span class="fw__col-stage">Stage</span>
+                      <span class="fw__col-bar"></span>
+                      <span class="fw__col-num">Answers</span>
+                      <span class="fw__col-delta">vs last run</span>
+                    </div>
+                    <div class="fw__rung">
+                      <span class="fw__col-stage">Questions</span>
+                      <span class="fw__bar"><span class="fw__fill fw__fill--questions" style="--fill:100%"></span></span>
+                      <span class="fw__col-num fw__num">240</span>
+                      <span class="fw__col-delta fw__delta">—</span>
+                    </div>
+                    <div class="fw__rung fw__rung--selected">
+                      <span class="fw__col-stage fw__stage-strong">Mentioned</span>
+                      <span class="fw__bar-wrap">
+                        <span class="fw__bar"><span class="fw__fill fw__fill--mentioned" style="--fill:61.66%"></span></span>
+                        <button type="button" class="fw__link" data-go-tab="fix">View the 92 missing →</button>
+                      </span>
+                      <span class="fw__col-num fw__num">148</span>
+                      <span class="fw__col-delta fw__delta fw__delta--up">↑ 6</span>
+                    </div>
+                    <div class="fw__rung">
+                      <span class="fw__col-stage">Cited</span>
+                      <span class="fw__bar"><span class="fw__fill fw__fill--cited" style="--fill:25.77%"></span></span>
+                      <span class="fw__col-num fw__num">62</span>
+                      <span class="fw__col-delta fw__delta fw__delta--up">↑ 3</span>
+                    </div>
+                    <div class="fw__rung">
+                      <span class="fw__col-stage">Top pick</span>
+                      <span class="fw__bar"><span class="fw__fill fw__fill--top" style="--fill:8.9%"></span></span>
+                      <span class="fw__col-num fw__num">21</span>
+                      <span class="fw__col-delta fw__delta fw__delta--down">↓ 2</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Fix this leak -->
+              <div class="widgets__panel" role="tabpanel" id="widgets-panel-fix" aria-labelledby="widgets-tab-fix" data-panel="fix">
+                <span class="widgets__blob widgets__blob--a" aria-hidden="true"><span><span></span></span></span>
+                <span class="widgets__blob widgets__blob--b" aria-hidden="true"><span><span></span></span></span>
+
+                <!-- the drawer the three fixes fly out of -->
+                <div class="drawer" style="--x:1145;--y:62" aria-hidden="true">
+                  <div class="drawer__head">
+                    <div class="drawer__titles">
+                      <p class="drawer__title">Fix this leak</p>
+                      <p class="drawer__stage">Questions → Mentioned</p>
+                    </div>
+                    <span class="drawer__close"></span>
+                  </div>
+                </div>
+
+                <div class="widgets__copy widgets__copy--stack" style="--x:150;--y:244;--w:729">
+                  <div>
+                    <h3>The Banner</h3>
+                    <p>Numbers show what’s wrong, not why. Small teams rarely have an AEO specialist, so the banner <strong>names the pattern and points to the next step</strong>. It <strong>names competitors</strong> because that’s how marketers think, and how they explain problems to stakeholders.</p>
+                  </div>
+                  <div>
+                    <h3>The Drawer</h3>
+                    <p>Fixes are <strong>ordered by cause</strong>, since new content on pages AI engines can’t read changes nothing. Each fix <strong>shows its reach</strong>, which answers “why this first?”, and links to where the work happens, so the <strong>gap → action route </strong>no longer stops at a recommendation.</p>
+                  </div>
+                </div>
+
+                <span class="widgets__quote-mark widgets__quote-mark--open" style="--x:150;--y:78" aria-hidden="true">“</span>
+                <span class="widgets__quote-mark widgets__quote-mark--close" style="--x:719;--y:128" aria-hidden="true">”</span>
+                <p class="widgets__ask" style="--x:194;--y:118">Why are we missing,</p>
+                <p class="widgets__ask" style="--x:336;--y:168">and what do we do about it?</p>
+
+                <span class="widgets__arrow" style="--x:953;--y:384" aria-hidden="true"></span>
+
+                <div class="fixcard" style="--x:1077;--y:179;--i:0">
+                  <span class="fixcard__step">1</span>
+                  <div class="fixcard__content">
+                    <p class="fixcard__title">Unblock AI crawlers</p>
+                    <p class="fixcard__evidence">2 comparison pages on your site return errors to AI crawlers.</p>
+                    <div class="fixcard__footer"><span>Affects ~30 questions</span><span class="fixcard__action">See URLs →</span></div>
+                  </div>
+                </div>
+                <div class="fixcard" style="--x:1285;--y:329;--i:1">
+                  <span class="fixcard__step">2</span>
+                  <div class="fixcard__content">
+                    <p class="fixcard__title">Cover missing topics</p>
+                    <p class="fixcard__evidence">Your site has no pages on passwordless auth or CIAM.</p>
+                    <div class="fixcard__footer"><span>Affects ~40 questions</span><span class="fixcard__action">See content plays →</span></div>
+                  </div>
+                </div>
+                <div class="fixcard" style="--x:1225;--y:459;--i:2">
+                  <span class="fixcard__step">3</span>
+                  <div class="fixcard__content">
+                    <p class="fixcard__title">Get mentioned on trusted sites</p>
+                    <p class="fixcard__evidence">Auth0 and Clerk appear on review sites and roundups; you don't.</p>
+                    <div class="fixcard__footer"><span>Affects ~22 questions</span><span class="fixcard__action">See sources →</span></div>
+                  </div>
+                </div>
+
+                <span class="widgets__icon-tile widgets__icon-tile--sm" style="--x:1603;--y:200" aria-hidden="true"><span class="widgets__icon widgets__icon--crawl"></span></span>
+                <span class="widgets__icon-tile widgets__icon-tile--lg" style="--x:1106;--y:456" aria-hidden="true"><span class="widgets__icon widgets__icon--sources"></span></span>
+
+                <div class="insight" style="--x:592;--y:642">
+                  <span class="insight__icon" aria-hidden="true"></span>
+                  <p class="insight__text">Auth0 and Clerk get named instead of you, mostly in comparison questions.</p>
+                  <span class="insight__button">See three fixes</span>
+                </div>
+              </div>
+
+              <!-- 3. Response trend -->
+              <div class="widgets__panel" role="tabpanel" id="widgets-panel-trend" aria-labelledby="widgets-tab-trend" data-panel="trend">
+                <span class="widgets__blob widgets__blob--c" aria-hidden="true"><span><span></span></span></span>
+                <span class="widgets__blob widgets__blob--d" aria-hidden="true"><span><span></span></span></span>
+
+                <span class="widgets__quote-mark widgets__quote-mark--open" style="--x:150;--y:55" aria-hidden="true">“</span>
+                <span class="widgets__quote-mark widgets__quote-mark--close" style="--x:660;--y:55" aria-hidden="true">”</span>
+                <p class="widgets__ask" style="--x:194;--y:94">How does AI feel about our brand?</p>
+
+                <div class="widgets__copy widgets__copy--list" style="--x:150;--y:181;--w:315">
+                  <ul>
+                    <li><strong>Being named isn't always a win.</strong> A negative mention is visible but losing, so sentiment is shown separately.</li>
+                    <li>AI answers <strong>vary from run to run</strong>, so a single week can easily mislead. The trend shows the real direction over time.</li>
+                  </ul>
+                </div>
+
+                <span class="widgets__icon-tile widgets__icon-tile--lg" style="--x:465;--y:531" aria-hidden="true"><span class="widgets__icon widgets__icon--trend"></span></span>
+
+                <div class="rt" style="--x:516;--y:181" data-trend>
+                  <div class="rt__header">
+                    <p class="rt__title">Response trend</p>
+                    <p class="rt__desc">Jun 3 – Jul 22 · 56 responses per run</p>
+                  </div>
+                  <div class="rt__content">
+                    <div class="rt__plot" style="--sel:1037;--tip:1037">
+                      <span class="rt__grid" style="--gy:0"></span>
+                      <span class="rt__grid" style="--gy:60"></span>
+                      <span class="rt__grid" style="--gy:120"></span>
+                      <span class="rt__grid" style="--gy:180"></span>
+                      <span class="rt__grid" style="--gy:239"></span>
+                      <span class="rt__cursor" aria-hidden="true"></span>
+
+                      <button type="button" class="rt__bar" style="--bx:29" data-week="Jun 3" data-pos="2" data-neu="15" data-neg="2" data-nn="37" aria-label="Jun 3: 2 positive, 15 neutral, 2 negative, 37 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:37"></span><span class="rt__seg rt__seg--neg" style="--n:2"></span><span class="rt__seg rt__seg--neu" style="--n:15"></span><span class="rt__seg rt__seg--pos" style="--n:2"></span>
+                      </button>
+                      <button type="button" class="rt__bar" style="--bx:173" data-week="Jun 10" data-pos="4" data-neu="17" data-neg="2" data-nn="33" aria-label="Jun 10: 4 positive, 17 neutral, 2 negative, 33 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:33"></span><span class="rt__seg rt__seg--neg" style="--n:2"></span><span class="rt__seg rt__seg--neu" style="--n:17"></span><span class="rt__seg rt__seg--pos" style="--n:4"></span>
+                      </button>
+                      <button type="button" class="rt__bar" style="--bx:317" data-week="Jun 17" data-pos="10" data-neu="18" data-neg="1" data-nn="27" aria-label="Jun 17: 10 positive, 18 neutral, 1 negative, 27 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:27"></span><span class="rt__seg rt__seg--neg" style="--n:1"></span><span class="rt__seg rt__seg--neu" style="--n:18"></span><span class="rt__seg rt__seg--pos" style="--n:10"></span>
+                      </button>
+                      <button type="button" class="rt__bar" style="--bx:461" data-week="Jun 24" data-pos="12" data-neu="19" data-neg="0" data-nn="25" aria-label="Jun 24: 12 positive, 19 neutral, 0 negative, 25 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:25"></span><span class="rt__seg rt__seg--neu" style="--n:19"></span><span class="rt__seg rt__seg--pos" style="--n:12"></span>
+                      </button>
+                      <button type="button" class="rt__bar" style="--bx:605" data-week="Jul 1" data-pos="14" data-neu="16" data-neg="1" data-nn="25" aria-label="Jul 1: 14 positive, 16 neutral, 1 negative, 25 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:25"></span><span class="rt__seg rt__seg--neg" style="--n:1"></span><span class="rt__seg rt__seg--neu" style="--n:16"></span><span class="rt__seg rt__seg--pos" style="--n:14"></span>
+                      </button>
+                      <button type="button" class="rt__bar" style="--bx:749" data-week="Jul 8" data-pos="19" data-neu="14" data-neg="2" data-nn="21" aria-label="Jul 8: 19 positive, 14 neutral, 2 negative, 21 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:21"></span><span class="rt__seg rt__seg--neg" style="--n:2"></span><span class="rt__seg rt__seg--neu" style="--n:14"></span><span class="rt__seg rt__seg--pos" style="--n:19"></span>
+                      </button>
+                      <button type="button" class="rt__bar" style="--bx:893" data-week="Jul 15" data-pos="26" data-neu="9" data-neg="1" data-nn="20" aria-label="Jul 15: 26 positive, 9 neutral, 1 negative, 20 not named">
+                        <span class="rt__seg rt__seg--nn" style="--n:20"></span><span class="rt__seg rt__seg--neg" style="--n:1"></span><span class="rt__seg rt__seg--neu" style="--n:9"></span><span class="rt__seg rt__seg--pos" style="--n:26"></span>
+                      </button>
+                      <button type="button" class="rt__bar is-selected" style="--bx:1037" data-week="Jul 22" data-pos="26" data-neu="10" data-neg="7" data-nn="13" aria-label="Jul 22: 26 positive, 10 neutral, 7 negative, 13 not named" aria-pressed="true">
+                        <span class="rt__seg rt__seg--nn" style="--n:13"></span><span class="rt__seg rt__seg--neg" style="--n:7"></span><span class="rt__seg rt__seg--neu" style="--n:10"></span><span class="rt__seg rt__seg--pos" style="--n:26"></span>
+                      </button>
+
+                      <div class="rt__tooltip" aria-hidden="true">
+                        <p class="rt__tt-label">Jul 22</p>
+                        <p class="rt__tt-row"><i class="rt__swatch rt__swatch--pos"></i><span>Positive</span><b data-tt="pos">26</b></p>
+                        <p class="rt__tt-row"><i class="rt__swatch rt__swatch--neu"></i><span>Neutral</span><b data-tt="neu">10</b></p>
+                        <p class="rt__tt-row"><i class="rt__swatch rt__swatch--neg"></i><span>Negative</span><b data-tt="neg">7</b></p>
+                        <p class="rt__tt-row"><i class="rt__swatch rt__swatch--nn"></i><span>Not named</span><b data-tt="nn">13</b></p>
+                      </div>
+                    </div>
+
+                    <div class="rt__axis" aria-hidden="true">
+                      <span>Jun 3</span><span>Jun 10</span><span>Jun 17</span><span>Jun 24</span><span>Jul 1</span><span>Jul 8</span><span>Jul 15</span><span class="is-selected">Jul 22</span>
+                    </div>
+                    <div class="rt__legend" aria-hidden="true">
+                      <span><i class="rt__swatch rt__swatch--pos"></i>Positive</span>
+                      <span><i class="rt__swatch rt__swatch--neu"></i>Neutral</span>
+                      <span><i class="rt__swatch rt__swatch--neg"></i>Negative</span>
+                      <span><i class="rt__swatch rt__swatch--nn"></i>Not named</span>
+                    </div>
+                  </div>
+                  <div class="rt__footer">
+                    <p>Not named dropped from 37 to 13 responses since Jun 3</p>
+                    <p>Positive responses grew from 2 to 26 over 8 runs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       </section>
     </main>
     <script src="../../js/main.js"></script>
     <script src="../../js/before-after.js"></script>
     <script src="../../js/side-nav.js?v=2"></script>
+    <script src="../../js/aeo-widgets.js?v=4"></script>
   </body>
 </html>

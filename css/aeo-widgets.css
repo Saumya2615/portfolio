@@ -1,0 +1,935 @@
+/* ============================================================
+   AEO case study: "Taking a closer look at some widgets"
+   Interactive slide with three tabs (js/aeo-widgets.js).
+   Figma: AEO-Compilation, slide 715:4025 (funnel) + 715:4102
+   (frames 715:4206 funnel, 715:4103 fix this leak, 715:4281 trend).
+
+   Like the case study images around it, the slide scales with the
+   page: --u is one Figma pixel of the 1920px-wide slide, so every
+   length is calc(N * var(--u)) with N straight from Figma.
+   ============================================================ */
+
+.widgets {
+  container-type: inline-size;
+
+  /* tokens (Figma variable names in the comments) */
+  --w-white: #fff;
+  --w-canvas: #fafafa;
+  --w-zinc-100: #f4f4f5;
+  --w-zinc-200: #e4e4e7;
+  --w-zinc-300: #d4d4d8;
+  --w-zinc-500: #71717b;
+  --w-zinc-600: #52525c;
+  --w-zinc-700: #3f3f47;
+  --w-zinc-900: #18181b;
+  --w-orange-100: #ffedd4;
+  --w-orange-300: #ffb86a;
+  --w-orange-400: #ff8904;
+  --w-border: #eaeaea;          /* borders/border-base */
+  --w-bg-subtle: #f6f6f6;       /* background/bg-subtle */
+  --w-bg-canvas: #eaeaea;       /* background/bg-canvas */
+  --w-text-strong: #121212;
+  --w-text-base: #303030;
+  --w-text-subtle: #5e5e5e;
+  --w-text-link: #005e97;
+  --w-success: #106221;         /* text/text-success */
+  --w-red-600: #b70f0f;
+  --w-gray-75: #dedede;
+  --w-gray-200: #c7c7c7;
+  --w-gray-400: #989898;
+  --w-red-300: #ef7171;
+  --w-blue-400: #33b0fd;
+  --w-green-300: #76c887;
+  --w-purple-50: #f2edff;
+
+  /* Figma uses SF Pro for the story text (system font on Apple devices),
+     Lora for the quote marks, and the product's own font (Different Sans)
+     inside the widgets. Different Sans isn't on the site yet, so DM Sans
+     stands in; add it to the front of --w-product to swap it in. */
+  --w-sf: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --w-lora: 'Lora', Georgia, serif;
+  --w-product: 'Different Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --w-shadow: 0 calc(10 * var(--u)) calc(15 * var(--u)) calc(-3 * var(--u)) rgba(18, 18, 18, 0.12);
+  --w-ease: 300ms ease;
+}
+
+.widgets *,
+.widgets *::before,
+.widgets *::after {
+  box-sizing: border-box;
+}
+
+/* :where() keeps this reset at zero specificity so the rules below win */
+:where(.widgets) :where(p, h2, h3, ul) {
+  margin: 0;
+  padding: 0;
+}
+
+.widgets__slide {
+  --u: calc(100cqw / 1920);
+  padding: calc(191 * var(--u)) calc(72 * var(--u));
+  background: var(--w-canvas);
+}
+
+.widgets__lead {
+  margin: 0 0 calc(199 * var(--u)) calc(714 * var(--u));
+  font-family: var(--w-sf);
+  font-weight: 400;
+  font-size: calc(24 * var(--u));
+  line-height: normal;
+  letter-spacing: 0;
+  color: var(--w-zinc-600);
+}
+
+/* ── The card: tab bar + stacked panels ── */
+.widgets__card {
+  overflow: hidden;
+  border: 1px solid var(--w-zinc-200);
+  border-radius: calc(16 * var(--u));
+  background: var(--w-white);
+}
+
+.widgets__tabs {
+  display: flex;
+  gap: calc(21 * var(--u));
+  padding: calc(36 * var(--u)) calc(16 * var(--u)) 0 calc(150 * var(--u));
+  border-bottom: 1px solid var(--w-zinc-300);
+  background: var(--w-white);
+}
+
+.widgets__tab {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(279 * var(--u));
+  height: calc(72 * var(--u));
+  padding: calc(12 * var(--u)) calc(10 * var(--u)) 0;
+  border: 0;
+  border-radius: calc(16 * var(--u)) calc(16 * var(--u)) 0 0;
+  background: none;
+  font-family: var(--w-sf);
+  font-weight: 400;
+  font-size: calc(24 * var(--u));
+  line-height: normal;
+  letter-spacing: 0;
+  color: var(--w-zinc-500);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--w-ease);
+}
+
+/* the 7px bar under the label */
+.widgets__tab::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: calc(7 * var(--u));
+  border-radius: calc(8 * var(--u)) calc(8 * var(--u)) 0 0;
+  background: transparent;
+  transition: background-color var(--w-ease);
+}
+
+.widgets__tab:hover {
+  color: var(--w-zinc-700);
+}
+
+.widgets__tab:hover::after {
+  background: var(--w-zinc-200);
+}
+
+.widgets__tab[aria-selected="true"] {
+  color: var(--w-zinc-900);
+}
+
+.widgets__tab[aria-selected="true"]::after {
+  background: var(--w-zinc-900);
+}
+
+.widgets__tab:focus-visible {
+  outline: 2px solid var(--w-orange-400);
+  outline-offset: -2px;
+}
+
+/* all three panels sit on top of each other, so the card never
+   changes height when the tab does */
+.widgets__panels {
+  display: grid;
+}
+
+.widgets__panel {
+  position: relative;
+  grid-area: 1 / 1;
+  height: calc(762 * var(--u));
+  overflow: hidden;
+  background: var(--w-white);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--w-ease), visibility 0s linear 300ms;
+}
+
+.widgets__panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--w-ease), visibility 0s;
+}
+
+/* everything inside a panel is placed by --x / --y (Figma px, from the
+   panel's top-left) */
+.widgets__panel > * {
+  position: absolute;
+  left: calc(var(--x, 0) * var(--u));
+  top: calc(var(--y, 0) * var(--u));
+}
+
+/* ── Soft orange blobs: wrapper > rotated box > image ── */
+.widgets__blob {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.widgets__blob > span {
+  position: relative;
+  flex: none;
+}
+
+.widgets__blob > span > span {
+  position: absolute;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.widgets__blob--a { left: calc(942.91 * var(--u)); top: calc(243.03 * var(--u)); width: calc(340.19 * var(--u)); height: calc(509.948 * var(--u)); }
+.widgets__blob--a > span { width: calc(244 * var(--u)); height: calc(468 * var(--u)); transform: rotate(-12.6deg); }
+.widgets__blob--a > span > span { inset: -64.1% -122.95%; background-image: url('../assets/images/aeo-widgets/blob-a.svg'); }
+
+.widgets__blob--b { left: calc(1380 * var(--u)); top: calc(-24 * var(--u)); width: calc(424.614 * var(--u)); height: calc(443.903 * var(--u)); }
+.widgets__blob--b > span { width: calc(285.285 * var(--u)); height: calc(345.333 * var(--u)); transform: rotate(31.87deg); }
+.widgets__blob--b > span > span { inset: -86.87% -105.16%; background-image: url('../assets/images/aeo-widgets/blob-b.svg'); }
+
+.widgets__blob--c { left: calc(402.1 * var(--u)); top: calc(335 * var(--u)); width: calc(517.046 * var(--u)); height: calc(549.468 * var(--u)); }
+.widgets__blob--c > span { width: calc(425.218 * var(--u)); height: calc(468 * var(--u)); transform: rotate(-12.6deg); }
+.widgets__blob--c > span > span { inset: -64.1% -70.55%; background-image: url('../assets/images/aeo-widgets/blob-c.svg'); }
+
+.widgets__blob--d { left: calc(1047 * var(--u)); top: calc(56 * var(--u)); width: calc(793.054 * var(--u)); height: calc(448.964 * var(--u)); }
+.widgets__blob--d > span { width: calc(751.491 * var(--u)); height: calc(345.333 * var(--u)); transform: rotate(-8.2deg); }
+.widgets__blob--d > span > span { inset: -86.87% -39.92%; background-image: url('../assets/images/aeo-widgets/blob-d.svg'); }
+
+/* ── Quote + story text ── */
+.widgets__quote-mark {
+  font-family: var(--w-lora);
+  font-weight: 500;
+  font-size: calc(84 * var(--u));
+  line-height: normal;
+  color: var(--w-orange-300);
+  white-space: nowrap;
+}
+
+.widgets__ask {
+  font-family: var(--w-sf);
+  font-weight: 400;
+  font-size: calc(32 * var(--u));
+  line-height: normal;
+  color: var(--w-orange-400);
+  white-space: nowrap;
+}
+
+.widgets__copy {
+  width: calc(var(--w) * var(--u));
+  font-family: var(--w-sf);
+  font-weight: 400;
+  font-size: calc(24 * var(--u));
+  line-height: normal;
+  letter-spacing: 0;
+  color: var(--w-zinc-600);
+}
+
+.widgets__copy strong {
+  font-weight: 700;
+  color: var(--w-zinc-900);
+}
+
+.widgets__copy ul {
+  padding-left: calc(36 * var(--u));
+  list-style: disc;
+}
+
+.widgets__copy-gap {
+  margin-top: calc(29 * var(--u));
+}
+
+.widgets__copy--stack {
+  display: flex;
+  flex-direction: column;
+  gap: calc(32 * var(--u));
+}
+
+.widgets__copy--stack h3 {
+  margin-bottom: calc(12 * var(--u));
+  font-weight: 400;
+  font-size: calc(24 * var(--u));
+  color: var(--w-zinc-900);
+}
+
+/* ── Little orange icon tiles ── */
+.widgets__icon-tile {
+  display: flex;
+  align-items: center;
+  background: var(--w-orange-100);
+  pointer-events: none;
+}
+
+.widgets__icon-tile--lg {
+  padding: calc(16 * var(--u));
+  border-radius: calc(16 * var(--u));
+}
+
+.widgets__icon-tile--sm {
+  padding: calc(12 * var(--u));
+  border-radius: calc(9.895 * var(--u));
+}
+
+.widgets__icon {
+  display: block;
+  background: var(--w-orange-400);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.widgets__icon-tile--lg .widgets__icon { width: calc(32 * var(--u)); height: calc(32 * var(--u)); }
+.widgets__icon-tile--sm .widgets__icon { width: calc(24 * var(--u)); height: calc(24 * var(--u)); }
+
+.widgets__icon--funnel  { -webkit-mask-image: url('../assets/images/aeo-widgets/icon-funnel.png');  mask-image: url('../assets/images/aeo-widgets/icon-funnel.png'); }
+.widgets__icon--crawl   { -webkit-mask-image: url('../assets/images/aeo-widgets/icon-crawl.png');   mask-image: url('../assets/images/aeo-widgets/icon-crawl.png'); }
+.widgets__icon--sources { -webkit-mask-image: url('../assets/images/aeo-widgets/icon-sources.png'); mask-image: url('../assets/images/aeo-widgets/icon-sources.png'); }
+.widgets__icon--trend   { -webkit-mask-image: url('../assets/images/aeo-widgets/icon-trend.png');   mask-image: url('../assets/images/aeo-widgets/icon-trend.png'); }
+
+/* ============================================================
+   Tab 1: the funnel widget ("Final widget", sizes are Figma's
+   scaled-up numbers, e.g. 14.156 instead of 14)
+   ============================================================ */
+.fw {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16.178 * var(--u));
+  width: calc(728 * var(--u));
+  padding: calc(24.267 * var(--u));
+  overflow: hidden;
+  border: calc(1.011 * var(--u)) solid var(--w-border);
+  border-radius: calc(16.178 * var(--u));
+  background: var(--w-white);
+  box-shadow: var(--w-shadow);
+  font-family: var(--w-product);
+  line-height: 1.4;
+  font-style: normal;
+}
+
+.fw__title {
+  font-weight: 600;
+  font-size: calc(18.2 * var(--u));
+  color: var(--w-text-strong);
+}
+
+.fw__stat {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2.022 * var(--u));
+}
+
+.fw__stat-label {
+  font-size: calc(14.156 * var(--u));
+  color: var(--w-text-subtle);
+}
+
+.fw__stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: calc(4.044 * var(--u));
+  font-size: calc(14.156 * var(--u));
+  color: var(--w-text-subtle);
+  white-space: nowrap;
+}
+
+.fw__stat-value strong {
+  font-weight: 600;
+  font-size: calc(24.267 * var(--u));
+  color: var(--w-text-strong);
+}
+
+.fw__funnel {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8.089 * var(--u));
+}
+
+.fw__head,
+.fw__rung {
+  display: flex;
+  gap: calc(16.178 * var(--u));
+  align-items: center;
+}
+
+.fw__head {
+  padding: 0 calc(12.133 * var(--u));
+  font-size: calc(14.156 * var(--u));
+  color: var(--w-text-subtle);
+}
+
+.fw__rung {
+  padding: calc(12.133 * var(--u));
+  border-radius: calc(8.089 * var(--u));
+  font-size: calc(14.156 * var(--u));
+  color: var(--w-text-base);
+}
+
+/* Figma's stroke sits inside the 12.133 padding, so draw it as an
+   inset shadow instead of a border that would push the content in */
+.fw__rung--selected {
+  align-items: flex-start;
+  background: var(--w-bg-subtle);
+  box-shadow: inset 0 0 0 calc(1.011 * var(--u)) var(--w-border);
+}
+
+.fw__col-stage { flex: none; width: calc(121.333 * var(--u)); }
+.fw__col-bar { flex: 1 1 0; min-width: 1px; }
+.fw__col-num { flex: none; width: calc(64.711 * var(--u)); text-align: right; white-space: nowrap; }
+.fw__col-delta { flex: none; width: calc(88.978 * var(--u)); text-align: right; white-space: nowrap; }
+
+.fw__stage-strong {
+  font-weight: 600;
+  line-height: normal;
+  color: var(--w-text-strong);
+}
+
+.fw__bar {
+  display: block;
+  flex: 1 1 0;
+  height: calc(16.178 * var(--u));
+  min-width: 1px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--w-bg-canvas);
+}
+
+.fw__bar-wrap {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(8.089 * var(--u));
+  min-width: 1px;
+}
+
+/* the bar above the link is a column item: keep its own height */
+.fw__bar-wrap .fw__bar {
+  flex: none;
+  width: 100%;
+}
+
+.fw__fill {
+  display: block;
+  width: var(--fill);
+  height: 100%;
+  border-radius: 999px;
+  transition: width 800ms cubic-bezier(0.2, 0.7, 0.2, 1) 150ms;
+}
+
+.fw__fill--questions { background: var(--w-gray-200); }
+.fw__fill--mentioned { background: #000; }
+.fw__fill--cited,
+.fw__fill--top { background: var(--w-gray-400); }
+
+/* bars grow in when the slide first scrolls into view, and again
+   each time the funnel tab is opened */
+.widgets[data-ready]:not(.is-in) .fw__fill,
+.widgets__panel:not(.is-active) .fw__fill {
+  width: 0;
+  transition: none;
+}
+
+.fw__num {
+  font-weight: 600;
+  color: var(--w-text-strong);
+}
+
+.fw__delta {
+  font-weight: 500;
+  font-size: calc(12.133 * var(--u));
+  line-height: 1;
+  color: var(--w-text-subtle);
+}
+
+.fw__rung--selected .fw__delta {
+  align-self: flex-start;
+}
+
+.fw__delta--up { color: var(--w-success); }
+.fw__delta--down { color: var(--w-red-600); }
+
+/* "View the 92 missing →" opens the Fix this leak tab */
+.fw__link {
+  align-self: flex-start;
+  display: block;
+  height: calc(9 * var(--u));
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 500;
+  font-size: calc(12.133 * var(--u));
+  line-height: calc(9 * var(--u));
+  color: var(--w-text-link);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.fw__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.fw__link:focus-visible {
+  outline: 2px solid var(--w-orange-400);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   Tab 2: fix this leak (drawer, the three fixes, insight banner)
+   ============================================================ */
+.drawer {
+  width: calc(480 * var(--u));
+  height: calc(638 * var(--u));
+  overflow: hidden;
+  border: 1px solid var(--w-border);
+  border-radius: calc(8 * var(--u));
+  background: var(--w-zinc-100);
+  font-family: var(--w-product);
+  line-height: 1.4;
+}
+
+.drawer__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: calc(24 * var(--u)) calc(24 * var(--u)) calc(20 * var(--u));
+  border-bottom: 1px solid var(--w-border);
+}
+
+.drawer__titles {
+  display: flex;
+  flex-direction: column;
+  gap: calc(2 * var(--u));
+  white-space: nowrap;
+}
+
+.drawer__title {
+  font-weight: 600;
+  font-size: calc(18 * var(--u));
+  color: var(--w-text-strong);
+}
+
+.drawer__stage {
+  font-size: calc(14 * var(--u));
+  color: var(--w-text-subtle);
+}
+
+.drawer__close {
+  flex: none;
+  width: calc(32 * var(--u));
+  height: calc(32 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background: var(--w-zinc-300) url('../assets/images/aeo-widgets/icon-close.svg') center / calc(16 * var(--u)) calc(16 * var(--u)) no-repeat;
+}
+
+.fixcard {
+  display: flex;
+  gap: calc(16 * var(--u));
+  width: calc(430 * var(--u));
+  padding: calc(20 * var(--u));
+  overflow: hidden;
+  border: 1px solid var(--w-border);
+  border-radius: calc(16 * var(--u));
+  background: var(--w-white);
+  box-shadow: var(--w-shadow);
+  font-family: var(--w-product);
+  line-height: 1.4;
+  transition: opacity 500ms ease calc(150ms + var(--i, 0) * 110ms),
+              transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(150ms + var(--i, 0) * 110ms);
+}
+
+/* the fixes fly out of the drawer when the tab opens */
+.widgets[data-ready] .widgets__panel:not(.is-active) .fixcard {
+  opacity: 0;
+  transform: translate(calc(-70 * var(--u)), calc(10 * var(--u))) scale(0.97);
+  transition: none;
+}
+
+.fixcard__step {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: calc(24 * var(--u));
+  height: calc(24 * var(--u));
+  border-radius: calc(4 * var(--u));
+  background: var(--w-bg-subtle);
+  font-weight: 500;
+  font-size: calc(12 * var(--u));
+  line-height: 1;
+  color: var(--w-text-strong);
+}
+
+.fixcard__content {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: calc(4 * var(--u));
+  min-width: 0;
+}
+
+.fixcard__title {
+  font-weight: 600;
+  font-size: calc(14 * var(--u));
+  color: var(--w-text-strong);
+  white-space: nowrap;
+}
+
+.fixcard__evidence {
+  font-size: calc(14 * var(--u));
+  color: var(--w-text-subtle);
+}
+
+.fixcard__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: calc(8 * var(--u));
+  font-size: calc(12 * var(--u));
+  color: var(--w-text-subtle);
+  white-space: nowrap;
+}
+
+.fixcard__action {
+  font-size: calc(14 * var(--u));
+  color: var(--w-text-link);
+}
+
+.widgets__arrow {
+  width: calc(195 * var(--u));
+  height: calc(258 * var(--u));
+  background: url('../assets/images/aeo-widgets/arrow-dashed.svg') center / 100.52% 100.38% no-repeat;
+  pointer-events: none;
+}
+
+.insight {
+  display: flex;
+  align-items: center;
+  gap: calc(16 * var(--u));
+  width: calc(1000 * var(--u));
+  padding: calc(16 * var(--u)) calc(16 * var(--u)) calc(16 * var(--u)) calc(20 * var(--u));
+  border: 1px solid var(--w-border);
+  border-radius: calc(16 * var(--u));
+  background: var(--w-white);
+  box-shadow: var(--w-shadow);
+  font-family: var(--w-product);
+  line-height: 1.4;
+}
+
+.insight__icon {
+  flex: none;
+  width: calc(40 * var(--u));
+  height: calc(40 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background: var(--w-purple-50) url('../assets/images/aeo-widgets/icon-sparkles.svg') center / calc(20 * var(--u)) calc(20 * var(--u)) no-repeat;
+}
+
+.insight__text {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: calc(16 * var(--u));
+  color: var(--w-text-base);
+}
+
+.insight__button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: calc(32 * var(--u));
+  padding: 0 calc(12 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background: #000;
+  font-weight: 500;
+  font-size: calc(14 * var(--u));
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Tab 3: response trend (stacked bars, hover / tap a week)
+   ============================================================ */
+.rt {
+  display: flex;
+  flex-direction: column;
+  gap: calc(24 * var(--u));
+  width: calc(1200 * var(--u));
+  padding: calc(24 * var(--u));
+  overflow: hidden;
+  border: 1px solid var(--w-zinc-300);
+  border-radius: calc(16 * var(--u));
+  background: var(--w-white);
+  box-shadow: var(--w-shadow);
+  font-family: var(--w-product);
+  line-height: 1.4;
+}
+
+.rt__header {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--u));
+  white-space: nowrap;
+}
+
+.rt__title {
+  font-weight: 600;
+  font-size: calc(18 * var(--u));
+  color: var(--w-text-strong);
+}
+
+.rt__desc {
+  font-size: calc(14 * var(--u));
+  color: var(--w-text-subtle);
+}
+
+.rt__content {
+  display: flex;
+  flex-direction: column;
+  gap: calc(12 * var(--u));
+}
+
+.rt__plot {
+  position: relative;
+  flex: none;
+  width: calc(1152 * var(--u));
+  height: calc(240 * var(--u));
+}
+
+.rt__grid {
+  position: absolute;
+  left: 0;
+  top: calc(var(--gy) * var(--u));
+  width: 100%;
+  height: 1px;
+  background: var(--w-border);
+}
+
+.rt__cursor {
+  position: absolute;
+  top: 0;
+  left: calc((var(--sel) - 25) * var(--u));
+  width: calc(136 * var(--u));
+  height: calc(240 * var(--u));
+  border-radius: calc(8 * var(--u));
+  background: var(--w-bg-subtle);
+  transition: left 220ms ease;
+}
+
+.rt__bar {
+  position: absolute;
+  top: 0;
+  left: calc(var(--bx) * var(--u));
+  display: flex;
+  flex-direction: column;
+  width: calc(86 * var(--u));
+  height: calc(240 * var(--u));
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: calc(4 * var(--u));
+  background: none;
+  cursor: pointer;
+}
+
+.rt__bar:focus-visible {
+  outline: 2px solid var(--w-orange-400);
+  outline-offset: 2px;
+}
+
+.rt__seg {
+  display: block;
+  flex: var(--n) 1 0;
+}
+
+.rt__seg--nn  { background: var(--w-gray-75); }
+.rt__seg--neg { background: var(--w-red-300); }
+.rt__seg--neu { background: var(--w-blue-400); }
+.rt__seg--pos { background: var(--w-green-300); }
+
+/* bars rise when the tab opens */
+.rt__bar {
+  transform-origin: 50% 100%;
+  transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--bi, 0) * 45ms);
+}
+
+.widgets[data-ready] .widgets__panel:not(.is-active) .rt__bar {
+  transform: scaleY(0.6);
+  transition: none;
+}
+
+.rt__tooltip {
+  position: absolute;
+  top: calc(24 * var(--u));
+  left: clamp(0px, calc((var(--tip) - 58) * var(--u)), calc(990 * var(--u)));
+  display: flex;
+  flex-direction: column;
+  gap: calc(6 * var(--u));
+  width: calc(162 * var(--u));
+  padding: calc(8 * var(--u)) calc(10 * var(--u));
+  border: 1px solid var(--w-border);
+  border-radius: calc(8 * var(--u));
+  background: var(--w-white);
+  box-shadow: var(--w-shadow);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 120ms ease, visibility 0s linear 120ms;
+}
+
+/* only while a week is hovered / focused / tapped */
+.rt__tooltip.is-on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 120ms ease, visibility 0s;
+}
+
+/* moving on to the next week: it fades in again at the new bar */
+.rt__tooltip.is-swap {
+  animation: rt-tip-in 120ms ease-out;
+}
+
+@keyframes rt-tip-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.rt__tt-label {
+  font-weight: 700;
+  font-size: calc(12 * var(--u));
+  line-height: normal;
+  color: var(--w-text-strong);
+}
+
+.rt__tt-row {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+  font-size: calc(12 * var(--u));
+  color: var(--w-text-subtle);
+}
+
+.rt__tt-row span {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.rt__tt-row b {
+  flex: none;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--w-text-strong);
+}
+
+.rt__swatch {
+  display: block;
+  flex: none;
+  width: calc(8 * var(--u));
+  height: calc(8 * var(--u));
+  border-radius: calc(4 * var(--u));
+}
+
+.rt__swatch--pos { background: var(--w-green-300); }
+.rt__swatch--neu { background: var(--w-blue-400); }
+.rt__swatch--neg { background: var(--w-red-300); }
+.rt__swatch--nn  { background: var(--w-gray-75); }
+
+.rt__axis {
+  display: flex;
+  font-size: calc(12 * var(--u));
+  color: var(--w-text-subtle);
+  white-space: nowrap;
+}
+
+.rt__axis span {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
+.rt__axis .is-selected {
+  color: var(--w-text-strong);
+}
+
+.rt__legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: calc(16 * var(--u));
+  padding-top: calc(4 * var(--u));
+  font-size: calc(12 * var(--u));
+  color: var(--w-text-base);
+  white-space: nowrap;
+}
+
+.rt__legend span {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+}
+
+.rt__footer {
+  display: flex;
+  flex-direction: column;
+  gap: calc(4 * var(--u));
+  font-size: calc(14 * var(--u));
+  white-space: nowrap;
+}
+
+.rt__footer p:first-child { color: var(--w-text-strong); }
+.rt__footer p:last-child { color: var(--w-text-subtle); }
+
+@media (prefers-reduced-motion: reduce) {
+  .widgets__tab,
+  .widgets__tab::after,
+  .widgets__panel,
+  .fw__fill,
+  .fixcard,
+  .rt__bar,
+  .rt__cursor,
+  .rt__tooltip {
+    transition: none !important;
+  }
+
+  .rt__tooltip.is-swap {
+    animation: none;
+  }
+
+  .widgets__panel:not(.is-active) .fw__fill,
+  .widgets[data-ready]:not(.is-in) .fw__fill {
+    width: var(--fill);
+  }
+
+  .widgets[data-ready] .widgets__panel:not(.is-active) .fixcard,
+  .widgets[data-ready] .widgets__panel:not(.is-active) .rt__bar {
+    opacity: 1;
+    transform: none;
+  }
+}
