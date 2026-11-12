@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../../css/side-nav.css?v=2" />
     <link rel="stylesheet" href="../../css/aeo-widgets.css?v=6" />
     <link rel="stylesheet" href="../../css/aeo-where.css?v=5" />
+    <link rel="stylesheet" href="../../css/aeo-lit.css?v=3" />
   </head>
   <body class="case-study-page has-side-nav" data-view="full">
     <header id="nav">
@@ -104,8 +105,57 @@
           <p class="before-after__caption">Just a sneak peek. Let me walk you through how I got here.</p>
         </div>
       </div>
+      <!-- 3 is cut in two around the live "Literature review" accordion (Figma: AEO-Compilation 716:6130. css/aeo-lit.css, js/aeo-lit.js) -->
       <div class="anchor-host" id="research">
-        <img width="3333" height="16383" src="../../assets/case-studies/aeo/3.webp" alt="Answer Engine Optimization case study image 3" loading="lazy" />
+        <img width="3333" height="6500" src="../../assets/case-studies/aeo/3a.webp" alt="Answer Engine Optimization case study image 3" loading="lazy" />
+        <section class="lit" data-lit aria-label="Literature review">
+          <div class="lit__slide">
+            <div class="lit__card">
+              <button type="button" class="lit__head" data-lit-toggle aria-expanded="false" aria-controls="lit-body">
+                <span class="lit__title">Literature review</span>
+                <img class="lit__arrow" src="../../assets/images/aeo-lit/arrow.svg" alt="" width="64" height="64" />
+              </button>
+              <div class="lit__body" id="lit-body" data-lit-body>
+                <div class="lit__clip">
+                  <div class="lit__stage">
+                    <span class="lit__blob" aria-hidden="true"><img src="../../assets/images/aeo-lit/blob.svg" alt="" /></span>
+                    <span class="lit__book" aria-hidden="true"><img src="../../assets/images/aeo-lit/book.svg" alt="" /></span>
+                    <span class="lit__scribble" style="--cx:705.5;--cy:181" aria-hidden="true"><img src="../../assets/images/aeo-lit/scribble-1.svg" alt="" /></span>
+                    <span class="lit__scribble" style="--cx:700.45;--cy:305.06;--r:-72.37deg" aria-hidden="true"><img src="../../assets/images/aeo-lit/scribble-2.svg" alt="" /></span>
+                    <span class="lit__scribble" style="--cx:699.91;--cy:406.34;--r:-56.65deg" aria-hidden="true"><img src="../../assets/images/aeo-lit/scribble-3.svg" alt="" /></span>
+
+                    <p class="lit__intro">I read the <a href="https://collaborate.princeton.edu/en/publications/geo-generative-engine-optimization/" target="_blank" rel="noopener">Princeton GEO study</a>, the first large research paper on how AI engines choose their sources, alongside industry guides like Evertune's beginner's guide to GEO.</p>
+
+                    <ul class="lit__list">
+                      <li class="lit__item">
+                        <span class="lit__icon" aria-hidden="true"><span class="lit__glyph lit__glyph--clarity"></span></span>
+                        <div class="lit__text">
+                          <h3 class="lit__h">Clarity beats keywords</h3>
+                          <p class="lit__p" style="--w:841px">In the GEO study, keyword stuffing barely moved the needle. Adding expert quotes, statistics and cited sources did, lifting a page's visibility in AI answers by up to about 40%.</p>
+                        </div>
+                      </li>
+                      <li class="lit__item">
+                        <span class="lit__icon" aria-hidden="true"><span class="lit__glyph lit__glyph--depth"></span></span>
+                        <div class="lit__text">
+                          <h3 class="lit__h">Depth beats breadth</h3>
+                          <p class="lit__p">AI engines lean towards sources that cover one topic thoroughly, not ones that skim many.</p>
+                        </div>
+                      </li>
+                      <li class="lit__item">
+                        <span class="lit__icon" aria-hidden="true"><span class="lit__glyph lit__glyph--fresh"></span></span>
+                        <div class="lit__text">
+                          <h3 class="lit__h">Fresh content wins</h3>
+                          <p class="lit__p" style="--w:732px">Many engines favour recently updated pages, so publishing once and forgetting it doesn't work anymore.</p>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <img width="3333" height="9483" src="../../assets/case-studies/aeo/3b.webp" alt="" loading="lazy" />
       </div>
       <!-- 4 is cut in two around the live "Where I started" section -->
       <img id="aeo-score" width="3840" height="2054" src="../../assets/case-studies/aeo/4a.webp" alt="Answer Engine Optimization case study image 4" loading="lazy" />
@@ -465,5 +515,6 @@
     <script src="../../js/side-nav.js?v=2"></script>
     <script src="../../js/aeo-widgets.js?v=4"></script>
     <script src="../../js/aeo-where.js?v=2"></script>
+    <script src="../../js/aeo-lit.js?v=1"></script>
   </body>
 </html>

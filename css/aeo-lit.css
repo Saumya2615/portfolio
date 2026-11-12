@@ -1,0 +1,275 @@
+/* ============================================================
+   AEO case study: "Literature review" accordion
+   A grey bar that opens into the three findings (js/aeo-lit.js).
+   Figma: AEO-Compilation, node 716:6130.
+
+   Scales with the page like the case study images around it: --u is one
+   Figma pixel of the 1920px-wide slide, so lengths are calc(N * var(--u)).
+   Collapsed, the section is exactly as tall as the image slice it replaced.
+   ============================================================ */
+
+.lit {
+  container-type: inline-size;
+
+  --lit-zinc-50: #fafafa;
+  --lit-zinc-200: #e4e4e7;
+  --lit-zinc-600: #52525c;
+  --lit-zinc-800: #27272a;
+  --lit-zinc-900: #18181b;
+
+  --lit-sf: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --lit-lora: 'Lora', Georgia, serif;
+}
+
+.lit *,
+.lit *::before,
+.lit *::after {
+  box-sizing: border-box;
+}
+
+:where(.lit) :where(p, h2, h3) {
+  margin: 0;
+  padding: 0;
+}
+
+.lit__slide {
+  --u: calc(100cqw / 1920);
+  padding: calc(81.2 * var(--u)) 0 calc(21.9 * var(--u)) calc(72 * var(--u));
+  background: #fff;
+  font-family: var(--lit-sf);
+  font-weight: 400;
+  line-height: 1.19;
+  letter-spacing: 0;
+}
+
+/* ── The card: grey bar on top, findings underneath ── */
+.lit__card {
+  position: relative;
+  width: calc(1776 * var(--u));
+  overflow: hidden;
+  border-radius: calc(12 * var(--u));
+  background: var(--lit-zinc-50);
+}
+
+.lit__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(128 * var(--u));
+  padding: calc(32 * var(--u)) calc(24 * var(--u));
+  border: 0;
+  border-radius: calc(12 * var(--u));
+  background: var(--lit-zinc-200);
+  color: #000;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.lit__head:focus-visible {
+  outline: 2px solid var(--lit-zinc-900);
+  outline-offset: 3px;
+}
+
+.lit__title {
+  padding: 0 calc(8 * var(--u));
+  font-family: var(--lit-lora);
+  font-weight: 500;
+  font-size: calc(48 * var(--u));
+  line-height: 1.19;
+  white-space: nowrap;
+}
+
+.lit .lit__arrow {
+  display: block;
+  width: calc(64 * var(--u));
+  height: calc(64 * var(--u));
+  flex: none;
+  transition: transform 300ms ease;
+}
+
+/* collapsed it points down-right, open it points up-right */
+.lit.is-open .lit__arrow {
+  transform: scaleY(-1);
+}
+
+/* ── Open / close: the body grows from 0 to its full height ── */
+.lit__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lit.is-open .lit__body {
+  grid-template-rows: 1fr;
+}
+
+.lit__clip {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* the findings sit on a fixed Figma-sized stage (417 = 545 frame - 128 bar) */
+.lit__stage {
+  position: relative;
+  height: calc(417 * var(--u));
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.lit.is-open .lit__stage {
+  opacity: 1;
+  transition-delay: 120ms;
+}
+
+/* ── Art behind the text ── */
+.lit__blob {
+  position: absolute;
+  left: calc(124 * var(--u));
+  top: calc(260 * var(--u));
+  width: calc(455.05 * var(--u));
+  height: calc(303.7 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lit .lit__blob img {
+  display: block;
+  width: calc(419.436 * var(--u));
+  height: calc(228.654 * var(--u));
+  flex: none;
+  transform: rotate(10.88deg);
+}
+
+.lit__book {
+  position: absolute;
+  left: calc(154 * var(--u));
+  top: calc(126 * var(--u));
+  width: calc(423.913 * var(--u));
+  height: calc(428.975 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lit .lit__book img {
+  display: block;
+  width: calc(325 * var(--u));
+  height: calc(280 * var(--u));
+  flex: none;
+  transform: rotate(49.56deg);
+}
+
+/* the scribbled circles behind the icons: a 45x42 box, rotated about its
+   centre (--cx / --cy), with the drawing overflowing the box a little */
+.lit__scribble {
+  position: absolute;
+  left: calc((var(--cx) - 22.5) * var(--u));
+  top: calc((var(--cy) - 128 - 21) * var(--u));
+  width: calc(45 * var(--u));
+  height: calc(42 * var(--u));
+  transform: rotate(var(--r, 0deg));
+}
+
+.lit .lit__scribble img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  left: -16.83%;
+  top: -10.1%;
+  width: 125.98%;
+  height: 124.46%;
+}
+
+/* ── Copy ── */
+.lit__intro {
+  position: absolute;
+  left: calc(32 * var(--u));
+  top: calc(32 * var(--u));
+  width: calc(547 * var(--u));
+  font-size: calc(24 * var(--u));
+  color: var(--lit-zinc-600);
+}
+
+.lit__intro a {
+  font-weight: 500;
+  color: var(--lit-zinc-900);
+  text-decoration: underline;
+  text-underline-position: from-font;
+}
+
+.lit__intro strong {
+  font-weight: 500;
+  color: var(--lit-zinc-900);
+}
+
+.lit__list {
+  position: absolute;
+  left: calc(679 * var(--u));
+  top: calc(32 * var(--u));
+  width: calc(1002 * var(--u));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(32 * var(--u));
+}
+
+.lit__item {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(25 * var(--u));
+}
+
+.lit__icon {
+  flex: none;
+  padding: calc(8 * var(--u));
+}
+
+.lit__icon span {
+  display: block;
+  width: calc(28 * var(--u));
+  height: calc(28 * var(--u));
+  background: var(--lit-zinc-800);
+  -webkit-mask: var(--icon) center / 100% 100% no-repeat;
+  mask: var(--icon) center / 100% 100% no-repeat;
+}
+
+.lit__glyph--clarity { --icon: url(../assets/images/aeo-lit/icon-clarity.png); }
+.lit__glyph--depth { --icon: url(../assets/images/aeo-lit/icon-depth.png); }
+.lit__glyph--fresh { --icon: url(../assets/images/aeo-lit/icon-fresh.png); }
+
+.lit__text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(8 * var(--u));
+  width: calc(934 * var(--u));
+}
+
+.lit__h {
+  font-family: var(--lit-sf);
+  font-weight: 400;
+  line-height: 1.19;
+  letter-spacing: 0;
+  font-size: calc(32 * var(--u));
+  color: var(--lit-zinc-900);
+}
+
+.lit__p {
+  font-size: calc(20 * var(--u));
+  color: var(--lit-zinc-600);
+  max-width: var(--w);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lit__body,
+  .lit__stage,
+  .lit .lit__arrow {
+    transition: none;
+  }
+}
