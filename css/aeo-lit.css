@@ -96,6 +96,50 @@
   transform: scaleY(-1);
 }
 
+/* ── The Literature review itself: a dark bar (Figma 790:4206 closed, 790:5170 open) ──
+   Closed it's the bar alone, 85 above and 255 below it (468 tall). Open, the
+   bar sits on top of a 1776 x 580 card. The other accordions keep the grey bar. */
+.lit--review {
+  --lit-dark: #18181b;
+  --lit-on-dark: #f4f4f5;
+  --lit-accent-bg: #ffedd4;
+  --lit-accent: #ff8904;
+  --lit-text-secondary: #71717b;
+}
+
+.lit--review .lit__slide {
+  padding: calc(85 * var(--u)) 0 calc(255 * var(--u)) calc(72 * var(--u));
+}
+
+.lit--review .lit__card {
+  transition: border-radius 300ms ease;
+}
+
+.lit--review.is-open .lit__card {
+  border-radius: calc(16 * var(--u));
+}
+
+.lit--review .lit__head {
+  padding: calc(32 * var(--u)) calc(32 * var(--u)) calc(32 * var(--u)) calc(158 * var(--u));
+  background: var(--lit-dark);
+  transition: border-radius 300ms ease;
+}
+
+/* open: the card's 16 rounds the top, the bar's own bottom corners are 4 */
+.lit--review.is-open .lit__head {
+  border-radius: calc(16 * var(--u)) calc(16 * var(--u)) calc(4 * var(--u)) calc(4 * var(--u));
+}
+
+.lit--review .lit__head:focus-visible {
+  outline-color: var(--lit-accent);
+  outline-offset: calc(-6 * var(--u));
+}
+
+.lit--review .lit__title {
+  line-height: 1.28; /* Lora's own "normal", 61px at 48 */
+  color: var(--lit-on-dark);
+}
+
 /* ── Open / close: the body grows from 0 to its full height ── */
 .lit__body {
   display: grid;
@@ -112,10 +156,10 @@
   overflow: hidden;
 }
 
-/* the findings sit on a fixed Figma-sized stage (417 = 545 frame - 128 bar) */
+/* the findings sit on a fixed Figma-sized stage (452 = 580 frame - 128 bar) */
 .lit__stage {
   position: relative;
-  height: calc(417 * var(--u));
+  height: calc(452 * var(--u));
   opacity: 0;
   transition: opacity 300ms ease;
 }
@@ -128,8 +172,8 @@
 /* ── Art behind the text ── */
 .lit__blob {
   position: absolute;
-  left: calc(124 * var(--u));
-  top: calc(260 * var(--u));
+  left: calc(173 * var(--u));
+  top: calc(270 * var(--u));
   width: calc(455.05 * var(--u));
   height: calc(303.7 * var(--u));
   display: flex;
@@ -147,10 +191,10 @@
 
 .lit__book {
   position: absolute;
-  left: calc(154 * var(--u));
-  top: calc(126 * var(--u));
-  width: calc(423.913 * var(--u));
-  height: calc(428.975 * var(--u));
+  left: calc(134.21 * var(--u));
+  top: calc(120.67 * var(--u));
+  width: calc(503.52 * var(--u));
+  height: calc(509.533 * var(--u));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,46 +202,25 @@
 
 .lit .lit__book img {
   display: block;
-  width: calc(325 * var(--u));
-  height: calc(280 * var(--u));
+  width: calc(386.032 * var(--u));
+  height: calc(332.582 * var(--u));
   flex: none;
   transform: rotate(49.56deg);
 }
 
-/* the scribbled circles behind the icons: a 45x42 box, rotated about its
-   centre (--cx / --cy), with the drawing overflowing the box a little */
-.lit__scribble {
-  position: absolute;
-  left: calc((var(--cx) - 22.5) * var(--u));
-  top: calc((var(--cy) - 128 - 21) * var(--u));
-  width: calc(45 * var(--u));
-  height: calc(42 * var(--u));
-  transform: rotate(var(--r, 0deg));
-}
-
-.lit .lit__scribble img {
-  position: absolute;
-  display: block;
-  max-width: none;
-  left: -16.83%;
-  top: -10.1%;
-  width: 125.98%;
-  height: 124.46%;
-}
-
-/* ── Copy ── */
+/* ── Copy (positions are Figma px from the stage's top left: frame y - 128 bar) ── */
 .lit__intro {
   position: absolute;
-  left: calc(32 * var(--u));
-  top: calc(32 * var(--u));
+  left: calc(150 * var(--u));
+  top: calc(64 * var(--u));
   width: calc(547 * var(--u));
-  font-size: calc(24 * var(--u));
-  color: var(--lit-zinc-600);
+  font-size: calc(20 * var(--u));
+  line-height: calc(28 * var(--u));
+  color: var(--lit-text-secondary, var(--lit-zinc-600));
 }
 
 .lit__intro a {
-  font-weight: 500;
-  color: var(--lit-zinc-900);
+  color: var(--lit-zinc-800);
   text-decoration: underline;
   text-underline-position: from-font;
 }
@@ -209,9 +232,9 @@
 
 .lit__list {
   position: absolute;
-  left: calc(679 * var(--u));
-  top: calc(32 * var(--u));
-  width: calc(1002 * var(--u));
+  left: calc(748 * var(--u));
+  top: calc(64 * var(--u));
+  width: calc(925 * var(--u));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -228,14 +251,16 @@
 
 .lit__icon {
   flex: none;
-  padding: calc(8 * var(--u));
+  padding: calc(16 * var(--u));
+  border-radius: calc(24 * var(--u));
+  background: var(--lit-accent-bg, #ffedd4);
 }
 
 .lit__icon span {
   display: block;
   width: calc(28 * var(--u));
   height: calc(28 * var(--u));
-  background: var(--lit-zinc-800);
+  background: var(--lit-accent, #ff8904);
   -webkit-mask: var(--icon) center / 100% 100% no-repeat;
   mask: var(--icon) center / 100% 100% no-repeat;
 }
@@ -248,22 +273,24 @@
   display: flex;
   flex-direction: column;
   gap: calc(8 * var(--u));
-  width: calc(934 * var(--u));
+  width: calc(840 * var(--u));
 }
 
 .lit__h {
   font-family: var(--lit-sf);
-  font-weight: 400;
-  line-height: 1.19;
+  font-weight: 500;
+  line-height: calc(32 * var(--u));
   letter-spacing: 0;
-  font-size: calc(32 * var(--u));
-  color: var(--lit-zinc-900);
+  font-size: calc(24 * var(--u));
+  color: var(--lit-zinc-800);
 }
 
+/* --w is a width in Figma px (unitless), e.g. the third finding is 732 wide */
 .lit__p {
   font-size: calc(20 * var(--u));
-  color: var(--lit-zinc-600);
-  max-width: var(--w);
+  line-height: calc(28 * var(--u));
+  color: var(--lit-text-secondary, var(--lit-zinc-600));
+  max-width: calc(var(--w, 840) * var(--u));
 }
 
 @media (prefers-reduced-motion: reduce) {
