@@ -189,20 +189,24 @@
 .before-after {
   container-type: inline-size;
   --ba-old: #71717b;  /* zinc/500 */
-  --ba-new: #9f2d00;  /* orange/800 */
+  --ba-new: #ff8904;  /* elements/accent */
   --ba-ease: 250ms ease;
 }
 
+/* Figma 790:3552 (old) / 790:4883 (new): a 1920 x 1404 slide. The old
+   screen is 848 tall and the new one 847, so the card is a pixel shorter
+   in the new state; min-height keeps the slide itself from moving. */
 .before-after__slide {
   --u: calc(100cqw / 1920);
   display: flex;
   flex-direction: column;
-  background: #f4f4f5; /* zinc/100 */
-  padding: calc(84 * var(--u)) 0 calc(173 * var(--u));
+  min-height: calc(1404 * var(--u));
+  background: #fafafa; /* zinc/50 */
+  padding: calc(84 * var(--u)) 0 calc(110 * var(--u));
 }
 
 .before-after__title {
-  margin: 0 0 0 calc(72 * var(--u));
+  margin: 0 0 0 calc(222 * var(--u));
   font-family: 'Lora', Georgia, serif;
   font-weight: 500;
   font-size: max(calc(48 * var(--u)), 22px);
@@ -213,11 +217,10 @@
 
 /* Figma uses SF Pro: the system font on Apple devices, close
    system equivalents elsewhere */
-.before-after__label,
-.before-after__caption {
+.before-after__label {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  line-height: normal;
+  font-weight: 500;
+  line-height: calc(32 * var(--u));
   letter-spacing: 0;
 }
 
@@ -231,7 +234,7 @@
 
 .before-after__label {
   font-size: max(calc(24 * var(--u)), 14px);
-  color: #3f3f47; /* zinc/700 */
+  color: #27272a; /* zinc/800 */
   cursor: pointer;
   user-select: none;
 }
@@ -269,9 +272,9 @@
 
 .before-after__frame {
   align-self: center;
-  width: calc(1508 * var(--u));
-  margin-top: calc(16 * var(--u));
-  padding: calc(16 * var(--u));
+  width: calc(1540 * var(--u));
+  margin-top: calc(24 * var(--u));
+  padding: calc(32 * var(--u));
   border-radius: calc(16 * var(--u));
   background: var(--ba-old);
   transition: background-color var(--ba-ease);
@@ -279,10 +282,11 @@
 
 .before-after__screen {
   position: relative;
-  aspect-ratio: 1476 / 849;
+  height: calc(848 * var(--u));
   border-radius: calc(16 * var(--u));
   overflow: hidden;
   background: #fff;
+  transition: height var(--ba-ease);
 }
 
 .before-after__img {
@@ -299,11 +303,15 @@
 }
 
 .before-after__caption {
-  align-self: flex-end;
-  margin: calc(16 * var(--u)) calc(259 * var(--u)) 0 var(--space-md);
-  font-size: max(calc(20 * var(--u)), 12px);
-  color: #191919;
-  text-align: right;
+  align-self: center;
+  margin: calc(32 * var(--u)) var(--space-md) 0;
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 400;
+  font-size: max(calc(24 * var(--u)), 14px);
+  line-height: calc(32 * var(--u));
+  letter-spacing: 0;
+  color: #71717b; /* zinc/500 */
+  text-align: center;
 }
 
 /* ── New state ── */
@@ -314,6 +322,11 @@
 
 .before-after[data-state="new"] .before-after__knob {
   transform: translateX(var(--sh));
+}
+
+/* the new dashboard export is one px shorter than the old one (Figma 847 vs 848) */
+.before-after[data-state="new"] .before-after__screen {
+  height: calc(847 * var(--u));
 }
 
 .before-after[data-state="new"] .before-after__img--new {
@@ -327,15 +340,16 @@
 }
 
 @keyframes before-after-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(159, 45, 0, 0.45); }
-  60%  { box-shadow: 0 0 0 max(calc(14 * var(--u)), 7px) rgba(159, 45, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(159, 45, 0, 0); }
+  0%   { box-shadow: 0 0 0 0 rgba(255, 137, 4, 0.55); }
+  60%  { box-shadow: 0 0 0 max(calc(14 * var(--u)), 7px) rgba(255, 137, 4, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 137, 4, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .before-after__switch,
   .before-after__knob,
   .before-after__frame,
+  .before-after__screen,
   .before-after__img {
     transition: none;
   }
